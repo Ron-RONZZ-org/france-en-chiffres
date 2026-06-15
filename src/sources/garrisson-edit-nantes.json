@@ -1,0 +1,9 @@
+{
+  "id": "garrisson-edit-nantes",
+  "type": "book",
+  "title": "L'Édit de Nantes et sa révocation",
+  "author": [{ "family": "Garrisson", "given": "Janine" }],
+  "publisher": "Éditions du Seuil",
+  "publisher-place": "Paris",
+  "issued": { "date-parts": [["1998"]] }
+}

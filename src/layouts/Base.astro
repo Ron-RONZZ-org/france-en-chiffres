@@ -43,7 +43,7 @@ const navItems = [
         <div class="footer__inner">
           <div class="french-separator"></div>
           <p class="footer__text">
-            La France en Chiffres — Données sources : INSEE, Banque Mondiale, OMT, IGN.
+            La France en Chiffres — <a href="/bibliography" class="footer__link">Consulter les sources</a>
           </p>
           <p class="footer__small">
             Construit avec Astro • Animations vanilla JS • Zéro framework
@@ -72,6 +72,15 @@ const navItems = [
   .footer__text {
     color: var(--color-text-muted);
     font-size: 0.875rem;
+  }
+
+  .footer__link {
+    color: var(--color-french-blue);
+    text-decoration: none;
+  }
+
+  .footer__link:hover {
+    text-decoration: underline;
   }
 
   .footer__small {

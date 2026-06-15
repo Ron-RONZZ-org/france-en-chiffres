@@ -1,0 +1,9 @@
+{
+  "id": "bnf",
+  "type": "webpage",
+  "title": "Collections et ressources numériques",
+  "publisher": "Bibliothèque nationale de France (BnF)",
+  "publisher-place": "Paris",
+  "URL": "https://www.bnf.fr/",
+  "accessed": { "date-parts": [[2025, 6, 1]] }
+}

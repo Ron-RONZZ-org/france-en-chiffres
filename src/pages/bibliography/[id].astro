@@ -1,0 +1,212 @@
+---
+import Base from '../../layouts/Base.astro';
+import { allSources, formatSourceLabel } from '../../data/sources';
+import type { CslSource } from '../../data/history.types';
+
+export interface Props {
+  source: CslSource;
+}
+
+export async function getStaticPaths() {
+  return allSources.map((source) => ({
+    params: { id: source.id },
+    props: { source },
+  }));
+}
+
+const { source } = Astro.props;
+const label = formatSourceLabel(source);
+---
+
+<Base title={`${source.title ?? label} — Bibliographie`} description={`Source : ${label}`}>
+  <section class="section">
+    <div class="container">
+      <a href="/bibliography" class="breadcrumb">← Retour à la bibliographie</a>
+
+      <article class="source-page">
+        <div class="source-page__header">
+          <span class="source-page__type">{source.type}</span>
+          <h1 class="source-page__title">
+            {source.title ?? label}
+          </h1>
+        </div>
+
+        <dl class="source-page__fields">
+          {source.author && source.author.length > 0 && (
+            <>
+              <dt>Auteur{source.author.length > 1 ? 's' : ''}</dt>
+              <dd>
+                {source.author.map(a =>
+                  a.literal ?? `${a.given ?? ''} ${a.family ?? ''}`.trim()
+                ).join(', ')}
+              </dd>
+            </>
+          )}
+
+          {source.publisher && (
+            <>
+              <dt>Éditeur</dt>
+              <dd>
+                {source.publisher}
+                {source['publisher-place'] ? `, ${source['publisher-place']}` : ''}
+              </dd>
+            </>
+          )}
+
+          {source.issued && (
+            <>
+              <dt>Date de publication</dt>
+              <dd>{source.issued['date-parts']?.[0]?.join('-') ?? ''}</dd>
+            </>
+          )}
+
+          {source.accessed && (
+            <>
+              <dt>Consulté le</dt>
+              <dd>{source.accessed['date-parts']?.[0]?.join('-') ?? ''}</dd>
+            </>
+          )}
+
+          {source.URL && (
+            <>
+              <dt>URL</dt>
+              <dd>
+                <a href={source.URL} target="_blank" rel="noopener noreferrer">
+                  {source.URL}
+                </a>
+              </dd>
+            </>
+          )}
+
+          {source.DOI && (
+            <>
+              <dt>DOI</dt>
+              <dd>{source.DOI}</dd>
+            </>
+          )}
+
+          {source.genre && (
+            <>
+              <dt>Genre</dt>
+              <dd>{source.genre}</dd>
+            </>
+          )}
+
+          {source.note && (
+            <>
+              <dt>Note</dt>
+              <dd>{source.note}</dd>
+            </>
+          )}
+        </dl>
+
+        <footer class="source-page__footer">
+          <p class="source-page__cite">
+            Citation : <code>{label}</code>
+          </p>
+          <p class="source-page__id">
+            Identifiant : <code>{source.id}</code>
+          </p>
+        </footer>
+      </article>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .breadcrumb {
+    display: inline-block;
+    color: var(--color-text-muted);
+    font-size: 0.875rem;
+    margin-bottom: var(--gap-xl);
+    transition: color var(--transition-fast);
+  }
+
+  .breadcrumb:hover {
+    color: var(--color-french-blue);
+  }
+
+  .source-page {
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  .source-page__header {
+    margin-bottom: var(--gap-xl);
+  }
+
+  .source-page__type {
+    display: inline-block;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-text-muted);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    padding: 2px var(--gap-sm);
+    margin-bottom: var(--gap-md);
+  }
+
+  .source-page__title {
+    font-family: var(--font-serif);
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-weight: 700;
+    line-height: 1.15;
+  }
+
+  .source-page__fields {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--gap-sm) var(--gap-lg);
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .source-page__fields dt {
+    color: var(--color-text-muted);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .source-page__fields dd {
+    color: var(--color-text-light);
+    word-break: break-word;
+  }
+
+  .source-page__fields dd a {
+    color: var(--color-french-blue);
+  }
+
+  .source-page__fields dd a:hover {
+    text-decoration: underline;
+  }
+
+  .source-page__footer {
+    margin-top: var(--gap-2xl);
+    padding-top: var(--gap-lg);
+    border-top: 1px solid var(--color-border);
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-xs);
+  }
+
+  .source-page__footer code {
+    background: rgba(255, 255, 255, 0.06);
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-size: 0.75rem;
+  }
+
+  @media (max-width: 640px) {
+    .source-page__fields {
+      grid-template-columns: 1fr;
+      gap: var(--gap-xs);
+    }
+
+    .source-page__fields dt {
+      margin-top: var(--gap-sm);
+    }
+  }
+</style>

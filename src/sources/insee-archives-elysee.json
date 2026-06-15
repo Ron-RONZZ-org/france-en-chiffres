@@ -1,0 +1,9 @@
+{
+  "id": "insee-archives-elysee",
+  "type": "dataset",
+  "title": "Mai 1968 — données économiques et archives présidentielles",
+  "publisher": "Institut National de la Statistique et des Études Économiques (INSEE) / Archives de l'Élysée",
+  "publisher-place": "Paris",
+  "issued": { "date-parts": [["1968"]] },
+  "genre": "Statistical compilation"
+}

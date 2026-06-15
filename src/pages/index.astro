@@ -3,6 +3,7 @@ import Base from '../layouts/Base.astro';
 import Counter from '../components/Counter.astro';
 import InteractiveFranceMap from '../components/InteractiveFranceMap.astro';
 import stats from '../data/france.json';
+import { getSource, formatSourceLabel, sourceUrl } from '../data/sources';
 
 const { hero, keyStats } = stats;
 ---
@@ -57,7 +58,13 @@ const { hero, keyStats } = stats;
               format={stat.format === 'integer' ? 'integer' : 'decimal'}
               icon={stat.icon}
             />
-            <span class="stats__source">{stat.source}</span>
+            {(stat.sourceId && getSource(stat.sourceId)) ? (
+              <a href={sourceUrl(stat.sourceId)} class="stats__source stats__source--link">
+                {formatSourceLabel(getSource(stat.sourceId)!)}
+              </a>
+            ) : stat.source ? (
+              <span class="stats__source">{stat.source}</span>
+            ) : null}
           </div>
         ))}
       </div>
@@ -285,6 +292,14 @@ const { hero, keyStats } = stats;
     color: var(--color-text-muted);
     opacity: 0.5;
     margin-top: var(--gap-xs);
+    text-decoration: none;
+    transition: opacity var(--transition-fast);
+  }
+
+  .stats__source--link:hover {
+    opacity: 1;
+    color: var(--color-french-blue);
+    text-decoration: underline;
   }
 
   /* ===== PREVIEWS ===== */

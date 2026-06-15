@@ -1,6 +1,6 @@
 ---
 import type { TimelineEvent as EventData } from '../data/history.types';
-import HoverPreview from './HoverPreview.astro';
+import { getSource, formatSourceLabel, sourceUrl } from '../data/sources';
 
 export interface Props {
   event: EventData;
@@ -21,6 +21,13 @@ const categoryColors: Record<string, string> = {
 };
 
 const catColor = categoryColors[event.category] || '#94a3b8';
+
+// Resolve source for hyperlinked citation (build-time)
+const refSource = event.sourceId ? getSource(event.sourceId) : undefined;
+const sourceLabel = refSource
+  ? formatSourceLabel(refSource)
+  : (event.source ?? '');
+const sourceHref = event.sourceId ? sourceUrl(event.sourceId) : null;
 ---
 
 <div
@@ -29,6 +36,16 @@ const catColor = categoryColors[event.category] || '#94a3b8';
   data-side={side}
   data-year={event.year}
   id={"event-" + event.id}
+  data-preview-year={event.yearDisplay}
+  data-preview-title={event.title}
+  data-preview-description={event.description}
+  data-preview-summary={event.preview.summary}
+  data-preview-stat-label={event.preview.statLabel}
+  data-preview-stat-value={event.preview.statValue}
+  data-preview-source-label={sourceLabel}
+  data-preview-source-href={sourceHref ?? ''}
+  data-preview-link={event.link || ''}
+  data-preview-color={catColor}
 >
   <!-- Timeline dot on the central line -->
   <div class="timeline-event__dot" style={{ '--dot-color': catColor }}>
@@ -45,17 +62,6 @@ const catColor = categoryColors[event.category] || '#94a3b8';
 
       <!-- Title -->
       <h3 class="timeline-event__title">{event.title}</h3>
-
-      <!-- Category badge -->
-      <span
-        class="timeline-event__badge"
-        style={{ '--badge-color': catColor }}
-      >
-        {event.category}
-      </span>
-
-      <!-- HoverPreview — appears on hover (desktop) or tap (mobile) -->
-      <HoverPreview event={event} catColor={catColor} />
     </div>
   </article>
 </div>
@@ -148,24 +154,6 @@ const catColor = categoryColors[event.category] || '#94a3b8';
     line-height: 1.3;
   }
 
-  .timeline-event__badge {
-    display: inline-flex;
-    align-items: center;
-    font-size: 0.7rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    padding: 0.15rem 0.5rem;
-    border-radius: 999px;
-    color: var(--badge-color);
-    background: color-mix(in srgb, var(--badge-color) 15%, transparent);
-    align-self: flex-start;
-  }
-
-  [data-side="left"] .timeline-event__badge {
-    align-self: flex-end;
-  }
-
   /* ===== MOBILE: single column ===== */
   @media (max-width: 767px) {
     .timeline-event__card {
@@ -178,10 +166,6 @@ const catColor = categoryColors[event.category] || '#94a3b8';
       align-items: flex-start !important;
     }
 
-    .timeline-event__badge {
-      align-self: flex-start !important;
-    }
-
     .timeline-event__dot {
       left: 24px;
       transform: translateX(-50%);
@@ -190,30 +174,76 @@ const catColor = categoryColors[event.category] || '#94a3b8';
 </style>
 
 <script>
-  // Touch handling: tap to expand the HoverPreview (since :hover doesn't work on touch)
-  (() => {
-    const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-    if (!isTouch) return; // Desktop uses CSS hover
+  import tippy from 'tippy.js';
+  import 'tippy.js/dist/tippy.css';
 
+  (() => {
     const events = document.querySelectorAll('.timeline-event');
     if (!events.length) return;
 
-    const closeAll = (except) => {
-      events.forEach((el) => {
-        if (el !== except) {
-          el.classList.remove('is-expanded');
-        }
-      });
+    const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+    // Build preview HTML from data attributes
+    const buildPreviewHTML = (el) => {
+      const color = el.dataset.previewColor || '#3b82f6';
+      const link = el.dataset.previewLink || '';
+      const year = el.dataset.previewYear || '';
+      const title = el.dataset.previewTitle || '';
+      const description = el.dataset.previewDescription || '';
+      const summary = el.dataset.previewSummary || '';
+      const statLabel = el.dataset.previewStatLabel || '';
+      const statValue = el.dataset.previewStatValue || '';
+      const sourceLabel = el.dataset.previewSourceLabel || '';
+      const sourceHref = el.dataset.previewSourceHref || '';
+
+      return `
+        <div class="tippy-preview" style="--accent:${color}">
+          <span class="tippy-preview__year">${escapeHTML(year)}</span>
+          <h4 class="tippy-preview__title">${escapeHTML(title)}</h4>
+          <div class="tippy-preview__divider" style="background:${color}"></div>
+          <p class="tippy-preview__description">${escapeHTML(description)}</p>
+          <div class="tippy-preview__divider" style="background:${color}"></div>
+          <p class="tippy-preview__summary">${escapeHTML(summary)}</p>
+          <div class="tippy-preview__stat">
+            <span class="tippy-preview__stat-label">${escapeHTML(statLabel)}</span>
+            <span class="tippy-preview__stat-value">${escapeHTML(statValue)}</span>
+          </div>
+          ${sourceHref
+            ? `<a href="${escapeHTML(sourceHref)}" class="tippy-preview__source tippy-preview__source--link" target="_blank" rel="noopener noreferrer">${escapeHTML(sourceLabel)}</a>`
+            : `<span class="tippy-preview__source">${escapeHTML(sourceLabel)}</span>`
+          }
+          ${link ? `<a href="${escapeHTML(link)}" class="tippy-preview__link" target="_blank" rel="noopener noreferrer">Lire plus sur Wikipédia →</a>` : ''}
+        </div>
+      `;
+    };
+
+    const escapeHTML = (str) => {
+      const div = document.createElement('div');
+      div.textContent = str;
+      return div.innerHTML;
     };
 
     events.forEach((el) => {
-      el.addEventListener('click', (e) => {
-        // Don't toggle when clicking links inside the preview
-        if (e.target.closest('a')) return;
-        const isNowExpanded = el.classList.toggle('is-expanded');
-        if (isNowExpanded) {
-          closeAll(el);
-        }
+      tippy(el, {
+        content: buildPreviewHTML(el),
+        allowHTML: true,
+        trigger: isTouch ? 'click' : 'mouseenter',
+        interactive: true,
+        placement: 'bottom',
+        maxWidth: 420,
+        theme: 'dark',
+        animation: 'shift-away',
+        duration: [300, 200],
+        hideOnClick: isTouch,
+        appendTo: document.body,
+        onShow(instance) {
+          // Hide all other tippies
+          events.forEach((other) => {
+            if (other !== el && other._tippy) {
+              other._tippy.hide();
+            }
+          });
+        },
       });
     });
   })();

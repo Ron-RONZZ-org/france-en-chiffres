@@ -1,0 +1,8 @@
+{
+  "id": "monstrelet-chroniques",
+  "type": "book",
+  "title": "Chroniques (1400–1444)",
+  "author": [{ "family": "Enguerrand de Monstrelet", "given": "" }],
+  "issued": { "date-parts": [["~1444"]] },
+  "note": "Chronique de la Guerre de Cent Ans"
+}

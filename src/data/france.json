@@ -11,7 +11,7 @@
       "label": "Millions d'habitants",
       "suffix": " M",
       "icon": "👥",
-      "source": "INSEE, 2024"
+      "sourceId": "insee-2024"
     },
     {
       "id": "area",
@@ -20,7 +20,7 @@
       "suffix": " km²",
       "format": "integer",
       "icon": "🗺️",
-      "source": "IGN, 2024"
+      "sourceId": "ign-2024"
     },
     {
       "id": "gdp",
@@ -28,7 +28,7 @@
       "label": "Milliards $ PIB",
       "suffix": " Md$",
       "icon": "💰",
-      "source": "Banque Mondiale, 2024"
+      "sourceId": "banque-mondiale-2024"
     },
     {
       "id": "lifeExpectancy",
@@ -36,7 +36,7 @@
       "label": "Espérance de vie",
       "suffix": " ans",
       "icon": "❤️",
-      "source": "INSEE, 2024"
+      "sourceId": "insee-2024"
     },
     {
       "id": "tourists",
@@ -44,7 +44,7 @@
       "label": "Millions de touristes/an",
       "suffix": " M",
       "icon": "🗼",
-      "source": "OMT, 2024"
+      "sourceId": "omt-2024"
     }
   ],
   "nav": {

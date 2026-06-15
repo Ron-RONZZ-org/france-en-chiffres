@@ -1,0 +1,10 @@
+{
+  "id": "banque-mondiale-2024",
+  "type": "dataset",
+  "title": "World Development Indicators — France",
+  "publisher": "Banque Mondiale",
+  "publisher-place": "Washington, D.C.",
+  "issued": { "date-parts": [[2024]] },
+  "URL": "https://data.worldbank.org/country/france",
+  "genre": "Economic data"
+}

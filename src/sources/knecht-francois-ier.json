@@ -1,0 +1,9 @@
+{
+  "id": "knecht-francois-ier",
+  "type": "book",
+  "title": "François Ier",
+  "author": [{ "family": "Knecht", "given": "Robert J." }],
+  "publisher": "Presses universitaires de France",
+  "publisher-place": "Paris",
+  "issued": { "date-parts": [["2015"]] }
+}

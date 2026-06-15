@@ -1,0 +1,8 @@
+{
+  "id": "cesar-guerre-gaules",
+  "type": "book",
+  "title": "Commentaires sur la Guerre des Gaules",
+  "author": [{ "family": "César", "given": "Jules" }],
+  "issued": { "date-parts": [["~58-50 av. J.-C."]] },
+  "note": "De Bello Gallico — récit militaire de la conquête de la Gaule"
+}
