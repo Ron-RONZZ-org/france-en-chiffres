@@ -1,0 +1,160 @@
+---
+import type { TimelineEvent } from '../data/history.types';
+
+export interface Props {
+  event: TimelineEvent;
+  catColor: string;
+}
+
+const { event, catColor } = Astro.props;
+---
+
+<div class="hover-preview" role="tooltip" aria-hidden="true">
+  <!-- Year -->
+  <span class="hover-preview__year">{event.yearDisplay}</span>
+
+  <!-- Title -->
+  <h4 class="hover-preview__title">{event.title}</h4>
+
+  <!-- Divider -->
+  <div class="hover-preview__divider" style="--divider-color: {catColor}"></div>
+
+  <!-- Summary -->
+  <p class="hover-preview__summary">{event.preview.summary}</p>
+
+  <!-- Stat chip -->
+  <div class="hover-preview__stat" style="--stat-color: {catColor}">
+    <span class="hover-preview__stat-label">{event.preview.statLabel}</span>
+    <span class="hover-preview__stat-value">{event.preview.statValue}</span>
+  </div>
+
+  <!-- Source -->
+  <span class="hover-preview__source">{event.source}</span>
+</div>
+
+<style>
+  .hover-preview {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 20;
+    margin-top: var(--gap-sm);
+    padding: var(--gap-md);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: #1a1f2e;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-sm);
+    opacity: 0;
+    transform: translateY(-8px) scale(0.97);
+    transition: opacity var(--transition-normal),
+                transform var(--transition-normal);
+    pointer-events: none;
+  }
+
+  /* Show on parent hover */
+  .group:hover .hover-preview {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+  }
+
+  /* Show on touch tap */
+  .group.is-expanded .hover-preview {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+  }
+
+  .hover-preview__year {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .hover-preview__title {
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-text-light);
+    line-height: 1.3;
+  }
+
+  .hover-preview__divider {
+    height: 2px;
+    width: 40px;
+    background: var(--divider-color, var(--color-french-blue));
+    border-radius: 1px;
+  }
+
+  .hover-preview__summary {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    line-height: 1.5;
+  }
+
+  .hover-preview__stat {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--gap-sm);
+    font-size: 0.8rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--stat-color) 12%, transparent);
+    border: 1px solid color-mix(in srgb, var(--stat-color) 25%, transparent);
+    align-self: flex-start;
+  }
+
+  .hover-preview__stat-label {
+    color: var(--color-text-muted);
+    font-weight: 500;
+  }
+
+  .hover-preview__stat-value {
+    color: var(--color-text-light);
+    font-weight: 700;
+  }
+
+  .hover-preview__source {
+    font-size: 0.65rem;
+    color: var(--color-text-muted);
+    opacity: 0.5;
+  }
+
+  /* On mobile, the preview is inline (below the card) */
+  @media (max-width: 767px) {
+    .hover-preview {
+      position: relative;
+      top: auto;
+      left: auto;
+      right: auto;
+      margin-top: var(--gap-sm);
+      box-shadow: none;
+      border-color: color-mix(in srgb, var(--stat-color, var(--color-french-blue)) 30%, transparent);
+      max-height: 0;
+      overflow: hidden;
+      padding: 0 var(--gap-md);
+      opacity: 1;
+      transform: none;
+      transition: max-height var(--transition-normal),
+                  padding var(--transition-normal);
+    }
+
+    .group:hover .hover-preview {
+      display: none; /* hover doesn't work on touch anyway */
+    }
+
+    .group.is-expanded .hover-preview {
+      max-height: 300px;
+      padding: var(--gap-md);
+      opacity: 1;
+      transform: none;
+      pointer-events: auto;
+    }
+  }
+</style>

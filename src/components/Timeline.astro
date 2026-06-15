@@ -1,0 +1,78 @@
+---
+import type { HistoryData } from '../data/history.types';
+import TimelineEra from './TimelineEra.astro';
+
+export interface Props {
+  data: HistoryData;
+}
+
+const { data } = Astro.props;
+---
+
+<section class="timeline relative">
+  <!-- Section heading -->
+  <div class="text-center px-4 pt-24 pb-16 md:pb-24">
+    <h1 class="font-serif text-section-title text-text-light">
+      {data.page.title}
+    </h1>
+    <div class="french-separator !mx-auto"></div>
+    <p class="section__subtitle max-w-xl mx-auto">
+      {data.page.subtitle}
+    </p>
+  </div>
+
+  <!-- The timeline line (animated by GSAP) -->
+  <div class="timeline__line" aria-hidden="true"></div>
+
+  <!-- Eras -->
+  <div class="relative">
+    {data.eras.map((era) => (
+      <TimelineEra era={era} />
+    ))}
+  </div>
+</section>
+
+<style>
+  .timeline {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding-bottom: var(--gap-2xl);
+  }
+
+  /* Timeline central line — visible without JS, animated with GSAP */
+  .timeline__line {
+    position: absolute;
+    top: 180px;
+    bottom: var(--gap-2xl);
+    left: 50%;
+    width: 3px;
+    transform: translateX(-50%);
+    background: linear-gradient(
+      to bottom,
+      var(--color-french-blue),
+      var(--color-french-red)
+    );
+    border-radius: 2px;
+    z-index: 0;
+    opacity: 0.3;
+  }
+
+  /* GSAP target: animate scaleY on scroll */
+  .timeline__line--animated {
+    opacity: 1;
+  }
+
+  @media (max-width: 767px) {
+    .timeline__line {
+      left: 24px;
+      transform: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .timeline__line {
+      opacity: 0.3;
+      transform-origin: top center;
+    }
+  }
+</style>

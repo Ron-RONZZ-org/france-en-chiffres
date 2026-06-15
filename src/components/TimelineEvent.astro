@@ -1,0 +1,219 @@
+---
+import type { TimelineEvent as EventData } from '../data/history.types';
+import HoverPreview from './HoverPreview.astro';
+
+export interface Props {
+  event: EventData;
+  index: number;
+  total: number;
+}
+
+const { event, index, total } = Astro.props;
+const side = index % 2 === 0 ? 'left' : 'right';
+
+// Category colors
+const categoryColors: Record<string, string> = {
+  political: '#3b82f6',
+  military: '#ef4444',
+  cultural: '#ec4899',
+  economic: '#22c55e',
+  scientific: '#f97316',
+};
+
+const catColor = categoryColors[event.category] || '#94a3b8';
+---
+
+<div
+  class="timeline-event group"
+  data-event-id={event.id}
+  data-side={side}
+  data-year={event.year}
+>
+  <!-- Timeline dot on the central line -->
+  <div class="timeline-event__dot" style="--dot-color: {catColor}">
+    <span class="timeline-event__dot-inner"></span>
+  </div>
+
+  <!-- Event card -->
+  <article class="timeline-event__card">
+    <div class="timeline-event__card-inner">
+      <!-- Year -->
+      <time class="timeline-event__year" datetime={String(event.year)}>
+        {event.yearDisplay}
+      </time>
+
+      <!-- Title -->
+      <h3 class="timeline-event__title">{event.title}</h3>
+
+      <!-- Category badge -->
+      <span
+        class="timeline-event__badge"
+        style="--badge-color: {catColor}"
+      >
+        {event.category}
+      </span>
+
+      <!-- HoverPreview — appears on hover (desktop) or tap (mobile) -->
+      <HoverPreview event={event} catColor={catColor} />
+    </div>
+  </article>
+</div>
+
+<style>
+  .timeline-event {
+    display: flex;
+    align-items: flex-start;
+    position: relative;
+    gap: var(--gap-md);
+  }
+
+  /* ===== DOT ===== */
+  .timeline-event__dot {
+    position: absolute;
+    left: 50%;
+    top: 24px;
+    transform: translateX(-50%);
+    z-index: 2;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .timeline-event__dot-inner {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--dot-color);
+    box-shadow: 0 0 12px var(--dot-color);
+    transition: transform var(--transition-fast);
+  }
+
+  .group:hover .timeline-event__dot-inner {
+    transform: scale(1.4);
+  }
+
+  /* ===== CARD ===== */
+  .timeline-event__card {
+    width: calc(50% - 40px);
+    position: relative;
+  }
+
+  /* Side alternation */
+  [data-side="right"] .timeline-event__card {
+    margin-left: calc(50% + 40px);
+  }
+
+  [data-side="left"] .timeline-event__card {
+    margin-left: 0;
+    text-align: right;
+  }
+
+  [data-side="left"] .timeline-event__card-inner {
+    align-items: flex-end;
+  }
+
+  .timeline-event__card-inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-sm);
+    padding: var(--gap-md);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-bg-card);
+    transition: border-color var(--transition-fast), background var(--transition-fast);
+    position: relative;
+  }
+
+  .group:hover .timeline-event__card-inner {
+    border-color: var(--dot-color);
+    background: rgba(17, 24, 39, 0.9);
+  }
+
+  .timeline-event__year {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .timeline-event__title {
+    font-family: var(--font-serif);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--color-text-light);
+    line-height: 1.3;
+  }
+
+  .timeline-event__badge {
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.15rem 0.5rem;
+    border-radius: 999px;
+    color: var(--badge-color);
+    background: color-mix(in srgb, var(--badge-color) 15%, transparent);
+    align-self: flex-start;
+  }
+
+  [data-side="left"] .timeline-event__badge {
+    align-self: flex-end;
+  }
+
+  /* ===== MOBILE: single column ===== */
+  @media (max-width: 767px) {
+    .timeline-event__card {
+      width: calc(100% - 60px);
+      margin-left: 60px !important;
+      text-align: left !important;
+    }
+
+    .timeline-event__card-inner {
+      align-items: flex-start !important;
+    }
+
+    .timeline-event__badge {
+      align-self: flex-start !important;
+    }
+
+    .timeline-event__dot {
+      left: 24px;
+      transform: translateX(-50%);
+    }
+  }
+</style>
+
+<script>
+  // Touch handling: tap to expand the HoverPreview (since :hover doesn't work on touch)
+  (() => {
+    const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    if (!isTouch) return; // Desktop uses CSS hover
+
+    const events = document.querySelectorAll('.timeline-event');
+    if (!events.length) return;
+
+    const closeAll = (except) => {
+      events.forEach((el) => {
+        if (el !== except) {
+          el.classList.remove('is-expanded');
+        }
+      });
+    };
+
+    events.forEach((el) => {
+      el.addEventListener('click', (e) => {
+        // Don't toggle when clicking links inside the preview
+        if (e.target.closest('a')) return;
+        const isNowExpanded = el.classList.toggle('is-expanded');
+        if (isNowExpanded) {
+          closeAll(el);
+        }
+      });
+    });
+  })();
+</script>

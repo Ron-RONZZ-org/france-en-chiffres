@@ -1,0 +1,81 @@
+---
+import type { Era } from '../data/history.types';
+import TimelineEvent from './TimelineEvent.astro';
+
+export interface Props {
+  era: Era;
+}
+
+const { era } = Astro.props;
+---
+
+<section
+  class="timeline-era relative z-10"
+  data-era-id={era.id}
+  data-color={era.color}
+>
+  <!-- Era header — sticky on scroll -->
+  <header class="timeline-era__header">
+    <span class="timeline-era__period">{era.period}</span>
+    <h2 class="timeline-era__title">{era.label}</h2>
+  </header>
+
+  <!-- Events list -->
+  <div class="timeline-era__events">
+    {era.events.map((event, i) => (
+      <TimelineEvent event={event} index={i} total={era.events.length} />
+    ))}
+  </div>
+</section>
+
+<style>
+  .timeline-era {
+    padding: var(--gap-xl) 0;
+  }
+
+  .timeline-era__header {
+    text-align: center;
+    padding: var(--gap-lg) var(--gap-md);
+    position: sticky;
+    top: 64px;
+    z-index: 5;
+    background: rgba(11, 17, 32, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    margin-bottom: var(--gap-lg);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .timeline-era__period {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: var(--gap-xs);
+  }
+
+  .timeline-era__title {
+    font-family: var(--font-serif);
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-weight: 700;
+    color: var(--color-text-light);
+  }
+
+  .timeline-era__events {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-lg);
+    padding: 0 var(--gap-lg);
+  }
+
+  @media (min-width: 768px) {
+    .timeline-era__events {
+      padding: 0 var(--gap-xl);
+    }
+
+    .timeline-era__header {
+      padding: var(--gap-lg) 0;
+    }
+  }
+</style>

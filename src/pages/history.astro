@@ -1,44 +1,159 @@
 ---
 import Base from '../layouts/Base.astro';
+import Timeline from '../components/Timeline.astro';
+import data from '../data/history.json';
 ---
 
 <Base title="Histoire — France en Chiffres" description="L'histoire de France racontée par les nombres — de la Gaule à aujourd'hui">
-  <section class="section">
-    <div class="container">
-      <h1 class="section__title">Histoire en chiffres</h1>
-      <div class="french-separator"></div>
-      <p class="section__subtitle">
-        De la Gaule à la Ve République — chaque époque racontée par ses statistiques.
-      </p>
-      <div class="placeholder">
-        <p class="placeholder__text">🚧 Cette page est en construction.</p>
-        <p class="placeholder__sub">
-          Une chronologie interactive avec les données démographiques, économiques et militaires
-          de chaque période paraîtra ici.
-        </p>
-        <a href="/" class="btn btn--ghost">← Retour à l'accueil</a>
-      </div>
-    </div>
-  </section>
+  <Timeline data={data} />
 </Base>
 
+<script>
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  (() => {
+    const motionOK = window.matchMedia('(prefers-reduced-motion: no-preference)').matches;
+    if (!motionOK) {
+      // No-JS / reduced-motion: ensure all events are visible
+      document.querySelectorAll('[data-event-id]').forEach((el) => {
+        el.style.opacity = '1';
+        el.style.transform = 'none';
+      });
+      return;
+    }
+
+    // ── 1. Timeline line draw ──
+    const line = document.querySelector('.timeline__line');
+    if (line) {
+      const timeline = document.querySelector('.timeline');
+      gsap.fromTo(
+        line,
+        { scaleY: 0, transformOrigin: 'top center' },
+        {
+          scaleY: 1,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: timeline,
+            start: 'top 10%',
+            end: 'bottom 70%',
+            scrub: 1,
+          },
+        }
+      );
+    }
+
+    // ── 2. Era section event stagger ──
+    document.querySelectorAll('[data-era-id]').forEach((era) => {
+      const events = era.querySelectorAll('[data-event-id]');
+      if (!events.length) return;
+
+      // Set initial state
+      gsap.set(events, { opacity: 0, y: 30 });
+
+      gsap.to(events, {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        stagger: 0.18,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: era,
+          start: 'top 75%',
+          end: 'top 25%',
+          toggleActions: 'play none none reverse',
+        },
+      });
+    });
+
+    // ── 3. Year indicator (follows scroll position) ──
+    // Get all events sorted by year
+    const allEvents = [...document.querySelectorAll('[data-event-id]')];
+    if (allEvents.length) {
+      const yearBadge = document.createElement('div');
+      yearBadge.className = 'year-badge';
+      yearBadge.innerHTML = '<span class="year-badge__label">Année</span><span class="year-badge__value"></span>';
+      document.body.appendChild(yearBadge);
+
+      const yearValues = allEvents.map((el) => parseInt(el.dataset.year) || 0);
+      const minYear = Math.min(...yearValues);
+      const maxYear = Math.max(...yearValues);
+      const yearSpan = maxYear - minYear;
+
+      ScrollTrigger.create({
+        trigger: '.timeline',
+        start: 'top top',
+        end: 'bottom bottom',
+        onUpdate: (self) => {
+          const rawYear = minYear + self.progress * yearSpan;
+          const displayYear = Math.round(rawYear);
+          const formattedYear = displayYear < 0 ? `${Math.abs(displayYear)} av. J.-C.` : String(displayYear);
+          yearBadge.querySelector('.year-badge__value').textContent = formattedYear;
+        },
+        onLeave: () => { yearBadge.style.opacity = '0'; },
+        onEnter: () => { yearBadge.style.opacity = '1'; },
+        onLeaveBack: () => { yearBadge.style.opacity = '0'; },
+        onEnterBack: () => { yearBadge.style.opacity = '1'; },
+      });
+    }
+  })();
+</script>
+
 <style>
-  .placeholder {
+  /* Re-use section__subtitle from global.css */
+  .section__subtitle {
     text-align: center;
-    padding: var(--gap-2xl) 0;
+    color: var(--color-text-muted);
+    font-size: 1.125rem;
+    max-width: 600px;
+    margin: 0 auto var(--gap-xl);
+  }
+
+  /* Year badge — follows scroll */
+  .year-badge {
+    position: fixed;
+    right: var(--gap-lg);
+    bottom: var(--gap-lg);
+    z-index: 50;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: var(--gap-lg);
+    gap: 2px;
+    padding: var(--gap-sm) var(--gap-md);
+    background: rgba(11, 17, 32, 0.9);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: opacity var(--transition-normal);
+    opacity: 0;
+    pointer-events: none;
   }
 
-  .placeholder__text {
-    font-family: var(--font-serif);
-    font-size: 2rem;
-  }
-
-  .placeholder__sub {
+  .year-badge__label {
+    font-size: 0.6rem;
     color: var(--color-text-muted);
-    max-width: 500px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .year-badge__value {
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-text-light);
+  }
+
+  @media (max-width: 767px) {
+    .year-badge {
+      right: var(--gap-md);
+      bottom: var(--gap-md);
+      padding: var(--gap-xs) var(--gap-sm);
+    }
+    .year-badge__value {
+      font-size: 0.85rem;
+    }
   }
 </style>

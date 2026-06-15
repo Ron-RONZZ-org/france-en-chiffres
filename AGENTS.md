@@ -103,7 +103,8 @@ france-en-chiffres/
 - ✅ **D3.js** — for complex data visualizations (bump charts, choropleths, population pyramids, sankey diagrams). Not for simple bar charts or counters.
 - ✅ **TypeScript** — optional. Use `.ts` files if you want type safety in data processing logic. Page components can stay `.astro` with frontmatter types.
 
-### Preference (not a ban)
+### Preference
+
 - ⚠️ **External fonts** — allowed with proper loading strategy (`preconnect` + `font-display: swap`). Prefer self-hosting for reliability.
 - ⚠️ **Tailwind CSS** — this is the **default** styling approach. Hand-written CSS is also fine for complex animations where Tailwind's utility model doesn't express the intent clearly.
 
@@ -123,7 +124,7 @@ france-en-chiffres/
 
 ## Module-Level AGENTS Files
 
-This project is a single module. If submodules are added later (e.g., a data pipeline or API), create `AGENTS-[module].md` in each submodule directory.
+This project is a single module. If submodules are added later (e.g., a data pipeline or API), create `AGENTS-[module].md` in each submodule directory according to [template](https://raw.githubusercontent.com/Rong-Zhou-FR/ronAI/refs/heads/main/context-files/AGENTS-module-template.md).
 
 ```
 Root AGENTS.md (global rules)
