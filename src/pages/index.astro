@@ -168,7 +168,8 @@ const { hero, keyStats } = stats;
   }
 
   .hero__map-wrapper {
-    width: 280px;
+    width: 100%;
+    max-width: 620px;
     opacity: 0;
     animation: fade-in-map 1s ease-out 0.5s forwards;
   }
@@ -361,9 +362,15 @@ const { hero, keyStats } = stats;
   }
 
   /* ===== Mobile adjustments ===== */
+  @media (max-width: 768px) {
+    .hero__map-wrapper {
+      max-width: 340px;
+    }
+  }
+
   @media (max-width: 640px) {
     .hero__map-wrapper {
-      width: 200px;
+      max-width: 280px;
     }
 
     .stats__grid {

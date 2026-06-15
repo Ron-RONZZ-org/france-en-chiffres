@@ -161,6 +161,8 @@ npm install
 | `npm run dev` | Lance le serveur de développement avec HMR (`http://localhost:4321`) |
 | `npm run build` | Génère le site statique dans `dist/` |
 | `npm run preview` | Prévisualise le build en local |
+| `npm run test` | Exécute les tests de validation (données, build) |
+| `npm run test:all` | Build + tests (vérification complète avant commit) |
 
 ### Ajouter une nouvelle page
 
@@ -191,7 +193,7 @@ france-en-chiffres/
 │   ├── pages/            # Routes du site (1 fichier = 1 page)
 │   ├── components/       # Composants réutilisables
 │   │   ├── Counter.astro      # Compteur animé
-│   │   ├── FranceMap.astro    # Carte SVG avec animation de tracé
+│   │   ├── FranceMap.astro    # Carte SVG réaliste (Métropole + Corse + DOM-COM)
 │   │   ├── Timeline.astro     # Conteneur de la frise
 │   │   ├── TimelineEra.astro  # Section d'époque
 │   │   ├── TimelineEvent.astro # Événement individuel
@@ -199,8 +201,13 @@ france-en-chiffres/
 │   │   └── Nav.astro          # Navigation fixe
 │   ├── layouts/
 │   │   └── Base.astro         # Layout principal (nav, footer, fonts)
+│   ├── scripts/           # Build-time helper scripts
+│   │   └── extract-france-map.js  # Extrait les chemins SVG depuis France_departements.svg
+│   ├── tests/             # Tests de validation automatisés
+│   │   └── france-map.test.cjs
 │   ├── data/
 │   │   ├── france.json        # Stats de la page d'accueil
+│   │   ├── france-map-data.json # Chemins SVG extraits (Métropole + DOM-COM)
 │   │   ├── history.json       # Données de la frise chronologique
 │   │   └── history.types.ts   # Types TypeScript (pour l'éditeur de code)
 │   └── styles/

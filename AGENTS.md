@@ -49,12 +49,20 @@ Complex data visualizations   → D3.js (bump charts, choropleths,
 
 ```
 france-en-chiffres/
-├── public/                  # Static assets (images, fonts, favicon)
+├── public/                  # Static assets (images, fonts, favicon, SVGs)
+│   └── France_departements.svg  # Source SVG for France territory outlines
 ├── src/
 │   ├── pages/               # Route pages (index, history, culture, ...)
 │   ├── components/          # Reusable Astro/HTML components
 │   ├── layouts/             # Page layout wrappers (Base.astro)
-│   ├── data/                # JSON data files (statistics, timelines)
+│   ├── data/                # JSON data files (statistics, timelines, map)
+│   │   ├── france.json
+│   │   ├── history.json
+│   │   └── france-map-data.json  # Extracted SVG paths for FranceMap
+│   ├── scripts/             # Build-time helper scripts
+│   │   └── extract-france-map.js # Parse France_departements.svg → data JSON
+│   ├── tests/               # Automated validation tests
+│   │   └── france-map.test.cjs
 │   └── styles/              # Global CSS
 ├── AGENTS.md                # This file
 ├── astro.config.mjs
