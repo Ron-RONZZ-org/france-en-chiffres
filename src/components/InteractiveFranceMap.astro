@@ -28,12 +28,12 @@ const indianOcean = dom.filter((d) => ['Réunion', 'Mayotte'].includes(d.id));
             <svg class="dom-insets__svg"
               viewBox={`${territory.viewBox.x} ${territory.viewBox.y} ${territory.viewBox.width} ${territory.viewBox.height}`}
               fill="none" xmlns="http://www.w3.org/2000/svg"
-              aria-label={territory.label} role="img">
-              <title>{territory.label}</title>
+              aria-label={`${territory.label} (${territory.num})`} role="img">
+              <title>{territory.label} ({territory.num})</title>
               <path class="dom-insets__path" d={territory.path}
                 stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
-            <span class="dom-insets__label">{territory.label}</span>
+            <span class="dom-insets__label">{territory.label} ({territory.num})</span>
           </div>
         ))}
       </div>
@@ -68,12 +68,12 @@ const indianOcean = dom.filter((d) => ['Réunion', 'Mayotte'].includes(d.id));
             <svg class="dom-insets__svg"
               viewBox={`${territory.viewBox.x} ${territory.viewBox.y} ${territory.viewBox.width} ${territory.viewBox.height}`}
               fill="none" xmlns="http://www.w3.org/2000/svg"
-              aria-label={territory.label} role="img">
-              <title>{territory.label}</title>
+              aria-label={`${territory.label} (${territory.num})`} role="img">
+              <title>{territory.label} ({territory.num})</title>
               <path class="dom-insets__path" d={territory.path}
                 stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
-            <span class="dom-insets__label">{territory.label}</span>
+            <span class="dom-insets__label">{territory.label} ({territory.num})</span>
           </div>
         ))}
       </div>
@@ -104,12 +104,12 @@ const indianOcean = dom.filter((d) => ['Réunion', 'Mayotte'].includes(d.id));
               <svg class="dom-insets__svg dom-insets__svg--geography"
                 viewBox={`${territory.viewBox.x} ${territory.viewBox.y} ${territory.viewBox.width} ${territory.viewBox.height}`}
                 fill="none" xmlns="http://www.w3.org/2000/svg"
-                aria-label={territory.label} role="img">
-                <title>{territory.label}</title>
-                <path class="dom-insets__path" d={territory.path}
-                  stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
-              </svg>
-              <span class="dom-insets__label">{territory.label}</span>
+              aria-label={`${territory.label} (${territory.num})`} role="img">
+              <title>{territory.label} ({territory.num})</title>
+              <path class="dom-insets__path" d={territory.path}
+                stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <span class="dom-insets__label">{territory.label} ({territory.num})</span>
             </div>
           ))}
         </div>
