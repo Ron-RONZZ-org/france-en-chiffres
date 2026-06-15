@@ -4,7 +4,7 @@
 
 **France en Chiffres** is an animated educational website that tells the story of France — its history, culture, geography, and current affairs — through a statistical lens ("history in numbers"). Built with a minimal tech stack for maximum visual impact.
 
-The site uses Astro (static site generator) with vanilla JavaScript and modern CSS for animations. No heavy frameworks. No build-time complexity.
+The site uses Astro (static site generator) with Tailwind CSS for styling, and a graduated approach to animation — vanilla JS for simple effects, GSAP for cinematic timelines and scroll-driven narratives, D3 for complex data visualizations.
 
 ---
 
@@ -13,7 +13,7 @@ The site uses Astro (static site generator) with vanilla JavaScript and modern C
 - **Content language**: French (French text, French number formatting)
 - **Code language**: English (variable names, comments, commit messages)
 - **Filenames**: kebab-case for all files (e.g., `france-map.astro`, `global.css`)
-- **CSS classes**: BEM-ish: `.block__element--modifier` or just `.block`
+- **CSS**: Tailwind utility classes for layout and styling. Hand-written CSS only for complex animations or component-specific overrides that Tailwind can't express cleanly.
 
 ---
 
@@ -22,16 +22,26 @@ The site uses Astro (static site generator) with vanilla JavaScript and modern C
 | Layer | Technology | Rationale |
 |-------|-----------|-----------|
 | Framework | **Astro 5** | Zero JS by default, multi-page, Markdown content, static output |
-| Styling | **Modern CSS** | CSS custom properties, container queries, scroll-driven animations |
-| Interactivity | **Vanilla JS** | IntersectionObserver, requestAnimationFrame, View Transitions API |
-| Charts/Maps | **Inline SVG** | No charting library — SVG + CSS/JS for all data viz |
+| Styling | **Tailwind CSS** | Utility-first, fast iteration, consistent design tokens. Hand-written CSS only for complex animations. |
+| Simple animations | **Vanilla JS** | IntersectionObserver, requestAnimationFrame, View Transitions API |
+| Cinematic timelines | **GSAP + ScrollTrigger** | Pin sections, scrub animations, staggered reveals — use for the history timeline |
+| Complex data viz | **D3.js** | Population pyramids, bump charts, choropleth maps — use for pages where data relationships are non-trivial |
 | Deployment | Static host (Netlify/Vercel/GitHub Pages) | `npm run build` → deploy `dist/` |
 
-### Core Principle
+### Core Principle — Graduated Tool Selection
 
-> **No runtime framework. No charting library. No build-tool complexity.**
-> If it can be done in CSS, do it in CSS. If it needs JS, use vanilla.
-> D3/GSAP/Three.js are allowed ONLY on a per-page opt-in basis with documented justification.
+> **Use the simplest tool that achieves the effect. Escalate only when the simpler tool becomes the bottleneck.**
+
+```
+Animation complexity          → Tool
+──────────────────────────────────────────────────
+Fade-in, slide-up on scroll   → CSS transitions + IntersectionObserver
+Animated counters, simple SVG → Vanilla JS (requestAnimationFrame)
+Pinned sections, scrub,       → GSAP + ScrollTrigger
+  staggered timelines
+Complex data visualizations   → D3.js (bump charts, choropleths,
+  (interactive, animated)       population pyramids, sankey diagrams)
+```
 
 ---
 
@@ -65,29 +75,37 @@ france-en-chiffres/
 
 ---
 
-## Animation Patterns (approved)
+## Animation Patterns
 
-| Pattern | Implementation |
-|---------|---------------|
-| Number counters | IntersectionObserver + requestAnimationFrame |
-| SVG draw-on-scroll | `stroke-dasharray`/`stroke-dashoffset` animation |
-| Scroll reveals | IntersectionObserver adding `.is-visible` class |
-| Page transitions | CSS `@view-transition` API (standard, no JS) |
-| Chart drawing | SVG `<path>` with animated `stroke-dashoffset` |
-| Map highlighting | SVG region fills with CSS transitions on hover |
+| Pattern | Implementation | When |
+|---------|---------------|------|
+| Number counters | IntersectionObserver + requestAnimationFrame | Always |
+| SVG draw-on-scroll | `stroke-dasharray`/`stroke-dashoffset` animation | Always |
+| Scroll reveals | IntersectionObserver adding `.is-visible` class | Simple sections |
+| Pin section + scrub | GSAP ScrollTrigger (`pin: true`, `scrub: 1`) | History timeline, comparison sliders |
+| Staggered reveals | GSAP `.fromTo()` with `stagger` | Timeline entries, card grids |
+| Page transitions | CSS `@view-transition` API | Standard, no JS |
+| Data-driven SVG | D3.js data joins + transitions | Population pyramid, bump chart, choropleth |
+| Map highlighting | SVG region fills with CSS transitions on hover | Geography page |
 
 ---
 
 ## What to Avoid
 
-- ❌ No React, Vue, Svelte, or any component framework
-- ❌ No GSAP, Framer Motion, or animation libraries
-- ❌ No D3.js unless a page genuinely needs complex data joins (document why)
-- ❌ No Tailwind or CSS frameworks — all styles are hand-written in CSS
-- ❌ No TypeScript — plain JS only (.js files, not .ts)
-- ❌ No client-side routing — use multi-page Astro with View Transitions
-- ❌ No external fonts that slow down first paint (use system font stack or self-host w/ swap)
-- ❌ No tracking, analytics, or cookies
+### Banned (always)
+- ❌ **React, Vue, Svelte** — no client-side component frameworks. Astro's island architecture + vanilla JS covers all needs.
+- ❌ **Framer Motion** — React-only. If you need a React animation library, you're using the wrong approach.
+- ❌ **Client-side routing** — use multi-page Astro + CSS View Transitions API. No React Router, no Vue Router.
+- ❌ **Tracking, analytics, cookies** — educational site, no business need, no user data collection.
+
+### Allowed with justification (opt-in, per-page)
+- ✅ **GSAP + ScrollTrigger** — for pinned sections, scrub animations, staggered timelines where vanilla JS would require 3x+ the code.
+- ✅ **D3.js** — for complex data visualizations (bump charts, choropleths, population pyramids, sankey diagrams). Not for simple bar charts or counters.
+- ✅ **TypeScript** — optional. Use `.ts` files if you want type safety in data processing logic. Page components can stay `.astro` with frontmatter types.
+
+### Preference (not a ban)
+- ⚠️ **External fonts** — allowed with proper loading strategy (`preconnect` + `font-display: swap`). Prefer self-hosting for reliability.
+- ⚠️ **Tailwind CSS** — this is the **default** styling approach. Hand-written CSS is also fine for complex animations where Tailwind's utility model doesn't express the intent clearly.
 
 ---
 
