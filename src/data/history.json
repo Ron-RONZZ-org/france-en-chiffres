@@ -312,6 +312,7 @@
           "significance": 4,
           "stats": { "label": "Membres (immortels)", "value": 40, "suffix": "", "format": "integer" },
           "sourceId": "academie-francaise",
+          "link": "https://fr.wikipedia.org/wiki/Acad%C3%A9mie_fran%C3%A7aise",
           "preview": {
             "summary": "Institution qui fixe la langue française.",
             "statLabel": "Dictionnaire",
@@ -328,6 +329,7 @@
           "significance": 5,
           "stats": { "label": "Pièces", "value": 2300, "suffix": "", "format": "integer" },
           "sourceId": "chateau-versailles",
+          "link": "https://fr.wikipedia.org/wiki/Ch%C3%A2teau_de_Versailles",
           "preview": {
             "summary": "Symbole de la monarchie absolue.",
             "statLabel": "Superficie",
@@ -344,6 +346,7 @@
           "significance": 5,
           "stats": { "label": "Pièces écrites", "value": 33, "suffix": "", "format": "integer" },
           "sourceId": "comedie-francaise",
+          "link": "https://fr.wikipedia.org/wiki/Moli%C3%A8re",
           "preview": {
             "summary": "Le plus grand dramaturge français.",
             "statLabel": "Représentations",
