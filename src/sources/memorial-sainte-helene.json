@@ -1,0 +1,8 @@
+{
+  "id": "memorial-sainte-helene",
+  "type": "book",
+  "title": "Mémorial de Sainte-Hélène",
+  "author": [{ "family": "Las Cases", "given": "Emmanuel de" }],
+  "issued": { "date-parts": [["1823"]] },
+  "note": "Journal de l'exil de Napoléon à Sainte-Hélène"
+}

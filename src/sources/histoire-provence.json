@@ -1,0 +1,8 @@
+{
+  "id": "histoire-provence",
+  "type": "book",
+  "title": "Histoire de la Provence",
+  "author": [{ "literal": "Histoire de la Provence — Presses Universitaires" }],
+  "issued": { "date-parts": [["2001"]] },
+  "note": "Source citée pour la fondation de Massalia (Marseille)"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "insee-2024",
+  "type": "dataset",
+  "title": "Bilan démographique et économique 2024",
+  "publisher": "Institut National de la Statistique et des Études Économiques (INSEE)",
+  "publisher-place": "Paris",
+  "issued": { "date-parts": [[2024]] },
+  "URL": "https://www.insee.fr/fr/statistiques",
+  "genre": "Statistical report"
+}

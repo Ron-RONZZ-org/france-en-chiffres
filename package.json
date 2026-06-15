@@ -8,7 +8,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "test": "node src/tests/france-map.test.cjs",
-    "test:all": "npm run build && npm run test"
+    "test:sources": "node src/tests/sources.test.cjs",
+    "test:all": "npm run build && npm run test && npm run test:sources"
   },
   "dependencies": {
     "@astrojs/tailwind": "^6.0.2",

@@ -1,0 +1,8 @@
+{
+  "id": "richer-reims-histoires",
+  "type": "book",
+  "title": "Histoires (Histoire de France 888–995)",
+  "author": [{ "family": "Richer de Reims", "given": "" }],
+  "issued": { "date-parts": [["~998"]] },
+  "note": "Récit de l'élection d'Hugues Capet"
+}

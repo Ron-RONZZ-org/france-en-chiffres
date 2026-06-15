@@ -1,0 +1,8 @@
+{
+  "id": "eginhard-vie-charlemagne",
+  "type": "book",
+  "title": "Vita Karoli Magni (Vie de Charlemagne)",
+  "author": [{ "family": "Éginhard", "given": "" }],
+  "issued": { "date-parts": [["~830"]] },
+  "note": "Biographie de Charlemagne par un contemporain"
+}

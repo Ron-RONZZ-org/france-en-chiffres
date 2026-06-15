@@ -1,5 +1,6 @@
 ---
 import type { TimelineEvent } from '../data/history.types';
+import { getSource, formatSourceLabel, sourceUrl } from '../data/sources';
 
 export interface Props {
   event: TimelineEvent;
@@ -7,6 +8,11 @@ export interface Props {
 }
 
 const { event, catColor } = Astro.props;
+const refSource = event.sourceId ? getSource(event.sourceId) : undefined;
+const sourceLabel = refSource
+  ? formatSourceLabel(refSource)
+  : (event.source ?? '');
+const sourceHref = event.sourceId ? sourceUrl(event.sourceId) : null;
 ---
 
 <div class="hover-preview" role="tooltip" aria-hidden="true" style={{ '--stat-color': catColor }}>
@@ -35,7 +41,13 @@ const { event, catColor } = Astro.props;
   </div>
 
   <!-- Source -->
-  <span class="hover-preview__source">{event.source}</span>
+  {sourceHref ? (
+    <a href={sourceHref} class="hover-preview__source hover-preview__source--link">
+      {sourceLabel}
+    </a>
+  ) : (
+    <span class="hover-preview__source">{sourceLabel}</span>
+  )}
 
   <!-- Page link -->
   {event.link && (
@@ -144,6 +156,14 @@ const { event, catColor } = Astro.props;
     font-size: 0.65rem;
     color: var(--color-text-muted);
     opacity: 0.5;
+    text-decoration: none;
+    transition: opacity var(--transition-fast);
+  }
+
+  .hover-preview__source--link:hover {
+    opacity: 1;
+    color: var(--color-french-blue);
+    text-decoration: underline;
   }
 
   .hover-preview__link {

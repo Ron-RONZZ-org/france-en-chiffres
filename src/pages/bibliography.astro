@@ -1,0 +1,154 @@
+---
+import Base from '../layouts/Base.astro';
+import { allSources, formatSourceLabel } from '../data/sources';
+---
+
+<Base title="Bibliographie — France en Chiffres" description="Sources et références bibliographiques">
+
+  <section class="section">
+    <div class="container">
+      <h1 class="section__title">Bibliographie</h1>
+      <div class="french-separator"></div>
+      <p class="section__subtitle">
+        Toutes les sources des données présentées sur ce site, classées par institution.
+      </p>
+
+      <div class="bibliography">
+        {allSources.map((source) => (
+          <article class="bibliography__entry" id={source.id}>
+            <a href={`/bibliography/${source.id}`} class="bibliography__link">
+              <h2 class="bibliography__title">
+                {source.title ?? formatSourceLabel(source)}
+              </h2>
+            </a>
+
+            <div class="bibliography__meta">
+              {source.author && source.author.length > 0 && (
+                <span class="bibliography__author">
+                  {source.author.map(a => a.literal ?? `${a.given ?? ''} ${a.family ?? ''}`.trim()).join(', ')}
+                </span>
+              )}
+
+              {source.publisher && (
+                <span class="bibliography__publisher">{source.publisher}</span>
+              )}
+
+              {source.issued && (
+                <span class="bibliography__year">
+                  {source.issued['date-parts']?.[0]?.join('-') ?? ''}
+                </span>
+              )}
+
+              {source.genre && (
+                <span class="bibliography__genre">{source.genre}</span>
+              )}
+            </div>
+
+            {source.URL && (
+              <a href={source.URL} class="bibliography__url" target="_blank" rel="noopener noreferrer">
+                {source.URL}
+              </a>
+            )}
+
+            {source.DOI && (
+              <span class="bibliography__doi">DOI: {source.DOI}</span>
+            )}
+          </article>
+        ))}
+
+        {allSources.length === 0 && (
+          <p class="bibliography__empty">Aucune source enregistrée.</p>
+        )}
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .bibliography {
+    max-width: 720px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-lg);
+  }
+
+  .bibliography__entry {
+    padding: var(--gap-md) var(--gap-lg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-bg-card);
+    transition: border-color var(--transition-fast);
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-xs);
+  }
+
+  .bibliography__entry:hover {
+    border-color: var(--color-french-blue);
+  }
+
+  .bibliography__link {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .bibliography__title {
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--color-text-light);
+    transition: color var(--transition-fast);
+  }
+
+  .bibliography__link:hover .bibliography__title {
+    color: var(--color-french-blue);
+  }
+
+  .bibliography__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gap-sm);
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+  }
+
+  .bibliography__meta > span::after {
+    content: "·";
+    margin-left: var(--gap-sm);
+    opacity: 0.4;
+  }
+
+  .bibliography__meta > span:last-child::after {
+    content: none;
+  }
+
+  .bibliography__url {
+    font-size: 0.8rem;
+    color: var(--color-french-blue);
+    word-break: break-all;
+    transition: opacity var(--transition-fast);
+  }
+
+  .bibliography__url:hover {
+    opacity: 0.8;
+  }
+
+  .bibliography__doi {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    opacity: 0.7;
+  }
+
+  .bibliography__empty {
+    text-align: center;
+    color: var(--color-text-muted);
+    padding: var(--gap-2xl) 0;
+  }
+
+  @media (max-width: 640px) {
+    .bibliography__entry {
+      padding: var(--gap-md);
+    }
+  }
+</style>

@@ -1,0 +1,8 @@
+{
+  "id": "gregoire-tours-histoire-francs",
+  "type": "book",
+  "title": "Histoire des Francs",
+  "author": [{ "family": "Grégoire de Tours", "given": "" }],
+  "issued": { "date-parts": [["~576-594"]] },
+  "note": "Dix livres d'histoire — source principale pour l'époque mérovingienne"
+}

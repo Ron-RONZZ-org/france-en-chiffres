@@ -1,0 +1,10 @@
+{
+  "id": "ign-2024",
+  "type": "dataset",
+  "title": "Référentiel à grande édition — territoire et superficie",
+  "publisher": "Institut National de l'Information Géographique et Forestière (IGN)",
+  "publisher-place": "Saint-Mandé",
+  "issued": { "date-parts": [[2024]] },
+  "URL": "https://geoservices.ign.fr/rge",
+  "genre": "Geospatial data"
+}

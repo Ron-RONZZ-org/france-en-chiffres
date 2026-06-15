@@ -1,0 +1,8 @@
+{
+  "id": "haussmann-memoires",
+  "type": "book",
+  "title": "Mémoires du baron Haussmann",
+  "author": [{ "family": "Haussmann", "given": "Georges-Eugène" }],
+  "issued": { "date-parts": [["1890"]] },
+  "note": "Récit des transformations de Paris sous le Second Empire"
+}
