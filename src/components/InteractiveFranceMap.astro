@@ -53,7 +53,7 @@ const indianOcean = dom.filter((d) => ['Réunion', 'Mayotte'].includes(d.id));
             {departments.map((dept) => (
               <path key={dept.num} class="department" d={dept.path}
                 data-num={dept.num} data-name={dept.name}
-                fill="transparent" stroke="currentColor" stroke-width="1.2"
+                fill="rgba(0,0,0,0)" stroke="currentColor" stroke-width="1.2"
                 stroke-linecap="round" stroke-linejoin="round">
                 <title>{dept.name} ({dept.num})</title>
               </path>
@@ -148,6 +148,7 @@ const indianOcean = dom.filter((d) => ['Réunion', 'Mayotte'].includes(d.id));
   /* ===== Shared ===== */
   .department {
     cursor: pointer;
+    pointer-events: all;
     transition: fill var(--transition-fast), stroke-width var(--transition-fast), stroke var(--transition-fast);
   }
 
@@ -165,8 +166,8 @@ const indianOcean = dom.filter((d) => ['Réunion', 'Mayotte'].includes(d.id));
   }
 
   .dom-insets__svg {
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     color: var(--color-accent-gold);
     opacity: 0.7;
     transition: opacity var(--transition-fast);
@@ -265,10 +266,6 @@ const indianOcean = dom.filter((d) => ['Réunion', 'Mayotte'].includes(d.id));
     to { opacity: 1; transform: translateY(0); }
   }
 
-  .dom-insets__svg {
-    width: 50px;
-    height: 50px;
-  }
 
   /* ===== Geography variant ===== */
   .geography-layout {
@@ -297,8 +294,8 @@ const indianOcean = dom.filter((d) => ['Réunion', 'Mayotte'].includes(d.id));
   }
 
   .dom-insets__svg--geography {
-    width: 70px;
-    height: 70px;
+    width: 55px;
+    height: 55px;
   }
 
   .department--geography {
@@ -342,7 +339,8 @@ const indianOcean = dom.filter((d) => ['Réunion', 'Mayotte'].includes(d.id));
     .france-map-layout__sidebar--right { order: 2; flex-basis: 100%; justify-content: flex-start; padding-left: var(--gap-xs); }
     .france-map-layout__center { order: 0; }
     .france-map { width: 240px; }
-    .dom-insets__svg { width: 40px; height: 40px; }
+    .dom-insets__svg { width: 35px; height: 35px; }
+    .dom-insets__svg--geography { width: 48px; height: 48px; }
     .geography-map { max-width: 100%; }
   }
 
@@ -351,6 +349,7 @@ const indianOcean = dom.filter((d) => ['Réunion', 'Mayotte'].includes(d.id));
     .france-map-layout__sidebar { flex-direction: row; flex-basis: auto; justify-content: center; padding: 0; order: 1; }
     .france-map-layout__sidebar--left, .france-map-layout__sidebar--right { padding: 0; }
     .france-map { width: 200px; }
-    .dom-insets__svg { width: 35px; height: 35px; }
+    .dom-insets__svg { width: 30px; height: 30px; }
+    .dom-insets__svg--geography { width: 40px; height: 40px; }
   }
 </style>
