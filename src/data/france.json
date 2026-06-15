@@ -1,0 +1,59 @@
+{
+  "hero": {
+    "title": "La France en Chiffres",
+    "subtitle": "Histoire, culture, géographie — racontées par les nombres",
+    "scrollHint": "Découvrir"
+  },
+  "keyStats": [
+    {
+      "id": "population",
+      "value": 68,
+      "label": "Millions d'habitants",
+      "suffix": " M",
+      "icon": "👥",
+      "source": "INSEE, 2024"
+    },
+    {
+      "id": "area",
+      "value": 551695,
+      "label": "km² de superficie",
+      "suffix": " km²",
+      "format": "integer",
+      "icon": "🗺️",
+      "source": "IGN, 2024"
+    },
+    {
+      "id": "gdp",
+      "value": 3050,
+      "label": "Milliards $ PIB",
+      "suffix": " Md$",
+      "icon": "💰",
+      "source": "Banque Mondiale, 2024"
+    },
+    {
+      "id": "lifeExpectancy",
+      "value": 82.5,
+      "label": "Espérance de vie",
+      "suffix": " ans",
+      "icon": "❤️",
+      "source": "INSEE, 2024"
+    },
+    {
+      "id": "tourists",
+      "value": 100,
+      "label": "Millions de touristes/an",
+      "suffix": " M",
+      "icon": "🗼",
+      "source": "OMT, 2024"
+    }
+  ],
+  "nav": {
+    "items": [
+      { "label": "Accueil", "href": "/" },
+      { "label": "Histoire", "href": "/history" },
+      { "label": "Culture", "href": "/culture" },
+      { "label": "Géographie", "href": "/geography" },
+      { "label": "Actualité", "href": "/current" }
+    ]
+  }
+}

@@ -1,0 +1,130 @@
+---
+export interface Props {
+  value: number;
+  label: string;
+  prefix?: string;
+  suffix?: string;
+  format?: 'integer' | 'decimal';
+  icon?: string;
+}
+
+const {
+  value,
+  label,
+  prefix = '',
+  suffix = '',
+  format = 'decimal',
+  icon,
+} = Astro.props;
+---
+
+<div
+  class="counter"
+  data-value={value}
+  data-format={format}
+  data-prefix={prefix}
+  data-suffix={suffix}
+  role="figure"
+  aria-label={`${prefix}${value.toLocaleString('fr-FR')}${suffix} — ${label}`}
+>
+  {icon && <span class="counter__icon" aria-hidden="true">{icon}</span>}
+  <span class="counter__value">
+    <span class="counter__number">{prefix}{format === 'integer' ? '0' : '0,0'}{suffix}</span>
+  </span>
+  <span class="counter__label">{label}</span>
+</div>
+
+<style>
+  .counter {
+    text-align: center;
+    padding: var(--gap-lg);
+  }
+
+  .counter__icon {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: var(--gap-sm);
+  }
+
+  .counter__value {
+    display: block;
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1.1;
+    font-family: var(--font-serif);
+    background: linear-gradient(135deg, var(--color-french-white), var(--color-accent-gold));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .counter__label {
+    display: block;
+    margin-top: var(--gap-sm);
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+</style>
+
+<script>
+  (() => {
+    const counters = document.querySelectorAll('.counter');
+    if (!counters.length) return;
+
+    counters.forEach((el) => {
+      const target = parseFloat(el.dataset.value);
+      const format = el.dataset.format || 'decimal';
+      const prefix = el.dataset.prefix || '';
+      const suffix = el.dataset.suffix || '';
+      const display = el.querySelector('.counter__number');
+      const duration = 2000;
+      let startTime = null;
+      let animated = false;
+
+      const formatNumber = (num, isInteger) => {
+        if (isInteger) {
+          return Math.floor(num).toLocaleString('fr-FR');
+        }
+        return num.toLocaleString('fr-FR', {
+          minimumFractionDigits: 1,
+          maximumFractionDigits: 1,
+        });
+      };
+
+      const animate = (timestamp) => {
+        if (!startTime) startTime = timestamp;
+        const elapsed = timestamp - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const current = eased * target;
+
+        display.textContent = `${prefix}${formatNumber(current, format === 'integer')}${suffix}`;
+
+        if (progress < 1) {
+          requestAnimationFrame(animate);
+        } else {
+          display.textContent = `${prefix}${formatNumber(target, format === 'integer')}${suffix}`;
+        }
+      };
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting && !animated) {
+              animated = true;
+              startTime = null;
+              requestAnimationFrame(animate);
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.3 }
+      );
+
+      observer.observe(el);
+    });
+  })();
+</script>

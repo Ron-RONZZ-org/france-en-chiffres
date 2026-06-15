@@ -1,0 +1,80 @@
+---
+// FranceMap.astro — Animated SVG outline of France
+// Uses stroke-dasharray animation to draw France's silhouette
+---
+
+<svg
+  class="france-map"
+  viewBox="0 0 200 230"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  aria-label="Carte de la France métropolitaine"
+  role="img"
+>
+  <path
+    class="france-map__outline"
+    d="M 85,18
+       L 95,20
+       L 108,26
+       L 115,35
+       L 118,48
+       L 118,60
+       L 115,74
+       L 110,88
+       L 105,98
+       L 98,106
+       L 88,110
+       L 78,112
+       L 68,110
+       L 58,106
+       L 48,100
+       L 38,94
+       L 28,88
+       L 20,78
+       L 14,68
+       L 10,58
+       L 8,48
+       L 4,40
+       L 10,34
+       L 16,28
+       L 24,24
+       L 32,20
+       L 44,17
+       L 56,15
+       L 70,14
+       Z"
+    stroke="currentColor"
+    stroke-width="2.5"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+</svg>
+
+<style>
+  .france-map {
+    width: 100%;
+    max-width: 320px;
+    height: auto;
+    color: var(--color-french-blue);
+    filter: drop-shadow(0 0 20px rgba(0, 35, 149, 0.4));
+  }
+
+  .france-map__outline {
+    stroke-dasharray: 800;
+    stroke-dashoffset: 800;
+    animation: draw-france 3s ease-out forwards;
+  }
+
+  @keyframes draw-france {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .france-map__outline {
+      stroke-dashoffset: 0;
+      animation: none;
+    }
+  }
+</style>

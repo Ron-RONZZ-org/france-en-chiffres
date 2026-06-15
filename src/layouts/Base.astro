@@ -1,0 +1,82 @@
+---
+import Nav from '../components/Nav.astro';
+import '../styles/global.css';
+
+export interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title = 'La France en Chiffres', description = 'Histoire, culture, géographie — racontées par les nombres' } = Astro.props;
+const navItems = [
+  { label: 'Accueil', href: '/' },
+  { label: 'Histoire', href: '/history' },
+  { label: 'Culture', href: '/culture' },
+  { label: 'Géographie', href: '/geography' },
+  { label: 'Actualité', href: '/current' },
+];
+---
+
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title} — France en Chiffres</title>
+    <meta name="description" content={description} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet" />
+
+    <meta name="theme-color" content="#0b1120" />
+  </head>
+  <body>
+    <Nav items={navItems} />
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer__inner">
+          <div class="french-separator"></div>
+          <p class="footer__text">
+            La France en Chiffres — Données sources : INSEE, Banque Mondiale, OMT, IGN.
+          </p>
+          <p class="footer__small">
+            Construit avec Astro • Animations vanilla JS • Zéro framework
+          </p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style>
+  .footer {
+    padding: var(--gap-xl) 0;
+    border-top: 1px solid var(--color-border);
+    margin-top: var(--gap-2xl);
+  }
+
+  .footer__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--gap-md);
+    text-align: center;
+  }
+
+  .footer__text {
+    color: var(--color-text-muted);
+    font-size: 0.875rem;
+  }
+
+  .footer__small {
+    color: var(--color-text-muted);
+    font-size: 0.75rem;
+    opacity: 0.6;
+  }
+</style>

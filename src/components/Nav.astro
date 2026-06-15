@@ -1,0 +1,115 @@
+---
+export interface Props {
+  items: { label: string; href: string }[];
+}
+
+const { items } = Astro.props;
+const { pathname } = Astro.url;
+---
+
+<nav class="nav">
+  <div class="nav__inner container">
+    <a href="/" class="nav__logo" aria-label="Accueil">
+      <span class="nav__flag">🇫🇷</span>
+      <span class="nav__title">France en Chiffres</span>
+    </a>
+
+    <ul class="nav__links">
+      {items.map((item) => (
+        <li>
+          <a
+            href={item.href}
+            class:list={{ 'nav__link': true, 'nav__link--active': pathname === item.href }}
+          >
+            {item.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</nav>
+
+<style>
+  .nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: rgba(11, 17, 32, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .nav__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+  }
+
+  .nav__logo {
+    display: flex;
+    align-items: center;
+    gap: var(--gap-sm);
+    font-weight: 700;
+    font-size: 1.125rem;
+  }
+
+  .nav__flag {
+    font-size: 1.25rem;
+  }
+
+  .nav__title {
+    font-family: var(--font-serif);
+  }
+
+  .nav__links {
+    display: flex;
+    list-style: none;
+    gap: var(--gap-lg);
+  }
+
+  .nav__link {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-text-muted);
+    transition: color var(--transition-fast);
+    position: relative;
+    padding: 0.25rem 0;
+  }
+
+  .nav__link:hover {
+    color: var(--color-text-light);
+  }
+
+  .nav__link--active {
+    color: var(--color-french-white);
+  }
+
+  .nav__link--active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--color-french-red);
+    border-radius: 1px;
+  }
+
+  @media (max-width: 640px) {
+    .nav__title {
+      display: none;
+    }
+
+    .nav__links {
+      gap: var(--gap-md);
+    }
+
+    .nav__link {
+      font-size: 0.8rem;
+    }
+  }
+</style>

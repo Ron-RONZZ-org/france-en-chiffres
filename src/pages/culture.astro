@@ -1,0 +1,44 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="Culture — France en Chiffres" description="La culture française en données — art, gastronomie, cinéma, tourisme">
+  <section class="section">
+    <div class="container">
+      <h1 class="section__title">Culture en chiffres</h1>
+      <div class="french-separator"></div>
+      <p class="section__subtitle">
+        Cinéma, gastronomie, musées, littérature — le rayonnement culturel français en données.
+      </p>
+      <div class="placeholder">
+        <p class="placeholder__text">🚧 Cette page est en construction.</p>
+        <p class="placeholder__sub">
+          Films produits par an, baguettes vendues, musées visités — les chiffres
+          qui font la culture française apparaîtront ici.
+        </p>
+        <a href="/" class="btn btn--ghost">← Retour à l'accueil</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .placeholder {
+    text-align: center;
+    padding: var(--gap-2xl) 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--gap-lg);
+  }
+
+  .placeholder__text {
+    font-family: var(--font-serif);
+    font-size: 2rem;
+  }
+
+  .placeholder__sub {
+    color: var(--color-text-muted);
+    max-width: 500px;
+  }
+</style>

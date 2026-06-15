@@ -1,0 +1,44 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="Actualité — France en Chiffres" description="La France contemporaine en données — économie, société, environnement">
+  <section class="section">
+    <div class="container">
+      <h1 class="section__title">Actualité en chiffres</h1>
+      <div class="french-separator"></div>
+      <p class="section__subtitle">
+        Économie, démographie, environnement — le portrait de la France d'aujourd'hui.
+      </p>
+      <div class="placeholder">
+        <p class="placeholder__text">🚧 Cette page est en construction.</p>
+        <p class="placeholder__sub">
+          Chômage, croissance, émissions CO₂, espérance de vie — les données
+          actuelles de la France seront présentées ici avec des graphiques dynamiques.
+        </p>
+        <a href="/" class="btn btn--ghost">← Retour à l'accueil</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .placeholder {
+    text-align: center;
+    padding: var(--gap-2xl) 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--gap-lg);
+  }
+
+  .placeholder__text {
+    font-family: var(--font-serif);
+    font-size: 2rem;
+  }
+
+  .placeholder__sub {
+    color: var(--color-text-muted);
+    max-width: 500px;
+  }
+</style>

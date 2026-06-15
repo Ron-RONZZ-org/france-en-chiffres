@@ -1,0 +1,44 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="Histoire — France en Chiffres" description="L'histoire de France racontée par les nombres — de la Gaule à aujourd'hui">
+  <section class="section">
+    <div class="container">
+      <h1 class="section__title">Histoire en chiffres</h1>
+      <div class="french-separator"></div>
+      <p class="section__subtitle">
+        De la Gaule à la Ve République — chaque époque racontée par ses statistiques.
+      </p>
+      <div class="placeholder">
+        <p class="placeholder__text">🚧 Cette page est en construction.</p>
+        <p class="placeholder__sub">
+          Une chronologie interactive avec les données démographiques, économiques et militaires
+          de chaque période paraîtra ici.
+        </p>
+        <a href="/" class="btn btn--ghost">← Retour à l'accueil</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .placeholder {
+    text-align: center;
+    padding: var(--gap-2xl) 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--gap-lg);
+  }
+
+  .placeholder__text {
+    font-family: var(--font-serif);
+    font-size: 2rem;
+  }
+
+  .placeholder__sub {
+    color: var(--color-text-muted);
+    max-width: 500px;
+  }
+</style>

@@ -1,0 +1,378 @@
+---
+import Base from '../layouts/Base.astro';
+import Counter from '../components/Counter.astro';
+import FranceMap from '../components/FranceMap.astro';
+import stats from '../data/france.json';
+
+const { hero, keyStats } = stats;
+---
+
+<Base title="La France en Chiffres — Accueil">
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="hero__bg"></div>
+    <div class="hero__content">
+      <div class="hero__map-wrapper">
+        <FranceMap />
+      </div>
+
+      <div class="hero__text">
+        <h1 class="hero__title">{hero.title}</h1>
+        <p class="hero__subtitle">{hero.subtitle}</p>
+
+        <div class="french-separator"></div>
+
+        <div class="hero__actions">
+          <a href="#stats" class="btn btn--primary">
+            Explorer les chiffres
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <path d="M3 6l5 5 5-5"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <a href="#stats" class="hero__scroll" aria-label="Défiler vers le bas">
+      <span class="hero__scroll-text">{hero.scrollHint}</span>
+      <span class="hero__scroll-line"></span>
+    </a>
+  </section>
+
+  <!-- ===== KEY STATS ===== -->
+  <section id="stats" class="section stats">
+    <div class="container">
+      <h2 class="section__title">La France en quelques chiffres</h2>
+      <p class="section__subtitle">
+        Données clés qui dessinent le portrait de la France aujourd'hui
+      </p>
+
+      <div class="stats__grid">
+        {keyStats.map((stat, i) => (
+          <div class="stats__card fade-in" style={`--i: ${i}`}>
+            <Counter
+              value={stat.value}
+              label={stat.label}
+              suffix={stat.suffix}
+              format={stat.format === 'integer' ? 'integer' : 'decimal'}
+              icon={stat.icon}
+            />
+            <span class="stats__source">{stat.source}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SECTION PREVIEWS ===== -->
+  <section class="section previews">
+    <div class="container">
+      <h2 class="section__title">Parcourir par thème</h2>
+      <p class="section__subtitle">
+        Chaque page explore un aspect de la France à travers ses données
+      </p>
+
+      <div class="previews__grid">
+        <a href="/history" class="preview-card fade-in" style="--i: 0">
+          <span class="preview-card__icon">📜</span>
+          <h3 class="preview-card__title">Histoire</h3>
+          <p class="preview-card__desc">
+            De la Gaule à aujourd'hui — une chronologie en chiffres
+          </p>
+          <span class="preview-card__arrow">→</span>
+        </a>
+
+        <a href="/culture" class="preview-card fade-in" style="--i: 1">
+          <span class="preview-card__icon">🎭</span>
+          <h3 class="preview-card__title">Culture</h3>
+          <p class="preview-card__desc">
+            Art, gastronomie, cinéma — la France culturelle en données
+          </p>
+          <span class="preview-card__arrow">→</span>
+        </a>
+
+        <a href="/geography" class="preview-card fade-in" style="--i: 2">
+          <span class="preview-card__icon">🗺️</span>
+          <h3 class="preview-card__title">Géographie</h3>
+          <p class="preview-card__desc">
+            Régions, climats, territoires — la diversité française
+          </p>
+          <span class="preview-card__arrow">→</span>
+        </a>
+
+        <a href="/current" class="preview-card fade-in" style="--i: 3">
+          <span class="preview-card__icon">📊</span>
+          <h3 class="preview-card__title">Actualité</h3>
+          <p class="preview-card__desc">
+            Économie, société, environnement — la France contemporaine
+          </p>
+          <span class="preview-card__arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script>
+  // Scroll-reveal using IntersectionObserver
+  (() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+    );
+
+    document.querySelectorAll('.fade-in, .fade-in--left, .fade-in--right').forEach((el) => {
+      observer.observe(el);
+    });
+  })();
+</script>
+
+<style>
+  /* ===== HERO ===== */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .hero__bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(0, 35, 149, 0.15) 0%, transparent 60%),
+      radial-gradient(ellipse at 50% 100%, rgba(237, 41, 57, 0.08) 0%, transparent 60%),
+      var(--color-bg-dark);
+    z-index: 0;
+  }
+
+  .hero__content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--gap-xl);
+    text-align: center;
+    padding: var(--gap-lg);
+    padding-top: 80px;
+  }
+
+  .hero__map-wrapper {
+    width: 280px;
+    opacity: 0;
+    animation: fade-in-map 1s ease-out 0.5s forwards;
+  }
+
+  @keyframes fade-in-map {
+    to { opacity: 1; }
+  }
+
+  .hero__text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--gap-lg);
+  }
+
+  .hero__title {
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, #ffffff 0%, var(--color-accent-gold) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: fade-up 1s ease-out 0.8s both;
+  }
+
+  .hero__subtitle {
+    font-size: clamp(1rem, 2.5vw, 1.4rem);
+    color: var(--color-text-muted);
+    max-width: 500px;
+    animation: fade-up 1s ease-out 1s both;
+  }
+
+  .hero__actions {
+    animation: fade-up 1s ease-out 1.3s both;
+  }
+
+  .hero__scroll {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--gap-sm);
+    color: var(--color-text-muted);
+    animation: fade-up 1s ease-out 2s both;
+    z-index: 1;
+  }
+
+  .hero__scroll-text {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+  }
+
+  .hero__scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--color-text-muted), transparent);
+    animation: scroll-pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes scroll-pulse {
+    0%, 100% { opacity: 0.3; transform: scaleY(0.5); }
+    50% { opacity: 1; transform: scaleY(1); }
+  }
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* ===== STATS ===== */
+  .stats {
+    background: var(--color-bg-card);
+    padding: var(--gap-2xl) 0;
+  }
+
+  .stats__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--gap-lg);
+    margin-top: var(--gap-xl);
+  }
+
+  .stats__card {
+    background: var(--color-bg-dark);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--gap-lg) var(--gap-md);
+    transition: transform var(--transition-normal), border-color var(--transition-normal);
+    position: relative;
+  }
+
+  .stats__card:hover {
+    transform: translateY(-4px);
+    border-color: var(--color-french-blue);
+  }
+
+  .stats__source {
+    display: block;
+    text-align: center;
+    font-size: 0.7rem;
+    color: var(--color-text-muted);
+    opacity: 0.5;
+    margin-top: var(--gap-xs);
+  }
+
+  /* ===== PREVIEWS ===== */
+  .previews {
+    padding: var(--gap-2xl) 0;
+  }
+
+  .previews__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: var(--gap-lg);
+    margin-top: var(--gap-xl);
+  }
+
+  .preview-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-md);
+    padding: var(--gap-lg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-bg-card);
+    transition: all var(--transition-normal);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .preview-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(to right, var(--color-french-blue), var(--color-french-red));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--transition-normal);
+  }
+
+  .preview-card:hover::before {
+    transform: scaleX(1);
+  }
+
+  .preview-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--color-french-blue);
+  }
+
+  .preview-card__icon {
+    font-size: 2rem;
+  }
+
+  .preview-card__title {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  .preview-card__desc {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    flex: 1;
+  }
+
+  .preview-card__arrow {
+    font-size: 1.25rem;
+    transition: transform var(--transition-fast);
+    align-self: flex-end;
+  }
+
+  .preview-card:hover .preview-card__arrow {
+    transform: translateX(4px);
+  }
+
+  /* ===== Mobile adjustments ===== */
+  @media (max-width: 640px) {
+    .hero__map-wrapper {
+      width: 200px;
+    }
+
+    .stats__grid {
+      grid-template-columns: 1fr 1fr;
+      gap: var(--gap-md);
+    }
+
+    .previews__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

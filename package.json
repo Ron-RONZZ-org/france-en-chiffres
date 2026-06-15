@@ -1,0 +1,14 @@
+{
+  "name": "france-en-chiffres",
+  "type": "module",
+  "version": "0.1.0",
+  "description": "La France en chiffres — history, culture, geography told through numbers",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "astro": "^5.0.0"
+  }
+}
