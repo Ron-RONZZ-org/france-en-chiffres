@@ -1,68 +1,69 @@
 ---
-// FranceMap.astro — Animated SVG outline of France
-// Uses stroke-dasharray animation to draw France's silhouette
+// FranceMap.astro — Realistic SVG outline of France including Corsica and DOM-COM
+// Source: France_departements.svg → src/data/france-map-data.json
+import { france, dom } from '../data/france-map-data.json';
 ---
 
 <svg
   class="france-map"
-  viewBox="0 0 200 230"
+  viewBox={`${france.viewBox.x} ${france.viewBox.y} ${france.viewBox.width} ${france.viewBox.height}`}
   fill="none"
   xmlns="http://www.w3.org/2000/svg"
-  aria-label="Carte de la France métropolitaine"
+  aria-label="Carte de la France — métropole, Corse et outre-mer"
   role="img"
 >
   <path
     class="france-map__outline"
-    d="M 85,18
-       L 95,20
-       L 108,26
-       L 115,35
-       L 118,48
-       L 118,60
-       L 115,74
-       L 110,88
-       L 105,98
-       L 98,106
-       L 88,110
-       L 78,112
-       L 68,110
-       L 58,106
-       L 48,100
-       L 38,94
-       L 28,88
-       L 20,78
-       L 14,68
-       L 10,58
-       L 8,48
-       L 4,40
-       L 10,34
-       L 16,28
-       L 24,24
-       L 32,20
-       L 44,17
-       L 56,15
-       L 70,14
-       Z"
+    d={france.path}
     stroke="currentColor"
-    stroke-width="2.5"
+    stroke-width="3"
     stroke-linecap="round"
     stroke-linejoin="round"
   />
 </svg>
 
+{
+  dom.length > 0 && (
+    <div class="dom-insets">
+      {dom.map((territory, i) => (
+        <div class="dom-insets__item" style={`--i: ${i}`}>
+          <svg
+            class="dom-insets__svg"
+            viewBox={`${territory.viewBox.x} ${territory.viewBox.y} ${territory.viewBox.width} ${territory.viewBox.height}`}
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-label={territory.label}
+            role="img"
+          >
+            <path
+              class="dom-insets__path"
+              d={territory.path}
+              stroke="currentColor"
+              stroke-width="3"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          <span class="dom-insets__label">{territory.label}</span>
+        </div>
+      ))}
+    </div>
+  )
+}
+
 <style>
   .france-map {
     width: 100%;
-    max-width: 320px;
+    max-width: 400px;
     height: auto;
     color: var(--color-french-blue);
     filter: drop-shadow(0 0 20px rgba(0, 35, 149, 0.4));
   }
 
   .france-map__outline {
-    stroke-dasharray: 800;
-    stroke-dashoffset: 800;
-    animation: draw-france 3s ease-out forwards;
+    stroke-dasharray: 10000;
+    stroke-dashoffset: 10000;
+    animation: draw-france 4s ease-out forwards;
   }
 
   @keyframes draw-france {
@@ -71,10 +72,88 @@
     }
   }
 
+  /* ===== DOM-COM insets ===== */
+  .dom-insets {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--gap-md);
+    margin-top: var(--gap-md);
+  }
+
+  .dom-insets__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--gap-xs);
+    opacity: 0;
+    animation: fade-up-dom 0.6s ease-out calc(0.5s + var(--i, 0) * 0.15s) forwards;
+  }
+
+  @keyframes fade-up-dom {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .dom-insets__svg {
+    width: 60px;
+    height: 60px;
+    color: var(--color-french-blue);
+    opacity: 0.7;
+    transition: opacity var(--transition-fast);
+  }
+
+  .dom-insets__svg:hover {
+    opacity: 1;
+  }
+
+  .dom-insets__path {
+    stroke-dasharray: 3000;
+    stroke-dashoffset: 3000;
+    animation: draw-dom 2s ease-out calc(0.5s + var(--i, 0) * 0.2s) forwards;
+  }
+
+  @keyframes draw-dom {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  .dom-insets__label {
+    font-size: 0.6rem;
+    color: var(--color-text-muted);
+    text-align: center;
+    white-space: nowrap;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .france-map__outline {
       stroke-dashoffset: 0;
       animation: none;
+    }
+    .dom-insets__path {
+      stroke-dashoffset: 0;
+      animation: none;
+    }
+    .dom-insets__item {
+      opacity: 1;
+      animation: none;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .france-map {
+      max-width: 300px;
+    }
+    .dom-insets__svg {
+      width: 45px;
+      height: 45px;
     }
   }
 </style>

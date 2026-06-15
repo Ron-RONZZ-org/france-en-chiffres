@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "test": "node src/tests/france-map.test.cjs",
+    "test:all": "npm run build && npm run test"
   },
   "dependencies": {
     "@astrojs/tailwind": "^6.0.2",
