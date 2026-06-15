@@ -174,6 +174,42 @@ function main() {
   const domData = extractDOMTerritories(svg, domBlock);
   console.log(`DOM-COM: ${domData.length} territories`);
   
+  // Extract metropolitan departments
+  console.log('Extracting departments...');
+  const deptStart = svg.indexOf('id="Départements_Métropolitains"');
+  let gStart = deptStart;
+  while (gStart > 0 && svg.substring(gStart, gStart+3) !== '<g ') gStart--;
+  // Find the DEPARTMENTS_JSON_PATH for output
+  const DEPARTMENTS_JSON_PATH = path.join(__dirname, '..', 'data', 'france-departments.json');
+  
+  // Get the department group transform
+  const deptOpeningTag = svg.substring(gStart, gStart + 200);
+  const deptTransformMatch = deptOpeningTag.match(/transform="([^"]+)"/);
+  const deptTransform = deptTransformMatch ? deptTransformMatch[1] : '';
+  
+  // Find the matching closing tag of the department group
+  let depth = 1;
+  let gEnd = gStart;
+  for (let i = gStart + 3; i < svg.length; i++) {
+    if (svg.substring(i, i+3) === '<g ') depth++;
+    else if (svg.substring(i, i+4) === '</g>') { depth--; if (depth === 0) { gEnd = i + 4; break; } }
+  }
+  const deptBlock = svg.substring(gStart, gEnd);
+  const deptPathRegex = /<path[^>]*id="Dep(\d*[A-Z]?\d*)_([^"]+)"[^>]*d="([^"]+)"/g;
+  const departments = [];
+  let dm;
+  while ((dm = deptPathRegex.exec(deptBlock)) !== null) {
+    const num = dm[1], rawName = dm[2], d = dm[3];
+    if (!num || rawName === 'Reg_bound') continue;
+    departments.push({ num, name: rawName, path: d });
+  }
+  console.log(`Departments: ${departments.length} extracted`);
+  
+  // Apply matrix transforms to any department that needs it (check transform on parent groups)
+  const deptOutput = { transform: deptTransform, departments };
+  fs.writeFileSync(DEPARTMENTS_JSON_PATH, JSON.stringify(deptOutput, null, 2));
+  console.log(`Written ${DEPARTMENTS_JSON_PATH}`);
+  
   const output = { france: { path: francePath, bbox: franceBbox, viewBox: franceViewBox }, dom: domData };
   fs.writeFileSync(OUTPUT_PATH, JSON.stringify(output, null, 2));
   console.log(`Written ${OUTPUT_PATH}`);

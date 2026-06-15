@@ -1,0 +1,32 @@
+---
+import Base from '../../layouts/Base.astro';
+import InteractiveFranceMap from '../../components/InteractiveFranceMap.astro';
+---
+
+<Base title="Carte des départements — France en Chiffres" description="Carte interactive des départements français — survolez pour découvrir chaque département">
+  <section class="section dept-page">
+    <div class="container">
+      <h1 class="section__title">Carte des départements français</h1>
+      <p class="section__subtitle">
+        Survolez un département pour voir son nom et son numéro.
+      </p>
+      <div class="french-separator"></div>
+
+      <InteractiveFranceMap variant="geography" />
+    </div>
+  </section>
+</Base>
+
+<style>
+  .dept-page {
+    padding-top: var(--gap-xl);
+  }
+
+  .section__subtitle {
+    color: var(--color-text-muted);
+    text-align: center;
+    max-width: 500px;
+    margin: 0 auto var(--gap-lg);
+    font-size: 1rem;
+  }
+</style>

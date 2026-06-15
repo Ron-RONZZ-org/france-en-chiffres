@@ -53,12 +53,19 @@ france-en-chiffres/
 │   └── France_departements.svg  # Source SVG for France territory outlines
 ├── src/
 │   ├── pages/               # Route pages (index, history, culture, ...)
+│   │   └── geography/
+│   │       └── departements-francais.astro  # Interactive department map
 │   ├── components/          # Reusable Astro/HTML components
+│   │   ├── InteractiveFranceMap.astro  # Department-level interactive map (hero + geography)
+│   │   ├── Counter.astro
+│   │   ├── Timeline.astro
+│   │   └── ...
 │   ├── layouts/             # Page layout wrappers (Base.astro)
 │   ├── data/                # JSON data files (statistics, timelines, map)
 │   │   ├── france.json
 │   │   ├── history.json
-│   │   └── france-map-data.json  # Extracted SVG paths for FranceMap
+│   │   ├── france-map-data.json       # Extracted SVG paths for FranceMap
+│   │   └── france-departments.json    # Individual department paths (96 depts)
 │   ├── scripts/             # Build-time helper scripts
 │   │   └── extract-france-map.js # Parse France_departements.svg → data JSON
 │   ├── tests/               # Automated validation tests

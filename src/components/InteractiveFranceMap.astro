@@ -1,0 +1,356 @@
+---
+// InteractiveFranceMap.astro — Department-level interactive map
+// Props: variant = "hero" | "geography"
+import { france, dom } from '../data/france-map-data.json';
+import departmentsData from '../data/france-departments.json';
+
+export interface Props {
+  variant?: 'hero' | 'geography';
+}
+
+const { variant = 'geography' } = Astro.props;
+const isHero = variant === 'hero';
+const departments = departmentsData.departments;
+const deptTransform = departmentsData.transform;
+
+// Categorise DOM-COM territories by geographic region
+const caribbean = dom.filter((d) => ['Guadeloupe', 'Martinique'].includes(d.id));
+const southAmerica = dom.filter((d) => ['Guyane'].includes(d.id));
+const indianOcean = dom.filter((d) => ['Réunion', 'Mayotte'].includes(d.id));
+---
+
+{
+  isHero ? (
+    <div class="france-map-layout">
+      <div class="france-map-layout__sidebar france-map-layout__sidebar--left">
+        {[...caribbean, ...southAmerica].map((territory, i) => (
+          <div class="dom-insets__item" style={`--i: ${i}`}>
+            <svg class="dom-insets__svg"
+              viewBox={`${territory.viewBox.x} ${territory.viewBox.y} ${territory.viewBox.width} ${territory.viewBox.height}`}
+              fill="none" xmlns="http://www.w3.org/2000/svg"
+              aria-label={territory.label} role="img">
+              <title>{territory.label}</title>
+              <path class="dom-insets__path" d={territory.path}
+                stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <span class="dom-insets__label">{territory.label}</span>
+          </div>
+        ))}
+      </div>
+
+      <div class="france-map-layout__center">
+        <svg class="france-map"
+          viewBox={`${france.viewBox.x} ${france.viewBox.y} ${france.viewBox.width} ${france.viewBox.height}`}
+          fill="none" xmlns="http://www.w3.org/2000/svg"
+          aria-label="Carte de la France — métropole, Corse et départements"
+          role="img">
+          <path class="france-map__glow" d={france.path}
+            stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" opacity="0.15" />
+          <path class="france-map__outline" d={france.path}
+            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+
+          <g class="departments departments--hero" transform={deptTransform}>
+            {departments.map((dept) => (
+              <path key={dept.num} class="department" d={dept.path}
+                data-num={dept.num} data-name={dept.name}
+                fill="transparent" stroke="currentColor" stroke-width="1.2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <title>{dept.name} ({dept.num})</title>
+              </path>
+            ))}
+          </g>
+        </svg>
+      </div>
+
+      <div class="france-map-layout__sidebar france-map-layout__sidebar--right">
+        {indianOcean.map((territory, i) => (
+          <div class="dom-insets__item" style={`--i: ${i + caribbean.length + southAmerica.length}`}>
+            <svg class="dom-insets__svg"
+              viewBox={`${territory.viewBox.x} ${territory.viewBox.y} ${territory.viewBox.width} ${territory.viewBox.height}`}
+              fill="none" xmlns="http://www.w3.org/2000/svg"
+              aria-label={territory.label} role="img">
+              <title>{territory.label}</title>
+              <path class="dom-insets__path" d={territory.path}
+                stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <span class="dom-insets__label">{territory.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  ) : (
+    <div class="geography-layout">
+      <div class="geography-layout__main">
+        <svg class="geography-map"
+          viewBox={`${france.viewBox.x} ${france.viewBox.y} ${france.viewBox.width} ${france.viewBox.height}`}
+          fill="none" xmlns="http://www.w3.org/2000/svg"
+          aria-label="Carte des départements français"
+          role="img">
+          <g class="departments" transform={deptTransform}>
+            {departments.map((dept) => (
+              <path key={dept.num} class="department department--geography" d={dept.path}
+                data-num={dept.num} data-name={dept.name}
+                stroke="currentColor" stroke-width="1"
+                stroke-linecap="round" stroke-linejoin="round">
+                <title>{dept.name} ({dept.num})</title>
+              </path>
+            ))}
+          </g>
+        </svg>
+
+        <div class="geography-layout__dom">
+          {dom.map((territory) => (
+            <div class="dom-insets__item">
+              <svg class="dom-insets__svg dom-insets__svg--geography"
+                viewBox={`${territory.viewBox.x} ${territory.viewBox.y} ${territory.viewBox.width} ${territory.viewBox.height}`}
+                fill="none" xmlns="http://www.w3.org/2000/svg"
+                aria-label={territory.label} role="img">
+                <title>{territory.label}</title>
+                <path class="dom-insets__path" d={territory.path}
+                  stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              <span class="dom-insets__label">{territory.label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+<script>
+  // Interactive tooltip for geography mode
+  const isGeo = document.querySelector('.geography-layout') !== null;
+  if (isGeo) {
+    const tooltip = document.createElement('div');
+    tooltip.className = 'dept-tooltip';
+    document.body.appendChild(tooltip);
+
+    document.querySelectorAll('.department--geography').forEach((path) => {
+      path.addEventListener('mouseenter', () => {
+        const name = path.getAttribute('data-name');
+        const num = path.getAttribute('data-num');
+        tooltip.textContent = name + ' (' + num + ')';
+        tooltip.classList.add('is-visible');
+      });
+      path.addEventListener('mousemove', (e) => {
+        tooltip.style.left = (e.clientX + 12) + 'px';
+        tooltip.style.top = (e.clientY + 12) + 'px';
+      });
+      path.addEventListener('mouseleave', () => {
+        tooltip.classList.remove('is-visible');
+      });
+    });
+  }
+</script>
+
+<style>
+  /* ===== Shared ===== */
+  .department {
+    cursor: pointer;
+    transition: fill var(--transition-fast), stroke-width var(--transition-fast), stroke var(--transition-fast);
+  }
+
+  .department:hover {
+    fill: rgba(212, 168, 67, 0.2);
+    stroke: var(--color-accent-gold);
+    stroke-width: 2;
+  }
+
+  .dom-insets__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+  }
+
+  .dom-insets__svg {
+    width: 50px;
+    height: 50px;
+    color: var(--color-accent-gold);
+    opacity: 0.7;
+    transition: opacity var(--transition-fast);
+  }
+
+  .dom-insets__svg:hover {
+    opacity: 1;
+  }
+
+  .dom-insets__path {
+    transition: stroke var(--transition-fast), stroke-width var(--transition-fast);
+    cursor: pointer;
+  }
+
+  .dom-insets__path:hover {
+    stroke: var(--color-accent-gold);
+    stroke-width: 4;
+  }
+
+  .dom-insets__label {
+    font-size: 0.55rem;
+    color: var(--color-text-muted);
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .france-map__outline,
+    .france-map__glow,
+    .departments--hero .department {
+      animation: none;
+    }
+  }
+
+  /* ===== Hero variant ===== */
+  .france-map-layout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--gap-md);
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .france-map-layout__sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-sm);
+    flex-shrink: 0;
+  }
+
+  .france-map-layout__center {
+    flex-shrink: 0;
+  }
+
+  .france-map {
+    width: 280px;
+    height: auto;
+    color: var(--color-accent-gold);
+    filter: drop-shadow(0 0 16px rgba(212, 168, 67, 0.35));
+  }
+
+  .france-map__outline {
+    stroke-dasharray: 10000;
+    stroke-dashoffset: 10000;
+    animation: draw-france 4s ease-out forwards;
+  }
+
+  .france-map__glow {
+    stroke-dasharray: 10000;
+    stroke-dashoffset: 10000;
+    animation: draw-france 4s ease-out forwards;
+  }
+
+  @keyframes draw-france {
+    to { stroke-dashoffset: 0; }
+  }
+
+  .departments--hero {
+    opacity: 0;
+    animation: fade-depts 0.8s ease-out 4.2s forwards;
+  }
+
+  @keyframes fade-depts {
+    to { opacity: 1; }
+  }
+
+  .dom-insets__item {
+    opacity: 0;
+    animation: fade-up-dom 0.6s ease-out calc(0.8s + var(--i, 0) * 0.15s) forwards;
+  }
+
+  @keyframes fade-up-dom {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .dom-insets__svg {
+    width: 50px;
+    height: 50px;
+  }
+
+  /* ===== Geography variant ===== */
+  .geography-layout {
+    width: 100%;
+  }
+
+  .geography-layout__main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--gap-lg);
+  }
+
+  .geography-map {
+    width: 100%;
+    max-width: 800px;
+    height: auto;
+    color: var(--color-text-muted);
+  }
+
+  .geography-layout__dom {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--gap-md);
+  }
+
+  .dom-insets__svg--geography {
+    width: 70px;
+    height: 70px;
+  }
+
+  .department--geography {
+    fill: rgba(212, 168, 67, 0.05);
+    stroke: var(--color-text-muted);
+  }
+
+  /* Tooltip */
+  .dept-tooltip {
+    position: fixed;
+    z-index: 1000;
+    pointer-events: none;
+    background: var(--color-bg-card);
+    color: var(--color-accent-gold);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    padding: 4px 10px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+    white-space: nowrap;
+  }
+
+  .dept-tooltip.is-visible {
+    opacity: 1;
+  }
+
+  /* ===== Responsive ===== */
+  @media (max-width: 768px) {
+    .france-map-layout {
+      flex-wrap: wrap;
+      max-width: 320px;
+      gap: var(--gap-sm);
+    }
+    .france-map-layout__sidebar {
+      flex-direction: row;
+      gap: var(--gap-xs);
+    }
+    .france-map-layout__sidebar--left { order: 1; flex-basis: 100%; justify-content: flex-end; padding-right: var(--gap-xs); }
+    .france-map-layout__sidebar--right { order: 2; flex-basis: 100%; justify-content: flex-start; padding-left: var(--gap-xs); }
+    .france-map-layout__center { order: 0; }
+    .france-map { width: 240px; }
+    .dom-insets__svg { width: 40px; height: 40px; }
+    .geography-map { max-width: 100%; }
+  }
+
+  @media (max-width: 400px) {
+    .france-map-layout { flex-direction: column; align-items: center; }
+    .france-map-layout__sidebar { flex-direction: row; flex-basis: auto; justify-content: center; padding: 0; order: 1; }
+    .france-map-layout__sidebar--left, .france-map-layout__sidebar--right { padding: 0; }
+    .france-map { width: 200px; }
+    .dom-insets__svg { width: 35px; height: 35px; }
+  }
+</style>

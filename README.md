@@ -193,7 +193,7 @@ france-en-chiffres/
 │   ├── pages/            # Routes du site (1 fichier = 1 page)
 │   ├── components/       # Composants réutilisables
 │   │   ├── Counter.astro      # Compteur animé
-│   │   ├── FranceMap.astro    # Carte SVG réaliste (Métropole + Corse + DOM-COM)
+│   │   ├── InteractiveFranceMap.astro  # Carte interactive (héros + géographie)
 │   │   ├── Timeline.astro     # Conteneur de la frise
 │   │   ├── TimelineEra.astro  # Section d'époque
 │   │   ├── TimelineEvent.astro # Événement individuel
@@ -208,6 +208,7 @@ france-en-chiffres/
 │   ├── data/
 │   │   ├── france.json        # Stats de la page d'accueil
 │   │   ├── france-map-data.json # Chemins SVG extraits (Métropole + DOM-COM)
+│   │   │   ├── france-departments.json # 96 départements métropolitains
 │   │   ├── history.json       # Données de la frise chronologique
 │   │   └── history.types.ts   # Types TypeScript (pour l'éditeur de code)
 │   └── styles/

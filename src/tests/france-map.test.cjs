@@ -37,7 +37,23 @@ assert.ok(fs.existsSync(svgPath), 'France_departements.svg must exist in public/
 const svgContent = fs.readFileSync(svgPath, 'utf-8');
 assert.ok(svgContent.includes('Terres_françaises'), 'Source SVG must contain Terres_françaises');
 assert.ok(svgContent.includes('Encarts_DOM-COM'), 'Source SVG must contain DOM-COM insets');
+assert.ok(svgContent.includes('Départements_Métropolitains'), 'Source SVG must contain departments');
 console.log('✓ Test 3: Source SVG asset in public/ is valid');
+
+// ── Test 3b: Department data file exists ──
+const deptDataPath = path.join(__dirname, '..', 'data', 'france-departments.json');
+assert.ok(fs.existsSync(deptDataPath), 'france-departments.json must exist');
+const deptData = JSON.parse(fs.readFileSync(deptDataPath, 'utf-8'));
+assert.ok(Array.isArray(deptData.departments), 'Departments field must be an array');
+assert.equal(deptData.departments.length, 96, 'Must have 96 metropolitan departments');
+const sampleDepts = ['01', '75', '2A', '2B', '88'];
+for (const num of sampleDepts) {
+  const d = deptData.departments.find(d => d.num === num);
+  assert.ok(d, `Department ${num} must exist`);
+  assert.ok(d.name, `Department ${num} must have a name`);
+  assert.ok(d.path.length > 100, `Department ${num} path must be > 100 chars`);
+}
+console.log(`✓ Test 3b: Department data file valid (${deptData.departments.length} depts)`);
 
 // ── Test 4: Build output exists ──
 const distPath = path.join(__dirname, '..', '..', 'dist', 'index.html');
@@ -60,10 +76,19 @@ assert.ok(vb.x >= 0, 'France viewBox x should be >= 0');
 assert.ok(vb.y >= 0, 'France viewBox y should be >= 0');
 console.log('✓ Test 5: ViewBox dimensions reasonable');
 
-// ── Test 6: Component file is under 500 lines ──
-const componentPath = path.join(__dirname, '..', '..', 'src', 'components', 'FranceMap.astro');
+// ── Test 6: InteractiveFranceMap component is under 500 lines ──
+const componentPath = path.join(__dirname, '..', '..', 'src', 'components', 'InteractiveFranceMap.astro');
+assert.ok(fs.existsSync(componentPath), 'InteractiveFranceMap.astro must exist');
 const componentLines = fs.readFileSync(componentPath, 'utf-8').split('\n').length;
 assert.ok(componentLines <= 500, `Component must be ≤ 500 lines (currently ${componentLines})`);
 console.log(`✓ Test 6: Component at ${componentLines} lines (≤ 500)`);
+
+// ── Test 7: Geography sub-page exists ──
+const geoPagePath = path.join(__dirname, '..', '..', 'dist', 'geography', 'departements-francais', 'index.html');
+assert.ok(fs.existsSync(geoPagePath), 'Geography sub-page must exist');
+const geoHtml = fs.readFileSync(geoPagePath, 'utf-8');
+assert.ok(geoHtml.includes('department--geography'), 'Geography page must have interactive map');
+assert.ok(geoHtml.includes('dept-tooltip'), 'Geography page must have tooltip JS');
+console.log('✓ Test 7: Geography sub-page built correctly');
 
 console.log('\n🎉 All tests passed!');

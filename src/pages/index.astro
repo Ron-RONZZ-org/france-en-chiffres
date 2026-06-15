@@ -1,7 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import Counter from '../components/Counter.astro';
-import FranceMap from '../components/FranceMap.astro';
+import InteractiveFranceMap from '../components/InteractiveFranceMap.astro';
 import stats from '../data/france.json';
 
 const { hero, keyStats } = stats;
@@ -13,7 +13,7 @@ const { hero, keyStats } = stats;
     <div class="hero__bg"></div>
     <div class="hero__content">
       <div class="hero__map-wrapper">
-        <FranceMap />
+        <InteractiveFranceMap variant="hero" />
       </div>
 
       <div class="hero__text">

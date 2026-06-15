@@ -16,6 +16,11 @@ import Base from '../layouts/Base.astro';
           Une carte interactive de la France avec les données par région
           (population, PIB, superficie, climat) sera bientôt disponible.
         </p>
+        <div class="placeholder__links">
+          <a href="/geography/departements-francais" class="btn btn--primary">
+            Explorer la carte des départements →
+          </a>
+        </div>
         <a href="/" class="btn btn--ghost">← Retour à l'accueil</a>
       </div>
     </div>
@@ -40,5 +45,12 @@ import Base from '../layouts/Base.astro';
   .placeholder__sub {
     color: var(--color-text-muted);
     max-width: 500px;
+  }
+
+  .placeholder__links {
+    display: flex;
+    gap: var(--gap-md);
+    justify-content: center;
+    flex-wrap: wrap;
   }
 </style>
