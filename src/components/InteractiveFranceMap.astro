@@ -12,32 +12,11 @@ const { variant = 'geography' } = Astro.props;
 const isHero = variant === 'hero';
 const departments = departmentsData.departments;
 const deptTransform = departmentsData.transform;
-
-// Categorise DOM-COM territories by geographic region
-const caribbean = dom.filter((d) => ['Guadeloupe', 'Martinique'].includes(d.id));
-const southAmerica = dom.filter((d) => ['Guyane'].includes(d.id));
-const indianOcean = dom.filter((d) => ['Réunion', 'Mayotte'].includes(d.id));
 ---
 
 {
   isHero ? (
     <div class="france-map-layout">
-      <div class="france-map-layout__sidebar france-map-layout__sidebar--left">
-        {[...caribbean, ...southAmerica].map((territory, i) => (
-          <div class="dom-insets__item" style={`--i: ${i}`}>
-            <svg class="dom-insets__svg"
-              viewBox={`${territory.viewBox.x} ${territory.viewBox.y} ${territory.viewBox.width} ${territory.viewBox.height}`}
-              fill="none" xmlns="http://www.w3.org/2000/svg"
-              aria-label={`${territory.label} (${territory.num})`} role="img">
-              <title>{territory.label} ({territory.num})</title>
-              <path class="dom-insets__path" d={territory.path}
-                stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-            <span class="dom-insets__label">{territory.label} ({territory.num})</span>
-          </div>
-        ))}
-      </div>
-
       <div class="france-map-layout__center">
         <svg class="france-map"
           viewBox={`${france.viewBox.x} ${france.viewBox.y} ${france.viewBox.width} ${france.viewBox.height}`}
@@ -60,22 +39,22 @@ const indianOcean = dom.filter((d) => ['Réunion', 'Mayotte'].includes(d.id));
             ))}
           </g>
         </svg>
-      </div>
 
-      <div class="france-map-layout__sidebar france-map-layout__sidebar--right">
-        {indianOcean.map((territory, i) => (
-          <div class="dom-insets__item" style={`--i: ${i + caribbean.length + southAmerica.length}`}>
-            <svg class="dom-insets__svg"
-              viewBox={`${territory.viewBox.x} ${territory.viewBox.y} ${territory.viewBox.width} ${territory.viewBox.height}`}
-              fill="none" xmlns="http://www.w3.org/2000/svg"
-              aria-label={`${territory.label} (${territory.num})`} role="img">
-              <title>{territory.label} ({territory.num})</title>
-              <path class="dom-insets__path" d={territory.path}
-                stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-            <span class="dom-insets__label">{territory.label} ({territory.num})</span>
-          </div>
-        ))}
+        <div class="france-map-layout__dom-row">
+          {dom.map((territory, i) => (
+            <div class="dom-insets__item" style={`--i: ${i}`}>
+              <svg class="dom-insets__svg"
+                viewBox={`${territory.viewBox.x} ${territory.viewBox.y} ${territory.viewBox.width} ${territory.viewBox.height}`}
+                fill="none" xmlns="http://www.w3.org/2000/svg"
+                aria-label={`${territory.label} (${territory.num})`} role="img">
+                <title>{territory.label} ({territory.num})</title>
+                <path class="dom-insets__path" d={territory.path}
+                  stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              <span class="dom-insets__label">{territory.label} ({territory.num})</span>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   ) : (
@@ -205,23 +184,23 @@ const indianOcean = dom.filter((d) => ['Réunion', 'Mayotte'].includes(d.id));
   /* ===== Hero variant ===== */
   .france-map-layout {
     display: flex;
-    align-items: center;
     justify-content: center;
-    gap: var(--gap-md);
     width: 100%;
     max-width: 600px;
     margin: 0 auto;
   }
 
-  .france-map-layout__sidebar {
+  .france-map-layout__center {
     display: flex;
     flex-direction: column;
-    gap: var(--gap-sm);
-    flex-shrink: 0;
+    align-items: center;
+    gap: var(--gap-md);
   }
 
-  .france-map-layout__center {
-    flex-shrink: 0;
+  .france-map-layout__dom-row {
+    display: flex;
+    justify-content: center;
+    gap: var(--gap-md);
   }
 
   .france-map {
@@ -327,17 +306,12 @@ const indianOcean = dom.filter((d) => ['Réunion', 'Mayotte'].includes(d.id));
   /* ===== Responsive ===== */
   @media (max-width: 768px) {
     .france-map-layout {
-      flex-wrap: wrap;
       max-width: 320px;
+    }
+    .france-map-layout__dom-row {
+      flex-wrap: wrap;
       gap: var(--gap-sm);
     }
-    .france-map-layout__sidebar {
-      flex-direction: row;
-      gap: var(--gap-xs);
-    }
-    .france-map-layout__sidebar--left { order: 1; flex-basis: 100%; justify-content: flex-end; padding-right: var(--gap-xs); }
-    .france-map-layout__sidebar--right { order: 2; flex-basis: 100%; justify-content: flex-start; padding-left: var(--gap-xs); }
-    .france-map-layout__center { order: 0; }
     .france-map { width: 240px; }
     .dom-insets__svg { width: 35px; height: 35px; }
     .dom-insets__svg--geography { width: 48px; height: 48px; }
@@ -345,9 +319,6 @@ const indianOcean = dom.filter((d) => ['Réunion', 'Mayotte'].includes(d.id));
   }
 
   @media (max-width: 400px) {
-    .france-map-layout { flex-direction: column; align-items: center; }
-    .france-map-layout__sidebar { flex-direction: row; flex-basis: auto; justify-content: center; padding: 0; order: 1; }
-    .france-map-layout__sidebar--left, .france-map-layout__sidebar--right { padding: 0; }
     .france-map { width: 200px; }
     .dom-insets__svg { width: 30px; height: 30px; }
     .dom-insets__svg--geography { width: 40px; height: 40px; }
