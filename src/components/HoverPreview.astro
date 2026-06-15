@@ -9,7 +9,7 @@ export interface Props {
 const { event, catColor } = Astro.props;
 ---
 
-<div class="hover-preview" role="tooltip" aria-hidden="true">
+<div class="hover-preview" role="tooltip" aria-hidden="true" style={{ '--stat-color': catColor }}>
   <!-- Year -->
   <span class="hover-preview__year">{event.yearDisplay}</span>
 
@@ -17,19 +17,32 @@ const { event, catColor } = Astro.props;
   <h4 class="hover-preview__title">{event.title}</h4>
 
   <!-- Divider -->
-  <div class="hover-preview__divider" style="--divider-color: {catColor}"></div>
+  <div class="hover-preview__divider" style={{ '--divider-color': catColor }}></div>
+
+  <!-- Full description -->
+  <p class="hover-preview__description">{event.description}</p>
+
+  <!-- Divider -->
+  <div class="hover-preview__divider" style={{ '--divider-color': catColor }}></div>
 
   <!-- Summary -->
   <p class="hover-preview__summary">{event.preview.summary}</p>
 
   <!-- Stat chip -->
-  <div class="hover-preview__stat" style="--stat-color: {catColor}">
+  <div class="hover-preview__stat" style={{ '--stat-color': catColor }}>
     <span class="hover-preview__stat-label">{event.preview.statLabel}</span>
     <span class="hover-preview__stat-value">{event.preview.statValue}</span>
   </div>
 
   <!-- Source -->
   <span class="hover-preview__source">{event.source}</span>
+
+  <!-- Page link -->
+  {event.link && (
+    <a href={event.link} class="hover-preview__link" target="_blank" rel="noopener noreferrer">
+      Lire plus sur Wikipédia →
+    </a>
+  )}
 </div>
 
 <style>
@@ -92,9 +105,16 @@ const { event, catColor } = Astro.props;
     border-radius: 1px;
   }
 
-  .hover-preview__summary {
+  .hover-preview__description {
     font-size: 0.85rem;
+    color: var(--color-text-light);
+    line-height: 1.6;
+  }
+
+  .hover-preview__summary {
+    font-size: 0.8rem;
     color: var(--color-text-muted);
+    font-style: italic;
     line-height: 1.5;
   }
 
@@ -124,6 +144,28 @@ const { event, catColor } = Astro.props;
     font-size: 0.65rem;
     color: var(--color-text-muted);
     opacity: 0.5;
+  }
+
+  .hover-preview__link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--gap-xs);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-french-blue, #3b82f6);
+    text-decoration: none;
+    padding: 0.35rem 0.75rem;
+    border-radius: var(--radius-md);
+    background: rgba(59, 130, 246, 0.1);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    transition: background var(--transition-fast),
+                border-color var(--transition-fast);
+    align-self: flex-start;
+  }
+
+  .hover-preview__link:hover {
+    background: rgba(59, 130, 246, 0.2);
+    border-color: rgba(59, 130, 246, 0.4);
   }
 
   /* On mobile, the preview is inline (below the card) */

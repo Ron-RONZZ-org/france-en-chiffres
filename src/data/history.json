@@ -5,10 +5,105 @@
   },
   "eras": [
     {
+      "id": "prehistoire",
+      "label": "Préhistoire & Protohistoire",
+      "period": "450 000 à 600 av. J.-C.",
+      "color": "#78716c",
+      "link": "https://fr.wikipedia.org/wiki/Pr%C3%A9histoire_de_la_France",
+      "events": [
+        {
+          "id": "tautavel",
+          "year": -450000,
+          "yearDisplay": "Vers 450 000 av. J.-C.",
+          "title": "Premiers habitants — Homme de Tautavel",
+          "description": "Les plus anciens vestiges humains découverts en France — un crâne d'Homo heidelbergensis vieux de 450 000 ans — dans la caune de l'Arago à Tautavel, Pyrénées-Orientales. Ces chasseurs-cueilleurs maîtrisent déjà le feu et taillent des outils en pierre.",
+          "category": "scientific",
+          "significance": 5,
+          "stats": { "label": "Âge du crâne", "value": 450, "suffix": " 000 ans", "format": "integer" },
+          "source": "Musée de Tautavel — Centre européen de la Préhistoire",
+          "link": "https://fr.wikipedia.org/wiki/Homme_de_Tautavel",
+          "preview": {
+            "summary": "Les plus anciens habitants du territoire français.",
+            "statLabel": "Espèce",
+            "statValue": "Homo heidelbergensis"
+          }
+        },
+        {
+          "id": "lascaux",
+          "year": -17000,
+          "yearDisplay": "Vers 17 000 av. J.-C.",
+          "title": "Grotte de Lascaux",
+          "description": "Découverte en 1940, la grotte de Lascaux en Dordogne contient plus de 600 peintures et 1 500 gravures préhistoriques, représentant principalement des animaux. Surnommée la « chapelle Sixtine de la Préhistoire », elle est l'un des plus beaux ensembles d'art pariétal au monde.",
+          "category": "cultural",
+          "significance": 5,
+          "stats": { "label": "Peintures", "value": 600, "suffix": "+", "format": "integer" },
+          "source": "Ministère de la Culture — Grotte de Lascaux",
+          "link": "https://fr.wikipedia.org/wiki/Grotte_de_Lascaux",
+          "preview": {
+            "summary": "Chef-d'œuvre de l'art pariétal préhistorique.",
+            "statLabel": "Âge",
+            "statValue": "19 000 ans"
+          }
+        },
+        {
+          "id": "neolithique",
+          "year": -6000,
+          "yearDisplay": "Vers 6 000 av. J.-C.",
+          "title": "Révolution néolithique",
+          "description": "Les premières communautés agricoles s'installent sur le territoire français. La sédentarisation, l'élevage et la culture des céréales transforment profondément la société. Les premiers villages fortifiés apparaissent, et le commerce de l'obsidienne et du silex se développe.",
+          "category": "scientific",
+          "significance": 5,
+          "stats": { "label": "Espèces cultivées", "value": 5, "suffix": "", "format": "integer" },
+          "source": "INRAP — Institut national de recherches archéologiques préventives",
+          "link": "https://fr.wikipedia.org/wiki/N%C3%A9olithique_en_France",
+          "preview": {
+            "summary": "Le passage à l'agriculture et à la sédentarisation.",
+            "statLabel": "Durée",
+            "statValue": "4 000 ans"
+          }
+        },
+        {
+          "id": "carnac",
+          "year": -4500,
+          "yearDisplay": "Vers 4 500 av. J.-C.",
+          "title": "Alignements de Carnac",
+          "description": "Les alignements mégalithiques de Carnac, dans le Morbihan, comptent près de 3 000 menhirs dressés sur plus de 4 km. C'est le plus vaste ensemble mégalithique d'Europe, témoignant d'une organisation sociale complexe dès le Néolithique.",
+          "category": "cultural",
+          "significance": 4,
+          "stats": { "label": "Menhirs", "value": 3000, "suffix": "", "format": "integer" },
+          "source": "Site des mégalithes de Carnac",
+          "link": "https://fr.wikipedia.org/wiki/Alignements_de_Carnac",
+          "preview": {
+            "summary": "Le plus vaste site mégalithique d'Europe.",
+            "statLabel": "Longueur",
+            "statValue": "4 km"
+          }
+        },
+        {
+          "id": "premiers-celtes",
+          "year": -800,
+          "yearDisplay": "Vers 800 av. J.-C.",
+          "title": "Arrivée des Celtes et âge du fer",
+          "description": "Les peuples celtes, originaires d'Europe centrale, s'installent sur le territoire gaulois. La culture de Hallstatt (premier âge du fer, à partir de 800 av. J.-C.) puis de La Tène (second âge du fer, à partir de 450 av. J.-C.) marquent l'émergence d'une civilisation celte organisée en tribus, avec une métallurgie avancée et un commerce actif à travers l'Europe.",
+          "category": "cultural",
+          "significance": 4,
+          "stats": { "label": "Tribus gauloises", "value": 60, "suffix": "+", "format": "integer" },
+          "source": "Musée d'Archéologie nationale de Saint-Germain-en-Laye",
+          "link": "https://fr.wikipedia.org/wiki/Celtes_en_France",
+          "preview": {
+            "summary": "Naissance de la civilisation gauloise.",
+            "statLabel": "Période clé",
+            "statValue": "La Tène à partir de 450 av."
+          }
+        }
+      ]
+    },
+    {
       "id": "gaule",
       "label": "Gaule",
       "period": "600 av. J.-C. à 486",
       "color": "#6366f1",
+      "link": "https://fr.wikipedia.org/wiki/Gaule",
       "events": [
         {
           "id": "fondation-marseille",
@@ -20,6 +115,7 @@
           "significance": 3,
           "stats": { "label": "Fondation", "value": -600, "suffix": "", "format": "year" },
           "source": "Histoire de la Provence",
+          "link": "https://fr.wikipedia.org/wiki/Massalia",
           "preview": {
             "summary": "Première colonie grecque sur le territoire français.",
             "statLabel": "Ancienneté",
@@ -36,6 +132,7 @@
           "significance": 5,
           "stats": { "label": "Légions romaines", "value": 12, "suffix": "", "format": "integer" },
           "source": "Jules César, Commentaires sur la Guerre des Gaules",
+          "link": "https://fr.wikipedia.org/wiki/Bataille_d%27Al%C3%A9sia",
           "preview": {
             "summary": "Victoire romaine qui met fin à l'indépendance gauloise.",
             "statLabel": "Forces gauloises",
@@ -52,6 +149,7 @@
           "significance": 5,
           "stats": { "label": "Durée du règne", "value": 30, "suffix": " ans", "format": "integer" },
           "source": "Grégoire de Tours, Histoire des Francs",
+          "link": "https://fr.wikipedia.org/wiki/Clovis_Ier",
           "preview": {
             "summary": "Fondateur du royaume des Francs.",
             "statLabel": "Baptême",
@@ -65,6 +163,7 @@
       "label": "Moyen Âge",
       "period": "486 à 1453",
       "color": "#8b5cf6",
+      "link": "https://fr.wikipedia.org/wiki/Moyen_%C3%82ge",
       "events": [
         {
           "id": "charlemagne",
@@ -76,6 +175,7 @@
           "significance": 5,
           "stats": { "label": "Empire", "value": 1200000, "suffix": " km²", "format": "integer" },
           "source": "Éginhard, Vie de Charlemagne",
+          "link": "https://fr.wikipedia.org/wiki/Couronnement_de_Charlemagne",
           "preview": {
             "summary": "Naissance de l'empire carolingien.",
             "statLabel": "Capitale",
@@ -92,6 +192,7 @@
           "significance": 5,
           "stats": { "label": "Durée de la dynastie", "value": 861, "suffix": " ans", "format": "integer" },
           "source": "Richer de Reims, Histoires",
+          "link": "https://fr.wikipedia.org/wiki/Hugues_Capet",
           "preview": {
             "summary": "Fondation de la plus longue dynastie d'Europe.",
             "statLabel": "Rois capétiens",
@@ -108,6 +209,7 @@
           "significance": 4,
           "stats": { "label": "Pertes françaises", "value": 6000, "suffix": " hommes", "format": "integer" },
           "source": "Enguerrand de Monstrelet, Chroniques",
+          "link": "https://fr.wikipedia.org/wiki/Bataille_d%27Azincourt",
           "preview": {
             "summary": "Désastre militaire de la guerre de Cent Ans.",
             "statLabel": "Durée du conflit",
@@ -124,6 +226,7 @@
           "significance": 5,
           "stats": { "label": "Âge de Jeanne", "value": 17, "suffix": " ans", "format": "integer" },
           "source": "Procès de condamnation de Jeanne d'Arc",
+          "link": "https://fr.wikipedia.org/wiki/Jeanne_d%27Arc",
           "preview": {
             "summary": "Libératrice d'Orléans, héroïne nationale.",
             "statLabel": "Canonisée",
@@ -137,6 +240,7 @@
       "label": "Renaissance",
       "period": "1453 à 1610",
       "color": "#ec4899",
+      "link": "https://fr.wikipedia.org/wiki/Renaissance_fran%C3%A7aise",
       "events": [
         {
           "id": "francois-ier",
@@ -148,6 +252,7 @@
           "significance": 5,
           "stats": { "label": "Châteaux construits", "value": 20, "suffix": "+", "format": "integer" },
           "source": "Robert Knecht, François Ier",
+          "link": "https://fr.wikipedia.org/wiki/Fran%C3%A7ois_Ier_(roi_de_France)",
           "preview": {
             "summary": "Le roi mécène qui importe la Renaissance en France.",
             "statLabel": "Léonard de Vinci",
@@ -164,6 +269,7 @@
           "significance": 5,
           "stats": { "label": "Années de guerres civiles", "value": 36, "suffix": "", "format": "integer" },
           "source": "Janine Garrisson, L'Édit de Nantes",
+          "link": "https://fr.wikipedia.org/wiki/%C3%89dit_de_Nantes",
           "preview": {
             "summary": "Paix religieuse mettant fin aux guerres de religion.",
             "statLabel": "Révoqué",
@@ -180,6 +286,7 @@
           "significance": 4,
           "stats": { "label": "Édition originale", "value": 1580, "suffix": "", "format": "year" },
           "source": "Bibliothèque nationale de France",
+          "link": "https://fr.wikipedia.org/wiki/Michel_de_Montaigne",
           "preview": {
             "summary": "Naissance de la littérature française moderne.",
             "statLabel": "Chapitres",
@@ -193,6 +300,7 @@
       "label": "Grand Siècle",
       "period": "1610 à 1715",
       "color": "#f43f5e",
+      "link": "https://fr.wikipedia.org/wiki/Grand_Si%C3%A8cle_(France)",
       "events": [
         {
           "id": "academie-francaise",
@@ -249,6 +357,7 @@
       "label": "Siècle des Lumières",
       "period": "1715 à 1789",
       "color": "#f97316",
+      "link": "https://fr.wikipedia.org/wiki/Si%C3%A8cle_des_Lumi%C3%A8res",
       "events": [
         {
           "id": "encyclopedie",
@@ -260,6 +369,7 @@
           "significance": 5,
           "stats": { "label": "Volumes", "value": 35, "suffix": "", "format": "integer" },
           "source": "Bibliothèque nationale de France",
+          "link": "https://fr.wikipedia.org/wiki/Encyclop%C3%A9die_(Diderot,_d%27Alembert)",
           "preview": {
             "summary": "La plus grande entreprise éditoriale du XVIIIe siècle.",
             "statLabel": "Contributeurs",
@@ -276,6 +386,7 @@
           "significance": 4,
           "stats": { "label": "Œuvres de Voltaire", "value": 70, "suffix": " volumes", "format": "integer" },
           "source": "Société Voltaire",
+          "link": "https://fr.wikipedia.org/wiki/Voltaire",
           "preview": {
             "summary": "Défenseur de la liberté de pensée.",
             "statLabel": "Lettres",
@@ -289,6 +400,7 @@
       "label": "Révolution & Empire",
       "period": "1789 à 1815",
       "color": "#eab308",
+      "link": "https://fr.wikipedia.org/wiki/R%C3%A9volution_fran%C3%A7aise",
       "events": [
         {
           "id": "bastille",
@@ -300,6 +412,7 @@
           "significance": 5,
           "stats": { "label": "Prisonniers libérés", "value": 7, "suffix": "", "format": "integer" },
           "source": "Archives nationales",
+          "link": "https://fr.wikipedia.org/wiki/Prise_de_la_Bastille",
           "preview": {
             "summary": "L'événement fondateur de la Révolution française.",
             "statLabel": "Fête nationale",
@@ -316,6 +429,7 @@
           "significance": 5,
           "stats": { "label": "Articles", "value": 17, "suffix": "", "format": "integer" },
           "source": "Assemblée nationale",
+          "link": "https://fr.wikipedia.org/wiki/D%C3%A9claration_des_droits_de_l%27homme_et_du_citoyen",
           "preview": {
             "summary": "Texte fondateur des droits fondamentaux.",
             "statLabel": "Inspiré par",
@@ -332,6 +446,7 @@
           "significance": 5,
           "stats": { "label": "Batailles gagnées", "value": 52, "suffix": "", "format": "integer" },
           "source": "Mémorial de Sainte-Hélène",
+          "link": "https://fr.wikipedia.org/wiki/Sacre_de_Napol%C3%A9on_Ier",
           "preview": {
             "summary": "Fondation du Premier Empire.",
             "statLabel": "Code civil",
@@ -348,6 +463,7 @@
           "significance": 5,
           "stats": { "label": "Durée de l'Empire", "value": 11, "suffix": " ans", "format": "integer" },
           "source": "Archives de la Guerre",
+          "link": "https://fr.wikipedia.org/wiki/Bataille_de_Waterloo",
           "preview": {
             "summary": "Chute définitive de Napoléon.",
             "statLabel": "Morts en 24h",
@@ -361,6 +477,7 @@
       "label": "XIXe Siècle",
       "period": "1815 à 1914",
       "color": "#22c55e",
+      "link": "https://fr.wikipedia.org/wiki/France_au_XIXe_si%C3%A8cle",
       "events": [
         {
           "id": "second-empire",
@@ -372,6 +489,7 @@
           "significance": 4,
           "stats": { "label": "Arrondissements de Paris", "value": 20, "suffix": "", "format": "integer" },
           "source": "Georges-Eugène Haussmann, Mémoires",
+          "link": "https://fr.wikipedia.org/wiki/Second_Empire",
           "preview": {
             "summary": "Modernisation de Paris et industrialisation.",
             "statLabel": "Km de boulevards",
@@ -388,6 +506,7 @@
           "significance": 5,
           "stats": { "label": "Durée du régime", "value": 70, "suffix": " ans", "format": "integer" },
           "source": "Assemblée nationale",
+          "link": "https://fr.wikipedia.org/wiki/Troisi%C3%A8me_R%C3%A9publique_(France)",
           "preview": {
             "summary": "Le plus long régime de l'histoire française.",
             "statLabel": "Lois fondatrices",
@@ -404,6 +523,7 @@
           "significance": 5,
           "stats": { "label": "Pour", "value": 341, "suffix": " voix", "format": "integer" },
           "source": "Journal officiel, 1905",
+          "link": "https://fr.wikipedia.org/wiki/Loi_de_s%C3%A9paration_des_%C3%89glises_et_de_l%27%C3%89tat",
           "preview": {
             "summary": "Fondation de la laïcité française.",
             "statLabel": "Contre",
@@ -417,6 +537,7 @@
       "label": "Guerres Mondiales",
       "period": "1914 à 1945",
       "color": "#ef4444",
+      "link": "https://fr.wikipedia.org/wiki/Premi%C3%A8re_Guerre_mondiale",
       "events": [
         {
           "id": "marne",
@@ -428,6 +549,7 @@
           "significance": 5,
           "stats": { "label": "Mobilisés français", "value": 8.7, "suffix": " millions", "format": "decimal" },
           "source": "Service historique de la Défense",
+          "link": "https://fr.wikipedia.org/wiki/Premi%C3%A8re_bataille_de_la_Marne",
           "preview": {
             "summary": "Première grande victoire française de la Grande Guerre.",
             "statLabel": "Morts français",
@@ -444,6 +566,7 @@
           "significance": 5,
           "stats": { "label": "Audience estimée", "value": 1000000, "suffix": " auditeurs", "format": "integer" },
           "source": "Fondation Charles de Gaulle",
+          "link": "https://fr.wikipedia.org/wiki/Appel_du_18_juin",
           "preview": {
             "summary": "Acte fondateur de la France libre.",
             "statLabel": "Durée de l'appel",
@@ -460,6 +583,7 @@
           "significance": 5,
           "stats": { "label": "Soldats alliés", "value": 156000, "suffix": "", "format": "integer" },
           "source": "Mémorial de Caen",
+          "link": "https://fr.wikipedia.org/wiki/D%C3%A9barquement_de_Normandie",
           "preview": {
             "summary": "Le plus grand débarquement de l'histoire.",
             "statLabel": "Plages",
@@ -473,6 +597,7 @@
       "label": "France Contemporaine",
       "period": "1945 à aujourd'hui",
       "color": "#3b82f6",
+      "link": "https://fr.wikipedia.org/wiki/Histoire_de_la_France_depuis_1945",
       "events": [
         {
           "id": "cinquieme-republique",
@@ -484,6 +609,7 @@
           "significance": 5,
           "stats": { "label": "Référendum 'oui'", "value": 82.6, "suffix": " %", "format": "decimal" },
           "source": "Conseil constitutionnel",
+          "link": "https://fr.wikipedia.org/wiki/Cinqui%C3%A8me_R%C3%A9publique_(France)",
           "preview": {
             "summary": "Le régime politique actuel de la France.",
             "statLabel": "Présidents",
@@ -500,6 +626,7 @@
           "significance": 5,
           "stats": { "label": "Grévistes", "value": 10, "suffix": " millions", "format": "decimal" },
           "source": "INSEE, Archives de l'Élysée",
+          "link": "https://fr.wikipedia.org/wiki/Mai_68",
           "preview": {
             "summary": "La plus grande grève générale de l'histoire française.",
             "statLabel": "Manifestants à Paris",
@@ -516,6 +643,7 @@
           "significance": 5,
           "stats": { "label": "Référendum 'oui'", "value": 51.05, "suffix": " %", "format": "decimal" },
           "source": "Conseil constitutionnel",
+          "link": "https://fr.wikipedia.org/wiki/Trait%C3%A9_de_Maastricht",
           "preview": {
             "summary": "La France au cœur de la construction européenne.",
             "statLabel": "Pays fondateurs",
@@ -532,6 +660,7 @@
           "significance": 4,
           "stats": { "label": "Athlètes", "value": 10500, "suffix": "", "format": "integer" },
           "source": "Comité international olympique",
+          "link": "https://fr.wikipedia.org/wiki/Jeux_olympiques_d%27%C3%A9t%C3%A9_de_2024",
           "preview": {
             "summary": "Paris, troisième ville olympique de l'histoire.",
             "statLabel": "Billets vendus",

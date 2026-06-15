@@ -34,6 +34,69 @@ function computeBBox(d) {
   return { minX, minY, maxX, maxY };
 }
 
+function applyMatrixToPath(d, matrix) {
+  // matrix = [a, b, c, d, e, f]  →  x' = a*x + c*y + e,  y' = b*x + d*y + f
+  const [a, b, c, dd, e, f] = matrix;
+  const tokens = d.match(/[mlhvcsqtaz][^mlhvcsqtaz]*/gi);
+  if (!tokens) return d;
+  const result = [];
+  const numRegex = /-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?/g;
+  let isFirst = true;
+
+  for (const token of tokens) {
+    const cmd = token[0], lcmd = cmd.toLowerCase(), abs = cmd === cmd.toUpperCase();
+    if (lcmd === 'z') { result.push('z'); isFirst = true; continue; }
+    const nums = []; let m;
+    while ((m = numRegex.exec(token)) !== null) nums.push(parseFloat(m[0]));
+    if (nums.length === 0) { result.push(cmd); continue; }
+
+    const t = [];
+    const sX = (x) => a * x;
+    const sY = (y) => dd * y;
+    const aT = (x, y) => [a*x + c*y + e, b*x + dd*y + f];
+    const F = (n) => { if (isNaN(n)||!isFinite(n)) return '0'; return Number(n.toFixed(4)).toString(); };
+
+    if (lcmd === 'm') {
+      for (let i = 0; i < nums.length; i += 2) {
+        if (isFirst && i === 0) { const [nx,ny] = aT(nums[i],nums[i+1]); t.push(F(nx),F(ny)); isFirst = false; }
+        else { t.push(F(sX(nums[i])),F(sY(nums[i+1]))); }
+      }
+      result.push('M' + t.join(' '));
+    } else {
+      if (lcmd === 'l' || lcmd === 't') {
+        for (let i = 0; i < nums.length; i += 2) {
+          if (abs) { const [nx,ny] = aT(nums[i],nums[i+1]); t.push(F(nx),F(ny)); }
+          else { t.push(F(sX(nums[i])),F(sY(nums[i+1]))); }
+        }
+      } else if (lcmd === 'h') { for (const n of nums) t.push(F(abs ? a*n+e : sX(n)));
+      } else if (lcmd === 'v') { for (const n of nums) t.push(F(abs ? dd*n+f : sY(n)));
+      } else if (lcmd === 'c') {
+        for (let i = 0; i < nums.length; i += 6) {
+          for (let j = 0; j < 6; j += 2) {
+            if (abs) { const [nx,ny] = aT(nums[i+j],nums[i+j+1]); t.push(F(nx),F(ny)); }
+            else { t.push(F(sX(nums[i+j])),F(sY(nums[i+j+1]))); }
+          }
+        }
+      } else if (lcmd === 's' || lcmd === 'q') {
+        for (let i = 0; i < nums.length; i += 4) {
+          for (let j = 0; j < 4; j += 2) {
+            if (abs) { const [nx,ny] = aT(nums[i+j],nums[i+j+1]); t.push(F(nx),F(ny)); }
+            else { t.push(F(sX(nums[i+j])),F(sY(nums[i+j+1]))); }
+          }
+        }
+      } else if (lcmd === 'a') {
+        for (let i = 0; i < nums.length; i += 7) {
+          t.push(F(sX(nums[i])),F(sY(nums[i+1])),F(nums[i+2]),F(nums[i+3]),F(nums[i+4]));
+          if (abs) { const [nx,ny] = aT(nums[i+5],nums[i+6]); t.push(F(nx),F(ny)); }
+          else { t.push(F(sX(nums[i+5])),F(sY(nums[i+6]))); }
+        }
+      }
+      result.push(cmd + t.join(' '));
+    }
+  }
+  return result.join('');
+}
+
 function extractDOMTerritories(svg, domBlock) {
   const terreIds = {
     Guadeloupe: 'Terre_Guadeloupe',
@@ -62,9 +125,20 @@ function extractDOMTerritories(svg, domBlock) {
     }
     if (!end) { console.warn(`  ${name}: no closing tag`); continue; }
     const section = after.substring(0, end);
-    const paths = [...section.matchAll(/d="([^"]+)"/g)].map(m => m[1]);
+    // Only capture d attributes on <path> elements (avoid false matches)
+    const paths = [...section.matchAll(/<path[^>]*d="([^"]+)"/g)].map(m => m[1]);
     if (!paths.length) { console.warn(`  ${name}: no paths`); continue; }
-    const merged = paths.join(' ');
+    let merged = paths.join(' ');
+    // Check if this territory has a matrix transform (like Mayotte)
+    const transformMatch = section.match(/transform="matrix\(([^)]+)\)"/);
+    if (transformMatch) {
+      const matrix = transformMatch[1].split(',').map(Number);
+      if (matrix.length === 6 && (matrix[0] !== 1 || matrix[3] !== 1)) {
+        // Non-identity matrix found — apply it to path coordinates
+        merged = applyMatrixToPath(merged, matrix);
+        console.log(`  ${name}: applied matrix transform [${matrix.map(n => n.toFixed(4))}]`);
+      }
+    }
     const bbox = computeBBox(merged);
     const pad = 15;
     result.push({ id: name, label: labels[name], path: merged, bbox,

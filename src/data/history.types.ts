@@ -8,6 +8,7 @@ export interface TimelineEvent {
   significance: 1 | 2 | 3 | 4 | 5;
   stats: { label: string; value: number; suffix: string; format?: string };
   source: string;
+  link?: string;
   preview: {
     summary: string;
     statLabel: string;
@@ -20,6 +21,7 @@ export interface Era {
   label: string;
   period: string;
   color: string;
+  link?: string;
   events: TimelineEvent[];
 }
 

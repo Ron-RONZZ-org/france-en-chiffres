@@ -28,9 +28,10 @@ const catColor = categoryColors[event.category] || '#94a3b8';
   data-event-id={event.id}
   data-side={side}
   data-year={event.year}
+  id={"event-" + event.id}
 >
   <!-- Timeline dot on the central line -->
-  <div class="timeline-event__dot" style="--dot-color: {catColor}">
+  <div class="timeline-event__dot" style={{ '--dot-color': catColor }}>
     <span class="timeline-event__dot-inner"></span>
   </div>
 
@@ -48,7 +49,7 @@ const catColor = categoryColors[event.category] || '#94a3b8';
       <!-- Category badge -->
       <span
         class="timeline-event__badge"
-        style="--badge-color: {catColor}"
+        style={{ '--badge-color': catColor }}
       >
         {event.category}
       </span>
