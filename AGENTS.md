@@ -50,26 +50,45 @@ Complex data visualizations   → D3.js (bump charts, choropleths,
 ```
 france-en-chiffres/
 ├── public/                  # Static assets (images, fonts, favicon, SVGs)
-│   └── France_departements.svg  # Source SVG for France territory outlines
+│   ├── France_departements.svg  # Source SVG for France territory outlines
+│   └── media/               # SVG placeholders (served as-is; rasters go in src/media/)
+│       ├── tautavel-crane.svg
+│       ├── lascaux-peintures.svg
+│       └── ...
 ├── src/
 │   ├── pages/               # Route pages (index, history, culture, ...)
+│   │   ├── bibliography.astro           # Aggregated sources listing
+│   │   ├── bibliography/[id].astro      # Per-source page (auto-generated)
 │   │   └── geography/
 │   │       └── departements-francais.astro  # Interactive department map
 │   ├── components/          # Reusable Astro/HTML components
-│   │   ├── InteractiveFranceMap.astro  # Department-level interactive map (hero + geography)
+│   │   ├── InteractiveFranceMap.astro  # Department-level interactive map
 │   │   ├── Counter.astro
 │   │   ├── Timeline.astro
+│   │   ├── TimelineEvent.astro
+│   │   ├── TimelineEra.astro
+│   │   ├── MediaFigure.astro           # <figure> with caption, credit, license
 │   │   └── ...
+│   ├── sources/             # CSL-JSON source files (ISO 690-compatible)
+│   │   ├── insee-2024.json
+│   │   └── ...              # One .json per source, referenced via sourceId
 │   ├── layouts/             # Page layout wrappers (Base.astro)
 │   ├── data/                # JSON data files (statistics, timelines, map)
 │   │   ├── france.json
 │   │   ├── history.json
+│   │   ├── history.types.ts
+│   │   ├── sources.ts               # Build-time source lookup (import.meta.glob)
+│   │   ├── media.json               # Media asset metadata registry
+│   │   ├── media.ts                 # Build-time media lookup (import.meta.glob + fs)
+│   │   ├── media.types.ts           # MediaEntry / ResolvedMedia interfaces
 │   │   ├── france-map-data.json       # Extracted SVG paths for FranceMap
 │   │   └── france-departments.json    # Individual department paths (96 depts)
 │   ├── scripts/             # Build-time helper scripts
 │   │   └── extract-france-map.js # Parse France_departements.svg → data JSON
 │   ├── tests/               # Automated validation tests
-│   │   └── france-map.test.cjs
+│   │   ├── france-map.test.cjs
+│   │   ├── sources.test.cjs           # CSL-JSON source validation
+│   │   └── media.test.cjs             # Media asset validation
 │   └── styles/              # Global CSS
 ├── AGENTS.md                # This file
 ├── astro.config.mjs
@@ -85,8 +104,9 @@ france-en-chiffres/
 3. **One script per page** — bundle all client JS into a single `<script>` per page. No import maps, no code splitting.
 4. **Use data attributes** to pass server data to client scripts (`data-value`, `data-target`). No inline JSON blobs.
 5. **Animations use `prefers-reduced-motion`** — respect user accessibility settings.
-6. **Every stat must have a source** — add a `data-source` attribute or comment citing the source (INSEE, World Bank, etc.).
-7. **Responsive before fancy** — layout must work at 320px before adding any animation.
+6. **Every stat must cite its source** — use `sourceId` referencing a CSL-JSON file in `src/sources/`. The build system resolves it to a hyperlinked citation and generates a bibliography page. Never use inline `source` text.
+7. **Every image needs caption, credit, and license** — register media in `src/data/media.json` with a unique `id`, reference via `mediaId` in data files, render with `<MediaFigure>`. SVG placeholders go in `public/media/`; rasters go in `src/media/` for Astro optimization.
+8. **Responsive before fancy** — layout must work at 320px before adding any animation.
 
 ---
 
