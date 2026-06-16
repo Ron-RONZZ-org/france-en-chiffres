@@ -20,7 +20,7 @@ Le **raccordement aux époques est automatique** : les événements sont affect�
 
 ```bash
 # Avec année (préremplit start et end)
-npm run new:event -- mon-evenement 1515
+npm run new:event -- mon-evenement 1515 1517
 
 # Sans année (start et end laissés vides)
 npm run new:event -- mon-evenement
