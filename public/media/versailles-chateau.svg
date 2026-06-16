@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <rect width="800" height="600" fill="#0c4a6e"/>
+  <!-- Garden -->
+  <rect y="350" width="800" height="250" fill="#166534"/>
+  <!-- Garden paths -->
+  <rect x="0" y="370" width="800" height="220" fill="#14532d" rx="5"/>
+  <line x1="400" y1="350" x2="400" y2="600" stroke="#22c55e" stroke-width="2" opacity="0.5"/>
+  <line x1="200" y1="350" x2="200" y2="500" stroke="#22c55e" stroke-width="1" opacity="0.3"/>
+  <line x1="600" y1="350" x2="600" y2="500" stroke="#22c55e" stroke-width="1" opacity="0.3"/>
+  <!-- Pond -->
+  <ellipse cx="400" cy="440" rx="120" ry="40" fill="#0284c7" opacity="0.6"/>
+  <!-- Fountains -->
+  <circle cx="400" cy="420" r="6" fill="#bae6fd"/>
+  <circle cx="350" cy="430" r="3" fill="#bae6fd"/>
+  <circle cx="450" cy="430" r="3" fill="#bae6fd"/>
+  <!-- Chateau body -->
+  <rect x="180" y="140" width="440" height="130" rx="4" fill="#f5f5f4" stroke="#d6d3d1" stroke-width="2"/>
+  <!-- Central block -->
+  <rect x="300" y="100" width="200" height="100" rx="4" fill="#f5f5f4" stroke="#d6d3d1" stroke-width="2"/>
+  <!-- Wings -->
+  <rect x="140" y="160" width="50" height="110" rx="3" fill="#e7e5e4" stroke="#d6d3d1" stroke-width="1"/>
+  <rect x="610" y="160" width="50" height="110" rx="3" fill="#e7e5e4" stroke="#d6d3d1" stroke-width="1"/>
+  <!-- Roof -->
+  <rect x="300" y="75" width="200" height="30" rx="3" fill="#475569" stroke="#334155" stroke-width="2"/>
+  <rect x="180" y="120" width="440" height="25" rx="3" fill="#475569" stroke="#334155" stroke-width="2"/>
+  <rect x="140" y="145" width="50" height="20" rx="2" fill="#475569" stroke="#334155" stroke-width="1"/>
+  <rect x="610" y="145" width="50" height="20" rx="2" fill="#475569" stroke="#334155" stroke-width="1"/>
+  <!-- Windows -->
+  <rect x="210" y="160" width="25" height="40" rx="3" fill="#0c4a6e" opacity="0.7"/>
+  <rect x="250" y="160" width="25" height="40" rx="3" fill="#0c4a6e" opacity="0.7"/>
+  <rect x="330" y="130" width="30" height="50" rx="4" fill="#0c4a6e" opacity="0.7"/>
+  <rect x="370" y="130" width="30" height="50" rx="4" fill="#0c4a6e" opacity="0.7"/>
+  <rect x="410" y="130" width="30" height="50" rx="4" fill="#0c4a6e" opacity="0.7"/>
+  <rect x="450" y="130" width="30" height="50" rx="4" fill="#0c4a6e" opacity="0.7"/>
+  <rect x="530" y="160" width="25" height="40" rx="3" fill="#0c4a6e" opacity="0.7"/>
+  <rect x="570" y="160" width="25" height="40" rx="3" fill="#0c4a6e" opacity="0.7"/>
+  <!-- Clock -->
+  <circle cx="400" cy="180" r="8" fill="#eab308"/>
+  <rect x="398" y="180" width="4" height="5" rx="1" fill="#1c1917"/>
+  <!-- Ground floor -->
+  <rect x="220" y="270" width="360" height="80" rx="3" fill="#e7e5e4" stroke="#d6d3d1" stroke-width="1"/>
+  <rect x="240" y="285" width="20" height="35" rx="3" fill="#0c4a6e" opacity="0.5"/>
+  <rect x="280" y="285" width="20" height="35" rx="3" fill="#0c4a6e" opacity="0.5"/>
+  <rect x="510" y="285" width="20" height="35" rx="3" fill="#0c4a6e" opacity="0.5"/>
+  <rect x="550" y="285" width="20" height="35" rx="3" fill="#0c4a6e" opacity="0.5"/>
+  <text x="400" y="520" text-anchor="middle" font-family="serif" font-size="20" fill="#94a3b8">
+    Château de Versailles
+  </text>
+  <text x="400" y="550" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#64748b">
+    Résidence royale de 1682 à 1789 — 2 300 pièces
+  </text>
+</svg>

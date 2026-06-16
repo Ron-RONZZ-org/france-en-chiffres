@@ -9,7 +9,8 @@
     "preview": "astro preview",
     "test": "node src/tests/france-map.test.cjs",
     "test:sources": "node src/tests/sources.test.cjs",
-    "test:all": "npm run build && npm run test && npm run test:sources"
+    "test:all": "npm run build && npm run test && npm run test:sources && npm run test:media",
+    "test:media": "node src/tests/media.test.cjs"
   },
   "dependencies": {
     "@astrojs/tailwind": "^6.0.2",
