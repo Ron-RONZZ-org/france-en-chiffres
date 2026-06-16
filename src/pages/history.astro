@@ -1,7 +1,9 @@
 ---
 import Base from '../layouts/Base.astro';
 import Timeline from '../components/Timeline.astro';
-import data from '../data/history.json';
+import { getHistoryData } from '../data/history';
+
+const data = await getHistoryData();
 ---
 
 <Base title="Histoire — France en Chiffres" description="L'histoire de France racontée par les nombres — de la Gaule à aujourd'hui">

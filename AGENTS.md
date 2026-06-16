@@ -52,9 +52,16 @@ france-en-chiffres/
 ├── public/                  # Static assets (images, fonts, favicon, SVGs)
 │   └── France_departements.svg  # Source SVG for France territory outlines
 ├── src/
+│   ├── content/             # Astro Content Collections (Zod-validated)
+│   │   ├── config.ts        # Zod schemas for all collections
+│   │   ├── eras/            # One .json per era (start/end year ranges)
+│   │   ├── events/          # One .md per event (frontmatter + Markdown body)
+│   │   ├── sources/         # CSL-JSON source files (ISO 690-compatible)
+│   │   └── media/           # Media metadata registry (one .json per asset)
 │   ├── pages/               # Route pages (index, history, culture, ...)
 │   │   ├── bibliography.astro           # Aggregated sources listing
 │   │   ├── bibliography/[id].astro      # Per-source page (auto-generated)
+│   │   ├── evenements/[slug].astro      # Per-event article page (auto-generated)
 │   │   └── geography/
 │   │       └── departements-francais.astro  # Interactive department map
 │   ├── components/          # Reusable Astro/HTML components
@@ -65,32 +72,28 @@ france-en-chiffres/
 │   │   ├── TimelineEra.astro
 │   │   ├── MediaFigure.astro           # <figure> with caption, credit, license
 │   │   └── ...
-│   ├── sources/             # CSL-JSON source files (ISO 690-compatible)
-│   │   ├── insee-2024.json
-│   │   └── ...              # One .json per source, referenced via sourceId
 │   ├── media/                # Media files (SVG placeholders + rasters)
 │   │   ├── tautavel-crane.svg
 │   │   ├── lascaux-peintures.svg
 │   │   └── ...
 │   ├── layouts/             # Page layout wrappers (Base.astro)
-│   ├── data/                # JSON data files (statistics, timelines, map)
+│   ├── data/                # Data utilities + non-content JSON files
+│   │   ├── history.ts               # Aggregation layer: loads eras + events, matches by year
+│   │   ├── sources.ts               # Async source lookup via getCollection('sources')
+│   │   ├── media.ts                 # Async media resolver via getCollection('media') + import.meta.glob
 │   │   ├── france.json
-│   │   ├── history.json
-│   │   ├── history.types.ts
-│   │   ├── sources.ts               # Build-time source lookup (import.meta.glob)
-│   │   ├── media.json               # Media asset metadata registry
-│   │   ├── media.ts                 # Build-time media lookup (import.meta.glob)
-│   │   ├── media.types.ts           # MediaEntry / ResolvedMedia interfaces
 │   │   ├── france-map-data.json       # Extracted SVG paths for FranceMap
 │   │   └── france-departments.json    # Individual department paths (96 depts)
 │   ├── scripts/             # Build-time helper scripts
 │   │   └── extract-france-map.js # Parse France_departements.svg → data JSON
 │   ├── tests/               # Automated validation tests
 │   │   ├── france-map.test.cjs
-│   │   ├── sources.test.cjs           # CSL-JSON source validation
+│   │   ├── sources.test.cjs           # CSL-JSON + era + event validation
 │   │   └── media.test.cjs             # Media asset validation
 │   └── styles/              # Global CSS
 ├── AGENTS.md                # This file
+├── astro.config.mjs
+└── package.json
 ├── astro.config.mjs
 └── package.json
 ```
@@ -104,9 +107,11 @@ france-en-chiffres/
 3. **One script per page** — bundle all client JS into a single `<script>` per page. No import maps, no code splitting.
 4. **Use data attributes** to pass server data to client scripts (`data-value`, `data-target`). No inline JSON blobs.
 5. **Animations use `prefers-reduced-motion`** — respect user accessibility settings.
-6. **Every stat must cite its source** — use `sourceId` referencing a CSL-JSON file in `src/sources/`. The build system resolves it to a hyperlinked citation and generates a bibliography page. Never use inline `source` text.
-7. **Every image needs caption, credit, and license** — register media in `src/data/media.json` with a unique `id`, reference via `mediaId` in data files, render with `<MediaFigure>`. All media files (SVG, jpg, png, etc.) live in `src/media/`.
+6. **Every stat must cite its source** — use `sourceId` referencing a CSL-JSON file in `src/content/sources/`. The build system resolves it to a hyperlinked citation and generates a bibliography page. Never use inline `source` text.
+7. **Every image needs caption, credit, and license** — register media in `src/content/media/` as a JSON file with a unique `id`, reference via `mediaId` in data files, render with `<MediaFigure>`. All media files (SVG, jpg, png, etc.) live in `src/media/`.
 8. **Responsive before fancy** — layout must work at 320px before adding any animation.
+9. **Content Collections** — all content data (eras, events, sources, media) lives in `src/content/` as Astro Content Collections with Zod schemas in `src/content/config.ts`. Data validation happens at build time. Aggregation layers reside in `src/data/*.ts`.
+10. **Era–event matching by year range** — events are automatically matched to eras by `start`/`end` year containment (see `src/data/history.ts`). Editors add an event file to `content/events/` without specifying which era it belongs to.
 
 ---
 

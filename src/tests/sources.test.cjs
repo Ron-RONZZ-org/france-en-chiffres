@@ -9,11 +9,11 @@ const assert = require('node:assert/strict');
 const fs = require('fs');
 const path = require('path');
 
-const sourcesDir = path.join(__dirname, '..', 'sources');
-const dataDir = path.join(__dirname, '..', 'data');
+const sourcesDir = path.join(__dirname, '..', 'content', 'sources');
+const contentEventsDir = path.join(__dirname, '..', 'content', 'events');
 
 // ── Test 1: All source files have valid CSL-JSON ──
-assert.ok(fs.existsSync(sourcesDir), 'src/sources/ directory must exist');
+assert.ok(fs.existsSync(sourcesDir), 'src/content/sources/ directory must exist');
 const sourceFiles = fs.readdirSync(sourcesDir).filter(f => f.endsWith('.json'));
 assert.ok(sourceFiles.length >= 30, `Must have ≥ 30 source files (found ${sourceFiles.length})`);
 
@@ -34,35 +34,34 @@ for (const file of sourceFiles) {
     'pamphlet', 'paper-conference', 'patent', 'performance', 'periodical',
     'personal_communication', 'post', 'post-weblog', 'regulation', 'report',
     'review', 'review-book', 'software', 'song', 'speech', 'standard',
-    'thesis', 'treaty', 'webpage'
+    'thesis', 'treaty', 'webpage',
   ];
   assert.ok(validTypes.includes(content.type),
     `Source ${content.id}: unknown type "${content.type}"`);
 }
 console.log(`✓ Test 1: ${sourceFiles.length} source files with valid CSL-JSON structure`);
 
-// ── Test 2: All sourceId references in data files resolve ──
-const dataFiles = ['france.json', 'history.json'];
+// ── Test 2: All sourceId references in event files resolve ──
 const unresolvedRefs = [];
 
-for (const dataFile of dataFiles) {
-  const filePath = path.join(dataDir, dataFile);
-  if (!fs.existsSync(filePath)) continue;
-
-  const content = fs.readFileSync(filePath, 'utf-8');
-  // Find all "sourceId": "..." references via regex
-  const refRegex = /"sourceId"\s*:\s*"([^"]+)"/g;
-  let match;
-  while ((match = refRegex.exec(content)) !== null) {
-    const refId = match[1];
-    if (!sourceIds.has(refId)) {
-      unresolvedRefs.push({ file: dataFile, refId });
+if (fs.existsSync(contentEventsDir)) {
+  const eventFiles = fs.readdirSync(contentEventsDir).filter(f => f.endsWith('.md'));
+  for (const file of eventFiles) {
+    const content = fs.readFileSync(path.join(contentEventsDir, file), 'utf-8');
+    // Find all "sourceId: "..." references in YAML frontmatter
+    const refRegex = /sourceId:\s*"([^"]+)"/g;
+    let match;
+    while ((match = refRegex.exec(content)) !== null) {
+      const refId = match[1];
+      if (!sourceIds.has(refId)) {
+        unresolvedRefs.push({ file, refId });
+      }
     }
   }
 }
 assert.equal(unresolvedRefs.length, 0,
   `Unresolved sourceId references: ${JSON.stringify(unresolvedRefs)}`);
-console.log('✓ Test 2: All sourceId references in data files resolve');
+console.log('✓ Test 2: All sourceId references in event files resolve');
 
 // ── Test 3: Build output includes bibliography pages ──
 const distDir = path.join(__dirname, '..', '..', 'dist');
@@ -86,16 +85,19 @@ if (fs.existsSync(distDir)) {
   console.log('⚠ Test 3: Build output not found — skip (run `npm run build` first)');
 }
 
-// ── Test 4: No data files still have raw "source" field ──
-for (const dataFile of dataFiles) {
-  const filePath = path.join(dataDir, dataFile);
-  if (!fs.existsSync(filePath)) continue;
-  const content = fs.readFileSync(filePath, 'utf-8');
-  const rawSourceRegex = /^\s+"source"\s*:/m;
-  assert.ok(!rawSourceRegex.test(content),
-    `File ${dataFile} still has raw "source" field (should use sourceId)`);
+// ── Test 4: No event files still have raw "source" field ──
+if (fs.existsSync(contentEventsDir)) {
+  const eventFiles = fs.readdirSync(contentEventsDir).filter(f => f.endsWith('.md'));
+  for (const file of eventFiles) {
+    const content = fs.readFileSync(path.join(contentEventsDir, file), 'utf-8');
+    // In YAML frontmatter "source:" would be a raw field
+    // Only flag top-level "source:" (not inside nested objects)
+    const rawSourceRegex = /^source:\s/m;
+    assert.ok(!rawSourceRegex.test(content),
+      `Event ${file} still has raw "source" field (should use sourceId)`);
+  }
 }
-console.log('✓ Test 4: No raw "source" fields remain in data files');
+console.log('✓ Test 4: No raw "source" fields remain in event files');
 
 // ── Test 5: Source filenames match their CSL-JSON id ──
 for (const file of sourceFiles) {
@@ -105,5 +107,40 @@ for (const file of sourceFiles) {
     `Source file "${file}" should be named "${expectedFile}" (matching id field)`);
 }
 console.log('✓ Test 5: All source filenames match their CSL-JSON id');
+
+// ── Test 6: All era files exist in content/eras/ ──
+const erasDir = path.join(__dirname, '..', 'content', 'eras');
+assert.ok(fs.existsSync(erasDir), 'src/content/eras/ directory must exist');
+const eraFiles = fs.readdirSync(erasDir).filter(f => f.endsWith('.json'));
+assert.ok(eraFiles.length >= 5, `Must have at least 5 era files (found ${eraFiles.length})`);
+// Validate all era files parse
+for (const file of eraFiles) {
+  const era = JSON.parse(fs.readFileSync(path.join(erasDir, file), 'utf-8'));
+  assert.ok(era.id, `Era file ${file} must have an "id" field`);
+  assert.ok(era.start !== undefined, `Era ${era.id} must have "start"`);
+  assert.ok(era.end !== undefined, `Era ${era.id} must have "end"`);
+  assert.ok(era.start < era.end, `Era ${era.id}: start must be < end`);
+  assert.ok(era.color?.startsWith('#'), `Era ${era.id}: color must be hex`);
+}
+console.log(`✓ Test 6: ${eraFiles.length} era files with valid structure`);
+
+// ── Test 7: All event files have valid frontmatter ──
+if (fs.existsSync(contentEventsDir)) {
+  const eventFiles = fs.readdirSync(contentEventsDir).filter(f => f.endsWith('.md'));
+  assert.ok(eventFiles.length >= 20, `Must have ≥ 20 event files (found ${eventFiles.length})`);
+  for (const file of eventFiles) {
+    const content = fs.readFileSync(path.join(contentEventsDir, file), 'utf-8');
+    assert.ok(content.startsWith('---'), `Event ${file} must have YAML frontmatter`);
+    assert.ok(content.includes('\n---\n'), `Event ${file} must have closing ---`);
+    // Basic required fields (regex match on YAML)
+    const hasId = /^id:\s/m.test(content);
+    const hasStart = /^start:\s/m.test(content);
+    const hasTitle = /^title:\s/m.test(content);
+    assert.ok(hasId, `Event ${file} must have "id" in frontmatter`);
+    assert.ok(hasStart, `Event ${file} must have "start" in frontmatter`);
+    assert.ok(hasTitle, `Event ${file} must have "title" in frontmatter`);
+  }
+  console.log(`✓ Test 7: ${eventFiles.length} event files with valid frontmatter`);
+}
 
 console.log('\n🎉 All source validation tests passed!');

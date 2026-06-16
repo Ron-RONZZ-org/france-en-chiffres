@@ -1,0 +1,9 @@
+{
+  "id": "revolution",
+  "label": "Révolution & Empire",
+  "period": "1789 à 1815",
+  "color": "#eab308",
+  "start": 1789,
+  "end": 1815,
+  "link": "https://fr.wikipedia.org/wiki/R%C3%A9volution_fran%C3%A7aise"
+}

@@ -1,5 +1,5 @@
 ---
-import type { TimelineEvent as EventData } from '../data/history.types';
+import type { TimelineEvent as EventData } from '../content/config';
 import { getSource, formatSourceLabel, sourceUrl } from '../data/sources';
 import { getMedia } from '../data/media';
 
@@ -24,14 +24,14 @@ const categoryColors: Record<string, string> = {
 const catColor = categoryColors[event.category] || '#94a3b8';
 
 // Resolve source for hyperlinked citation (build-time)
-const refSource = event.sourceId ? getSource(event.sourceId) : undefined;
+const refSource = event.sourceId ? await getSource(event.sourceId) : undefined;
 const sourceLabel = refSource
   ? formatSourceLabel(refSource)
   : (event.source ?? '');
 const sourceHref = event.sourceId ? sourceUrl(event.sourceId) : null;
 
 // Resolve media thumbnail (build-time)
-const refMedia = event.mediaId ? getMedia(event.mediaId) : undefined;
+const refMedia = event.mediaId ? await getMedia(event.mediaId) : undefined;
 ---
 
 <div

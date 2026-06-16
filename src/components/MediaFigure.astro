@@ -1,6 +1,6 @@
 ---
 import { getSource, formatSourceLabel, sourceUrl } from '../data/sources';
-import type { ResolvedMedia } from '../data/media.types';
+import type { ResolvedMedia } from '../data/media';
 
 export interface Props {
   entry: ResolvedMedia;
@@ -11,7 +11,7 @@ export interface Props {
 }
 
 const { entry, variant = 'inline' } = Astro.props;
-const refSource = entry.sourceId ? getSource(entry.sourceId) : undefined;
+const refSource = entry.sourceId ? await getSource(entry.sourceId) : undefined;
 const isSvg = entry.format === 'svg';
 const cssClass = Astro.props.class ?? '';
 ---

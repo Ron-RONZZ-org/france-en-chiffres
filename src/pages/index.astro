@@ -6,6 +6,20 @@ import stats from '../data/france.json';
 import { getSource, formatSourceLabel, sourceUrl } from '../data/sources';
 
 const { hero, keyStats } = stats;
+
+// Pre-resolve all source lookups for the template
+const sourceCache = new Map<string, { label: string; url: string }>();
+for (const stat of keyStats) {
+  if (stat.sourceId) {
+    const src = await getSource(stat.sourceId);
+    if (src) {
+      sourceCache.set(stat.sourceId, {
+        label: formatSourceLabel(src),
+        url: sourceUrl(stat.sourceId),
+      });
+    }
+  }
+}
 ---
 
 <Base title="La France en Chiffres — Accueil">
@@ -58,9 +72,9 @@ const { hero, keyStats } = stats;
               format={stat.format === 'integer' ? 'integer' : 'decimal'}
               icon={stat.icon}
             />
-            {(stat.sourceId && getSource(stat.sourceId)) ? (
-              <a href={sourceUrl(stat.sourceId)} class="stats__source stats__source--link">
-                {formatSourceLabel(getSource(stat.sourceId)!)}
+            {sourceCache.has(stat.sourceId) ? (
+              <a href={sourceCache.get(stat.sourceId)!.url} class="stats__source stats__source--link">
+                {sourceCache.get(stat.sourceId)!.label}
               </a>
             ) : stat.source ? (
               <span class="stats__source">{stat.source}</span>

@@ -7,14 +7,17 @@ const assert = require('node:assert/strict');
 const fs = require('fs');
 const path = require('path');
 
-const mediaDataPath = path.join(__dirname, '..', 'data', 'media.json');
+const contentMediaDir = path.join(__dirname, '..', 'content', 'media');
+const contentEventsDir = path.join(__dirname, '..', 'content', 'events');
+const contentSourcesDir = path.join(__dirname, '..', 'content', 'sources');
 
-// ── Test 1: media.json exists and has valid structure ──
-assert.ok(fs.existsSync(mediaDataPath), 'src/data/media.json must exist');
-const mediaData = JSON.parse(fs.readFileSync(mediaDataPath, 'utf-8'));
-assert.ok(Array.isArray(mediaData), 'media.json must be an array');
-assert.ok(mediaData.length >= 5, 'Must have at least 5 media entries');
-console.log(`✓ Test 1: media.json valid with ${mediaData.length} entries`);
+// ── Test 1: content/media/ exists with valid files ──
+assert.ok(fs.existsSync(contentMediaDir), 'src/content/media/ must exist');
+const mediaFiles = fs.readdirSync(contentMediaDir).filter(f => f.endsWith('.json'));
+assert.ok(mediaFiles.length >= 5, `Must have at least 5 media entries (found ${mediaFiles.length})`);
+
+const mediaData = mediaFiles.map(f => JSON.parse(fs.readFileSync(path.join(contentMediaDir, f), 'utf-8')));
+console.log(`✓ Test 1: content/media/ valid with ${mediaData.length} entries`);
 
 // ── Test 2: Every entry has required fields ──
 for (const entry of mediaData) {
@@ -25,21 +28,20 @@ for (const entry of mediaData) {
 console.log('✓ Test 2: All entries have required fields (id, alt)');
 
 // ── Test 3: Every sourceId reference resolves ──
-const sourcesDir = path.join(__dirname, '..', 'sources');
-if (fs.existsSync(sourcesDir)) {
-  const sourceFiles = fs.readdirSync(sourcesDir).filter(f => f.endsWith('.json'));
+if (fs.existsSync(contentSourcesDir)) {
+  const sourceFiles = fs.readdirSync(contentSourcesDir).filter(f => f.endsWith('.json'));
   const sourceIds = new Set(
-    sourceFiles.map(f => JSON.parse(fs.readFileSync(path.join(sourcesDir, f), 'utf-8')).id)
+    sourceFiles.map(f => JSON.parse(fs.readFileSync(path.join(contentSourcesDir, f), 'utf-8')).id)
   );
   for (const entry of mediaData) {
     if (entry.sourceId) {
       assert.ok(sourceIds.has(entry.sourceId),
-        `Entry ${entry.id}: sourceId "${entry.sourceId}" must exist in src/sources/`);
+        `Entry ${entry.id}: sourceId "${entry.sourceId}" must exist in content/sources/`);
     }
   }
-  console.log('✓ Test 3: All sourceId references in media.json resolve');
+  console.log('✓ Test 3: All sourceId references in media resolve');
 } else {
-  console.log('⚠ Test 3: sources directory not found — skip cross-ref check');
+  console.log('⚠ Test 3: content/sources/ not found — skip cross-ref check');
 }
 
 // ── Test 4: Each media entry has a corresponding file in src/media/ ──
@@ -67,12 +69,10 @@ const distAstro = path.join(__dirname, '..', '..', 'dist', '_astro');
 if (fs.existsSync(distAstro)) {
   const distFiles = fs.readdirSync(distAstro);
   for (const entry of mediaData) {
-    // SVGs under 4KB may be inlined as data URIs (Vite assetsInlineLimit)
-    // Larger SVGs and rasters will be separate files in dist/_astro/
-    const isSvg = entry.id === 'carte-france' || entry.id === 'tautavel-crane' ||
-                  entry.id === 'lascaux-peintures' || entry.id === 'carnac-alignements' ||
-                  entry.id === 'jeanne-arc' || entry.id === 'versailles-chateau';
-    if (isSvg) continue; // inlined as data URIs — checked in test 8
+    // Check if the media file in src/media/ is SVG (likely inlined as data URI)
+    const srcFile = srcFiles.find(f => f.startsWith(entry.id + '.'));
+    const isSvg = srcFile?.endsWith('.svg') ?? false;
+    if (isSvg) continue; // SVGs < 4KB inlined as data URIs
     const found = distFiles.some(f => f.startsWith(entry.id));
     assert.ok(found,
       `Entry ${entry.id} must have a built file in dist/_astro/`);
@@ -82,34 +82,34 @@ if (fs.existsSync(distAstro)) {
   console.log('⚠ Test 6: dist/ not found — run `npm run build` first');
 }
 
-// ── Test 7: Every mediaId reference in data files resolves ──
-const dataFiles = ['france.json', 'history.json'];
+// ── Test 7: Every mediaId reference in event files resolves ──
 const mediaIds = new Set(mediaData.map(e => e.id));
 
-for (const dataFile of dataFiles) {
-  const filePath = path.join(__dirname, '..', 'data', dataFile);
-  if (!fs.existsSync(filePath)) continue;
-  const content = fs.readFileSync(filePath, 'utf-8');
-  const refRegex = /"mediaId"\s*:\s*"([^"]+)"/g;
-  let match;
-  while ((match = refRegex.exec(content)) !== null) {
-    assert.ok(mediaIds.has(match[1]),
-      `File ${dataFile}: mediaId "${match[1]}" not found in media.json`);
+if (fs.existsSync(contentEventsDir)) {
+  const eventFiles = fs.readdirSync(contentEventsDir).filter(f => f.endsWith('.md'));
+  for (const file of eventFiles) {
+    const content = fs.readFileSync(path.join(contentEventsDir, file), 'utf-8');
+    const refRegex = /mediaId:\s*"([^"]+)"/g;  // YAML frontmatter format
+    let match;
+    while ((match = refRegex.exec(content)) !== null) {
+      assert.ok(mediaIds.has(match[1]),
+        `Event ${file}: mediaId "${match[1]}" not found in media registry`);
+    }
   }
+  console.log('✓ Test 7: All mediaId references in event files resolve');
+} else {
+  console.log('⚠ Test 7: content/events/ not found — skip');
 }
-console.log('✓ Test 7: All mediaId references in data files resolve');
 
 // ── Test 8: Data attribute rendered with media URL (file or data URI) ──
 const distHistory = path.join(__dirname, '..', '..', 'dist', 'history', 'index.html');
 if (fs.existsSync(distHistory)) {
   const html = fs.readFileSync(distHistory, 'utf-8');
-  // SVGs under 4KB are inlined as data URIs; larger assets get content-hashed URLs
   const hasDataUri = html.includes('data:image/svg+xml;base64,');
   const hasContentHash = /_astro\/[a-z-]+\.\w+\.svg/.test(html);
   assert.ok(hasDataUri || hasContentHash,
     'Build HTML must contain SVG renderings (data URIs or content-hashed URLs)');
 
-  // All 5 events with mediaId should have a non-empty data-preview-media-src
   const mediaAttrs = [...html.matchAll(/data-preview-media-src="([^"]+)"/g)];
   assert.equal(mediaAttrs.length, 5,
     'Must have exactly 5 non-empty data-preview-media-src attributes');

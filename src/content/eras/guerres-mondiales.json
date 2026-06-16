@@ -1,0 +1,9 @@
+{
+  "id": "guerres-mondiales",
+  "label": "Guerres Mondiales",
+  "period": "1914 à 1945",
+  "color": "#ef4444",
+  "start": 1914,
+  "end": 1945,
+  "link": "https://fr.wikipedia.org/wiki/Premi%C3%A8re_Guerre_mondiale"
+}

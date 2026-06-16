@@ -1,6 +1,8 @@
 ---
 import Base from '../layouts/Base.astro';
 import { allSources, formatSourceLabel } from '../data/sources';
+
+const sources = await allSources();
 ---
 
 <Base title="Bibliographie — France en Chiffres" description="Sources et références bibliographiques">
@@ -14,7 +16,7 @@ import { allSources, formatSourceLabel } from '../data/sources';
       </p>
 
       <div class="bibliography">
-        {allSources.map((source) => (
+        {sources.map((source) => (
           <article class="bibliography__entry" id={source.id}>
             <a href={`/bibliography/${source.id}`} class="bibliography__link">
               <h2 class="bibliography__title">
