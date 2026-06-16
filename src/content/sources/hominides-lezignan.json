@@ -1,0 +1,13 @@
+{
+  "id": "hominides-lezignan",
+  "type": "webpage",
+  "title": "Les plus anciennes traces d'hominidé en France, à Lézignan-la-Cèbe",
+  "author": [
+    { "literal": "Christian" }
+  ],
+  "publisher": "Hominidés.com",
+  "issued": { "date-parts": [[2009, 12, 16]] },
+  "accessed": { "date-parts": [[2026, 6, 16]] },
+  "URL": "https://www.hominides.com/les-plus-anciennes-traces-dhominide-en-france-a-lezignan-la-cebe/",
+  "note": "Article de blog résumant la publication scientifique : Crochet et al., « Une nouvelle faune de vertébrés continentaux, associée à des artefacts dans le Pléistocène inférieur de l'Hérault (Sud de la France), vers 1,57 Ma », Comptes-Rendus Palevol, 8 (2009) 725‑736."
+}
