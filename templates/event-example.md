@@ -4,7 +4,6 @@ start: 1790
 end: 1790
 title: "Fête de la Fédération"
 description: "Première célébration de la Fête nationale française, organisée au Champ-de-Mars à Paris."
-sourceId: "archives-nationales"
 mediaId: "federation-1790"
 ---
 
