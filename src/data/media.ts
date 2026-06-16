@@ -1,33 +1,46 @@
 // Build-time media asset lookup utility.
-//
-// Raster images (jpg, png, webp, avif) live in src/media/ and are imported
-// via import.meta.glob as ImageMetadata objects (optimized by Astro).
-//
-// SVG files live in public/media/ and are served as-is via direct URL.
-// Reason: Astro 5 compiles SVGs in src/ as Astro components, not assets.
-// Since MediaFigure.astro uses <img src="..."> (not inline SVG), SVGs must
-// be in public/ where they get copied verbatim to the build output.
+// All media files live in src/media/. Raster images (jpg, png, etc.) are
+// imported via import.meta.glob as ImageMetadata objects (optimized by Astro).
+// SVGs are imported as URL strings via query: '?url' (avoiding Astro's
+// default SVG-component compilation so they work with <img src="...">).
 
-import fs from 'node:fs';
-import path from 'node:path';
 import type { ResolvedMedia } from './media.types';
 import mediaRegistry from './media.json';
 
-const publicMediaDir = path.resolve('public/media');
+/** SVG files — imported as URL strings */
+const svgModules = import.meta.glob<string>(
+  '/src/media/*.svg',
+  { eager: true, query: '?url', import: 'default' }
+);
 
-/** Raster media files from src/media/ (optimized by Astro) */
+/** Raster images — imported as ImageMetadata objects */
 const rasterModules = import.meta.glob(
   '/src/media/*.{jpg,jpeg,png,gif,webp,avif}',
   { eager: true }
 );
 
+/** Map of media ID → ResolvedMedia */
 const resolved: Record<string, ResolvedMedia> = {};
 
-// ── Process raster images (ImageMetadata from Vite) ──
+// ── Process SVGs (URL strings) ──
+for (const [filePath, url] of Object.entries(svgModules)) {
+  const stem = pathStem(filePath);
+  const entry = mediaRegistry.find((m) => m.id === stem);
+  if (entry) {
+    resolved[entry.id] = {
+      ...entry,
+      src: url,
+      width: 800,
+      height: 600,
+      format: 'svg',
+    };
+  }
+}
+
+// ── Process raster images (ImageMetadata) ──
 for (const [filePath, mod] of Object.entries(rasterModules)) {
-  const filename = filePath.split('/').pop()!;
-  const stem = filename.replace(/\.\w+$/, '');
-  const ext = filename.split('.').pop()!.toLowerCase();
+  const stem = pathStem(filePath);
+  const ext = filePath.split('.').pop()!.toLowerCase();
   const entry = mediaRegistry.find((m) => m.id === stem);
   if (entry) {
     const meta = (
@@ -43,19 +56,9 @@ for (const [filePath, mod] of Object.entries(rasterModules)) {
   }
 }
 
-// ── Process SVG placeholders (public/media/ — served as-is) ──
-for (const entry of mediaRegistry) {
-  if (resolved[entry.id]) continue;
-  const svgPath = path.join(publicMediaDir, `${entry.id}.svg`);
-  if (fs.existsSync(svgPath)) {
-    resolved[entry.id] = {
-      ...entry,
-      src: `/media/${entry.id}.svg`,
-      width: 800,
-      height: 600,
-      format: 'svg',
-    };
-  }
+/** Extract filename stem (without dir or extension) */
+function pathStem(filePath: string): string {
+  return filePath.split('/').pop()!.replace(/\.\w+$/, '');
 }
 
 /**
