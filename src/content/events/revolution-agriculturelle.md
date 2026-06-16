@@ -38,7 +38,7 @@ Il faut attendre la fin du Dernier Maximum Glaciaire et le début de l'Holocène
 
 ## L'agriculture arrive en France par deux chemins
 
-L'agriculture a donc débuté au Proche-Orient il y a environ 11 000 ans [source:bar-yosef-1998-natufian]. De là, elle s'est diffusée vers l'Europe par vagues migratoires successives. Les fermiers venus d'Anatolie (la Turquie actuelle) ont traversé les Balkans, la Grèce, puis progressé vers l'Ouest, apportant avec eux leurs graines domestiquées et leurs animaux. Ce n'est pas une idée qui a voyagé, mais des populations entières qui se sont déplacées, remplaçant progressivement, parfois se mélangeant aux chasseurs-cueilleurs locaux [source:rivollat-2020-mtdna-france].
+L'agriculture européenne, elle, nous vient du Proche-Orient. C'est là-bas qu'elle a débuté il y a environ 11 000 ans [source:bar-yosef-1998-natufian], avant de se diffuser vers l'Europe par vagues migratoires successives. Les fermiers venus d'Anatolie (la Turquie actuelle) ont traversé les Balkans, la Grèce, puis progressé vers l'Ouest, apportant avec eux leurs graines domestiquées et leurs animaux. Ce n'est pas une idée qui a voyagé, mais des populations entières qui se sont déplacées, remplaçant progressivement, parfois se mélangeant aux chasseurs-cueilleurs locaux [source:rivollat-2020-mtdna-france].
 
 Quand ces fermiers arrivèrent sur le territoire français, ils empruntèrent deux voies distinctes [source:guilaine-2015-mediterranee] :
 
@@ -65,4 +65,4 @@ Que sont devenus les chasseurs-cueilleurs qui vivaient en France avant l'arrivé
 
 Pendant longtemps, on a imaginé un remplacement brutal : les fermiers, plus nombreux, mieux organisés, auraient tout simplement supplanté les chasseurs-cueilleurs. La réalité est plus nuancée. Les analyses d'ADN ancien montrent que dans le sud de la France, les premiers fermiers cardiaux portent des traces génétiques des chasseurs-cueilleurs locaux, preuve de mélange [source:rivollat-2020-mtdna-france]. Dans l'ouest de la France, en Bretagne notamment, les chasseurs-cueilleurs mésolithiques ont peut-être adopté eux-mêmes certaines pratiques agricoles avant l'arrivée des fermiers, brouillant les pistes.
 
-Ce que l'on sait, c'est qu'après quelques siècles de coexistence, la culture des chasseurs-cueilleurs a disparu du territoire français. Non pas parce qu'ils ont été exterminés, mais parce que leurs descendant·es ont progressivement adopté le nouveau mode de vie. La révolution agricole a gagné — non par la conquête, mais par la conversation silencieuse entre voisin·es, génération après génération.
+Ce que l'on sait, c'est qu'après quelques siècles de coexistence, la culture des chasseurs-cueilleurs a disparu du territoire français. Non pas parce qu'ils ont été exterminés, mais parce que leurs descendant·es ont progressivement adopté le nouveau mode de vie. La révolution agricole a gagné — non par la conquête, mais par l'assimilation entre voisin·es, génération après génération.
