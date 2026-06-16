@@ -56,7 +56,7 @@ description: "Description détaillée (2-4 phrases)."
 | `id` | Identifiant unique (kebab-case, minuscules) | ✅ |
 | `start` | Année de début (nombre négatif pour av. J.-C.) | ✅ |
 | `end` | Année de fin (identique à `start` pour un événement ponctuel) | ✅ |
-| `yearDisplay` | Texte affiché pour la date (ex: `"14 juillet 1789"`) | ✅ |
+| `yearDisplay` | Texte affiché pour la date (ex: `"14 juillet 1789"`). Optionnel : auto-généré depuis `start`/`end` si omis | optionnel |
 | `title` | Titre de l'événement (≤ 50 car.) | ✅ |
 | `category` | `political`, `military`, `cultural`, `economic` ou `scientific` | ✅ |
 | `significance` | Importance de 1 à 5 (5 = événement fondateur) | ✅ |
