@@ -1,0 +1,197 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+import EraEventCard from '../../components/EraEventCard.astro';
+import { getHistoryData } from '../../data/history';
+
+export async function getStaticPaths() {
+  const eras = await getCollection('eras');
+  return eras.map((entry) => ({
+    params: { slug: entry.data.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const era = entry.data;
+const { Content } = await entry.render();
+
+// Load matched events for this era via the aggregation layer
+const history = await getHistoryData();
+const matchedEra = history.eras.find((e) => e.id === era.id);
+const events = matchedEra?.events ?? [];
+---
+
+<Base title={`${era.label} — Histoire`} description={era.description ?? `Période ${era.period}`}>
+  <article class="era-page">
+    <header class="era-page__header" style={{ '--era-color': era.color }}>
+      <a href="/history" class="era-page__back">← Chronologie</a>
+      <time class="era-page__period">{era.period}</time>
+      <h1 class="era-page__title">{era.label}</h1>
+      {era.description && (
+        <p class="era-page__description">{era.description}</p>
+      )}
+    </header>
+
+    {events.length > 0 && (
+      <section class="era-page__events">
+        <h2 class="era-page__events-title">Événements de cette période</h2>
+        <div class="era-page__events-grid">
+          {events.map((event) => (
+            <EraEventCard event={event} />
+          ))}
+        </div>
+      </section>
+    )}
+
+    <div class="era-page__body">
+      <Content />
+    </div>
+
+    <footer class="era-page__footer">
+      {era.link && (
+        <p class="era-page__ext-link">
+          <a href={era.link} target="_blank" rel="noopener noreferrer">
+            En savoir plus sur Wikipédia →
+          </a>
+        </p>
+      )}
+    </footer>
+  </article>
+</Base>
+
+<style>
+  .era-page {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: var(--gap-xl) var(--gap-lg) var(--gap-2xl);
+  }
+
+  .era-page__back {
+    display: inline-block;
+    color: var(--color-text-muted);
+    font-size: 0.875rem;
+    margin-bottom: var(--gap-lg);
+    transition: color var(--transition-fast);
+  }
+
+  .era-page__back:hover {
+    color: var(--color-french-blue);
+  }
+
+  .era-page__header {
+    margin-bottom: var(--gap-xl);
+    border-left: 4px solid var(--era-color, var(--color-french-blue));
+    padding-left: var(--gap-lg);
+  }
+
+  .era-page__period {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: var(--gap-sm);
+  }
+
+  .era-page__title {
+    font-family: var(--font-serif);
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--color-text-light);
+    margin-bottom: var(--gap-md);
+  }
+
+  .era-page__description {
+    font-size: 1.05rem;
+    color: var(--color-text-muted);
+    line-height: 1.7;
+    max-width: 600px;
+  }
+
+  .era-page__events {
+    margin-bottom: var(--gap-xl);
+  }
+
+  .era-page__events-title {
+    font-family: var(--font-serif);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--color-text-light);
+    margin-bottom: var(--gap-md);
+    padding-bottom: var(--gap-sm);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .era-page__events-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--gap-md);
+  }
+
+  .era-page__body {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--color-text-light);
+  }
+
+  .era-page__body :global(h2) {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-top: var(--gap-xl);
+    margin-bottom: var(--gap-md);
+    color: var(--color-text-light);
+  }
+
+  .era-page__body :global(p) {
+    margin-bottom: var(--gap-md);
+  }
+
+  .era-page__body :global(img) {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--radius-md);
+    margin: var(--gap-lg) 0;
+  }
+
+  .era-page__body :global(ul), .era-page__body :global(ol) {
+    margin-bottom: var(--gap-md);
+    padding-left: var(--gap-lg);
+  }
+
+  .era-page__body :global(blockquote) {
+    border-left: 3px solid var(--color-french-blue);
+    padding-left: var(--gap-md);
+    margin: var(--gap-lg) 0;
+    color: var(--color-text-muted);
+    font-style: italic;
+  }
+
+  .era-page__footer {
+    margin-top: var(--gap-2xl);
+    padding-top: var(--gap-lg);
+    border-top: 1px solid var(--color-border);
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-sm);
+    font-size: 0.85rem;
+  }
+
+  .era-page__ext-link a {
+    color: var(--color-french-blue);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .era-page__ext-link a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 767px) {
+    .era-page__events-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -54,7 +54,7 @@ france-en-chiffres/
 ├── src/
 │   ├── content/             # Astro Content Collections (Zod-validated)
 │   │   ├── config.ts        # Zod schemas for all collections
-│   │   ├── eras/            # One .json per era (start/end year ranges)
+│   │   ├── eras/            # One .md per era (YAML frontmatter + optional Markdown body)
 │   │   ├── events/          # One .md per event (frontmatter + Markdown body)
 │   │   ├── sources/         # CSL-JSON source files (ISO 690-compatible)
 │   │   └── media/           # Media metadata registry (one .json per asset)
@@ -62,6 +62,7 @@ france-en-chiffres/
 │   │   ├── bibliography.astro           # Aggregated sources listing
 │   │   ├── bibliography/[id].astro      # Per-source page (auto-generated)
 │   │   ├── evenements/[slug].astro      # Per-event article page (auto-generated)
+│   │   ├── periodes/[slug].astro        # Per-era page (auto-generated)
 │   │   └── geography/
 │   │       └── departements-francais.astro  # Interactive department map
 │   ├── components/          # Reusable Astro/HTML components
@@ -70,6 +71,7 @@ france-en-chiffres/
 │   │   ├── Timeline.astro
 │   │   ├── TimelineEvent.astro
 │   │   ├── TimelineEra.astro
+│   │   ├── EraEventCard.astro          # Lightweight event card for era detail pages
 │   │   ├── MediaFigure.astro           # <figure> with caption, credit, license
 │   │   └── ...
 │   ├── media/                # Media files (SVG placeholders + rasters)
@@ -94,8 +96,6 @@ france-en-chiffres/
 ├── AGENTS.md                # This file
 ├── astro.config.mjs
 └── package.json
-├── astro.config.mjs
-└── package.json
 ```
 
 ---
@@ -111,7 +111,7 @@ france-en-chiffres/
 7. **Every image needs caption, credit, and license** — register media in `src/content/media/` as a JSON file with a unique `id`, reference via `mediaId` in data files, render with `<MediaFigure>`. All media files (SVG, jpg, png, etc.) live in `src/media/`.
 8. **Responsive before fancy** — layout must work at 320px before adding any animation.
 9. **Content Collections** — all content data (eras, events, sources, media) lives in `src/content/` as Astro Content Collections with Zod schemas in `src/content/config.ts`. Data validation happens at build time. Aggregation layers reside in `src/data/*.ts`.
-10. **Era–event matching by year range** — events are automatically matched to eras by `start`/`end` year containment (see `src/data/history.ts`). Editors add an event file to `content/events/` without specifying which era it belongs to.
+10. **Era–event matching by year range** — events are automatically matched to eras by `start`/`end` year containment (see `src/data/history.ts`). Editors add an event file to `content/events/` without specifying which era it belongs to. Each era has a dedicated page at `/periodes/[slug]` (auto-generated from `content/eras/`). On the timeline page, era titles link to these internal pages and descriptions are displayed inline.
 
 ---
 

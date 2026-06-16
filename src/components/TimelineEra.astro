@@ -18,12 +18,11 @@ const { era } = Astro.props;
   <!-- Era header — sticky on scroll -->
   <header class="timeline-era__header">
     <span class="timeline-era__period">{era.period}</span>
-    {era.link ? (
-      <a href={era.link} class="timeline-era__title-link" target="_blank" rel="noopener noreferrer">
-        <h2 class="timeline-era__title">{era.label}</h2>
-      </a>
-    ) : (
+    <a href={`/periodes/${era.id}`} class="timeline-era__title-link">
       <h2 class="timeline-era__title">{era.label}</h2>
+    </a>
+    {era.description && (
+      <p class="timeline-era__description">{era.description}</p>
     )}
   </header>
 
@@ -79,11 +78,12 @@ const { era } = Astro.props;
     opacity: 0.8;
   }
 
-  .timeline-era__title-link::after {
-    content: " ↗";
-    font-size: 0.6em;
-    vertical-align: super;
-    opacity: 0.5;
+  .timeline-era__description {
+    font-size: 0.95rem;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+    max-width: 600px;
+    margin: var(--gap-sm) auto 0;
   }
 
   .timeline-era__events {
