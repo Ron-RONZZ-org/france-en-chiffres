@@ -8,13 +8,13 @@ import type { MediaEntry } from '../content/config';
 
 /** SVG files — imported as URL strings */
 const svgModules = import.meta.glob<string>(
-  '/src/media/*.svg',
+  '/src/content/media/*.svg',
   { eager: true, query: '?url', import: 'default' }
 );
 
 /** Raster images — imported as ImageMetadata objects */
 const rasterModules = import.meta.glob(
-  '/src/media/*.{jpg,jpeg,png,gif,webp,avif}',
+  '/src/content/media/*.{jpg,jpeg,png,gif,webp,avif}',
   { eager: true }
 );
 

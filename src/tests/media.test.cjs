@@ -44,9 +44,9 @@ if (fs.existsSync(contentSourcesDir)) {
   console.log('⚠ Test 3: content/sources/ not found — skip cross-ref check');
 }
 
-// ── Test 4: Each media entry has a corresponding file in src/media/ ──
-const srcMediaDir = path.join(__dirname, '..', 'media');
-assert.ok(fs.existsSync(srcMediaDir), 'src/media/ directory must exist');
+// ── Test 4: Each media entry has a corresponding file in src/content/media/ ──
+const srcMediaDir = path.join(__dirname, '..', 'content', 'media');
+assert.ok(fs.existsSync(srcMediaDir), 'src/content/media/ directory must exist');
 
 const allowedExts = /\.(svg|jpg|jpeg|png|gif|webp|avif)$/;
 const srcFiles = fs.readdirSync(srcMediaDir).filter(f => allowedExts.test(f));
@@ -54,9 +54,9 @@ const srcFiles = fs.readdirSync(srcMediaDir).filter(f => allowedExts.test(f));
 for (const entry of mediaData) {
   const hasFile = srcFiles.some(f => f.startsWith(entry.id + '.'));
   assert.ok(hasFile,
-    `Entry ${entry.id} must have a matching file in src/media/ (got: ${srcFiles.filter(f => f.startsWith(entry.id)).join(', ') || 'none'})`);
+    `Entry ${entry.id} must have a matching file in src/content/media/ (got: ${srcFiles.filter(f => f.startsWith(entry.id)).join(', ') || 'none'})`);
 }
-console.log('✓ Test 4: All media entries have matching files in src/media/');
+console.log('✓ Test 4: All media entries have matching files in src/content/media/');
 
 // ── Test 5: License field is present on all entries ──
 for (const entry of mediaData) {
@@ -69,7 +69,7 @@ const distAstro = path.join(__dirname, '..', '..', 'dist', '_astro');
 if (fs.existsSync(distAstro)) {
   const distFiles = fs.readdirSync(distAstro);
   for (const entry of mediaData) {
-    // Check if the media file in src/media/ is SVG (likely inlined as data URI)
+    // Check if the media file in src/content/media/ is SVG (likely inlined as data URI)
     const srcFile = srcFiles.find(f => f.startsWith(entry.id + '.'));
     const isSvg = srcFile?.endsWith('.svg') ?? false;
     if (isSvg) continue; // SVGs < 4KB inlined as data URIs

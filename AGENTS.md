@@ -59,7 +59,7 @@ france-en-chiffres/
 │   │   ├── eras/            # One .md per era (YAML frontmatter + optional Markdown body)
 │   │   ├── events/          # One .md per event (frontmatter + Markdown body)
 │   │   ├── sources/         # CSL-JSON source files (ISO 690-compatible)
-│   │   └── media/           # Media metadata registry (one .json per asset)
+│   │   └── media/           # Media metadata (.json) + media files (.svg, rasters)
 │   ├── pages/               # Route pages (index, history, culture, ...)
 │   │   ├── bibliography.astro           # Aggregated sources listing
 │   │   ├── bibliography/[id].astro      # Per-source page (auto-generated)
@@ -106,7 +106,7 @@ france-en-chiffres/
 4. **Use data attributes** to pass server data to client scripts (`data-value`, `data-target`). No inline JSON blobs.
 5. **Animations use `prefers-reduced-motion`** — respect user accessibility settings.
 6. **Every stat must cite its source** — use `sourceId` referencing a CSL-JSON file in `src/content/sources/`. The build system resolves it to a hyperlinked citation and generates a bibliography page. Never use inline `source` text.
-7. **Every image needs caption, credit, and license** — register media in `src/content/media/` as a JSON file with a unique `id`, reference via `mediaId` in data files, render with `<MediaFigure>`. All media files (SVG, jpg, png, etc.) live in `src/media/`.
+7. **Every image needs caption, credit, and license** — register media in `src/content/media/` as a JSON file with a unique `id`, reference via `mediaId` in data files, render with `<MediaFigure>`. All media files (SVG, jpg, png, etc.) live alongside their metadata in `src/content/media/`.
 8. **Responsive before fancy** — layout must work at 320px before adding any animation.
 9. **Content Collections** — all content data (eras, events, sources, media) lives in `src/content/` as Astro Content Collections with Zod schemas in `src/content/config.ts`. Data validation happens at build time. Aggregation layers reside in `src/data/*.ts`.
 10. **Era–event matching by year range** — events are automatically matched to eras by `start`/`end` year containment (see `src/data/history.ts`). Editors add an event file to `content/events/` without specifying which era it belongs to. Each era has a dedicated page at `/periodes/[slug]` (auto-generated from `content/eras/`). On the timeline page, era titles link to these internal pages and descriptions are displayed inline.
