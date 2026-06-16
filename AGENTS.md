@@ -50,11 +50,7 @@ Complex data visualizations   → D3.js (bump charts, choropleths,
 ```
 france-en-chiffres/
 ├── public/                  # Static assets (images, fonts, favicon, SVGs)
-│   ├── France_departements.svg  # Source SVG for France territory outlines
-│   └── media/               # SVG placeholders (served as-is; rasters go in src/media/)
-│       ├── tautavel-crane.svg
-│       ├── lascaux-peintures.svg
-│       └── ...
+│   └── France_departements.svg  # Source SVG for France territory outlines
 ├── src/
 │   ├── pages/               # Route pages (index, history, culture, ...)
 │   │   ├── bibliography.astro           # Aggregated sources listing
@@ -72,6 +68,10 @@ france-en-chiffres/
 │   ├── sources/             # CSL-JSON source files (ISO 690-compatible)
 │   │   ├── insee-2024.json
 │   │   └── ...              # One .json per source, referenced via sourceId
+│   ├── media/                # Media files (SVG placeholders + rasters)
+│   │   ├── tautavel-crane.svg
+│   │   ├── lascaux-peintures.svg
+│   │   └── ...
 │   ├── layouts/             # Page layout wrappers (Base.astro)
 │   ├── data/                # JSON data files (statistics, timelines, map)
 │   │   ├── france.json
@@ -79,7 +79,7 @@ france-en-chiffres/
 │   │   ├── history.types.ts
 │   │   ├── sources.ts               # Build-time source lookup (import.meta.glob)
 │   │   ├── media.json               # Media asset metadata registry
-│   │   ├── media.ts                 # Build-time media lookup (import.meta.glob + fs)
+│   │   ├── media.ts                 # Build-time media lookup (import.meta.glob)
 │   │   ├── media.types.ts           # MediaEntry / ResolvedMedia interfaces
 │   │   ├── france-map-data.json       # Extracted SVG paths for FranceMap
 │   │   └── france-departments.json    # Individual department paths (96 depts)
@@ -105,7 +105,7 @@ france-en-chiffres/
 4. **Use data attributes** to pass server data to client scripts (`data-value`, `data-target`). No inline JSON blobs.
 5. **Animations use `prefers-reduced-motion`** — respect user accessibility settings.
 6. **Every stat must cite its source** — use `sourceId` referencing a CSL-JSON file in `src/sources/`. The build system resolves it to a hyperlinked citation and generates a bibliography page. Never use inline `source` text.
-7. **Every image needs caption, credit, and license** — register media in `src/data/media.json` with a unique `id`, reference via `mediaId` in data files, render with `<MediaFigure>`. SVG placeholders go in `public/media/`; rasters go in `src/media/` for Astro optimization.
+7. **Every image needs caption, credit, and license** — register media in `src/data/media.json` with a unique `id`, reference via `mediaId` in data files, render with `<MediaFigure>`. All media files (SVG, jpg, png, etc.) live in `src/media/`.
 8. **Responsive before fancy** — layout must work at 320px before adding any animation.
 
 ---
