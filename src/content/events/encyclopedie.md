@@ -17,6 +17,7 @@ preview:
   summary: "La plus grande entreprise éditoriale du XVIIIe siècle."
   statLabel: "Contributeurs"
   statValue: "160 auteurs"
+description: "Diderot et d'Alembert publient le premier volume de l'Encyclopédie, somme des connaissances de l'époque qui incarne l'esprit des Lumières et influence toute l'Europe."
 ---
 
 Diderot et d'Alembert publient le premier volume de l'Encyclopédie, somme des connaissances de l'époque qui incarne l'esprit des Lumières et influence toute l'Europe.

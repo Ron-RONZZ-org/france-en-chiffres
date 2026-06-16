@@ -17,6 +17,7 @@ preview:
   summary: "Fondation de la plus longue dynastie d'Europe."
   statLabel: "Rois capétiens"
   statValue: "36 souverains"
+description: "Élection d'Hugues Capet, fondateur de la dynastie capétienne qui régnera sur la France pendant plus de 800 ans, jusqu'en 1848."
 ---
 
 Élection d'Hugues Capet, fondateur de la dynastie capétienne qui régnera sur la France pendant plus de 800 ans, jusqu'en 1848.

@@ -17,6 +17,7 @@ preview:
   summary: "Le passage à l'agriculture et à la sédentarisation."
   statLabel: "Durée"
   statValue: "4 000 ans"
+description: "Les premières communautés agricoles s'installent sur le territoire français. La sédentarisation, l'élevage et la culture des céréales transforment profondément la société. Les premiers villages fortifiés apparaissent, et le commerce de l'obsidienne et du silex se développe."
 ---
 
 Les premières communautés agricoles s'installent sur le territoire français. La sédentarisation, l'élevage et la culture des céréales transforment profondément la société. Les premiers villages fortifiés apparaissent, et le commerce de l'obsidienne et du silex se développe.

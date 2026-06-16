@@ -17,6 +17,7 @@ preview:
   summary: "Chute définitive de Napoléon."
   statLabel: "Morts en 24h"
   statValue: "50 000 hommes"
+description: "Napoléon est définitivement vaincu par les armées britannique et prussienne. C'est la fin de l'épopée napoléonienne et du Premier Empire."
 ---
 
 Napoléon est définitivement vaincu par les armées britannique et prussienne. C'est la fin de l'épopée napoléonienne et du Premier Empire.

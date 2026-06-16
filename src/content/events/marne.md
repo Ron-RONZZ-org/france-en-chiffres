@@ -17,6 +17,7 @@ preview:
   summary: "Première grande victoire française de la Grande Guerre."
   statLabel: "Morts français"
   statValue: "1,4 million"
+description: "La première bataille de la Marne arrête l'invasion allemande aux portes de Paris. Les taxis parisiens transportent des renforts au front — un épisode mythifié de l'union sacrée."
 ---
 
 La première bataille de la Marne arrête l'invasion allemande aux portes de Paris. Les taxis parisiens transportent des renforts au front — un épisode mythifié de l'union sacrée.

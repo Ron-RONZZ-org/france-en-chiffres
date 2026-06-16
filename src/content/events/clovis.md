@@ -17,6 +17,7 @@ preview:
   summary: "Fondateur du royaume des Francs."
   statLabel: "Baptême"
   statValue: "Vers 496"
+description: "Clovis bat Syagrius à Soissons et unifie les tribus franques. Il se convertit au christianisme vers 496, scellant l'alliance entre la royauté et l'Église."
 ---
 
 Clovis bat Syagrius à Soissons et unifie les tribus franques. Il se convertit au christianisme vers 496, scellant l'alliance entre la royauté et l'Église.

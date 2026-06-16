@@ -17,6 +17,7 @@ preview:
   summary: "La plus grande grève générale de l'histoire française."
   statLabel: "Manifestants à Paris"
   statValue: "1 million"
+description: "Une révolte étudiante partie de la Sorbonne se transforme en grève générale de 10 millions de travailleurs, paralysant la France et provoquant une crise politique majeure."
 ---
 
 Une révolte étudiante partie de la Sorbonne se transforme en grève générale de 10 millions de travailleurs, paralysant la France et provoquant une crise politique majeure.

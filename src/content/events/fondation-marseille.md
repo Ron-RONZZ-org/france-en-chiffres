@@ -17,6 +17,7 @@ preview:
   summary: "Première colonie grecque sur le territoire français."
   statLabel: "Ancienneté"
   statValue: "Plus de 2 600 ans"
+description: "Des colons grecs venus de Phocée fondent Massalia, la plus ancienne ville de France."
 ---
 
 Des colons grecs venus de Phocée fondent Massalia, la plus ancienne ville de France.

@@ -17,6 +17,7 @@ preview:
   summary: "Victoire romaine qui met fin à l'indépendance gauloise."
   statLabel: "Forces gauloises"
   statValue: "80 000 hommes"
+description: "Jules César remporte une victoire décisive sur Vercingétorix, marquant la fin de la résistance gauloise et le début de la domination romaine."
 ---
 
 Jules César remporte une victoire décisive sur Vercingétorix, marquant la fin de la résistance gauloise et le début de la domination romaine.

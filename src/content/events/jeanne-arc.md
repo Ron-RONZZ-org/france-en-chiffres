@@ -18,6 +18,7 @@ preview:
   summary: "Libératrice d'Orléans, héroïne nationale."
   statLabel: "Canonisée"
   statValue: "1920"
+description: "Jeanne d'Arc, jeune paysanne, mène l'armée française à la victoire à Orléans et permet le sacre de Charles VII à Reims, renversant le cours de la guerre."
 ---
 
 Jeanne d'Arc, jeune paysanne, mène l'armée française à la victoire à Orléans et permet le sacre de Charles VII à Reims, renversant le cours de la guerre.

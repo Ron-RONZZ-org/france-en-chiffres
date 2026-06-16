@@ -18,6 +18,7 @@ preview:
   summary: "Les plus anciens habitants du territoire français."
   statLabel: "Espèce"
   statValue: "Homo heidelbergensis"
+description: "Les plus anciens vestiges humains découverts en France — un crâne d'Homo heidelbergensis vieux de 450 000 ans — dans la caune de l'Arago à Tautavel, Pyrénées-Orientales. Ces chasseurs-cueilleurs maîtrisent déjà le feu et taillent des outils en pierre."
 ---
 
 Les plus anciens vestiges humains découverts en France — un crâne d'Homo heidelbergensis vieux de 450 000 ans — dans la caune de l'Arago à Tautavel, Pyrénées-Orientales. Ces chasseurs-cueilleurs maîtrisent déjà le feu et taillent des outils en pierre.

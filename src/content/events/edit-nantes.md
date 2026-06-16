@@ -17,6 +17,7 @@ preview:
   summary: "Paix religieuse mettant fin aux guerres de religion."
   statLabel: "Révoqué"
   statValue: "1685"
+description: "Henri IV promulgue l'édit de Nantes, accordant aux protestants une liberté de culte limitée et mettant fin aux guerres de religion qui ont déchiré la France."
 ---
 
 Henri IV promulgue l'édit de Nantes, accordant aux protestants une liberté de culte limitée et mettant fin aux guerres de religion qui ont déchiré la France.

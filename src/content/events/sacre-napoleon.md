@@ -17,6 +17,7 @@ preview:
   summary: "Fondation du Premier Empire."
   statLabel: "Code civil"
   statValue: "1804"
+description: "Napoléon Bonaparte se couronne lui-même empereur des Français à Notre-Dame de Paris, fondant le Premier Empire après avoir conquis l'Europe."
 ---
 
 Napoléon Bonaparte se couronne lui-même empereur des Français à Notre-Dame de Paris, fondant le Premier Empire après avoir conquis l'Europe.

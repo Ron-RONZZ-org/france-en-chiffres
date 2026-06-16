@@ -17,6 +17,7 @@ preview:
   summary: "Le plus long régime de l'histoire française."
   statLabel: "Lois fondatrices"
   statValue: "1881-1905"
+description: "Après la défaite de Sedan face à la Prusse, la IIIe République est proclamée. Elle devient le régime le plus long de l'histoire française (70 ans)."
 ---
 
 Après la défaite de Sedan face à la Prusse, la IIIe République est proclamée. Elle devient le régime le plus long de l'histoire française (70 ans).

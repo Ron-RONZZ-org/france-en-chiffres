@@ -17,6 +17,7 @@ preview:
   summary: "Le régime politique actuel de la France."
   statLabel: "Présidents"
   statValue: "8 (dont une femme)"
+description: "La Constitution de la Ve République est adoptée, instaurant un régime présidentiel fort. Charles de Gaulle en est le premier président, élu en décembre 1958."
 ---
 
 La Constitution de la Ve République est adoptée, instaurant un régime présidentiel fort. Charles de Gaulle en est le premier président, élu en décembre 1958.

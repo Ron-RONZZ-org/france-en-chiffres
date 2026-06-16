@@ -17,6 +17,7 @@ preview:
   summary: "Défenseur de la liberté de pensée."
   statLabel: "Lettres"
   statValue: "Plus de 20 000"
+description: "Voltaire publie les Lettres philosophiques, une critique acerbe de la société française et une défense de la liberté de pensée, qui est condamnée à être brûlée."
 ---
 
 Voltaire publie les Lettres philosophiques, une critique acerbe de la société française et une défense de la liberté de pensée, qui est condamnée à être brûlée.

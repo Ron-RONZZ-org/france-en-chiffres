@@ -17,6 +17,7 @@ preview:
   summary: "Le plus grand débarquement de l'histoire."
   statLabel: "Plages"
   statValue: "5 secteurs"
+description: "Les forces alliées débarquent sur les plages normandes, ouvrant un second front en Europe. C'est le plus grand débarquement amphibie de l'histoire."
 ---
 
 Les forces alliées débarquent sur les plages normandes, ouvrant un second front en Europe. C'est le plus grand débarquement amphibie de l'histoire.

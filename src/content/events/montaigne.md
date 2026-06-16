@@ -17,6 +17,7 @@ preview:
   summary: "Naissance de la littérature française moderne."
   statLabel: "Chapitres"
   statValue: "107"
+description: "Michel de Montaigne publie les Essais, une œuvre fondatrice de la littérature française qui invente le genre de l'autoportrait philosophique."
 ---
 
 Michel de Montaigne publie les Essais, une œuvre fondatrice de la littérature française qui invente le genre de l'autoportrait philosophique.

@@ -38,7 +38,7 @@ const refMedia = event.mediaId ? await getMedia(event.mediaId) : undefined;
   class="timeline-event group"
   data-event-id={event.id}
   data-side={side}
-  data-year={event.year}
+  data-year={event.start}
   id={"event-" + event.id}
   data-preview-year={event.yearDisplay}
   data-preview-title={event.title}
@@ -62,7 +62,7 @@ const refMedia = event.mediaId ? await getMedia(event.mediaId) : undefined;
   <article class="timeline-event__card">
     <div class="timeline-event__card-inner">
       <!-- Year -->
-      <time class="timeline-event__year" datetime={String(event.year)}>
+      <time class="timeline-event__year" datetime={String(event.start)}>
         {event.yearDisplay}
       </time>
 

@@ -17,6 +17,7 @@ preview:
   summary: "Naissance de l'empire carolingien."
   statLabel: "Capitale"
   statValue: "Aix-la-Chapelle"
+description: "Charlemagne est couronné empereur d'Occident par le pape Léon III à Rome, fondant un empire qui couvre une grande partie de l'Europe occidentale."
 ---
 
 Charlemagne est couronné empereur d'Occident par le pape Léon III à Rome, fondant un empire qui couvre une grande partie de l'Europe occidentale.

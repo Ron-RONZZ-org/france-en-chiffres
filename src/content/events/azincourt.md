@@ -17,6 +17,7 @@ preview:
   summary: "Désastre militaire de la guerre de Cent Ans."
   statLabel: "Durée du conflit"
   statValue: "116 ans"
+description: "Défaite française majeure face aux Anglais pendant la Guerre de Cent Ans. La chevalerie française est décimée par les archers anglais."
 ---
 
 Défaite française majeure face aux Anglais pendant la Guerre de Cent Ans. La chevalerie française est décimée par les archers anglais.

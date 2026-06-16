@@ -17,6 +17,7 @@ preview:
   summary: "Le plus grand dramaturge français."
   statLabel: "Représentations"
   statValue: "Plus de 30 000"
+description: "Molière, dramaturge et acteur, domine la scène française avec des pièces comme Tartuffe (1664) et Le Misanthrope (1666), qui critiquent la société tout en divertissant la cour."
 ---
 
 Molière, dramaturge et acteur, domine la scène française avec des pièces comme Tartuffe (1664) et Le Misanthrope (1666), qui critiquent la société tout en divertissant la cour.

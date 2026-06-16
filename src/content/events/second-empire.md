@@ -17,6 +17,7 @@ preview:
   summary: "Modernisation de Paris et industrialisation."
   statLabel: "Km de boulevards"
   statValue: "137 km créés"
+description: "Louis-Napoléon Bonaparte, neveu de Napoléon Ier, devient Napoléon III et fonde le Second Empire. Paris est transformée par le baron Haussmann."
 ---
 
 Louis-Napoléon Bonaparte, neveu de Napoléon Ier, devient Napoléon III et fonde le Second Empire. Paris est transformée par le baron Haussmann.

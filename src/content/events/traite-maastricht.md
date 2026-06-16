@@ -17,6 +17,7 @@ preview:
   summary: "La France au cœur de la construction européenne."
   statLabel: "Pays fondateurs"
   statValue: "12"
+description: "La France signe le traité de Maastricht qui crée l'Union européenne et pose les bases de la monnaie unique, l'euro, adoptée par la France en 2002."
 ---
 
 La France signe le traité de Maastricht qui crée l'Union européenne et pose les bases de la monnaie unique, l'euro, adoptée par la France en 2002.

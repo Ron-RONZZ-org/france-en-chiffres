@@ -17,6 +17,7 @@ preview:
   summary: "Texte fondateur des droits fondamentaux."
   statLabel: "Inspiré par"
   statValue: "Rousseau, Locke"
+description: "L'Assemblée nationale adopte la Déclaration des droits de l'homme et du citoyen, texte fondateur qui proclame la liberté, l'égalité et la souveraineté nationale."
 ---
 
 L'Assemblée nationale adopte la Déclaration des droits de l'homme et du citoyen, texte fondateur qui proclame la liberté, l'égalité et la souveraineté nationale.

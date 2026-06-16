@@ -17,6 +17,7 @@ preview:
   summary: "Acte fondateur de la France libre."
   statLabel: "Durée de l'appel"
   statValue: "4 minutes"
+description: "Depuis Londres, le général de Gaulle lance un appel à la résistance contre l'occupation allemande. Cet acte fondateur de la France libre maintient la légitimité républicaine."
 ---
 
 Depuis Londres, le général de Gaulle lance un appel à la résistance contre l'occupation allemande. Cet acte fondateur de la France libre maintient la légitimité républicaine.

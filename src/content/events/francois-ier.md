@@ -17,6 +17,7 @@ preview:
   summary: "Le roi mécène qui importe la Renaissance en France."
   statLabel: "Léonard de Vinci"
   statValue: "Arrivée en 1516"
+description: "Victorieux à Marignan, François Ier devient le mécène des arts et des lettres. Il invite Léonard de Vinci en France et lance la construction des châteaux de la Loire."
 ---
 
 Victorieux à Marignan, François Ier devient le mécène des arts et des lettres. Il invite Léonard de Vinci en France et lance la construction des châteaux de la Loire.

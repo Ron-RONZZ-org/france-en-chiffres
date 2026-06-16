@@ -18,6 +18,7 @@ preview:
   summary: "Symbole de la monarchie absolue."
   statLabel: "Superficie"
   statValue: "67 000 m²"
+description: "Louis XIV installe définitivement la cour à Versailles, symbole absolu de la monarchie absolue. Le château compte plus de 2 000 pièces."
 ---
 
 Louis XIV installe définitivement la cour à Versailles, symbole absolu de la monarchie absolue. Le château compte plus de 2 000 pièces.
