@@ -52,12 +52,15 @@ france-en-chiffres/
 ├── public/                  # Static assets (images, fonts, favicon, SVGs)
 │   └── France_departements.svg  # Source SVG for France territory outlines
 ├── templates/               # Editorial templates for content creators
-│   └── event.md             # Annotated event file template (YAML + Markdown body)
+│   ├── event-template.md    # Blank event template (no comments)
+│   ├── era-template.md      # Blank era template (no comments)
+│   ├── event-example.md     # Event with dummy content
+│   └── era-example.md       # Era with dummy content
 ├── src/
 │   ├── content/             # Astro Content Collections (Zod-validated)
 │   │   ├── config.ts        # Zod schemas for all collections
-│   │   ├── eras/            # One .md per era (YAML frontmatter + optional Markdown body)
-│   │   ├── events/          # One .md per event (frontmatter + Markdown body)
+│   │   ├── eras/            # One .md per era (id, title, color, start, end, description; period auto-inferred via .transform())
+│   │   ├── events/          # One .md per event (id, start, end, title, description, mediaId, sourceId; yearDisplay auto-inferred)
 │   │   ├── sources/         # CSL-JSON source files (ISO 690-compatible)
 │   │   └── media/           # Media metadata (.json) + media files (.svg, rasters)
 │   ├── pages/               # Route pages (index, history, culture, ...)
@@ -109,7 +112,7 @@ france-en-chiffres/
 7. **Every image needs caption, credit, and license** — register media in `src/content/media/` as a JSON file with a unique `id`, reference via `mediaId` in data files, render with `<MediaFigure>`. All media files (SVG, jpg, png, etc.) live alongside their metadata in `src/content/media/`.
 8. **Responsive before fancy** — layout must work at 320px before adding any animation.
 9. **Content Collections** — all content data (eras, events, sources, media) lives in `src/content/` as Astro Content Collections with Zod schemas in `src/content/config.ts`. Data validation happens at build time. Aggregation layers reside in `src/data/*.ts`.
-10. **Era–event matching by year range** — events are automatically matched to eras by `start`/`end` year containment (see `src/data/history.ts`). Editors add an event file to `content/events/` without specifying which era it belongs to. Each era has a dedicated page at `/periodes/[slug]` (auto-generated from `content/eras/`). On the timeline page, era titles link to these internal pages and descriptions are displayed inline.
+10. **Era–event matching by year range** — events are automatically matched to eras by `start`/`end` year containment (see `src/data/history.ts`). When a year is shared by adjacent eras (e.g., 1789), the event is assigned to the era whose `start` matches that year. Editors add an event file to `content/events/` without specifying which era it belongs to. Each era has a dedicated page at `/periodes/[slug]` (auto-generated from `content/eras/`). On the timeline page, era titles link to these internal pages and descriptions are displayed inline.
 
 ---
 
