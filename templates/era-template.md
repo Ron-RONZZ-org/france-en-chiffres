@@ -4,4 +4,5 @@ title:
 color:
 start:
 end:
+description:
 ---

@@ -116,6 +116,41 @@ france-en-chiffres/
 
 ---
 
+## Editorial Workflow
+
+Content creators can scaffold new event and era files using the helper scripts:
+
+```bash
+# Event (with year — prefills start/end)
+npm run new:event -- <kebab-case-id> <year>
+
+# Event (without year — start/end left blank)
+npm run new:event -- <kebab-case-id>
+
+# Era (requires start and end years)
+npm run new:era -- <kebab-case-id> <start-year> <end-year>
+```
+
+**Examples:**
+```bash
+npm run new:event -- bataille-de-marignan 1515
+npm run new:era -- restauration 1814 1848
+```
+
+The scripts:
+1. Copy the appropriate template from `templates/` to `src/content/events/<id>.md` or `src/content/eras/<id>.md`
+2. Prefill the `id:` field with the provided slug
+3. Prefill `start:` and `end:` (when years are given)
+4. Open the new file in `$EDITOR` (defaults to `vim`)
+
+Direct invocation is also possible:
+```bash
+bash scripts/new-event.sh mon-evenement 1789
+bash scripts/new-era.sh mon-ere -500 0
+```
+
+---
+
 ## Animation Patterns
 
 | Pattern | Implementation | When |
