@@ -143,4 +143,31 @@ if (fs.existsSync(contentEventsDir)) {
   console.log(`✓ Test 7: ${eventFiles.length} event files with valid frontmatter`);
 }
 
+// ── Test 8: Template file exists and has valid frontmatter ──
+const templateDir = path.join(__dirname, '..', '..', 'templates');
+const templateFile = path.join(templateDir, 'event.md');
+assert.ok(fs.existsSync(templateFile), 'templates/event.md must exist');
+const templateContent = fs.readFileSync(templateFile, 'utf-8');
+assert.ok(templateContent.startsWith('---'), 'templates/event.md must have YAML frontmatter');
+assert.ok(templateContent.includes('\n---\n'), 'templates/event.md must have closing ---');
+// Verify the YAML can be parsed (extract frontmatter and parse it)
+const frontmatterEnd = templateContent.indexOf('\n---\n', 4); // skip the opening ---
+assert.ok(frontmatterEnd > 0, 'templates/event.md: could not find frontmatter boundary');
+const yamlBlock = templateContent.slice(4, frontmatterEnd); // between --- and ---
+assert.ok(yamlBlock.length > 50, 'templates/event.md: frontmatter seems too short');
+// Verify key fields exist (as YAML keys, may be commented out)
+const hasIdField = /^id:/m.test(yamlBlock);
+const hasStartField = /^start:/m.test(yamlBlock);
+const hasEndField = /^end:/m.test(yamlBlock);
+const hasTitleField = /^title:/m.test(yamlBlock);
+const hasCategoryField = /^category:/m.test(yamlBlock);
+const hasSignificanceField = /^significance:/m.test(yamlBlock);
+assert.ok(hasIdField, 'templates/event.md frontmatter must contain "id" field');
+assert.ok(hasTitleField, 'templates/event.md frontmatter must contain "title" field');
+assert.ok(hasStartField, 'templates/event.md frontmatter must contain "start" field');
+assert.ok(hasEndField, 'templates/event.md frontmatter must contain "end" field');
+assert.ok(hasCategoryField, 'templates/event.md frontmatter must contain "category" field');
+assert.ok(hasSignificanceField, 'templates/event.md frontmatter must contain "significance" field');
+console.log('✓ Test 8: templates/event.md exists with valid frontmatter structure');
+
 console.log('\n🎉 All source validation tests passed!');

@@ -51,6 +51,8 @@ Complex data visualizations   → D3.js (bump charts, choropleths,
 france-en-chiffres/
 ├── public/                  # Static assets (images, fonts, favicon, SVGs)
 │   └── France_departements.svg  # Source SVG for France territory outlines
+├── templates/               # Editorial templates for content creators
+│   └── event.md             # Annotated event file template (YAML + Markdown body)
 ├── src/
 │   ├── content/             # Astro Content Collections (Zod-validated)
 │   │   ├── config.ts        # Zod schemas for all collections
@@ -72,10 +74,6 @@ france-en-chiffres/
 │   │   ├── TimelineEra.astro
 │   │   ├── MediaFigure.astro           # <figure> with caption, credit, license
 │   │   └── ...
-│   ├── media/                # Media files (SVG placeholders + rasters)
-│   │   ├── tautavel-crane.svg
-│   │   ├── lascaux-peintures.svg
-│   │   └── ...
 │   ├── layouts/             # Page layout wrappers (Base.astro)
 │   ├── data/                # Data utilities + non-content JSON files
 │   │   ├── history.ts               # Aggregation layer: loads eras + events, matches by year
@@ -92,8 +90,6 @@ france-en-chiffres/
 │   │   └── media.test.cjs             # Media asset validation
 │   └── styles/              # Global CSS
 ├── AGENTS.md                # This file
-├── astro.config.mjs
-└── package.json
 ├── astro.config.mjs
 └── package.json
 ```

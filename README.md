@@ -8,90 +8,75 @@ Un site web éducatif animé qui explore la France à travers ses données stati
 
 ## 🧑‍💻 Pour les éditeurs de contenu
 
-Tout le contenu du site vit dans des fichiers **JSON** sous `src/data/`.  
+Tout le contenu du site vit dans `src/content/` sous forme de **fichiers Markdown** (événements) et **JSON** (époques, sources, médias).  
 Pas besoin de toucher au code HTML ou aux composants pour modifier le texte ou les chiffres.
 
-### Modifier la frise chronologique (`/history`)
+### Ajouter un événement à la frise chronologique
 
-Le fichier à ouvrir : **`src/data/history.json`**
+Chaque événement est un fichier `.md` dans `src/content/events/`.  
+Le **raccordement aux époques est automatique** : les événements sont affectés à une époque selon leur plage d'années (`start`–`end`).
 
-#### Structure d'une époque
+#### Utiliser le modèle
 
-```json
-{
-  "id": "moyen-age",
-  "label": "Moyen Âge",
-  "period": "486 à 1453",
-  "color": "#8b5cf6",
-  "events": [ ... ]
-}
+```bash
+cp templates/event.md src/content/events/nouvel-evenement.md
 ```
 
-| Champ | Description |
-|-------|-------------|
-| `id` | Identifiant unique (utilisé en interne, ne pas changer après publication) |
-| `label` | Nom affiché de l'époque |
-| `period` | Période affichée sous le nom |
-| `color` | Code hexadécimal de la couleur du point sur la timeline |
-| `events[]` | Tableau des événements de cette époque |
+Puis ouvrir le fichier et remplacer les valeurs.  
+Le modèle contient des commentaires expliquant chaque champ.
 
 #### Structure d'un événement
 
-```json
-{
-  "id": "azincourt",
-  "year": 1415,
-  "yearDisplay": "1415",
-  "title": "Bataille d'Azincourt",
-  "description": "Défaite française majeure face aux Anglais...",
-  "category": "military",
-  "significance": 4,
-  "stats": {
-    "label": "Pertes françaises",
-    "value": 6000,
-    "suffix": " hommes",
-    "format": "integer"
-  },
-  "source": "Enguerrand de Monstrelet, Chroniques",
-  "preview": {
-    "summary": "Désastre militaire de la guerre de Cent Ans.",
-    "statLabel": "Durée du conflit",
-    "statValue": "116 ans"
-  }
-}
+```yaml
+---
+id: "mon-evenement"
+start: 2024
+end: 2024
+yearDisplay: "14 juillet 2024"
+title: "Titre de l'événement"
+category: "cultural"
+significance: 3
+stats:
+  label: "Intitulé"
+  value: 42
+  suffix: " unité"
+  format: "integer"
+sourceId: "ma-source"
+link: "https://..."
+preview:
+  summary: "Résumé en une phrase."
+  statLabel: "Intitulé du tooltip"
+  statValue: "Valeur textuelle"
+description: "Description détaillée (2-4 phrases)."
+---
 ```
 
 | Champ | Description | Obligatoire |
 |-------|-------------|-------------|
-| `id` | Identifiant unique de l'événement | ✅ |
-| `year` | Année (numérique, négative pour av. J.-C.) | ✅ |
-| `yearDisplay` | Texte affiché pour l'année (ex: `"14 juillet 1789"`) | ✅ |
-| `title` | Titre de l'événement | ✅ |
-| `description` | Description détaillée (3-4 lignes max) | ✅ |
-| `category` | Catégorie : `political`, `military`, `cultural`, `economic`, `scientific` | ✅ |
-| `significance` | Importance de 1 à 5 (réserve 5 aux événements majeurs) | ✅ |
+| `id` | Identifiant unique (kebab-case, minuscules) | ✅ |
+| `start` | Année de début (nombre négatif pour av. J.-C.) | ✅ |
+| `end` | Année de fin (identique à `start` pour un événement ponctuel) | ✅ |
+| `yearDisplay` | Texte affiché pour la date (ex: `"14 juillet 1789"`) | ✅ |
+| `title` | Titre de l'événement (≤ 50 car.) | ✅ |
+| `category` | `political`, `military`, `cultural`, `economic` ou `scientific` | ✅ |
+| `significance` | Importance de 1 à 5 (5 = événement fondateur) | ✅ |
 | `stats` | Chiffre clé associé à l'événement | ✅ |
 | `stats.label` | Intitulé de la statistique | ✅ |
 | `stats.value` | Valeur numérique | ✅ |
-| `stats.suffix` | Unité ou suffixe (ex: `" hommes"`, `" km²"`) | optionnel |
+| `stats.suffix` | Unité ou texte après le nombre | optionnel |
 | `stats.format` | `"integer"` ou `"decimal"` | optionnel |
-| `source` | Source de l'information | ✅ |
-| `preview` | Contenu affiché au survol (tooltip) | ✅ |
+| `sourceId` | Identifiant de la source (dans `src/content/sources/`) | ✅ |
+| `link` | URL Wikipedia ou autre ressource | optionnel |
+| `preview` | Contenu affiché au survol sur la frise | ✅ |
 | `preview.summary` | Résumé en une phrase | ✅ |
 | `preview.statLabel` | Intitulé de la statistique du tooltip | ✅ |
-| `preview.statValue` | Valeur textuelle de la statistique du tooltip | ✅ |
+| `preview.statValue` | Valeur textuelle du tooltip | ✅ |
+| `description` | Description détaillée (2-4 phrases) | optionnel |
+| `mediaId` | Identifiant média (dans `src/content/media/`) | optionnel |
 
-#### Ajouter un événement
+#### Ajouter une époque
 
-1. Ouvrir `src/data/history.json`
-2. Trouver l'époque concernée (ex: `"france-contemporaine"`)
-3. Ajouter un nouvel objet dans le tableau `events`
-4. Respecter la structure ci-dessus
-5. Sauvegarder → le site se met à jour automatiquement au prochain build
-
-#### Ajouter une nouvelle époque
-
-Ajouter un objet dans le tableau `eras` :
+Les époques sont des fichiers JSON dans `src/content/eras/` :
 
 ```json
 {
@@ -99,11 +84,17 @@ Ajouter un objet dans le tableau `eras` :
   "label": "Mon Époque",
   "period": "1900 à 1950",
   "color": "#a855f7",
-  "events": [ ... ]
+  "start": 1900,
+  "end": 1950
 }
 ```
 
 Le site supporte un nombre illimité d'époques et d'événements.
+
+#### Ajouter une source
+
+Les sources sont des fichiers CSL-JSON dans `src/content/sources/`.  
+Consultez les fichiers existants dans ce dossier pour connaître le format attendu.
 
 ---
 
@@ -189,32 +180,46 @@ import Base from '../layouts/Base.astro';
 
 ```
 france-en-chiffres/
+├── public/                    # Static assets (images, fonts, favicon)
+│   └── France_departements.svg
+├── templates/                 # Modèles pour les éditeurs de contenu
+│   └── event.md               # Modèle d'événement (YAML + Markdown)
 ├── src/
-│   ├── pages/            # Routes du site (1 fichier = 1 page)
-│   ├── components/       # Composants réutilisables
-│   │   ├── Counter.astro      # Compteur animé
-│   │   ├── InteractiveFranceMap.astro  # Carte interactive (héros + géographie)
-│   │   ├── Timeline.astro     # Conteneur de la frise
-│   │   ├── TimelineEra.astro  # Section d'époque
-│   │   ├── TimelineEvent.astro # Événement individuel
-│   │   ├── HoverPreview.astro # Tooltip au survol
-│   │   └── Nav.astro          # Navigation fixe
+│   ├── content/               # Content Collections (Zod-validated)
+│   │   ├── config.ts          # Schémas de validation
+│   │   ├── eras/              # Époques (fichiers JSON)
+│   │   ├── events/            # Événements (fichiers .md)
+│   │   ├── sources/           # Sources CSL-JSON
+│   │   └── media/             # Médias (métadonnées + fichiers)
+│   ├── pages/                 # Routes du site (1 fichier = 1 page)
+│   ├── components/            # Composants réutilisables
+│   │   ├── Counter.astro
+│   │   ├── InteractiveFranceMap.astro
+│   │   ├── Timeline.astro
+│   │   ├── TimelineEra.astro
+│   │   ├── TimelineEvent.astro
+│   │   ├── MediaFigure.astro
+│   │   └── Nav.astro
 │   ├── layouts/
-│   │   └── Base.astro         # Layout principal (nav, footer, fonts)
-│   ├── scripts/           # Build-time helper scripts
-│   │   └── extract-france-map.js  # Extrait les chemins SVG depuis France_departements.svg
-│   ├── tests/             # Tests de validation automatisés
-│   │   └── france-map.test.cjs
-│   ├── data/
+│   │   └── Base.astro
+│   ├── data/                  # Données non-content + utilitaires
 │   │   ├── france.json        # Stats de la page d'accueil
-│   │   ├── france-map-data.json # Chemins SVG extraits (Métropole + DOM-COM)
-│   │   │   ├── france-departments.json # 96 départements métropolitains
-│   │   ├── history.json       # Données de la frise chronologique
-│   │   └── history.types.ts   # Types TypeScript (pour l'éditeur de code)
+│   │   ├── france-map-data.json
+│   │   ├── france-departments.json
+│   │   ├── history.ts         # Agrégation époques + événements
+│   │   ├── sources.ts         # Résolution des sources
+│   │   └── media.ts           # Résolution des médias
+│   ├── scripts/               # Scripts de build
+│   │   └── extract-france-map.js
+│   ├── tests/                 # Tests de validation
+│   │   ├── france-map.test.cjs
+│   │   ├── sources.test.cjs
+│   │   └── media.test.cjs
 │   └── styles/
-│       └── global.css         # Variables CSS, reset, utilitaires
-├── tailwind.config.js         # Configuration Tailwind (couleurs, fonts)
+│       └── global.css
+├── AGENTS.md                  # Règles du projet pour l'IA
 ├── astro.config.mjs
+├── tailwind.config.js
 └── package.json
 ```
 
