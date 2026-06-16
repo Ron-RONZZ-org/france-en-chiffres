@@ -1,0 +1,15 @@
+{
+  "id": "bar-yosef-1998-natufian",
+  "type": "article-journal",
+  "title": "The Natufian culture in the Levant, threshold to the origins of agriculture",
+  "author": [
+    { "family": "Bar-Yosef", "given": "Ofer" }
+  ],
+  "container-title": "Evolutionary Anthropology",
+  "volume": "6",
+  "issue": "5",
+  "page": "159-177",
+  "issued": { "date-parts": [[1998]] },
+  "DOI": "10.1002/(SICI)1520-6505(1998)6:5<159::AID-EVAN4>3.0.CO;2-7",
+  "note": "Article de synthèse sur la culture natoufienne (15 000-11 500 ans BP) au Proche-Orient, considérée comme la phase de transition entre chasse-cueillette et agriculture, avec les premières expériences de sédentarisation et de culture de céréales sauvages."
+}

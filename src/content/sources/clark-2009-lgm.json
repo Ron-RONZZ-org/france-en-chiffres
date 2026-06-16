@@ -1,0 +1,23 @@
+{
+  "id": "clark-2009-lgm",
+  "type": "article-journal",
+  "title": "The Last Glacial Maximum",
+  "author": [
+    { "family": "Clark", "given": "Peter U." },
+    { "family": "Dyke", "given": "Arthur S." },
+    { "family": "Shakun", "given": "Jeremy D." },
+    { "family": "Carlson", "given": "Anders E." },
+    { "family": "Clark", "given": "Jorie" },
+    { "family": "Wohlfarth", "given": "Barbara" },
+    { "family": "Mitrovica", "given": "Jerry X." },
+    { "family": "Hostetler", "given": "Steven W." },
+    { "family": "McCabe", "given": "A. Marshall" }
+  ],
+  "container-title": "Science",
+  "volume": "325",
+  "issue": "5941",
+  "page": "710-714",
+  "issued": { "date-parts": [[2009, 8, 7]] },
+  "DOI": "10.1126/science.1172873",
+  "note": "Synthèse de référence sur le Dernier Maximum Glaciaire (26 500 à 19 000 ans avant le présent), ses causes, son extension glaciaire et ses conséquences climatiques globales."
+}
