@@ -12,6 +12,7 @@ export const eraSchema = z.object({
   color: z.string().regex(/^#[0-9a-fA-F]{6}$/, 'Must be a valid hex color'),
   start: z.number(),
   end: z.number(),
+  description: z.string().optional(),
   link: z.string().url().optional(),
 });
 
@@ -99,7 +100,7 @@ const mediaSchema = z.object({
 // ── Export collections ──
 
 export const collections = {
-  eras:    defineCollection({ type: 'data',    schema: eraSchema }),
+  eras:    defineCollection({ type: 'content', schema: eraSchema }),
   events:  defineCollection({ type: 'content', schema: eventSchema }),
   sources: defineCollection({ type: 'data',    schema: sourceSchema }),
   media:   defineCollection({ type: 'data',    schema: mediaSchema }),

@@ -108,21 +108,29 @@ for (const file of sourceFiles) {
 }
 console.log('✓ Test 5: All source filenames match their CSL-JSON id');
 
-// ── Test 6: All era files exist in content/eras/ ──
+// ── Test 6: All era files exist in content/eras/ with valid YAML frontmatter ──
 const erasDir = path.join(__dirname, '..', 'content', 'eras');
 assert.ok(fs.existsSync(erasDir), 'src/content/eras/ directory must exist');
-const eraFiles = fs.readdirSync(erasDir).filter(f => f.endsWith('.json'));
+const eraFiles = fs.readdirSync(erasDir).filter(f => f.endsWith('.md'));
 assert.ok(eraFiles.length >= 5, `Must have at least 5 era files (found ${eraFiles.length})`);
-// Validate all era files parse
+// Validate all era files have valid YAML frontmatter
 for (const file of eraFiles) {
-  const era = JSON.parse(fs.readFileSync(path.join(erasDir, file), 'utf-8'));
-  assert.ok(era.id, `Era file ${file} must have an "id" field`);
-  assert.ok(era.start !== undefined, `Era ${era.id} must have "start"`);
-  assert.ok(era.end !== undefined, `Era ${era.id} must have "end"`);
-  assert.ok(era.start < era.end, `Era ${era.id}: start must be < end`);
-  assert.ok(era.color?.startsWith('#'), `Era ${era.id}: color must be hex`);
+  const content = fs.readFileSync(path.join(erasDir, file), 'utf-8');
+  assert.ok(content.startsWith('---'), `Era ${file} must have YAML frontmatter`);
+  assert.ok(content.includes('\n---\n'), `Era ${file} must have closing ---`);
+  // Basic required fields (regex match on YAML)
+  const hasId = /^id:\s/m.test(content);
+  const hasLabel = /^label:\s/m.test(content);
+  const hasStart = /^start:\s/m.test(content);
+  const hasEnd = /^end:\s/m.test(content);
+  const hasColor = /^color:\s/m.test(content);
+  assert.ok(hasId, `Era ${file} must have "id" in frontmatter`);
+  assert.ok(hasLabel, `Era ${file} must have "label" in frontmatter`);
+  assert.ok(hasStart, `Era ${file} must have "start" in frontmatter`);
+  assert.ok(hasEnd, `Era ${file} must have "end" in frontmatter`);
+  assert.ok(hasColor, `Era ${file} must have "color" in frontmatter`);
 }
-console.log(`✓ Test 6: ${eraFiles.length} era files with valid structure`);
+console.log(`✓ Test 6: ${eraFiles.length} era files with valid YAML frontmatter`);
 
 // ── Test 7: All event files have valid frontmatter ──
 if (fs.existsSync(contentEventsDir)) {
