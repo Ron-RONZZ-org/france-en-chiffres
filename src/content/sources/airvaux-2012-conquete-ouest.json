@@ -1,0 +1,19 @@
+{
+  "id": "airvaux-2012-conquete-ouest",
+  "type": "document",
+  "title": "La conquête de l'ouest il y a un million d'années en Europe (Premières présences humaines en France entre 1,2 et 0,5 million d'années)",
+  "author": [
+    { "family": "Airvaux", "given": "Jean" },
+    { "family": "Despriée", "given": "Jackie" },
+    { "family": "Turq", "given": "Alain" },
+    { "family": "Chacon Navarro", "given": "María Gema" },
+    { "family": "Pleurdeau", "given": "David" },
+    { "family": "Courcimault", "given": "Gilles" },
+    { "family": "Jarry", "given": "Marc" },
+    { "family": "Bruxelles", "given": "Laurent" }
+  ],
+  "publisher": "Musée national de Préhistoire — Les Eyzies-de-Tayac",
+  "issued": { "date-parts": [[2012, 6]] },
+  "accessed": { "date-parts": [[2026, 6, 16]] },
+  "note": "Catalogue d'exposition présentant les cinq plus anciens sites préhistoriques de France (Bois-de-Riquet, Vallonnet, Terre-des-Sablons, Pont-de-Lavaud, Pont-de-la-Hulauderie), avec datation par paléomagnétisme et analyse des industries lithiques oldowayennes."
+}

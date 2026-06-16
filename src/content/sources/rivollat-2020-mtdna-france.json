@@ -1,0 +1,19 @@
+{
+  "id": "rivollat-2020-mtdna-france",
+  "type": "article-journal",
+  "title": "Ancient DNA gives new insights into the neolithisation of France",
+  "author": [
+    { "family": "Rivollat", "given": "Maïté" },
+    { "family": "Mendisco", "given": "Fanny" },
+    { "family": "Pemonge", "given": "Marie-Hélène" },
+    { "family": "Soulier", "given": "Marie-Christine" },
+    { "family": "Lefranc", "given": "Philippe" },
+    { "family": "Deguilloux", "given": "Marie-France" },
+    { "family": "Deguilloux", "given": "Pierre" }
+  ],
+  "container-title": "Journal of Archaeological Science",
+  "volume": "115",
+  "page": "105093",
+  "issued": { "date-parts": [[2020]] },
+  "note": "Étude d'ADN ancien montrant deux voies distinctes de néolithisation de la France : courants cardial (méditerranéen) et rubané (danubien), avec un degré variable de mélange avec les chasseurs-cueilleurs locaux."
+}

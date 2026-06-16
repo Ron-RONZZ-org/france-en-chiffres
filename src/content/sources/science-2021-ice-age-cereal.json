@@ -1,0 +1,13 @@
+{
+  "id": "science-2021-ice-age-cereal",
+  "type": "webpage",
+  "title": "Ice Age Cereal",
+  "author": [
+    { "literal": "Science News Staff" }
+  ],
+  "publisher": "Science",
+  "issued": { "date-parts": [[2021, 8, 14]] },
+  "accessed": { "date-parts": [[2026, 6, 16]] },
+  "URL": "https://www.science.org/content/article/ice-age-cereal",
+  "note": "Grain starches extracted from an ancient grinding stone in Israel reveal that humans milled wild barley and wheat 22,000 years ago, suggesting early processing of cereals."
+}
