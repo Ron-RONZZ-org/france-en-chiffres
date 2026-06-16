@@ -41,27 +41,30 @@ for (const file of sourceFiles) {
 }
 console.log(`✓ Test 1: ${sourceFiles.length} source files with valid CSL-JSON structure`);
 
-// ── Test 2: All sourceId references in event files resolve ──
-const unresolvedRefs = [];
+// ── Test 2: All inline [source:id] citations in event files resolve ──
+const unresolvedInline = [];
 
 if (fs.existsSync(contentEventsDir)) {
   const eventFiles = fs.readdirSync(contentEventsDir).filter(f => f.endsWith('.md'));
   for (const file of eventFiles) {
     const content = fs.readFileSync(path.join(contentEventsDir, file), 'utf-8');
-    // Find all "sourceId: "..." references in YAML frontmatter
-    const refRegex = /sourceId:\s*"([^"]+)"/g;
+    // Find all [source: id] references in Markdown body (after YAML frontmatter)
+    const bodyMatch = content.match(/---\n[\s\S]*?\n---\n([\s\S]*)/);
+    if (!bodyMatch) continue;
+    const body = bodyMatch[1];
+    const refRegex = /\[source:\s+([\w-]+)\]/g;
     let match;
-    while ((match = refRegex.exec(content)) !== null) {
+    while ((match = refRegex.exec(body)) !== null) {
       const refId = match[1];
       if (!sourceIds.has(refId)) {
-        unresolvedRefs.push({ file, refId });
+        unresolvedInline.push({ file, refId });
       }
     }
   }
 }
-assert.equal(unresolvedRefs.length, 0,
-  `Unresolved sourceId references: ${JSON.stringify(unresolvedRefs)}`);
-console.log('✓ Test 2: All sourceId references in event files resolve');
+assert.equal(unresolvedInline.length, 0,
+  `Unresolved inline [source:] references: ${JSON.stringify(unresolvedInline)}`);
+console.log('✓ Test 2: All inline [source:] citations resolve to valid source files');
 
 // ── Test 3: Build output includes bibliography pages ──
 const distDir = path.join(__dirname, '..', '..', 'dist');
@@ -94,7 +97,7 @@ if (fs.existsSync(contentEventsDir)) {
     // Only flag top-level "source:" (not inside nested objects)
     const rawSourceRegex = /^source:\s/m;
     assert.ok(!rawSourceRegex.test(content),
-      `Event ${file} still has raw "source" field (should use sourceId)`);
+      `Event ${file} still has raw "source" field (should use inline [source:id] citations)`);
   }
 }
 console.log('✓ Test 4: No raw "source" fields remain in event files');

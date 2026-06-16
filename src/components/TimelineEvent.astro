@@ -1,6 +1,5 @@
 ---
 import type { TimelineEvent as EventData } from '../content/config';
-import { getSource, formatSourceLabel, sourceUrl } from '../data/sources';
 import { getMedia } from '../data/media';
 
 export interface Props {
@@ -11,13 +10,6 @@ export interface Props {
 
 const { event, index, total } = Astro.props;
 const side = index % 2 === 0 ? 'left' : 'right';
-
-// Resolve source for hyperlinked citation (build-time)
-const refSource = event.sourceId ? await getSource(event.sourceId) : undefined;
-const sourceLabel = refSource
-  ? formatSourceLabel(refSource)
-  : (event.source ?? '');
-const sourceHref = event.sourceId ? sourceUrl(event.sourceId) : null;
 
 // Resolve media thumbnail (build-time)
 const refMedia = event.mediaId ? await getMedia(event.mediaId) : undefined;
@@ -32,8 +24,6 @@ const refMedia = event.mediaId ? await getMedia(event.mediaId) : undefined;
   data-preview-year={event.yearDisplay}
   data-preview-title={event.title}
   data-preview-description={event.description}
-  data-preview-source-label={sourceLabel}
-  data-preview-source-href={sourceHref ?? ''}
   data-preview-media-src={refMedia?.src ?? ''}
   data-preview-media-alt={refMedia?.alt ?? ''}
 >
@@ -179,8 +169,6 @@ const refMedia = event.mediaId ? await getMedia(event.mediaId) : undefined;
       const year = el.dataset.previewYear || '';
       const title = el.dataset.previewTitle || '';
       const description = el.dataset.previewDescription || '';
-      const sourceLabel = el.dataset.previewSourceLabel || '';
-      const sourceHref = el.dataset.previewSourceHref || '';
       const mediaSrc = el.dataset.previewMediaSrc || '';
       const mediaAlt = el.dataset.previewMediaAlt || '';
 
@@ -194,10 +182,6 @@ const refMedia = event.mediaId ? await getMedia(event.mediaId) : undefined;
           <h4 class="tippy-preview__title">${escapeHTML(title)}</h4>
           <div class="tippy-preview__divider" style="background:${ACCENT}"></div>
           <p class="tippy-preview__description">${escapeHTML(description)}</p>
-          ${sourceHref
-            ? `<a href="${escapeHTML(sourceHref)}" class="tippy-preview__source tippy-preview__source--link" target="_blank" rel="noopener noreferrer">${escapeHTML(sourceLabel)}</a>`
-            : `<span class="tippy-preview__source">${escapeHTML(sourceLabel)}</span>`
-          }
         </div>
       `;
     };

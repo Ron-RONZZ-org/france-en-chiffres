@@ -60,7 +60,7 @@ france-en-chiffres/
 │   ├── content/             # Astro Content Collections (Zod-validated)
 │   │   ├── config.ts        # Zod schemas for all collections
 │   │   ├── eras/            # One .md per era (id, title, color, start, end, description; period auto-inferred via .transform())
-│   │   ├── events/          # One .md per event (id, start, end, title, description, mediaId, sourceId; yearDisplay auto-inferred)
+│   │   ├── events/          # One .md per event (id, start, end, title, description, mediaId; yearDisplay auto-inferred)
 │   │   ├── sources/         # CSL-JSON source files (ISO 690-compatible)
 │   │   └── media/           # Media metadata (.json) + media files (.svg, rasters)
 │   ├── pages/               # Route pages (index, history, culture, ...)

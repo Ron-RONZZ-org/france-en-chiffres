@@ -18,17 +18,12 @@ const event = entry.data;
 const { Content } = await entry.render();
 
 // Extract inline source IDs from Markdown body
-const inlineSourceIds = [...entry.body.matchAll(/\[source:\s+([\w-]+)\]/g)]
-  .map((m) => m[1]);
-
-// Deduplicate and merge with frontmatter sourceId
-const allSourceIds = [...new Set([
-  ...(event.sourceId ? [event.sourceId] : []),
-  ...inlineSourceIds,
-])];
+const sourceIds = [...new Set(
+  [...entry.body.matchAll(/\[source:\s+([\w-]+)\]/g)].map((m) => m[1])
+)];
 
 const sources = (await Promise.all(
-  allSourceIds.map((id) => getSource(id)),
+  sourceIds.map((id) => getSource(id)),
 )).filter(Boolean);
 const refMedia = event.mediaId ? await getMedia(event.mediaId) : undefined;
 ---

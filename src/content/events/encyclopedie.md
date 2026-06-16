@@ -4,7 +4,6 @@ start: 1751
 end: 1751
 yearDisplay: "1751"
 title: "Publication de l'Encyclopédie"
-sourceId: "bnf"
 description: "Diderot et d'Alembert publient le premier volume de l'Encyclopédie, somme des connaissances de l'époque qui incarne l'esprit des Lumières. Ses 160 contributeurs en font la plus grande entreprise éditoriale du XVIIIe siècle."
 ---
 

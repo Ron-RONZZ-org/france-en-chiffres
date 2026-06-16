@@ -28,7 +28,6 @@ export const eventSchema = z.object({
   title: z.string().min(1),
   description: z.string().optional(),
   mediaId: z.string().optional(),
-  sourceId: z.string().optional(),
 }).refine(
   (data) => data.end >= data.start,
   { message: 'end must be >= start', path: ['end'] }
