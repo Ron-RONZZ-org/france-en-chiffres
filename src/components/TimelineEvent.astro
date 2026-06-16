@@ -156,6 +156,7 @@ const refMedia = event.mediaId ? await getMedia(event.mediaId) : undefined;
 <script>
   import tippy from 'tippy.js';
   import 'tippy.js/dist/tippy.css';
+  import 'tippy.js/animations/shift-away.css';
 
   (() => {
     const events = document.querySelectorAll('.timeline-event');
@@ -198,6 +199,7 @@ const refMedia = event.mediaId ? await getMedia(event.mediaId) : undefined;
         allowHTML: true,
         trigger: isTouch ? 'click' : 'mouseenter',
         interactive: true,
+        interactiveBorder: 10,
         placement: 'bottom',
         maxWidth: 420,
         theme: 'dark',

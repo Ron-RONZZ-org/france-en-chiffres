@@ -24,10 +24,11 @@ export interface HistoryData {
  */
 function matchEra(event: TimelineEvent, eras: Era[]): Era | undefined {
   // Exact start match → unambiguous boundary ownership
-  const exact = eras.find((e) => e.start === event.start && event.end >= event.end);
+  const exact = eras.find((e) => e.start === event.start && e.end >= event.end);
   if (exact) return exact;
-  // Fall back to first containing era
-  return eras.find((e) => event.start >= e.start && event.end <= e.end);
+  // Fall back to first containing era (must start strictly AFTER era start
+  // and end strictly BEFORE era end to avoid double-matching boundary years)
+  return eras.find((e) => event.start > e.start && event.end < e.end);
 }
 
 /** Load and assemble the full history data */
