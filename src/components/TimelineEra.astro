@@ -19,7 +19,7 @@ const { era } = Astro.props;
   <header class="timeline-era__header">
     <span class="timeline-era__period">{era.period}</span>
     <a href={`/periodes/${era.id}`} class="timeline-era__title-link">
-      <h2 class="timeline-era__title">{era.label}</h2>
+      <h2 class="timeline-era__title">{era.title}</h2>
     </a>
     {era.description && (
       <p class="timeline-era__description">{era.description}</p>

@@ -120,12 +120,12 @@ for (const file of eraFiles) {
   assert.ok(content.includes('\n---\n'), `Era ${file} must have closing ---`);
   // Basic required fields (regex match on YAML)
   const hasId = /^id:\s/m.test(content);
-  const hasLabel = /^label:\s/m.test(content);
+  const hasTitle = /^title:\s/m.test(content);
   const hasStart = /^start:\s/m.test(content);
   const hasEnd = /^end:\s/m.test(content);
   const hasColor = /^color:\s/m.test(content);
   assert.ok(hasId, `Era ${file} must have "id" in frontmatter`);
-  assert.ok(hasLabel, `Era ${file} must have "label" in frontmatter`);
+  assert.ok(hasTitle, `Era ${file} must have "title" in frontmatter`);
   assert.ok(hasStart, `Era ${file} must have "start" in frontmatter`);
   assert.ok(hasEnd, `Era ${file} must have "end" in frontmatter`);
   assert.ok(hasColor, `Era ${file} must have "color" in frontmatter`);
@@ -151,32 +151,43 @@ if (fs.existsSync(contentEventsDir)) {
   console.log(`✓ Test 7: ${eventFiles.length} event files with valid frontmatter`);
 }
 
-// ── Test 8: Template file exists and has valid frontmatter ──
+// ── Test 8: Template files exist and have valid frontmatter ──
 const templateDir = path.join(__dirname, '..', '..', 'templates');
-const templateFile = path.join(templateDir, 'event.md');
-assert.ok(fs.existsSync(templateFile), 'templates/event.md must exist');
-const templateContent = fs.readFileSync(templateFile, 'utf-8');
-assert.ok(templateContent.startsWith('---'), 'templates/event.md must have YAML frontmatter');
-assert.ok(templateContent.includes('\n---\n'), 'templates/event.md must have closing ---');
-// Verify the YAML can be parsed (extract frontmatter and parse it)
-const frontmatterEnd = templateContent.indexOf('\n---\n', 4); // skip the opening ---
-assert.ok(frontmatterEnd > 0, 'templates/event.md: could not find frontmatter boundary');
-const yamlBlock = templateContent.slice(4, frontmatterEnd); // between --- and ---
-assert.ok(yamlBlock.length > 50, 'templates/event.md: frontmatter seems too short');
-// Verify key fields exist (as YAML keys, may be commented out)
-const hasIdField = /^id:/m.test(yamlBlock);
-const hasStartField = /^start:/m.test(yamlBlock);
-const hasEndField = /^end:/m.test(yamlBlock);
-const hasTitleField = /^title:/m.test(yamlBlock);
-const hasCategoryField = /^category:/m.test(yamlBlock);
-const hasSignificanceField = /^significance:/m.test(yamlBlock);
-assert.ok(hasIdField, 'templates/event.md frontmatter must contain "id" field');
-assert.ok(hasTitleField, 'templates/event.md frontmatter must contain "title" field');
-assert.ok(hasStartField, 'templates/event.md frontmatter must contain "start" field');
-assert.ok(hasEndField, 'templates/event.md frontmatter must contain "end" field');
-assert.ok(hasCategoryField, 'templates/event.md frontmatter must contain "category" field');
-assert.ok(hasSignificanceField, 'templates/event.md frontmatter must contain "significance" field');
-console.log('✓ Test 8: templates/event.md exists with valid frontmatter structure');
+
+// 8a: event-template.md
+const eventTemplateFile = path.join(templateDir, 'event-template.md');
+assert.ok(fs.existsSync(eventTemplateFile), 'templates/event-template.md must exist');
+const eventTmpl = fs.readFileSync(eventTemplateFile, 'utf-8');
+assert.ok(eventTmpl.startsWith('---'), 'templates/event-template.md must have YAML frontmatter');
+assert.ok(eventTmpl.includes('\n---\n'), 'templates/event-template.md must have closing ---');
+const evFrontmatter = eventTmpl.slice(4, eventTmpl.indexOf('\n---\n', 4));
+assert.ok(/^id:/m.test(evFrontmatter), 'templates/event-template.md must contain "id"');
+assert.ok(/^title:/m.test(evFrontmatter), 'templates/event-template.md must contain "title"');
+assert.ok(/^start:/m.test(evFrontmatter), 'templates/event-template.md must contain "start"');
+assert.ok(/^end:/m.test(evFrontmatter), 'templates/event-template.md must contain "end"');
+
+// 8b: era-template.md
+const eraTemplateFile = path.join(templateDir, 'era-template.md');
+assert.ok(fs.existsSync(eraTemplateFile), 'templates/era-template.md must exist');
+const eraTmpl = fs.readFileSync(eraTemplateFile, 'utf-8');
+assert.ok(eraTmpl.startsWith('---'), 'templates/era-template.md must have YAML frontmatter');
+assert.ok(eraTmpl.includes('\n---\n'), 'templates/era-template.md must have closing ---');
+const erFrontmatter = eraTmpl.slice(4, eraTmpl.indexOf('\n---\n', 4));
+assert.ok(/^id:/m.test(erFrontmatter), 'templates/era-template.md must contain "id"');
+assert.ok(/^title:/m.test(erFrontmatter), 'templates/era-template.md must contain "title"');
+assert.ok(/^color:/m.test(erFrontmatter), 'templates/era-template.md must contain "color"');
+assert.ok(/^start:/m.test(erFrontmatter), 'templates/era-template.md must contain "start"');
+assert.ok(/^end:/m.test(erFrontmatter), 'templates/era-template.md must contain "end"');
+
+// 8c: event-example.md
+const eventExampleFile = path.join(templateDir, 'event-example.md');
+assert.ok(fs.existsSync(eventExampleFile), 'templates/event-example.md must exist');
+
+// 8d: era-example.md
+const eraExampleFile = path.join(templateDir, 'era-example.md');
+assert.ok(fs.existsSync(eraExampleFile), 'templates/era-example.md must exist');
+
+console.log('✓ Test 8: template files exist with valid frontmatter structure');
 
 // ── Helper: extract numeric frontmatter field value ──
 function getFrontmatterNumber(yamlBlock, field) {

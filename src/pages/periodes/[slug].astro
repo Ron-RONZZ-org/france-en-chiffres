@@ -22,12 +22,12 @@ const matchedEra = history.eras.find((e) => e.id === era.id);
 const events = matchedEra?.events ?? [];
 ---
 
-<Base title={`${era.label} — Histoire`} description={era.description ?? `Période ${era.period}`}>
+<Base title={`${era.title} — Histoire`} description={era.description ?? `Période ${era.period}`}>
   <article class="era-page">
     <header class="era-page__header" style={{ '--era-color': era.color }}>
       <a href="/history" class="era-page__back">← Chronologie</a>
       <time class="era-page__period">{era.period}</time>
-      <h1 class="era-page__title">{era.label}</h1>
+      <h1 class="era-page__title">{era.title}</h1>
       {era.description && (
         <p class="era-page__description">{era.description}</p>
       )}
@@ -49,13 +49,6 @@ const events = matchedEra?.events ?? [];
     </div>
 
     <footer class="era-page__footer">
-      {era.link && (
-        <p class="era-page__ext-link">
-          <a href={era.link} target="_blank" rel="noopener noreferrer">
-            En savoir plus sur Wikipédia →
-          </a>
-        </p>
-      )}
     </footer>
   </article>
 </Base>
@@ -177,16 +170,6 @@ const events = matchedEra?.events ?? [];
     flex-direction: column;
     gap: var(--gap-sm);
     font-size: 0.85rem;
-  }
-
-  .era-page__ext-link a {
-    color: var(--color-french-blue);
-    text-decoration: none;
-    font-weight: 600;
-  }
-
-  .era-page__ext-link a:hover {
-    text-decoration: underline;
   }
 
   @media (max-width: 767px) {
