@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <rect width="800" height="600" fill="#27272a"/>
+  <!-- Cave wall texture -->
+  <rect x="40" y="40" width="720" height="420" rx="8" fill="#3f3f46"/>
+  <!-- Horse figure -->
+  <path d="M200 300 C180 250 160 200 200 160 C240 120 300 140 320 180 C340 220 360 240 380 260 C400 280 420 280 440 260 C460 240 480 250 460 280 C440 310 400 320 380 340 C360 360 300 380 260 360 C220 340 200 320 200 300Z" fill="#d97706" opacity="0.8"/>
+  <!-- Bull figure -->
+  <path d="M320 200 C300 180 280 160 300 130 C320 100 380 110 420 140 C460 170 500 200 540 220 C580 240 600 260 580 280 C560 300 520 290 480 270 C440 250 400 240 360 230 C340 225 330 210 320 200Z" fill="#b45309" opacity="0.7"/>
+  <!-- Dots -->
+  <circle cx="150" cy="180" r="6" fill="#d97706" opacity="0.6"/>
+  <circle cx="170" cy="200" r="4" fill="#d97706" opacity="0.6"/>
+  <circle cx="550" cy="160" r="5" fill="#d97706" opacity="0.6"/>
+  <circle cx="580" cy="180" r="3" fill="#d97706" opacity="0.6"/>
+  <!-- Abstract signs -->
+  <rect x="130" y="280" width="60" height="8" rx="2" fill="#d97706" opacity="0.4" transform="rotate(-20 160 284)"/>
+  <rect x="520" y="260" width="50" height="6" rx="2" fill="#d97706" opacity="0.4" transform="rotate(15 545 263)"/>
+  <text x="400" y="520" text-anchor="middle" font-family="serif" font-size="20" fill="#94a3b8">
+    Peintures de la grotte de Lascaux
+  </text>
+  <text x="400" y="550" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#64748b">
+    Vers 17 000 av. J.-C. — Dordogne
+  </text>
+</svg>

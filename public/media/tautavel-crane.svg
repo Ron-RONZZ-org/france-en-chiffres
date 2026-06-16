@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <rect width="800" height="600" fill="#1e293b"/>
+  <g transform="translate(200, 80)">
+    <!-- Skull outline -->
+    <ellipse cx="200" cy="220" rx="180" ry="220" fill="#78716c" stroke="#a8a29e" stroke-width="2"/>
+    <!-- Cranium dome -->
+    <ellipse cx="200" cy="120" rx="140" ry="100" fill="#92400e" stroke="#a8a29e" stroke-width="2"/>
+    <!-- Eye sockets -->
+    <ellipse cx="140" cy="200" rx="35" ry="30" fill="#1c1917"/>
+    <ellipse cx="260" cy="200" rx="35" ry="30" fill="#1c1917"/>
+    <!-- Nasal cavity -->
+    <path d="M190 240 Q200 280 200 300 Q200 280 210 240" fill="#1c1917"/>
+    <!-- Jaw -->
+    <path d="M60 320 Q200 420 340 320" fill="none" stroke="#a8a29e" stroke-width="3"/>
+  </g>
+  <text x="400" y="520" text-anchor="middle" font-family="serif" font-size="20" fill="#94a3b8">
+    Crâne de Tautavel — Homo heidelbergensis
+  </text>
+  <text x="400" y="550" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#64748b">
+    450 000 ans — Caune de l'Arago, Pyrénées-Orientales
+  </text>
+</svg>

@@ -11,6 +11,8 @@ export interface TimelineEvent {
   source?: string;
   /** Reference key into src/sources/ CSL-JSON files */
   sourceId?: string;
+  /** Reference key into src/media/ — image metadata */
+  mediaId?: string;
   link?: string;
   preview: {
     summary: string;

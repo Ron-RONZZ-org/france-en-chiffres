@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <rect width="800" height="600" fill="#1a2e05"/>
+  <!-- Sky gradient -->
+  <rect width="800" height="300" fill="#0f172a"/>
+  <circle cx="600" cy="100" r="40" fill="#fbbf24" opacity="0.6"/>
+  <!-- Ground -->
+  <rect y="300" width="800" height="300" fill="#365314"/>
+  <!-- Menhirs row 1 -->
+  <rect x="80" y="200" width="22" height="200" rx="3" fill="#78716c"/>
+  <rect x="140" y="180" width="20" height="220" rx="3" fill="#78716c"/>
+  <rect x="200" y="220" width="24" height="180" rx="3" fill="#78716c"/>
+  <rect x="270" y="190" width="18" height="210" rx="3" fill="#78716c"/>
+  <rect x="330" y="170" width="22" height="230" rx="3" fill="#78716c"/>
+  <rect x="390" y="210" width="20" height="190" rx="3" fill="#78716c"/>
+  <!-- Menhirs row 2 -->
+  <rect x="100" y="260" width="18" height="160" rx="3" fill="#57534e"/>
+  <rect x="160" y="240" width="20" height="180" rx="3" fill="#57534e"/>
+  <rect x="230" y="270" width="16" height="150" rx="3" fill="#57534e"/>
+  <rect x="300" y="250" width="20" height="170" rx="3" fill="#57534e"/>
+  <rect x="360" y="230" width="18" height="190" rx="3" fill="#57534e"/>
+  <rect x="430" y="260" width="20" height="160" rx="3" fill="#57534e"/>
+  <!-- Menhirs row 3 (smaller, further) -->
+  <rect x="120" y="280" width="14" height="100" rx="2" fill="#44403c"/>
+  <rect x="180" y="290" width="14" height="90" rx="2" fill="#44403c"/>
+  <rect x="250" y="270" width="12" height="110" rx="2" fill="#44403c"/>
+  <rect x="320" y="285" width="14" height="95" rx="2" fill="#44403c"/>
+  <!-- More menhirs continuing right -->
+  <rect x="490" y="195" width="20" height="205" rx="3" fill="#78716c"/>
+  <rect x="550" y="215" width="22" height="185" rx="3" fill="#78716c"/>
+  <rect x="620" y="180" width="18" height="220" rx="3" fill="#78716c"/>
+  <rect x="680" y="200" width="20" height="200" rx="3" fill="#78716c"/>
+  <text x="400" y="520" text-anchor="middle" font-family="serif" font-size="20" fill="#94a3b8">
+    Alignements de Carnac
+  </text>
+  <text x="400" y="550" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#64748b">
+    Vers 4 500 av. J.-C. — Morbihan, Bretagne
+  </text>
+</svg>
