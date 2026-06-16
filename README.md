@@ -16,38 +16,29 @@ Pas besoin de toucher au code HTML ou aux composants pour modifier le texte ou l
 Chaque événement est un fichier `.md` dans `src/content/events/`.  
 Le **raccordement aux époques est automatique** : les événements sont affectés à une époque selon leur plage d'années (`start`–`end`).
 
-#### Utiliser le modèle
+#### Utiliser le script de création
 
 ```bash
-cp templates/event.md src/content/events/nouvel-evenement.md
+# Avec année (préremplit start et end)
+npm run new:event -- mon-evenement 1515
+
+# Sans année (start et end laissés vides)
+npm run new:event -- mon-evenement
 ```
 
-Puis ouvrir le fichier et remplacer les valeurs.  
-Le modèle contient des commentaires expliquant chaque champ.
+Le script copie `templates/event-template.md` → `src/content/events/mon-evenement.md`,
+préremplit le champ `id`, et ouvre le fichier dans votre éditeur (`$EDITOR`).
 
 #### Structure d'un événement
 
 ```yaml
 ---
 id: "mon-evenement"
-start: 2024
-end: 2024
-yearDisplay: "14 juillet 2024"
-title: "Titre de l'événement"
-category: "cultural"
-significance: 3
-stats:
-  label: "Intitulé"
-  value: 42
-  suffix: " unité"
-  format: "integer"
-sourceId: "ma-source"
-link: "https://..."
-preview:
-  summary: "Résumé en une phrase."
-  statLabel: "Intitulé du tooltip"
-  statValue: "Valeur textuelle"
-description: "Description détaillée (2-4 phrases)."
+start: 1515
+end: 1515
+title: "Bataille de Marignan"
+description: "Description détaillée de l'événement."
+mediaId: "marignan-1515"
 ---
 ```
 
@@ -56,38 +47,45 @@ description: "Description détaillée (2-4 phrases)."
 | `id` | Identifiant unique (kebab-case, minuscules) | ✅ |
 | `start` | Année de début (nombre négatif pour av. J.-C.) | ✅ |
 | `end` | Année de fin (identique à `start` pour un événement ponctuel) | ✅ |
-| `yearDisplay` | Texte affiché pour la date (ex: `"14 juillet 1789"`). Optionnel : auto-généré depuis `start`/`end` si omis | optionnel |
-| `title` | Titre de l'événement (≤ 50 car.) | ✅ |
-| `category` | `political`, `military`, `cultural`, `economic` ou `scientific` | ✅ |
-| `significance` | Importance de 1 à 5 (5 = événement fondateur) | ✅ |
-| `stats` | Chiffre clé associé à l'événement | ✅ |
-| `stats.label` | Intitulé de la statistique | ✅ |
-| `stats.value` | Valeur numérique | ✅ |
-| `stats.suffix` | Unité ou texte après le nombre | optionnel |
-| `stats.format` | `"integer"` ou `"decimal"` | optionnel |
-| `sourceId` | Identifiant de la source (dans `src/content/sources/`) | ✅ |
-| `link` | URL Wikipedia ou autre ressource | optionnel |
-| `preview` | Contenu affiché au survol sur la frise | ✅ |
-| `preview.summary` | Résumé en une phrase | ✅ |
-| `preview.statLabel` | Intitulé de la statistique du tooltip | ✅ |
-| `preview.statValue` | Valeur textuelle du tooltip | ✅ |
+| `yearDisplay` | Texte affiché pour la date. Auto-généré depuis `start`/`end` si omis | optionnel |
+| `title` | Titre de l'événement | ✅ |
 | `description` | Description détaillée (2-4 phrases) | optionnel |
 | `mediaId` | Identifiant média (dans `src/content/media/`) | optionnel |
 
+Les sources sont citées directement dans le corps Markdown via la syntaxe `[source: id]` (voir les fichiers existants pour des exemples).
+
 #### Ajouter une époque
 
-Les époques sont des fichiers JSON dans `src/content/eras/` :
+Les époques sont des fichiers `.md` dans `src/content/eras/`, créés avec :
 
-```json
-{
-  "id": "mon-nouvel-era",
-  "label": "Mon Époque",
-  "period": "1900 à 1950",
-  "color": "#a855f7",
-  "start": 1900,
-  "end": 1950
-}
+```bash
+npm run new:era -- mon-ere 1814 1848
 ```
+
+Le script copie `templates/era-template.md` → `src/content/eras/mon-ere.md`,
+préremplit `id`, `start`, `end`, et ouvre le fichier dans votre éditeur.
+
+Structure d'une époque :
+
+```yaml
+---
+id: "restauration"
+title: "Restauration & Monarchie de Juillet"
+color: "#a78bfa"
+start: 1814
+end: 1848
+description: "Après la chute de Napoléon…"
+---
+```
+
+| Champ | Description | Obligatoire |
+|-------|-------------|-------------|
+| `id` | Identifiant unique (kebab-case) | ✅ |
+| `title` | Titre de l'époque | ✅ |
+| `color` | Couleur hexadécimale (ex: `#a78bfa`) | ✅ |
+| `start` | Année de début | ✅ |
+| `end` | Année de fin | ✅ |
+| `description` | Description (1-3 phrases) | optionnel |
 
 Le site supporte un nombre illimité d'époques et d'événements.
 
@@ -152,6 +150,8 @@ npm install
 | `npm run dev` | Lance le serveur de développement avec HMR (`http://localhost:4321`) |
 | `npm run build` | Génère le site statique dans `dist/` |
 | `npm run preview` | Prévisualise le build en local |
+| `npm run new:event -- <id> [année]` | Crée un nouvel événement depuis le template |
+| `npm run new:era -- <id> <début> <fin>` | Crée une nouvelle époque depuis le template |
 | `npm run test` | Exécute les tests de validation (données, build) |
 | `npm run test:all` | Build + tests (vérification complète avant commit) |
 
@@ -182,8 +182,14 @@ import Base from '../layouts/Base.astro';
 france-en-chiffres/
 ├── public/                    # Static assets (images, fonts, favicon)
 │   └── France_departements.svg
+├── scripts/                   # Scripts de création de contenu
+│   ├── new-event.sh           # Nouvel événement depuis le template
+│   └── new-era.sh             # Nouvelle époque depuis le template
 ├── templates/                 # Modèles pour les éditeurs de contenu
-│   └── event.md               # Modèle d'événement (YAML + Markdown)
+│   ├── event-template.md      # Modèle d'événement (YAML vierge)
+│   ├── era-template.md        # Modèle d'époque (YAML vierge)
+│   ├── event-example.md       # Exemple d'événement (avec contenu fictif)
+│   └── era-example.md         # Exemple d'époque (avec contenu fictif)
 ├── src/
 │   ├── content/               # Content Collections (Zod-validated)
 │   │   ├── config.ts          # Schémas de validation
