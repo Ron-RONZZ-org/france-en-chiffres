@@ -1,0 +1,195 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+import { getSource, formatSourceLabel } from '../../data/sources';
+import { getMedia } from '../../data/media';
+import MediaFigure from '../../components/MediaFigure.astro';
+
+export async function getStaticPaths() {
+  const events = await getCollection('events');
+  return events.map((entry) => ({
+    params: { slug: entry.data.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const event = entry.data;
+const { Content } = await entry.render();
+const refSource = event.sourceId ? await getSource(event.sourceId) : undefined;
+const refMedia = event.mediaId ? await getMedia(event.mediaId) : undefined;
+---
+
+<Base title={`${event.title} — Histoire`} description={event.preview.summary}>
+  <article class="event-page">
+    <header class="event-page__header">
+      <a href="/history" class="event-page__back">← Chronologie</a>
+      <time class="event-page__year">{event.yearDisplay}</time>
+      <h1 class="event-page__title">{event.title}</h1>
+      <div class="event-page__meta">
+        <span class="event-page__category" data-category={event.category}>
+          {event.category}
+        </span>
+        {refMedia && (
+          <span class="event-page__significance">
+            Importance: {event.significance}/5
+          </span>
+        )}
+      </div>
+    </header>
+
+    {refMedia && (
+      <MediaFigure entry={refMedia} variant="hero" />
+    )}
+
+    <div class="event-page__body">
+      <Content />
+    </div>
+
+    <footer class="event-page__footer">
+      {refSource && (
+        <p class="event-page__source">
+          Source : <a href={`/bibliography/${event.sourceId}`}>{formatSourceLabel(refSource)}</a>
+        </p>
+      )}
+      {event.link && (
+        <p class="event-page__ext-link">
+          <a href={event.link} target="_blank" rel="noopener noreferrer">
+            En savoir plus sur Wikipédia →
+          </a>
+        </p>
+      )}
+    </footer>
+  </article>
+</Base>
+
+<style>
+  .event-page {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: var(--gap-xl) var(--gap-lg) var(--gap-2xl);
+  }
+
+  .event-page__back {
+    display: inline-block;
+    color: var(--color-text-muted);
+    font-size: 0.875rem;
+    margin-bottom: var(--gap-lg);
+    transition: color var(--transition-fast);
+  }
+
+  .event-page__back:hover {
+    color: var(--color-french-blue);
+  }
+
+  .event-page__header {
+    margin-bottom: var(--gap-xl);
+  }
+
+  .event-page__year {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: var(--gap-sm);
+  }
+
+  .event-page__title {
+    font-family: var(--font-serif);
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--color-text-light);
+    margin-bottom: var(--gap-md);
+  }
+
+  .event-page__meta {
+    display: flex;
+    gap: var(--gap-md);
+    align-items: center;
+  }
+
+  .event-page__category {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 2px var(--gap-sm);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-border);
+    color: var(--color-text-muted);
+  }
+
+  .event-page__significance {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+  }
+
+  .event-page__body {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--color-text-light);
+  }
+
+  .event-page__body :global(h2) {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-top: var(--gap-xl);
+    margin-bottom: var(--gap-md);
+    color: var(--color-text-light);
+  }
+
+  .event-page__body :global(p) {
+    margin-bottom: var(--gap-md);
+  }
+
+  .event-page__body :global(img) {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--radius-md);
+    margin: var(--gap-lg) 0;
+  }
+
+  .event-page__body :global(ul), .event-page__body :global(ol) {
+    margin-bottom: var(--gap-md);
+    padding-left: var(--gap-lg);
+  }
+
+  .event-page__body :global(blockquote) {
+    border-left: 3px solid var(--color-french-blue);
+    padding-left: var(--gap-md);
+    margin: var(--gap-lg) 0;
+    color: var(--color-text-muted);
+    font-style: italic;
+  }
+
+  .event-page__footer {
+    margin-top: var(--gap-2xl);
+    padding-top: var(--gap-lg);
+    border-top: 1px solid var(--color-border);
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-sm);
+    font-size: 0.85rem;
+  }
+
+  .event-page__source a {
+    color: var(--color-french-blue);
+    text-decoration: none;
+  }
+
+  .event-page__source a:hover {
+    text-decoration: underline;
+  }
+
+  .event-page__ext-link a {
+    color: var(--color-french-blue);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .event-page__ext-link a:hover {
+    text-decoration: underline;
+  }
+</style>

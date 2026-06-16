@@ -1,11 +1,10 @@
-// Build-time media asset lookup utility.
-// All media files live in src/media/. Raster images (jpg, png, etc.) are
-// imported via import.meta.glob as ImageMetadata objects (optimized by Astro).
-// SVGs are imported as URL strings via query: '?url' (avoiding Astro's
-// default SVG-component compilation so they work with <img src="...">).
+// Build-time media asset lookup.
+// Combines Content Collections (metadata) with import.meta.glob (file imports).
+// SVGs imported as URL strings via '?url' query.
+// Raster images imported as optimized ImageMetadata objects.
 
-import type { ResolvedMedia } from './media.types';
-import mediaRegistry from './media.json';
+import { getCollection } from 'astro:content';
+import type { MediaEntry } from '../content/config';
 
 /** SVG files — imported as URL strings */
 const svgModules = import.meta.glob<string>(
@@ -19,41 +18,19 @@ const rasterModules = import.meta.glob(
   { eager: true }
 );
 
-/** Map of media ID → ResolvedMedia */
-const resolved: Record<string, ResolvedMedia> = {};
-
-// ── Process SVGs (URL strings) ──
-for (const [filePath, url] of Object.entries(svgModules)) {
-  const stem = pathStem(filePath);
-  const entry = mediaRegistry.find((m) => m.id === stem);
-  if (entry) {
-    resolved[entry.id] = {
-      ...entry,
-      src: url,
-      width: 800,
-      height: 600,
-      format: 'svg',
-    };
-  }
+interface ImageMeta {
+  src: string;
+  width: number;
+  height: number;
+  format: string;
 }
 
-// ── Process raster images (ImageMetadata) ──
-for (const [filePath, mod] of Object.entries(rasterModules)) {
-  const stem = pathStem(filePath);
-  const ext = filePath.split('.').pop()!.toLowerCase();
-  const entry = mediaRegistry.find((m) => m.id === stem);
-  if (entry) {
-    const meta = (
-      mod as { default: { src: string; width: number; height: number; format: string } }
-    ).default;
-    resolved[entry.id] = {
-      ...entry,
-      src: meta.src,
-      width: meta.width,
-      height: meta.height,
-      format: ext,
-    };
-  }
+/** Resolved media entry paired with its imported file metadata */
+export interface ResolvedMedia extends MediaEntry {
+  src: string;
+  width: number;
+  height: number;
+  format: string;
 }
 
 /** Extract filename stem (without dir or extension) */
@@ -61,13 +38,55 @@ function pathStem(filePath: string): string {
   return filePath.split('/').pop()!.replace(/\.\w+$/, '');
 }
 
-/**
- * Look up a media entry by its ID.
- * Returns the resolved media (with import metadata) or undefined.
- */
-export function getMedia(id: string): ResolvedMedia | undefined {
-  return resolved[id];
+/** Get a resolved media entry by ID — async */
+export async function getMedia(id: string): Promise<ResolvedMedia | undefined> {
+  const all = await getAllMedia();
+  return all.find((m) => m.id === id);
 }
 
-/** All resolved media entries (for galleries, index pages) */
-export const allMedia: ResolvedMedia[] = Object.values(resolved);
+/** Get all resolved media entries — async */
+export async function getAllMedia(): Promise<ResolvedMedia[]> {
+  const entries = await getCollection('media');
+  const byId = new Map<string, MediaEntry>();
+  for (const e of entries) {
+    byId.set(e.id, e.data as MediaEntry);
+  }
+
+  const resolved: ResolvedMedia[] = [];
+
+  // Process SVGs (URL strings)
+  for (const [filePath, url] of Object.entries(svgModules)) {
+    const stem = pathStem(filePath);
+    const entry = byId.get(stem);
+    if (entry) {
+      resolved.push({
+        ...entry,
+        src: url,
+        width: entry.width ?? 800,
+        height: entry.height ?? 600,
+        format: 'svg',
+      });
+    }
+  }
+
+  // Process raster images (ImageMetadata)
+  for (const [filePath, mod] of Object.entries(rasterModules)) {
+    const stem = pathStem(filePath);
+    const ext = filePath.split('.').pop()!.toLowerCase();
+    const entry = byId.get(stem);
+    if (entry) {
+      const meta = (
+        mod as { default: ImageMeta }
+      ).default;
+      resolved.push({
+        ...entry,
+        src: meta.src,
+        width: entry.width ?? meta.width,
+        height: entry.height ?? meta.height,
+        format: ext,
+      });
+    }
+  }
+
+  return resolved;
+}

@@ -1,41 +1,28 @@
-// Build-time source lookup utility.
-// Uses Vite's import.meta.glob to aggregate all CSL-JSON files in src/sources/.
-// This file is evaluated at build time only.
+// Build-time source lookup via Astro Content Collections.
+// All consumer imports must use `await` (these are async).
 
-import type { CslSource } from './history.types';
+import { getCollection } from 'astro:content';
+import type { CslSource } from '../content/config';
 
-/** All CSL-JSON source files loaded eagerly at build time */
-const sourceModules = import.meta.glob<{ default: CslSource }>(
-  '/src/sources/*.json',
-  { eager: true }
-);
-
-/** Map of source ID → CslSource */
-export const sourcesById: Record<string, CslSource> = {};
-
-for (const [, mod] of Object.entries(sourceModules)) {
-  const src = mod.default;
-  sourcesById[src.id] = src;
+/** All sources sorted by publisher/title — async */
+export async function allSources(): Promise<CslSource[]> {
+  const entries = await getCollection('sources');
+  return entries
+    .map((e) => e.data as CslSource)
+    .sort((a, b) => {
+      const aKey = (a.publisher ?? a.title ?? a.id).toLowerCase();
+      const bKey = (b.publisher ?? b.title ?? b.id).toLowerCase();
+      return aKey.localeCompare(bKey);
+    });
 }
 
-/** All sources as a sorted array (by publisher/title) */
-export const allSources: CslSource[] = Object.values(sourcesById).sort((a, b) => {
-  const aKey = (a.publisher ?? a.title ?? a.id).toLowerCase();
-  const bKey = (b.publisher ?? b.title ?? b.id).toLowerCase();
-  return aKey.localeCompare(bKey);
-});
-
-/**
- * Look up a source by its CSL-JSON id.
- * Returns the source object, or undefined if not found.
- */
-export function getSource(id: string): CslSource | undefined {
-  return sourcesById[id];
+/** Look up a source by its CSL-JSON id — async */
+export async function getSource(id: string): Promise<CslSource | undefined> {
+  const entries = await getCollection('sources');
+  return entries.find((e) => e.id === id)?.data as CslSource | undefined;
 }
 
-/**
- * Format a source as a short citation label (publisher + year fallback).
- */
+/** Format a source as a short citation label (publisher + year) — sync helper */
 export function formatSourceLabel(source: CslSource): string {
   if (source.publisher) {
     const year = source.issued?.['date-parts']?.[0]?.[0];
@@ -48,9 +35,7 @@ export function formatSourceLabel(source: CslSource): string {
   return source.title ?? source.id;
 }
 
-/**
- * Get the bibliography page URL for a source.
- */
+/** Get the bibliography page URL for a source — sync helper */
 export function sourceUrl(id: string): string {
   return `/bibliography/${id}`;
 }

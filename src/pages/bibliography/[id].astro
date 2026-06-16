@@ -1,14 +1,15 @@
 ---
 import Base from '../../layouts/Base.astro';
 import { allSources, formatSourceLabel } from '../../data/sources';
-import type { CslSource } from '../../data/history.types';
+import type { CslSource } from '../../content/config';
 
 export interface Props {
   source: CslSource;
 }
 
 export async function getStaticPaths() {
-  return allSources.map((source) => ({
+  const sources = await allSources();
+  return sources.map((source) => ({
     params: { id: source.id },
     props: { source },
   }));
