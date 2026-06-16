@@ -1,8 +1,12 @@
 // Build-time media asset lookup utility.
-// Raster images (jpg, png, webp, etc.) live in src/media/ and are
-// optimized by Astro. SVG placeholders live in public/media/ and are
-// served as-is via a constructed URL path.
-// Both are cross-referenced with the metadata registry in media.json.
+//
+// Raster images (jpg, png, webp, avif) live in src/media/ and are imported
+// via import.meta.glob as ImageMetadata objects (optimized by Astro).
+//
+// SVG files live in public/media/ and are served as-is via direct URL.
+// Reason: Astro 5 compiles SVGs in src/ as Astro components, not assets.
+// Since MediaFigure.astro uses <img src="..."> (not inline SVG), SVGs must
+// be in public/ where they get copied verbatim to the build output.
 
 import fs from 'node:fs';
 import path from 'node:path';
@@ -11,16 +15,15 @@ import mediaRegistry from './media.json';
 
 const publicMediaDir = path.resolve('public/media');
 
-/** Raster media files from src/media/ loaded eagerly at build time */
+/** Raster media files from src/media/ (optimized by Astro) */
 const rasterModules = import.meta.glob(
   '/src/media/*.{jpg,jpeg,png,gif,webp,avif}',
   { eager: true }
 );
 
-/** Map of media ID → ResolvedMedia */
 const resolved: Record<string, ResolvedMedia> = {};
 
-// Process raster images (imported with ImageMetadata from Vite)
+// ── Process raster images (ImageMetadata from Vite) ──
 for (const [filePath, mod] of Object.entries(rasterModules)) {
   const filename = filePath.split('/').pop()!;
   const stem = filename.replace(/\.\w+$/, '');
@@ -40,9 +43,9 @@ for (const [filePath, mod] of Object.entries(rasterModules)) {
   }
 }
 
-// Process SVG placeholders from public/media/
+// ── Process SVG placeholders (public/media/ — served as-is) ──
 for (const entry of mediaRegistry) {
-  if (resolved[entry.id]) continue; // already resolved as raster
+  if (resolved[entry.id]) continue;
   const svgPath = path.join(publicMediaDir, `${entry.id}.svg`);
   if (fs.existsSync(svgPath)) {
     resolved[entry.id] = {
