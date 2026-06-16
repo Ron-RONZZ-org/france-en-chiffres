@@ -16,7 +16,20 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const event = entry.data;
 const { Content } = await entry.render();
-const refSource = event.sourceId ? await getSource(event.sourceId) : undefined;
+
+// Extract inline source IDs from Markdown body
+const inlineSourceIds = [...entry.body.matchAll(/\[source:\s+([\w-]+)\]/g)]
+  .map((m) => m[1]);
+
+// Deduplicate and merge with frontmatter sourceId
+const allSourceIds = [...new Set([
+  ...(event.sourceId ? [event.sourceId] : []),
+  ...inlineSourceIds,
+])];
+
+const sources = (await Promise.all(
+  allSourceIds.map((id) => getSource(id)),
+)).filter(Boolean);
 const refMedia = event.mediaId ? await getMedia(event.mediaId) : undefined;
 ---
 
@@ -47,10 +60,17 @@ const refMedia = event.mediaId ? await getMedia(event.mediaId) : undefined;
     </div>
 
     <footer class="event-page__footer">
-      {refSource && (
-        <p class="event-page__source">
-          Source : <a href={`/bibliography/${event.sourceId}`}>{formatSourceLabel(refSource)}</a>
-        </p>
+      {sources.length > 0 && (
+        <>
+          <p class="event-page__sources-title">Sources</p>
+          <ol class="event-page__sources-list">
+            {sources.map((s) => (
+              <li class="event-page__source-item">
+                <a href={`/bibliography/${s.id}`}>{formatSourceLabel(s)}</a>
+              </li>
+            ))}
+          </ol>
+        </>
       )}
       {event.link && (
         <p class="event-page__ext-link">
@@ -164,6 +184,27 @@ const refMedia = event.mediaId ? await getMedia(event.mediaId) : undefined;
     font-style: italic;
   }
 
+  /* ── Inline citation superscripts ── */
+
+  .event-page__body :global(sup.citation) {
+    font-size: 0.7em;
+    vertical-align: super;
+    line-height: 1;
+  }
+
+  .event-page__body :global(sup.citation a) {
+    color: var(--color-french-blue);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .event-page__body :global(sup.citation a:hover),
+  .event-page__body :global(sup.citation a:focus) {
+    text-decoration: underline;
+  }
+
+  /* ── Footer sources list ── */
+
   .event-page__footer {
     margin-top: var(--gap-2xl);
     padding-top: var(--gap-lg);
@@ -174,12 +215,29 @@ const refMedia = event.mediaId ? await getMedia(event.mediaId) : undefined;
     font-size: 0.85rem;
   }
 
-  .event-page__source a {
+  .event-page__sources-title {
+    font-weight: 700;
+    color: var(--color-text-light);
+    margin-bottom: var(--gap-xs);
+  }
+
+  .event-page__sources-list {
+    padding-left: var(--gap-lg);
+    margin: 0;
+    list-style: decimal;
+  }
+
+  .event-page__source-item {
+    margin-bottom: var(--gap-xs);
+    line-height: 1.5;
+  }
+
+  .event-page__source-item a {
     color: var(--color-french-blue);
     text-decoration: none;
   }
 
-  .event-page__source a:hover {
+  .event-page__source-item a:hover {
     text-decoration: underline;
   }
 

@@ -35,9 +35,12 @@ stats:
   suffix: ""    # Unité ou texte après le nombre (laisser "" si vide)
   format: ""    # "integer" ou "decimal"
 
-# ── Source ──────────────────────────────────────────────
+# ── Source principale ──────────────────────────────────
 # Identifiant du fichier source dans src/content/sources/
 # Le fichier doit exister au format CSL-JSON (ex: "bnf.json" → id: "bnf")
+# Dans le corps Markdown ci-dessous, vous pouvez aussi utiliser
+# la syntaxe [source: id] pour citer plusieurs sources distinctes.
+# Exemple : "L'Encyclopédie [source: bnf] rassemble 160 contributeurs [source: societe-voltaire]."
 sourceId: ""
 
 # ── Lien ────────────────────────────────────────────────
@@ -57,4 +60,6 @@ preview:
 description: ""
 ---
 
-<!-- Corps de l'article en Markdown (optionnel si description ci-dessus suffit) -->
+<!-- Corps de l'article en Markdown (optionnel si description ci-dessus suffit).
+     Utilisez [source: id] pour citer une source précise dans le texte.
+     Exemple : "En 1751 paraît le premier volume [source: bnf]." -->
