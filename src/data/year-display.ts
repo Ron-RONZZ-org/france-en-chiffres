@@ -4,10 +4,10 @@
  * When an event's yearDisplay is omitted from frontmatter, this function
  * generates a French-language display string based on start/end:
  *   - Single year CE:  "1789"
- *   - Single year BCE: "450 000 av. J.-C."
+ *   - Single year BCE: "450 000 AEC"
  *   - Range CE:        "1914 à 1918"
- *   - Range BCE:       "17 000 à 15 000 av. J.-C."
- *   - Crossing:        "50 av. J.-C. à 50"
+ *   - Range BCE:       "17 000 à 15 000 AEC"
+ *   - Crossing:        "50 AEC à 50"
  */
 
 /**
@@ -34,7 +34,7 @@ export function autoInferYearDisplay(start: number, end: number): string {
   if (start === end) {
     // Single year
     if (start < 0) {
-      return `${formatFrenchNumber(start)} av. J.-C.`;
+      return `${formatFrenchNumber(start)} AEC`;
     }
     return formatFrenchNumber(start);
   }
@@ -42,12 +42,12 @@ export function autoInferYearDisplay(start: number, end: number): string {
   // Year range
   if (start < 0 && end < 0) {
     // Both BCE
-    return `${formatFrenchNumber(start)} à ${formatFrenchNumber(end)} av. J.-C.`;
+    return `${formatFrenchNumber(start)} à ${formatFrenchNumber(end)} AEC`;
   }
 
   if (start < 0 && end >= 0) {
     // Crossing BCE/CE boundary
-    return `${formatFrenchNumber(start)} av. J.-C. à ${formatFrenchNumber(end)}`;
+    return `${formatFrenchNumber(start)} AEC à ${formatFrenchNumber(end)}`;
   }
 
   // Both CE
@@ -59,7 +59,7 @@ export function autoInferYearDisplay(start: number, end: number): string {
  * Returns a concise French display string for era headings.
  *   - "1789 à 1815"
  *   - "1789 à aujourd'hui"  (when end == current year)
- *   - "450 000 à 600 av. J.-C."
+ *   - "450 000 à 600 AEC"
  *
  * Does NOT include thousands separators for years < 10 000
  * (era headings look cleaner without them).
@@ -70,7 +70,7 @@ export function autoInferEraPeriod(start: number, end: number): string {
   const currentYearEnd = end >= now - 1; // allow for slight drift
 
   const fmtStart = bothNegative || start < 0
-    ? `${formatFrenchNumber(start)} av. J.-C.`
+    ? `${formatFrenchNumber(start)} AEC`
     : String(start);
 
   if (currentYearEnd && end >= 1945) {
@@ -79,7 +79,7 @@ export function autoInferEraPeriod(start: number, end: number): string {
   }
 
   const fmtEnd = bothNegative
-    ? `${formatFrenchNumber(end)} av. J.-C.`
+    ? `${formatFrenchNumber(end)} AEC`
     : String(end);
 
   return `${fmtStart} à ${fmtEnd}`;

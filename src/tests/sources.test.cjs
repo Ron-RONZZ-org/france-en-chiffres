@@ -214,14 +214,14 @@ function formatFrenchNumber(n) {
 
 function autoInferYearDisplay(start, end) {
   if (start === end) {
-    if (start < 0) return `${formatFrenchNumber(start)} av. J.-C.`;
+    if (start < 0) return `${formatFrenchNumber(start)} AEC`;
     return formatFrenchNumber(start);
   }
   if (start < 0 && end < 0) {
-    return `${formatFrenchNumber(start)} à ${formatFrenchNumber(end)} av. J.-C.`;
+    return `${formatFrenchNumber(start)} à ${formatFrenchNumber(end)} AEC`;
   }
   if (start < 0 && end >= 0) {
-    return `${formatFrenchNumber(start)} av. J.-C. à ${formatFrenchNumber(end)}`;
+    return `${formatFrenchNumber(start)} AEC à ${formatFrenchNumber(end)}`;
   }
   return `${formatFrenchNumber(start)} à ${formatFrenchNumber(end)}`;
 }
@@ -250,15 +250,15 @@ const inferenceCases = [
   // [start, end, expected]
   [1789, 1789, '1 789'],
   [987, 987, '987'],
-  [-450000, -450000, '450 000 av. J.-C.'],
-  [-52, -52, '52 av. J.-C.'],
+  [-450000, -450000, '450 000 AEC'],
+  [-52, -52, '52 AEC'],
   [1914, 1918, '1 914 à 1 918'],
-  [-17000, -15000, '17 000 à 15 000 av. J.-C.'],
-  [-450000, -400000, '450 000 à 400 000 av. J.-C.'],
-  [-50, 50, '50 av. J.-C. à 50'],
+  [-17000, -15000, '17 000 à 15 000 AEC'],
+  [-450000, -400000, '450 000 à 400 000 AEC'],
+  [-50, 50, '50 AEC à 50'],
   [0, 0, '0'],
-  [-1, -1, '1 av. J.-C.'],
-  [-1500000, -1200000, '1 500 000 à 1 200 000 av. J.-C.'],
+  [-1, -1, '1 AEC'],
+  [-1500000, -1200000, '1 500 000 à 1 200 000 AEC'],
 ];
 
 for (const [start, end, expected] of inferenceCases) {

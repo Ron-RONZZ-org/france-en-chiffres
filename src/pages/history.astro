@@ -91,7 +91,7 @@ const data = await getHistoryData();
         onUpdate: (self) => {
           const rawYear = minYear + self.progress * yearSpan;
           const displayYear = Math.round(rawYear);
-          const formattedYear = displayYear < 0 ? `${Math.abs(displayYear)} av. J.-C.` : String(displayYear);
+          const formattedYear = displayYear < 0 ? `${Math.abs(displayYear)} AEC` : String(displayYear);
           yearBadge.querySelector('.year-badge__value').textContent = formattedYear;
         },
         onLeave: () => { yearBadge.style.opacity = '0'; },
