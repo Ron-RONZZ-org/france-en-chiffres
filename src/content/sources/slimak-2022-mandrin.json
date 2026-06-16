@@ -1,0 +1,20 @@
+{
+  "id": "slimak-2022-mandrin",
+  "type": "article-journal",
+  "title": "Modern human incursion into Neanderthal territories 54,000 years ago at Mandrin, France",
+  "author": [
+    { "family": "Slimak", "given": "Ludovic" },
+    { "family": "Zanolli", "given": "Clément" },
+    { "family": "Higham", "given": "Tom" },
+    { "family": "Frouin", "given": "Marine" },
+    { "family": "Schwenninger", "given": "Jean-Luc" },
+    { "family": "Arnold", "given": "Lee J." }
+  ],
+  "container-title": "Science Advances",
+  "volume": "8",
+  "issue": "6",
+  "page": "eabj9496",
+  "issued": { "date-parts": [[2022, 2, 9]] },
+  "DOI": "10.1126/sciadv.abj9496",
+  "note": "Découverte d'une dent de lait et d'outils lithiques néroniens dans la grotte Mandrin (Drôme), datés entre 56 800 et 51 700 ans avant le présent. La couche E, contenant ces vestiges sapiens, est intercalée entre des occupations néandertaliennes, suggérant une alternance rapide des deux populations. Il s'agit de la plus ancienne trace d'Homo sapiens en France et de l'une des plus anciennes d'Europe."
+}
