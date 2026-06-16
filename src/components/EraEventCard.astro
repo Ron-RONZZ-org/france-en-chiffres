@@ -7,28 +7,21 @@ export interface Props {
 
 const { event } = Astro.props;
 
-const categoryColors: Record<string, string> = {
-  political: '#3b82f6',
-  military: '#ef4444',
-  cultural: '#ec4899',
-  economic: '#22c55e',
-  scientific: '#f97316',
-};
-
-const catColor = categoryColors[event.category] || '#94a3b8';
+// Truncate description for card display
+const summary = event.description
+  ? event.description.length > 120
+    ? event.description.slice(0, 120) + '…'
+    : event.description
+  : '';
 ---
 
 <a
   href={`/evenements/${event.id}`}
   class="era-event-card group"
-  style={{ '--card-accent': catColor }}
 >
   <div class="era-event-card__year">{event.yearDisplay}</div>
   <h3 class="era-event-card__title">{event.title}</h3>
-  <span class="era-event-card__category" style={{ '--cat-color': catColor }}>
-    {event.category}
-  </span>
-  <p class="era-event-card__summary">{event.preview.summary}</p>
+  {summary && <p class="era-event-card__summary">{summary}</p>}
 </a>
 
 <style>
@@ -45,7 +38,7 @@ const catColor = categoryColors[event.category] || '#94a3b8';
   }
 
   .era-event-card:hover {
-    border-color: var(--card-accent, var(--color-french-blue));
+    border-color: var(--color-french-blue);
     background: rgba(17, 24, 39, 0.9);
     transform: translateY(-2px);
   }
@@ -65,17 +58,6 @@ const catColor = categoryColors[event.category] || '#94a3b8';
     color: var(--color-text-light);
     line-height: 1.3;
     margin: 0;
-  }
-
-  .era-event-card__category {
-    font-size: 0.65rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    padding: 1px var(--gap-xs);
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--cat-color, var(--color-border));
-    color: var(--cat-color, var(--color-text-muted));
-    align-self: flex-start;
   }
 
   .era-event-card__summary {

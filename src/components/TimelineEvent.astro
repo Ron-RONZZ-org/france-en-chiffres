@@ -12,17 +12,6 @@ export interface Props {
 const { event, index, total } = Astro.props;
 const side = index % 2 === 0 ? 'left' : 'right';
 
-// Category colors
-const categoryColors: Record<string, string> = {
-  political: '#3b82f6',
-  military: '#ef4444',
-  cultural: '#ec4899',
-  economic: '#22c55e',
-  scientific: '#f97316',
-};
-
-const catColor = categoryColors[event.category] || '#94a3b8';
-
 // Resolve source for hyperlinked citation (build-time)
 const refSource = event.sourceId ? await getSource(event.sourceId) : undefined;
 const sourceLabel = refSource
@@ -43,18 +32,13 @@ const refMedia = event.mediaId ? await getMedia(event.mediaId) : undefined;
   data-preview-year={event.yearDisplay}
   data-preview-title={event.title}
   data-preview-description={event.description}
-  data-preview-summary={event.preview.summary}
-  data-preview-stat-label={event.preview.statLabel}
-  data-preview-stat-value={event.preview.statValue}
   data-preview-source-label={sourceLabel}
   data-preview-source-href={sourceHref ?? ''}
-  data-preview-link={event.link || ''}
-  data-preview-color={catColor}
   data-preview-media-src={refMedia?.src ?? ''}
   data-preview-media-alt={refMedia?.alt ?? ''}
 >
   <!-- Timeline dot on the central line -->
-  <div class="timeline-event__dot" style={{ '--dot-color': catColor }}>
+  <div class="timeline-event__dot">
     <span class="timeline-event__dot-inner"></span>
   </div>
 
@@ -98,8 +82,8 @@ const refMedia = event.mediaId ? await getMedia(event.mediaId) : undefined;
     width: 14px;
     height: 14px;
     border-radius: 50%;
-    background: var(--dot-color);
-    box-shadow: 0 0 12px var(--dot-color);
+    background: var(--color-french-blue);
+    box-shadow: 0 0 12px var(--color-french-blue);
     transition: transform var(--transition-fast);
   }
 
@@ -140,7 +124,7 @@ const refMedia = event.mediaId ? await getMedia(event.mediaId) : undefined;
   }
 
   .group:hover .timeline-event__card-inner {
-    border-color: var(--dot-color);
+    border-color: var(--color-french-blue);
     background: rgba(17, 24, 39, 0.9);
   }
 
@@ -188,43 +172,32 @@ const refMedia = event.mediaId ? await getMedia(event.mediaId) : undefined;
     if (!events.length) return;
 
     const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    const ACCENT = '#3b82f6';
 
     // Build preview HTML from data attributes
     const buildPreviewHTML = (el) => {
-      const color = el.dataset.previewColor || '#3b82f6';
-      const link = el.dataset.previewLink || '';
       const year = el.dataset.previewYear || '';
       const title = el.dataset.previewTitle || '';
       const description = el.dataset.previewDescription || '';
-      const summary = el.dataset.previewSummary || '';
-      const statLabel = el.dataset.previewStatLabel || '';
-      const statValue = el.dataset.previewStatValue || '';
       const sourceLabel = el.dataset.previewSourceLabel || '';
       const sourceHref = el.dataset.previewSourceHref || '';
       const mediaSrc = el.dataset.previewMediaSrc || '';
       const mediaAlt = el.dataset.previewMediaAlt || '';
 
       return `
-        <div class="tippy-preview" style="--accent:${color}">
+        <div class="tippy-preview" style="--accent:${ACCENT}">
           ${mediaSrc
             ? `<img src="${escapeHTML(mediaSrc)}" alt="${escapeHTML(mediaAlt)}" class="tippy-preview__media" loading="lazy">`
             : ''
           }
           <span class="tippy-preview__year">${escapeHTML(year)}</span>
           <h4 class="tippy-preview__title">${escapeHTML(title)}</h4>
-          <div class="tippy-preview__divider" style="background:${color}"></div>
+          <div class="tippy-preview__divider" style="background:${ACCENT}"></div>
           <p class="tippy-preview__description">${escapeHTML(description)}</p>
-          <div class="tippy-preview__divider" style="background:${color}"></div>
-          <p class="tippy-preview__summary">${escapeHTML(summary)}</p>
-          <div class="tippy-preview__stat">
-            <span class="tippy-preview__stat-label">${escapeHTML(statLabel)}</span>
-            <span class="tippy-preview__stat-value">${escapeHTML(statValue)}</span>
-          </div>
           ${sourceHref
             ? `<a href="${escapeHTML(sourceHref)}" class="tippy-preview__source tippy-preview__source--link" target="_blank" rel="noopener noreferrer">${escapeHTML(sourceLabel)}</a>`
             : `<span class="tippy-preview__source">${escapeHTML(sourceLabel)}</span>`
           }
-          ${link ? `<a href="${escapeHTML(link)}" class="tippy-preview__link" target="_blank" rel="noopener noreferrer">Lire plus sur Wikipédia →</a>` : ''}
         </div>
       `;
     };

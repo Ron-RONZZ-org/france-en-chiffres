@@ -16,8 +16,17 @@ export interface HistoryData {
   eras: Array<Era & { events: TimelineEvent[] }>;
 }
 
-/** Match an event to an era by year-range containment */
+/** Match an event to an era by year-range containment.
+ *
+ * When an event's year matches multiple eras (boundary years),
+ * prefers the era whose `start` equals the event's `start`
+ * (the era that "owns" its boundary year).
+ */
 function matchEra(event: TimelineEvent, eras: Era[]): Era | undefined {
+  // Exact start match → unambiguous boundary ownership
+  const exact = eras.find((e) => e.start === event.start && event.end >= event.end);
+  if (exact) return exact;
+  // Fall back to first containing era
   return eras.find((e) => event.start >= e.start && event.end <= e.end);
 }
 

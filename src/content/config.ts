@@ -2,20 +2,21 @@
 // Validated at build time — every field is type-checked.
 
 import { defineCollection, z } from 'astro:content';
-import { autoInferYearDisplay } from '../data/year-display';
+import { autoInferYearDisplay, autoInferEraPeriod } from '../data/year-display';
 
 // ── Eras ──
 
 export const eraSchema = z.object({
   id: z.string().min(1),
-  label: z.string().min(1),
-  period: z.string().min(1),
+  title: z.string().min(1),
   color: z.string().regex(/^#[0-9a-fA-F]{6}$/, 'Must be a valid hex color'),
   start: z.number(),
   end: z.number(),
   description: z.string().optional(),
-  link: z.string().url().optional(),
-});
+}).transform((data) => ({
+  ...data,
+  period: autoInferEraPeriod(data.start, data.end),
+}));
 
 // ── Events ──
 
@@ -27,21 +28,7 @@ export const eventSchema = z.object({
   title: z.string().min(1),
   description: z.string().optional(),
   mediaId: z.string().optional(),
-  category: z.enum(['political', 'military', 'cultural', 'economic', 'scientific']),
-  significance: z.number().int().min(1).max(5),
-  stats: z.object({
-    label: z.string(),
-    value: z.number(),
-    suffix: z.string(),
-    format: z.string().optional(),
-  }),
   sourceId: z.string().optional(),
-  link: z.string().url().optional(),
-  preview: z.object({
-    summary: z.string(),
-    statLabel: z.string(),
-    statValue: z.string(),
-  }),
 }).refine(
   (data) => data.end >= data.start,
   { message: 'end must be >= start', path: ['end'] }

@@ -53,3 +53,34 @@ export function autoInferYearDisplay(start: number, end: number): string {
   // Both CE
   return `${formatFrenchNumber(start)} à ${formatFrenchNumber(end)}`;
 }
+
+/**
+ * Auto-infer era period string from start/end year range.
+ * Returns a concise French display string for era headings.
+ *   - "1789 à 1815"
+ *   - "1789 à aujourd'hui"  (when end == current year)
+ *   - "450 000 à 600 av. J.-C."
+ *
+ * Does NOT include thousands separators for years < 10 000
+ * (era headings look cleaner without them).
+ */
+export function autoInferEraPeriod(start: number, end: number): string {
+  const now = new Date().getFullYear();
+  const bothNegative = start < 0 && end < 0;
+  const currentYearEnd = end >= now - 1; // allow for slight drift
+
+  const fmtStart = bothNegative || start < 0
+    ? `${formatFrenchNumber(start)} av. J.-C.`
+    : String(start);
+
+  if (currentYearEnd && end >= 1945) {
+    // Only use "aujourd'hui" for contemporary eras
+    return `${fmtStart} à aujourd'hui`;
+  }
+
+  const fmtEnd = bothNegative
+    ? `${formatFrenchNumber(end)} av. J.-C.`
+    : String(end);
+
+  return `${fmtStart} à ${fmtEnd}`;
+}
