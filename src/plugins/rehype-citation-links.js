@@ -8,8 +8,8 @@
  *   Some text [source: bnf] and more text [source: insee-2024].
  *
  * Output HTML:
- *   Some text <sup class="citation"><a href="/bibliographie/bnf" data-source-id="bnf">[1]</a></sup>
- *   and more text <sup class="citation"><a href="/bibliographie/insee-2024" data-source-id="insee-2024">[2]</a></sup>
+ *   Some text <sup class="citation"><a href="/bibliography/bnf" data-source-id="bnf">[1]</a></sup>
+ *   and more text <sup class="citation"><a href="/bibliography/insee-2024" data-source-id="insee-2024">[2]</a></sup>
  *
  * Citations are numbered sequentially in order of appearance.
  * This plugin runs at build time — zero client JS required.
@@ -68,7 +68,7 @@ export default function rehypeCitationLinks() {
               type: 'element',
               tagName: 'a',
               properties: {
-                href: `/bibliographie/${sourceId}`,
+                href: `/bibliography/${sourceId}`,
                 'data-source-id': sourceId,
                 title: `Source : ${sourceId}`,
               },
