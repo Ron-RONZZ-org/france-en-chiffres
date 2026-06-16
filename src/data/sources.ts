@@ -19,7 +19,7 @@ export async function allSources(): Promise<CslSource[]> {
 /** Look up a source by its CSL-JSON id — async */
 export async function getSource(id: string): Promise<CslSource | undefined> {
   const entries = await getCollection('sources');
-  return entries.find((e) => e.id === id)?.data as CslSource | undefined;
+  return entries.find((e) => e.data.id === id)?.data as CslSource | undefined;
 }
 
 /** Format a source as a short citation label (publisher + year) — sync helper */

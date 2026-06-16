@@ -120,12 +120,11 @@ if (fs.existsSync(distDir)) {
 
   // Should link to the bibliography
   assert.ok(
-    html.includes('/bibliographie/bnf'),
-    'Event page must link to /bibliographie/bnf',
-  );
-  assert.ok(
-    html.includes('/bibliographie/societe-voltaire'),
-    'Event page must link to /bibliographie/societe-voltaire',
+    html.includes('/bibliography/bnf'),
+    'Event page must link to /bibliography/bnf',
+
+    html.includes('/bibliography/societe-voltaire'),
+    'Event page must link to /bibliography/societe-voltaire',
   );
 
   // Should have the sources footer
