@@ -2,6 +2,7 @@
 // Validated at build time — every field is type-checked.
 
 import { defineCollection, z } from 'astro:content';
+import { autoInferYearDisplay } from '../data/year-display';
 
 // ── Eras ──
 
@@ -22,7 +23,7 @@ export const eventSchema = z.object({
   id: z.string().min(1),
   start: z.number(),
   end: z.number(),
-  yearDisplay: z.string().min(1),
+  yearDisplay: z.string().min(1).optional(),
   title: z.string().min(1),
   description: z.string().optional(),
   mediaId: z.string().optional(),
@@ -41,7 +42,13 @@ export const eventSchema = z.object({
     statLabel: z.string(),
     statValue: z.string(),
   }),
-});
+}).refine(
+  (data) => data.end >= data.start,
+  { message: 'end must be >= start', path: ['end'] }
+).transform((data) => ({
+  ...data,
+  yearDisplay: data.yearDisplay ?? autoInferYearDisplay(data.start, data.end),
+}));
 
 // ── Sources (CSL-JSON) ──
 

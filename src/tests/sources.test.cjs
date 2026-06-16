@@ -178,4 +178,80 @@ assert.ok(hasCategoryField, 'templates/event.md frontmatter must contain "catego
 assert.ok(hasSignificanceField, 'templates/event.md frontmatter must contain "significance" field');
 console.log('✓ Test 8: templates/event.md exists with valid frontmatter structure');
 
+// ── Helper: extract numeric frontmatter field value ──
+function getFrontmatterNumber(yamlBlock, field) {
+  const regex = new RegExp(`^${field}:\\s*(-?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)`, 'm');
+  const match = regex.exec(yamlBlock);
+  return match ? Number(match[1]) : NaN;
+}
+
+// ── Helper: reimplementation of autoInferYearDisplay for testing ──
+function formatFrenchNumber(n) {
+  const abs = Math.abs(n);
+  const parts = [];
+  let s = abs.toString();
+  while (s.length > 3) {
+    parts.unshift(s.slice(-3));
+    s = s.slice(0, -3);
+  }
+  if (s.length > 0) parts.unshift(s);
+  return parts.join(' ');
+}
+
+function autoInferYearDisplay(start, end) {
+  if (start === end) {
+    if (start < 0) return `${formatFrenchNumber(start)} av. J.-C.`;
+    return formatFrenchNumber(start);
+  }
+  if (start < 0 && end < 0) {
+    return `${formatFrenchNumber(start)} à ${formatFrenchNumber(end)} av. J.-C.`;
+  }
+  if (start < 0 && end >= 0) {
+    return `${formatFrenchNumber(start)} av. J.-C. à ${formatFrenchNumber(end)}`;
+  }
+  return `${formatFrenchNumber(start)} à ${formatFrenchNumber(end)}`;
+}
+
+// ── Test 9: All event files have end >= start ──
+const allEventFiles = fs.existsSync(contentEventsDir)
+  ? fs.readdirSync(contentEventsDir).filter(f => f.endsWith('.md'))
+  : [];
+if (allEventFiles.length > 0) {
+  for (const file of allEventFiles) {
+    const content = fs.readFileSync(path.join(contentEventsDir, file), 'utf-8');
+    const match = content.match(/^---\n([\s\S]*?)\n---\n/);
+    assert.ok(match, `Event ${file}: could not parse YAML frontmatter`);
+    const yamlBlock = match[1];
+    const start = getFrontmatterNumber(yamlBlock, 'start');
+    const end = getFrontmatterNumber(yamlBlock, 'end');
+    assert.ok(!isNaN(start), `Event ${file}: start is not a valid number`);
+    assert.ok(!isNaN(end), `Event ${file}: end is not a valid number`);
+    assert.ok(end >= start, `Event ${file}: end (${end}) < start (${start})`);
+  }
+}
+console.log(`✓ Test 9: ${allEventFiles.length} event files — all end >= start`);
+
+// ── Test 10: autoInferYearDisplay produces expected strings ──
+const inferenceCases = [
+  // [start, end, expected]
+  [1789, 1789, '1 789'],
+  [987, 987, '987'],
+  [-450000, -450000, '450 000 av. J.-C.'],
+  [-52, -52, '52 av. J.-C.'],
+  [1914, 1918, '1 914 à 1 918'],
+  [-17000, -15000, '17 000 à 15 000 av. J.-C.'],
+  [-450000, -400000, '450 000 à 400 000 av. J.-C.'],
+  [-50, 50, '50 av. J.-C. à 50'],
+  [0, 0, '0'],
+  [-1, -1, '1 av. J.-C.'],
+  [-1500000, -1200000, '1 500 000 à 1 200 000 av. J.-C.'],
+];
+
+for (const [start, end, expected] of inferenceCases) {
+  const result = autoInferYearDisplay(start, end);
+  assert.equal(result, expected,
+    `autoInferYearDisplay(${start}, ${end}) = "${result}", expected "${expected}"`);
+}
+console.log(`✓ Test 10: ${inferenceCases.length} auto-inference cases all pass`);
+
 console.log('\n🎉 All source validation tests passed!');

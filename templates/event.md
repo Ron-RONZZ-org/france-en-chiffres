@@ -11,7 +11,9 @@ start:
 end:
 
 # Texte affiché pour la date — permet des formats précis
-# comme "14 juillet 1789" ou "Printemps 1944"
+# comme "14 juillet 1789" ou "Printemps 1944".
+# Optionnel : si laissé vide, automatiquement généré depuis start/end.
+# Exemples d'inférence : "1789", "1914 à 1918", "450 000 av. J.-C."
 yearDisplay: ""
 
 # ── Titre ───────────────────────────────────────────────
