@@ -17,6 +17,8 @@ Puis le fer est arrivé.
 
 ## Le métal pour tout le monde
 
+Le bronze arrive sur le territoire français vers 2500 AEC, apporté par les réseaux d'échanges qui traversent déjà l'Europe néolithique. Mais son usage reste limité : le cuivre et l'étain ne se trouvent presque jamais au même endroit, et leurs gisements sont concentrés dans quelques régions d'Europe. Le bronze devient un matériau précieux, réservé aux armes, aux bijoux et à quelques outils spécialisés. Les communautés paysannes continuent de travailler le bois, la pierre et l'os comme elles le faisaient depuis des millénaires. La métallurgie est une affaire d'élites.
+
 Le bronze a un défaut fondamental : ses composants sont rares et dispersés. Le cuivre vient des Carpates, des Alpes, de la péninsule Ibérique. L'étain vient des Cornouailles ou de la Bretagne. Pour fabriquer une épée en bronze, il faut importer deux minerais différents depuis des centaines de kilomètres, contrôler des routes commerciales, entretenir un réseau que seules les élites maîtrisent. La métallurgie du bronze est un privilège — et donc un instrument de pouvoir.
 
 Le fer, lui, est partout. Le minerai de fer — cette roche brun-rouge qui affleure dans presque toutes les régions de France — ne demande qu'un four de terre cuite, du charbon de bois et du savoir-faire pour être réduit en métal. Pas besoin d'importer quoi que ce soit [source:inrap-saison-gauloise].
