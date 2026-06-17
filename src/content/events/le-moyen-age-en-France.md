@@ -1,59 +1,52 @@
 ---
-id: "periode-medievale"
+id: "le-moyen-age-en-France"
 start: 486
 end: 1453
 title: "Le Moyen Âge en France"
-description: "Un nom inventé pour dénigrer mille ans d'histoire, et pourtant : c'est au Moyen Âge que la France est née — son nom, sa langue, ses villages, ses cathédrales, son identité."
+description: "« Le Moyen Âge » est un nom inventé pour dénigrer mille ans d'histoire. Pourtant, c'est au Moyen Âge que la France moderne se forme — son nom, sa langue, ses villages, ses cathédrales, son identité."
 ---
 
-## Introduction : un nom qui cache une naissance
+## Le Moyen Âge, c'est quand ?
 
-Avez-vous déjà regardé un château fort et pensé : « Voilà le Moyen Âge » ? Ce réflexe, tout le monde l'a. Pourtant, le mot lui-même — « Moyen Âge » — n'a jamais été utilisé par les gens qui ont vécu à cette époque. E·ils ne savaient pas qu'e·ils vivaient au « Moyen Âge ». Comment auraient-e·ils pu ?
+Alors que vous regardez un château fort et qu'un·e enfant vous demande l'époque dans laquelle il a été construit, vous répondez comment ?
 
-C'est bien plus tard, au XIV<sup>e</sup> siècle, que des intellectuel·les italien·nes comme **Pétrarque** (1304–1374) ont inventé cette expression. Pour elleux, les siècles qui séparaient leur époque de la gloire de l'Empire romain n'étaient qu'un âge « moyen » — une période médiocre, obscure, une « nuit de mille ans » entre deux lumières [source:britannica-middle-ages]. Le mot *medium aevum* (« âge moyen ») en latin est devenu *Moyen Âge* en français. C'était une insulte déguisée en étiquette historique.
+Si vous avez des connaissances particulières sur ce château, vous répondez peut-être : « c'était il y a 500 ans, sous le règne de Louis XIV qu'on a construit ce château. » Sinon, vous répondez probablement : « c'est pendant le Moyen Âge ».
 
-Mais les gens du Moyen Âge ne se considéraient pas comme « moyenâgeux ». Quand e·ils construisaient les cathédrales de Chartres, de Reims ou de Notre-Dame de Paris, e·ils ne bâtissaient pas un « âge sombre » : e·ils construisaient la Jérusalem céleste sur terre. Quand e·ils défrichaient les forêts, créaient des villages, tissaient des réseaux commerciaux à travers l'Europe, e·ils ne faisaient pas du « moyen » : e·ils posaient les fondations du monde moderne.
+*Medium aevum*, habituellement traduit en français comme « le moyen âge », est un nom inventé au XIV<sup>e</sup> siècle par des intellectuel·les italien·nes pour désigner les siècles qui séparaient leur époque de la gloire de l'Empire romain. Pour eux, ces temps étaient un âge « moyen » — une période médiocre, obscure. Certain·es parmi e·lles y avaient même décrit une « nuit de mille ans » entre deux lumières [source:britannica-middle-ages].
 
-### Mais alors, quand commence et quand finit le Moyen Âge en France ?
+Logiquement, les gens qui ont vécu au « moyen âge » n'ont jamais employé cette terminologie. Comment auraient-e·ils pu ? Le « moyen âge » pour les intellectuel·les du XIV<sup>e</sup> siècle était leur époque moderne, avec ses derniers développements sociaux, économiques et culturels. Il n'y avait rien de « moyen ».
 
-Les historien·nes s'accordent sur deux dates-clés, même si les frontières sont poreuses :
+Dans cet article, j'essaierai au maximum d'éviter de désigner l'époque que nous allons aborder comme « le moyen âge ». Pour nous, Français·es, particulièrement, le « moyen âge » n'est pas du tout moyen. La nation française, sa culture, sa langue et ses traditions se sont développées au cours des siècles qui ont suivi la chute de l'Empire romain, qui colonisait le territoire de l'actuelle France sous forme de quatre provinces gauloises. Si l'occupation romaine, qui unifiait le territoire français pour la première fois, a débuté la civilisation française, c'est pendant les siècles suivants que la France devient un pays à part entière avec ses propres coutumes. En fait, vous allez voir : même le nom de notre pays, « la France », est une invention « moyen-âgeuse ».
 
-- **486 EC** : Baptême de Clovis I<sup>er</sup>, roi des Francs saliens. Cet événement marque l'alliance entre le pouvoir franc et l'Église catholique — et la naissance de ce qui deviendra le royaume de France [source:britannica-france-medieval].
-- **1453 EC** : Fin de la guerre de Cent Ans. Les Anglais sont chassés du continent (sauf Calais), la France est unifiée sous l'autorité du roi. La même année, Constantinople tombe aux mains des Ottoman·es — un autre monde s'annonce [source:britannica-france-medieval].
+## La naissance du royaume des Francs
 
-Entre ces deux dates, près de mille ans pendant lesquels la France est née, a grandi, a changé de visage mille fois. Suivons un fil rouge pour comprendre cette histoire : celui d'un village du nord de la France, né au V<sup>e</sup> siècle et qui existe encore aujourd'hui. Au fil des siècles, nous verrons ce village se transformer — et avec lui, toute la société française.
-
-## Un village au fil du temps
-
-Choisissons un lieu qui existe encore aujourd'hui, pour que vous puissiez constater cette histoire par vous-même. **Lagny-sur-Marne**, à une trentaine de kilomètres à l'est de Paris, est mentionné pour la première fois dans une charte mérovingienne du VII<sup>e</sup> siècle sous le nom de *Latiniacum*. À l'époque, c'est une petite exploitation agricole gallo-franque sur la Marne, nichée dans une clairière entourée de forêts — celles-là mêmes où les Mérovingiens venaient chasser.
-
-Au fil des siècles, ce village (aujourd'hui une ville de plus de 20 000 habitant·es) va nous servir de témoin pour comprendre la transformation de la France médiévale. Car ce qui s'est passé à Lagny s'est passé, à des rythmes différents, dans des milliers de villages à travers le royaume.
-
-## La naissance du royaume (V<sup>e</sup>–X<sup>e</sup> siècle)
-
-### Clovis et le baptême qui changea tout
+### Un certain Clovis se faisait baptiser
 
 Imaginez-vous en 481 EC. L'Empire romain d'Occident n'existe plus depuis cinq ans. Les Wisigoths règnent sur le sud-ouest, les Burgondes sur la vallée du Rhône, les Alamans sur l'est. Rome a laissé un vide, mais personne n'a encore réussi à le remplir.
 
-Clovis I<sup>er</sup>, chef des Francs saliens, n'a que quinze ans quand il devient roi. Son royaume est minuscule : une bande de territoire autour de Tournai (actuelle Belgique). Pourtant, en trente ans, il va conquérir la majeure partie de la Gaule [source:britannica-france-medieval].
+Parmi les élites gauloises qui rivalisaient pour la suprématie, on compte un certain **Clovis**, qui n'avait que quinze ans lorsqu'il a hérité du royaume de son père. Pour être honnête, pour lui, « royaume » était un bien grand mot. Son domaine était minuscule : une petite bande de territoire autour de Tournai (dans l'actuelle Belgique), quelques milliers de kilomètres carrés à peine [source:britannica-france-medieval].
 
-En 486, il bat le dernier gouverneur romain, Syagrius, à Soissons. Puis il se tourne vers les Alamans, les Burgondes, les Wisigoths. Mais son coup le plus décisif n'est pas militaire : c'est son baptême, vers 496 EC. En se convertissant au christianisme catholique (plutôt qu'à l'arianisme des autres royaumes « barbares »), Clovis gagne l'appui de l'épiscopat gallo-romain — le seul réseau d'autorité qui survive à l'effondrement de l'Empire. Grégoire de Tours, notre principale source pour cette période, raconte que lors de la bataille de Tolbiac contre les Alamans, Clovis aurait promis de se convertir si le Dieu de sa femme Clotilde lui donnait la victoire. Victorieux, il fut baptisé à Reims par l'évêque Remi [source:gregoire-tours-histoire-francs].
+Malgré ses débuts discrets, Clovis manifesta un talent militaire très jeune. En 486, il bat le dernier gouverneur romain, Syagrius, à Soissons. Puis il se tourne vers les Alamans, les Burgondes, les Wisigoths. Rapidement, son territoire s'agrandit : à sa mort en 511, il contrôle la majeure partie de la Gaule, des rives du Rhin jusqu'aux Pyrénées, ne laissant que la Burgondie et la Provence indépendantes [source:britannica-france-medieval].
 
-Ce que cela signifie concrètement pour le village de Lagny : les nouveaux maîtres francs ne sont pas perçus comme des étrangers hostiles. L'évêque de Paris, qui contrôle la région, reconnaît Clovis comme protecteur de l'Église. Les paysan·nes labourent les mêmes champs, prient dans les mêmes églises — le seigneur a simplement changé de nom.
+Si son génie militaire a permis à Clovis d'élargir considérablement son domaine, ce n'est pas seulement par la conquête qu'il a pu affirmer une suprématie incontestable : c'est aussi par son baptême vers 496 EC. Contrairement aux rois wisigoths et burgondes, qui pratiquaient l'arianisme, Clovis était encore païen. En se convertissant directement au christianisme catholique (nicéen), Clovis gagne l'appui de l'épiscopat gallo-romain — le seul réseau d'autorité qui survivait à l'effondrement de l'Empire [source:britannica-france-medieval].
 
-### Les Mérovingiens : « rois fainéants » ?
+Grégoire de Tours (538–594), évêque et historien dont l'*Histoire des Francs* constitue notre source principale pour la période mérovingienne, racontait les événements précédant le baptême de Clovis [source:gregoire-tours-histoire-francs]. Selon lui, lors de la bataille de Tolbiac contre les Alamans, Clovis aurait promis de se convertir si le Dieu de sa femme Clotilde, qui était chrétienne, lui donnait la victoire. Victorieux, il fut baptisé à Reims par l'évêque Remi.
 
-Clovis meurt en 511, et son royaume est partagé entre ses quatre fils — une tradition franque qui va handicaper la monarchie pendant des siècles. Ses descendant·es, les Mérovingiens, règnent pendant plus de deux siècles. Mais leur pouvoir s'effrite progressivement au profit des maires du palais — les intendant·es du royaume [source:britannica-france-medieval].
+À la suite de son baptême, Clovis est reconnu par l'Église catholique comme le défenseur de la foi orthodoxe et reçoit de l'empereur byzantin Anastase I<sup>er</sup> le titre honorifique de consul [source:britannica-france-medieval].
 
-Attention au cliché des « rois fainéants » : la faiblesse mérovingienne n'était pas due à la paresse, mais à un système où le royaume était constamment divisé entre héritier·ères. Les nobles locaux en profitaient pour renforcer leur pouvoir, tandis que les maires du palais accumulaient les terres et les alliances.
+### Les Mérovingiens : « rois fainéants »
+
+Clovis meurt en 511, et son royaume est partagé entre ses quatre fils — une tradition franque pour éviter des guerres de succession parmi les héritier·ères potentiel·les. Leurs descendant·es, les Mérovingiens, règnent sur le royaume pendant plus de deux siècles.
+
+Cependant, le pouvoir de ces « rois » s'effrite progressivement au profit des maires du palais (les intendants du royaume) et des élites locales [source:britannica-france-medieval]. Les rois, avec leurs royaumes constamment divisés entre héritier·ères et de plus en plus minuscules génération après génération, cédaient de plus en plus face aux nobles locaux — qui ne suivaient pas le même système de partage — et aux maires du palais, qui accumulaient les terres et les alliances à leur propre avantage.
 
 ### L'essor carolingien
 
-L'un de ces maires du palais, Charles Martel (« Charles le Marteau »), arrête l'avancée des troupes arabo-berbères à la bataille de Poitiers en 732. Son petit-fils, Charlemagne, devient l'un des souverain·es les plus puissant·es de l'histoire européenne.
+L'un des maires du palais particulièrement capable, **Charles Martel** (« Charles le Marteau »), arrête l'avancée des troupes arabo-berbères à la bataille de Poitiers en 732. Fils illégitime de Pippin II, Charles était initialement exclu de la succession. Après la mort de son père en 714, la veuve de Pippin, Plectrude, tenta de gouverner, mais Charles s'évada de prison, rassembla une armée et battit ses rival·es à Amblève (716) et Vincy (717). Il devint ainsi le seul maire du palais, gouvernant les Francs sans partage. Avant sa mort en 741, il divisa le royaume entre ses deux fils légitimes, Pippin III et Carloman [source:britannica-charles-martel].
 
-Charlemagne (742–814) unifie une grande partie de l'Europe occidentale et est couronné empereur par le pape en l'an 800. Il encourage une renaissance culturelle — la « renaissance carolingienne » — avec des écoles, des manuscrits enluminés, une écriture standardisée (la minuscule caroline) [source:eginhard-vie-charlemagne].
+Son petit-fils, **Charlemagne**, devient l'un·e des souverain·es les plus puissant·es de l'histoire européenne. Après avoir unifié une grande partie de l'Europe occidentale, il est couronné empereur par le pape en l'an 800. Il encourage une renaissance culturelle — la « renaissance carolingienne » — avec des écoles, des manuscrits enluminés, une écriture standardisée (la minuscule caroline) [source:eginhard-vie-charlemagne].
 
-À Lagny, les effets de cette renaissance se font sentir : l'église locale est reconstruite en pierre, les moines de l'abbaye Saint-Pierre (fondée au VII<sup>e</sup> siècle) copient des manuscrits, le village devient un centre de production agricole pour alimenter l'administration impériale.
+À Lagny, les effets de cette renaissance se font sentir : l'église locale est reconstruite en pierre, les moines de l'abbaye Saint-Pierre (fondée au VII<sup>e</sup> siècle) copient des manuscrits, le village devient un centre de production agricole pour alimenter l'administration impériale [source:eginhard-vie-charlemagne].
 
 Hélas, l'empire de Charlemagne ne lui survit pas longtemps. Son fils Louis le Pieux (814–840) ne parvient pas à maintenir l'unité, et ses trois petits-fils se partagent l'empire par le **traité de Verdun** en 843 [source:britannica-france-medieval]. Charles le Chauve reçoit la Francie occidentale — c'est le territoire qui deviendra la France. Le traité de Verdun est donc, d'une certaine manière, l'acte de naissance officiel de la France.
 
@@ -63,7 +56,7 @@ Au début, le mot *Francia* désigne uniquement la région autour de Paris — l
 
 ### La dynastie capétienne
 
-En 987, les grands du royaume élisent **Hugues Capet** comme roi. La dynastie capétienne va régner sur la France (sous différents noms : Valois, Bourbon) jusqu'en 1848. Mais au début, le pouvoir des premiers Capétiens est minuscule : e·ils ne contrôlent véritablement que l'Île-de-France, un petit territoire entre Paris et Orléans. Les ducs de Normandie, d'Aquitaine, de Bourgogne sont plus puissant·es que le roi lui-même [source:britannica-france-medieval].
+En 987, les grands du royaume — les ducs, comtes et évêques les plus puissant·es — élisent **Hugues Capet** comme roi [source:britannica-hugh-capet]. La dynastie capétienne va régner sur la France (sous différents noms : Valois, Bourbon) jusqu'en 1848. Mais au début, le pouvoir des premiers Capétiens est minuscule : e·ils ne contrôlent véritablement que l'Île-de-France, un petit territoire entre Paris et Orléans. Les ducs de Normandie, d'Aquitaine, de Bourgogne sont plus puissant·es que le roi lui-même [source:britannica-france-medieval].
 
 Pourtant, les Capétiens ont un avantage décisif : e·ils sont sacré·es à Reims, et l'Église reconnaît leur légitimité. De plus, e·ils réussissent à maintenir la succession de père en fils sans interruption — un exploit rare dans l'Europe médiévale.
 
@@ -85,7 +78,7 @@ Une paysanne du XIII<sup>e</sup> siècle à Lagny se lève avant l'aube. Elle al
 
 ### Le chevalier et son château
 
-Au XI<sup>e</sup> siècle, un nouveau type de fortification apparaît en France : le **château à motte** — une tour en bois sur une butte de terre entourée d'une palissade. Au XII<sup>e</sup> siècle, la pierre remplace le bois. La seigneurie de Lagny, comme beaucoup d'autres, se dote d'un petit château fort en pierre au XIII<sup>e</sup> siècle, avec tour, courtine et fossé.
+Au XI<sup>e</sup> siècle, un nouveau type de fortification apparaît en France : le **château à motte** — une tour en bois sur une butte de terre entourée d'une palissade. Au XII<sup>e</sup> siècle, la pierre remplace le bois. La seigneurie de Lagny, comme beaucoup d'autres, se dote d'un petit château fort en pierre au XIII<sup>e</sup> siècle, avec tour, courtine et fossé [source:britannica-france-medieval].
 
 Le château n'est pas seulement une résidence militaire : c'est le centre administratif de la seigneurie. C'est là que le seigneur rend la justice, perçoit les redevances, stocke les récoltes. C'est aussi un lieu de protection : en cas de danger, les paysan·nes du village peuvent s'y réfugier [source:worldhistory-medieval-daily-life].
 
@@ -121,7 +114,7 @@ Le pouvoir de l'Église n'est pas seulement spirituel : il est aussi temporel. L
 
 ### Les cathédrales gothiques
 
-C'est dans ce contexte de foi intense et de prospérité économique que s'élèvent les **cathédrales gothiques**. La première, l'abbatiale de Saint-Denis (consacrée en 1144), près de Lagny, inaugure un style qui va rayonner sur toute l'Europe : arcs-boutants, voûtes sur croisées d'ogives, rosaces, vitraux.
+C'est dans ce contexte de foi intense et de prospérité économique que s'élèvent les **cathédrales gothiques**. La première, l'abbatiale de Saint-Denis (consacrée en 1144), près de Lagny, inaugure un style qui va rayonner sur toute l'Europe : arcs-boutants, voûtes sur croisées d'ogives, rosaces, vitraux [source:britannica-middle-ages].
 
 Chaque cathédrale est un projet collectif qui mobilise toute une ville pendant des décennies. Celle de Chartres (construite entre 1194 et 1220) rassemble des centaines d'artisan·es — tailleur·euses de pierre, maçon·nes, verrièr·es, charpentier·es — sous la direction d'un·e maître·sse d'œuvre dont le nom est parfois perdu (contrairement à nos habitudes modernes de célébrité). Les fidèles participent au financement, les corporations offrent les vitraux, les pèlerin·es affluent de toute l'Europe [source:britannica-middle-ages].
 
@@ -131,7 +124,7 @@ Quand on regarde une cathédrale gothique aujourd'hui, on est saisi par la haute
 
 Au XIII<sup>e</sup> siècle, Paris devient le centre intellectuel de l'Europe chrétienne. L'Université de Paris, fondée vers 1200, attire des étudiant·es de tout le continent. On y enseigne la théologie, le droit (canon et romain), la médecine, les arts libéraux [source:bnf].
 
-Les grands penseur·euses scolastiques — **Thomas d'Aquin** (1225–1274), qui tente de concilier Aristote avec la foi chrétienne ; **Abélard** (1079–1142), logicien audacieux dont l'histoire d'amour avec Héloïse est devenue légendaire — enseignant dans les écoles de la montagne Sainte-Geneviève.
+Les grands penseur·euses scolastiques — **Thomas d'Aquin** (1225–1274), qui tente de concilier Aristote avec la foi chrétienne ; **Abélard** (1079–1142), logicien audacieux dont l'histoire d'amour avec Héloïse est devenue légendaire — enseignaient dans les écoles de la montagne Sainte-Geneviève.
 
 Les étudiant·es, venu·es de toutes les nations (France, Angleterre, Allemagne, Italie, Espagne), vivent dans des collèges — comme le futur célèbre collège de Sorbonne, fondé en 1257 par Robert de Sorbon. E·ils descendent parfois dans la rue, se battent entre « nations », contestent l'autorité du prévôt de Paris. Le Quartier latin — où l'on parle latin, la langue universelle de l'enseignement — existe encore aujourd'hui.
 
@@ -155,7 +148,7 @@ Sa mort n'est pas vaine : elle a retourné l'opinion, galvanisé les troupes, mo
 
 Mais bien avant la fin de la guerre, un autre fléau était passé. En 1347, la peste bubonique arrive à Marseille par des navires génois venus de Crimée. En quelques mois, elle remonte le Rhône, touche Lyon, Avignon, Paris. À son apogée en 1349, elle tue entre un tiers et la moitié de la population française [source:britannica-black-death].
 
-Pour les gens du XIV<sup>e</sup> siècle, ce fléau est incompréhensible. On accuse les Juif·ves (pogroms à Strasbourg, en 1349 : plusieurs centaines de Juif·ves brûlé·es vif·ves), les lépreux·euses, les sorcièr·es. On se flagelle en procession. On prie. Rien n'arrête la maladie.
+Pour les gens du XIV<sup>e</sup> siècle, ce fléau est incompréhensible. On accuse les Juif·ves (pogroms à Strasbourg en 1349 : plusieurs centaines de Juif·ves brûlé·es vif·ves), les lépreux·euses, les sorcièr·es. On se flagelle en procession. On prie. Rien n'arrête la maladie.
 
 À Lagny, la population chute brutalement. Des maisons restent vides. Les champs ne sont plus cultivés. Le seigneur, qui a perdu des paysan·nes, ne perçoit plus de redevances. Mais la pénurie de main-d'œuvre a aussi un effet inattendu : les survivant·es peuvent exiger de meilleurs salaires. Les serfs qui restent obtiennent leur liberté. Le système féodal, déjà ébranlé par la guerre, vacille [source:britannica-black-death].
 
@@ -163,25 +156,25 @@ Pour les gens du XIV<sup>e</sup> siècle, ce fléau est incompréhensible. On ac
 
 L'Église elle-même est en crise. De 1378 à 1417, le **Grand Schisme d'Occident** divise la chrétienté entre deux — puis trois — papes rival·es, l'un à Rome, l'autre à Avignon. Les fidèles ne savent plus à qui obéir. La confiance dans l'institution ecclésiastique s'effrite [source:britannica-middle-ages].
 
-Dans les campagnes, la misère provoque des révoltes. En 1358, la **Jacquerie** — du nom *Jacques Bonhomme*, surnom donné aux paysan·es — embrase le nord de la France. Des milliers de paysan·es, écrasé·es par les impôts, les pillages, les rançons, se soulèvent contre la noblesse. La répression est féroce : plusieurs dizaines de milliers de révolté·es sont massacré·es [source:britannica-france-medieval].
+Dans les campagnes, la misère provoque des révoltes. En 1358, la **Jacquerie** — du nom *Jacques Bonhomme*, surnom donné aux paysan·es — embrase le nord de la France. Des milliers de paysan·es, écrasé·es par les impôts, les pillages, les rançons, se soulèvent contre la noblesse. La répression est féroce : plusieurs dizaines de milliers de révolté·es sont massacré·es [source:britannica-jacquerie].
 
 ## L'héritage du Moyen Âge
 
-Quand la guerre de Cent Ans s'achève en 1453, la France n'est plus la même. Le roi est désormais le souverain incontesté d'un royaume unifié. La noblesse, décimée par la guerre, est affaiblie. Les villes sont prospères. L'imprimerie, inventée par Gutenberg vers 1450, va bientôt transformer la diffusion du savoir. La Renaissance s'annonce.
+Quand la guerre de Cent Ans s'achève en 1453, la France n'est plus la même. Le roi est désormais le souverain incontesté d'un royaume unifié. La noblesse, décimée par la guerre, est affaiblie. Les villes sont prospères. L'imprimerie, inventée par Gutenberg vers 1450, va bientôt transformer la diffusion du savoir. La Renaissance s'annonce [source:britannica-france-medieval].
 
 Mais l'héritage du Moyen Âge reste gravé dans le paysage et dans les institutions :
 
-- **Les villages** : la plupart des communes françaises actuelles sont nées au Moyen Âge, souvent autour d'une église, d'un château ou d'une abbaye.
-- **Les cathédrales** : Notre-Dame de Paris, Chartres, Reims, Amiens, Bourges — ces monuments sont aujourd'hui des symboles nationaux et des sites classés au patrimoine mondial de l'UNESCO.
-- **La langue française** : c'est au Moyen Âge que le latin parlé en Gaule du Nord — la *lingua romana rustica* — est devenu l'ancien français, puis le français moderne. Les plus anciens textes littéraires en français — le *Serment de Strasbourg* (842), la *Chanson de Roland* (~1100), les *Lais* de Marie de France (XII<sup>e</sup> siècle) — datent de cette période.
-- **Les institutions** : l'Université, la commune, la banque, le parlement — autant d'inventions médiévales qui structurent encore notre monde.
-- **Le paysage** : les champs ouverts, les villages perchés, les routes, les ponts, les moulins — le visage de la France rurale est largement un héritage médiéval.
+- **Les villages** : la plupart des communes françaises actuelles sont nées au Moyen Âge, souvent autour d'une église, d'un château ou d'une abbaye [source:britannica-france-medieval].
+- **Les cathédrales** : Notre-Dame de Paris, Chartres, Reims, Amiens, Bourges — ces monuments sont aujourd'hui des symboles nationaux et des sites classés au patrimoine mondial de l'UNESCO [source:britannica-middle-ages].
+- **La langue française** : c'est au Moyen Âge que le latin parlé en Gaule du Nord — la *lingua romana rustica* — est devenu l'ancien français, puis le français moderne. Les plus anciens textes littéraires en français — le *Serment de Strasbourg* (842), la *Chanson de Roland* (~1100), les *Lais* de Marie de France (XII<sup>e</sup> siècle) — datent de cette période [source:bnf].
+- **Les institutions** : l'Université, la commune, la banque, le parlement — autant d'inventions médiévales qui structurent encore notre monde [source:britannica-middle-ages].
+- **Le paysage** : les champs ouverts, les villages perchés, les routes, les ponts, les moulins — le visage de la France rurale est largement un héritage médiéval [source:britannica-france-medieval].
 
 ### L'invention du « Moyen Âge » par les modernes
 
-Pourtant, le Moyen Âge a longtemps porté l'étiquette infamante que les humanistes lui avaient collée : « âge sombre », « âge de foi aveugle », « âge de barbarie ». Les philosophes des Lumières ont amplifié ce discours : pour Voltaire, le Moyen Âge était une époque de « superstition grossière » et de « fanatisme ».
+Pourtant, le Moyen Âge a longtemps porté l'étiquette infamante que les humanistes lui avaient collée : « âge sombre », « âge de foi aveugle », « âge de barbarie ». Les philosophes des Lumières ont amplifié ce discours : pour Voltaire, le Moyen Âge était une époque de « superstition grossière » et de « fanatisme » [source:societe-voltaire].
 
-Cette vision est profondément injuste. Le Moyen Âge a été une période de bouillonnement intellectuel (la scolastique, les universités), d'innovations techniques (la charrue à roue, le collier d'épaule pour les chevaux, le moulin à vent, le gouvernail d'étambot), de créations artistiques majeures (le gothique, la polyphonie, la poésie courtoise) et de transformations sociales décisives (l'émergence des villes, des communes, des premières formes de représentation politique).
+Cette vision est profondément injuste. Le Moyen Âge a été une période de bouillonnement intellectuel (la scolastique, les universités), d'innovations techniques (la charrue à roue, le collier d'épaule pour les chevaux, le moulin à vent, le gouvernail d'étambot), de créations artistiques majeures (le gothique, la polyphonie, la poésie courtoise) et de transformations sociales décisives (l'émergence des villes, des communes, des premières formes de représentation politique) [source:britannica-middle-ages].
 
 Le vrai « âge sombre », pour la France d'aujourd'hui, ce n'est pas la période médiévale, c'est la connaissance que nous en avons perdue. Notre village de Lagny, comme des milliers d'autres, conserve des traces visibles de cette époque — une rue « du Moyen Âge », une tour de guet, une église romane — mais nous passons souvent devant sans savoir lire ce que ces pierres racontent.
 
