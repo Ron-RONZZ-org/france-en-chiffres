@@ -3,12 +3,17 @@ id: "gaule-romaine"
 start: -52
 end: 476
 title: "La Gaule romaine"
-description: "Cinquante ans avant l'ère commune, un·e enfant gaulois·e naît dans un village des bords de Saône. Quand e·il meurt, le village s'appelle une ville romaine : Augustodunum. En cinq siècles de présence romaine, la Gaule a changé de langue, de dieux, de paysage — et pourtant, les racines celtes n'ont jamais tout à fait disparu."
+description: "En cinq siècles de présence romaine, la Gaule a changé de langue, de dieux, de paysage — et pourtant, les racines celtes n'ont jamais tout à fait disparu."
 ---
+## Qui sont les Gaulois·es ?
 
-## La dernière bataille avant la paix
+Avant d'entrer dans l'histoire, un mot sur les noms. « Gaulois·es » est le nom que les Romains donnaient aux peuples celtes qui vivaient sur le territoire correspondant approximativement à la France, la Belgique et une partie de la Suisse actuelles. Mais les Gaulois·es ne se nommaient pas elleux-mêmes ainsi : e·ils s'identifiaient par leurs tribus — les Arvernes, les Éduens, les Séquanes, les Parisii, les Carnutes, et des dizaines d'autres.
 
-Imaginez : vous avez douze ans, vous êtes né·e dans une ferme gauloise au pied du mont Beuvray. Cette année-là — 52 AEC — les nouvelles arrivent comme le tonnerre. Vercingétorix, le chef arverne, a rallié les tribus. Des milliers de guerrier·ères descendent des collines. Les femmes fourbissent les chars, les vieux gardent les enfants, les forgerons travaillent jour et nuit. Votre père attelle les bœufs pour porter des provisions au camp. Votre mère cache le grain sous le sol de la maison.
+Quand cet article parle des « Gaulois·es », il désigne donc l'ensemble de ces peuples, avec leurs différences, leurs rivalités et leurs langues celtiques communes. Cette diversité est essentielle pour comprendre pourquoi la conquête romaine a été possible — car les Gaulois·es n'ont jamais formé une nation unie.
+
+## La dernière bataille
+
+Imaginez : L'année est 52 AEC, et vous êtes un·e enfant de douze ans. Les nouvelles arrivent comme le tonnerre sur votre village au pied du mont Beuvray. Vercingétorix, le chef arverne, a rallié les tribus : des milliers de guerrier·ères descendent des collines; des femmes fourbissent les chars; les plus âgé·es gardent les enfants; les forgerons travaillent jour et nuit. Votre père attelle les bœufs pour porter des provisions au camp. Votre mère cache le grain sous le sol de la maison.
 
 Puis le silence. La rumeur d'un siège à Alésia. Le bruit d'une défaite.
 
@@ -16,29 +21,84 @@ Un soir d'automne, des rescapé·es passent devant la ferme, épuisé·es : « C
 
 Ce que personne ne peut encore imaginer, c'est que dans cinquante ans, le mont Beuvray sera désert — ses habitant·es auront été déplacé·es vers une nouvelle ville en contrebas, avec des rues pavées, des thermes et un forum. Leur village gaulois transformé en ville romaine dont les vestiges se visitent encore aujourd'hui [source:bibracte].
 
-## Le coût de la conquête (58–52 AEC)
+## Comment les Romains sont arrivés
 
-La guerre des Gaules de Jules César fut l'une des campagnes les plus meurtrières de l'Antiquité. En huit ans, d'après les estimations modernes, plus d'un million de personnes périrent et des centaines de milliers d'autres furent réduites en esclavage [source:britannica-gaul].
+Les Romains n'ont pas débarqué en Gaule par surprise un beau matin de 58 AEC. Leurs relations avec les peuples du nord remontaient à plusieurs siècles — et passaient d'abord par la mer.
 
-César exploita les rivalités entre les tribus gauloises avec une habileté redoutable. Les Éduens, alliés historiques de Rome, furent utilisés comme partenaires ; les Arvernes, comme cobayes. Les Helvètes, qui tentaient de migrer, furent écrasés. Les Germains d'Arioviste, repoussés. Les Belges, soumis. Les Vénètes de Bretagne, anéantis — leur flotte détruite dans la première bataille navale jamais livrée sur l'Atlantique [source:worldhistory-roman-gaul]. Quand un peuple résistait trop, les Romains le vendaient en masse : 53 000 membres de la tribu des Aduatiques furent réduits en esclavage en un seul marché.
+### Massalia : la porte grecque de la Gaule
 
-La résistance gauloise culmina en 52 AEC sous la direction de Vercingétorix. Brillant tacticien, il utilisa la politique de la terre brûlée, refusant aux légions romaines tout ravitaillement local. Après sa défaite à Gergovia — l'une des rares défaites de César — il se retrancha dans l'oppidum des Mandubiens, Alésia. César construisit une double ligne de fortifications de plus de 20 kilomètres autour de la ville, piégeant Vercingétorix à l'intérieur tout en repoussant une armée de secours gauloise de 250 000 hommes venue de l'extérieur [source:worldhistory-roman-gaul]. Le siège dura deux mois. Vaincu par la famine, Vercingétorix se rendit. Conduit à Rome dans le triomphe de César, il fut étranglé en prison six ans plus tard, en 46 AEC.
+En 600 AEC — soit plus de cinq cents ans avant Jules César — des marin·es et marchand·es grec·ques venu·es de Phocée (l'actuelle Turquie) fondèrent un comptoir sur la côte méditerranéenne : **Massalia**, l'actuelle Marseille [source:massalia-musee]. Pendant des siècles, Massalia fut la plaque tournante du commerce entre le monde méditerranéen et l'intérieur de la Gaule. Les commerçant·es massaliotes remontaient le Rhône avec du vin, de l'huile d'olive et de la céramique, et redescendaient avec de l'étain, de l'ambre, du cuivre et des esclaves.
 
-Mais la conquête ne s'arrêta pas à Alésia. Les dernières poches de résistance — notamment Uxellodunum (actuelle Vayrac, dans le Lot) — ne tombèrent qu'en 51 AEC. César, pour donner une leçon, fit couper les mains des survivants [source:cesar-guerre-gaules].
+Rome, qui s'étendait alors en Italie, devint l'alliée de Massalia dès le IV<sup>e</sup> siècle AEC. Les deux cités échangeaient des marchandises, des soldat·es et des informations sur les peuples gaulois.
 
-## La paix romaine (27 AEC – 180 EC)
+### La Provincia : la première province romaine en Gaule
 
-Avec l'arrivée d'Auguste, premier empereur romain, la Gaule entra dans une période de paix et de prospérité. Auguste divisa la Gaule transalpine en quatre provinces : **la Narbonnaise** (sud-est, déjà romanisée), **l'Aquitaine** (sud-ouest), **la Lyonnaise** (centre) et **la Belgique** (nord et est). Lugdunum (Lyon), située au confluent du Rhône et de la Saône, devint la capitale des Trois Gaules (Lyonnaise, Aquitaine, Belgique), dotée d'un sanctuaire fédéral où les soixante nations gauloises se réunissaient chaque année [source:britannica-gaul].
+Au II<sup>e</sup> siècle AEC, les tribus gauloises du sud — les Salyens, les Allobroges, les Arvernes — menaçaient les routes commerciales de Massalia. La cité grecque appela Rome à l'aide. En 125 AEC, les armées romaines intervinrent et, après une campagne de plusieurs années, annexèrent un vaste territoire s'étendant des Alpes aux Pyrénées [source:unrv-gallia].
 
-Pour la première fois de leur histoire, les Gaulois·es n'avaient plus à craindre de guerre sur leur terre. L'armée romaine sécurisait les frontières rhénanes, et les légionnaires — de plus en plus recrutés localement — maintenaient l'ordre. Les routes, construites par des corps de génie militaire, reliaient Lugdunum à toutes les capitales de cité. Des voies pavées de pierre, larges de 5 à 7 mètres, permettaient aux marchandises, aux armées et aux idées de circuler rapidement [source:gallia-cnrs].
+En 121 AEC, ce territoire devint officiellement la **Gaule narbonnaise** (*Gallia Narbonensis*) — la première province romaine en Gaule. Les Romains l'appelaient simplement *la Provincia*, et le nom est resté : la **Provence** [source:britannica-gaul]. La colonie romaine de Narbo Martius (Narbonne) y fut fondée en 118 AEC, et la **Via Domitia** — la première route romaine en Gaule — relia désormais l'Italie à l'Hispanie à travers cette nouvelle province [source:unrv-gallia].
 
-### Des villes surgies de terre
+Pendant les soixante années qui suivirent, la Narbonnaise prospéra. Les villes se romanisèrent : Nîmes, Arles, Orange, Vienne se parèrent de temples, d'amphithéâtres et d'arcs de triomphe. Les vétérans romains s'installèrent sur des terres confisquées aux tribus vaincues. Pour les Gaulois·es du Nord, la puissance romaine n'était plus une rumeur lointaine — c'était une présence visible, installée de l'autre côté de la vallée du Rhône.
 
-Les Romains ne partirent pas d'une page blanche : ils s'appuyèrent sur les *oppida* gaulois existants. Mais ils les transformèrent profondément. Les nouvelles villes romaines — Augusta Treverorum (Trèves), Augustodunum (Autun), Arelate (Arles), Nemausus (Nîmes), Burdigala (Bordeaux) — étaient conçues sur un plan quadrillé régulier (*centuriation*), avec un forum central, des temples, des thermes publics, un théâtre et parfois un amphithéâtre ou un cirque.
+### Le prétexte : une migration helvète
 
-Les maisons en pierre remplacèrent les huttes de bois et de torchis. L'eau courante arriva dans les villes par des aqueducs monumentaux — le Pont du Gard, construit au I<sup>er</sup> siècle EC, acheminait 20 000 m³ d'eau par jour à Nîmes, soit environ 400 litres par habitant·e, l'équivalent de la consommation d'une ville française du XIX<sup>e</sup> siècle [source:worldhistory-roman-gaul].
+En 58 AEC, Jules César arriva comme gouverneur de la Gaule transalpine (la Narbonnaise) et de l'Illyrie. Il cherchait gloire et richesse, et la Gaule les offrait. Le prétexte lui fut fourni par les **Helvètes** — un peuple celte installé dans l'actuelle Suisse — qui entreprirent une migration massive vers l'ouest à travers le territoire des Éduens, alliés traditionnels de Rome [source:cesar-guerre-gaules].
 
-Les campagnes aussi se transformèrent. Partout en Gaule, des **villae** — grands domaines agricoles romains — s'installèrent sur les terres fertiles. Une *villa* typique n'était pas qu'une maison : c'était un centre de production agricole avec pressoir à vin ou à huile, greniers, écuries, logements pour les esclaves et les ouvrier·ères agricoles. Les fouilles archéologiques révèlent que ces domaines étaient souvent construits sur d'anciennes fermes gauloises, comme si les paysan·nes avaient simplement changé de propriétaire·ses et de techniques [source:gallia-cnrs].
+César intervint, battit les Helvètes près de Bibracte, puis se tourna contre le roi germain **Arioviste** que les tribus gauloises elles-mêmes avaient appelé à leur secours quelques années plus tôt. Vaincu, Arioviste repassa le Rhin. Ces deux victoires n'étaient que le début : César avait désormais l'armée, l'argent et la justification pour conquérir toute la Gaule.
+
+Ainsi commencèrent huit années de guerre qui allaient changer pour toujours le destin du territoire français [source:worldhistory-roman-gaul].
+
+## La conquête et la résistance
+
+### Les rivalités entre tribus : l'allié·e de mon ennemi·e
+
+Si les Romains ont conquis la Gaule aussi rapidement, ce n'est pas seulement grâce à la discipline de leurs légions : c'est aussi parce que les tribus gauloises étaient **divisées**. Les Éduens, alliés traditionnels de Rome, rivalisaient depuis longtemps avec les Arvernes pour l'hégémonie en Gaule centrale. Les Séquanes, de leur côté, craignaient la puissance des Éduens et cherchèrent à les affaiblir [source:worldhistory-roman-gaul].
+
+Vers 63 AEC, les Séquanes et les Arvernes s'allièrent contre les Éduens et les vainquirent. Pour consolider leur victoire, les Séquanes commirent une erreur fatale : e·ils firent appel à des mercenaires germains dirigés par le roi **Arioviste**. Les Germains arrivèrent en force, écrasèrent les Éduens, mais refusèrent ensuite de repartir. Arioviste s'installa en Alsace avec 120 000 Germain·es et exigea des terres des Séquanes. Une partie de la Gaule de l'Est était désormais occupée par des Germain·es — et les tribus gauloises, incapables de s'unir pour les chasser, se tournèrent vers Rome [source:britannica-gaul].
+
+César comprit immédiatement le parti qu'il pouvait tirer de ces divisions. Il se présenta en protecteur des tribus gauloises contre la menace germanique, une position qui lui donnait une justification morale tout en affaiblissant ses opposants potentiels. En 58 AEC, après avoir vaincu Arioviste, César s'imposa comme l'arbitre des conflits gaulois — une position idéale pour diviser pour mieux régner.
+
+Tout au long de la conquête, César utilisa systématiquement ces rivalités. Il accorda des privilèges aux tribus qui se soumettaient sans combattre (comme les Éduens, qui restèrent ses alliés), tout en punissant sévèrement celles qui résistaient. Cette stratégie empêcha la formation d'une coalition gauloise unie — jusqu'à l'arrivée de Vercingétorix.
+
+### Les grandes révoltes gauloises
+
+Malgré les divisions, la résistance gauloise fut féroce et sanglante.
+
+**Ambiorix et la révolte des Eburons (54 AEC)** : En 54 AEC, alors que César menait sa seconde expédition en Bretagne, une révolte éclata chez les **Eburons** (l'actuelle Belgique). Leur chef, **Ambiorix**, attira une légion romaine (la XIV<sup>e</sup>) dans un piège et l'anéantit — près de 6 000 soldat·es romain·es tué·es. Ce fut l'une des pires défaites romaines en Gaule. César revint en hâte et mena une campagne de représailles impitoyable : les Eburons furent massacrés, leur territoire systématiquement dévasté. Ambiorix s'enfuit, et l'on perd sa trace [source:worldhistory-roman-gaul].
+
+**Vercingétorix et l'unité gauloise (52 AEC)** : L'année 52 AEC marqua l'apogée de la résistance gauloise. **Vercingétorix**, jeune chef arverne, réussit là où tous avaient échoué : il unifia les tribus gauloises dans une coalition contre Rome. Son armée, forte de dizaines de milliers de guerrier·ères, pratiqua une tactique de la terre brûlée : brûler les récoltes et les villages que les Romains pourraient utiliser. Les Gaulois·es infligèrent à César sa seule défaite majeure en Gaule à **Gergovie** [source:worldhistory-roman-gaul].
+
+Mais la contre-attaque romaine fut implacable. César poursuivit les forces de Vercingétorix jusqu'à **Alésia**, une forteresse des Mandubiens. Au lieu d'assaillir la ville, César construisit un double mur de fortifications autour d'elle — un système de siège de 40 kilomètres de circonvallation et contrevallation, avec des tours, des pièges et des fossés. Les Gaulois·es, affamé·es, attendirent une armée de secours — qui arriva mais ne put briser l'étau romain. Vercingétorix, vaincu, se rendit. César le fit emmener à Rome où il fut exhibé, puis exécuté six ans plus tard [source:cesar-guerre-gaules].
+
+**Uxellodunum (51 AEC)** : Le dernier acte de la conquête se joua à Uxellodunum (dans le Lot actuel). La place forte, parmi les dernières à résister, refusa de se rendre. Après un siège difficile, César la prit et, pour servir d'exemple, fit couper les mains des guerrier·ères survivant·es. La guerre des Gaules était finie [source:worldhistory-roman-gaul].
+
+Selon les chiffres rapportés par César lui-même — sans doute exagérés — plus d'un million de Gaulois·es auraient été tué·es et autant réduit·es en esclavage pendant les huit années de guerre [source:cesar-guerre-gaules].
+
+## La Gaule devient province romaine
+
+Après la conquête, il fallut organiser le territoire. Ce fut l'œuvre d'**Auguste**, le successeur de César, qui entre 27 et 16 AEC réorganisa la Gaule en **quatre provinces** [source:unrv-gallia] :
+
+| Province | Capitale | Territoire approximatif |
+|---|---|---|
+| **Gaule narbonnaise** (*Gallia Narbonensis*) | Narbo Martius (Narbonne) | Sud-est méditerranéen, Provence |
+| **Gaule aquitaine** (*Gallia Aquitania*) | Mediolanum Santonum (Saintes) | Sud-ouest, des Pyrénées à la Loire |
+| **Gaule lyonnaise** (*Gallia Lugdunensis*) | **Lugdunum (Lyon)** | Centre, entre Loire et Seine |
+| **Gaule belgique** (*Gallia Belgica*) | Durocortorum (Reims) | Nord et est, jusqu'au Rhin |
+
+La Narbonnaise, déjà romanisée, fut confiée au Sénat romain. Les trois autres provinces — plus vastes, moins pacifiées, aux frontières dangereuses — furent placées sous l'autorité directe de l'empereur, qui y envoyait ses propres gouverneur·es [source:worldhistory-roman-gaul].
+
+Chaque province fut divisée en **cités** (*civitates*), qui reprenaient souvent les anciens territoires tribaux. Les Éduens devinrent la *civitas Aeduorum*, les Arvernes la *civitas Arvernorum*, et ainsi de suite. Cette continuité administrative permit aux élites gauloises de conserver un rôle dans la gestion locale — à condition de se conformer au modèle romain [source:unrv-gallia].
+
+### Retour au village : une vie transformée
+
+Souvenez-vous de l'enfant de douze ans au début de cet article, celui ou celle qui a vu passer les rescapé·es d'Alésia. Cinquante ans plus tard, cette personne est âgée, et le monde autour d'elleux a radicalement changé.
+
+Le mont Beuvray, où se dressait l'oppidum de Bibracte, est désert. Ses habitant·es ont été déplacé·es vers la vallée, dans une nouvelle ville romaine — Augustodunum (l'actuelle Autun), construite selon un plan en damier avec un forum, des thermes, un théâtre et des temples. Les rues sont pavées, bordées de boutiques et de maisons en pierre [source:bibracte].
+
+Notre enfant devenu·e adulte vit maintenant dans une ferme gallo-romaine, une *villa* aux murs de pierre et au toit de tuiles. Les champs autour sont labourés avec une charrue à soc de fer — moins dure que l'araire en bois de son enfance. Dans la maison, la vaisselle est de céramique sigillée importée de La Graufesenque, et la lampe à huile en bronze vient d'Italie. Mais on parle encore gaulois à la maison, même si les actes officiels sont rédigés en latin.
+
+Le marché du village, tous les huit jours, est une petite image de l'Empire : du vin d'Italie, de l'huile d'Hispanie, du blé de la Beauce, des poteries d'Aveyron, du sel de la Méditerranée. Les taxes sont désormais payées en monnaie romaine — le sesterce et le denier — et non plus en nature comme au temps des chef·fes gaulois·es [source:unrv-gallia].
+
+Cette transformation, vécue à l'échelle d'une vie humaine, est celle de toute la Gaule romaine : les structures romaines se sont superposées — sans effacer complètement — aux réalités celtiques.
 
 ## Une culture à deux visages : la Gaule romaine
 
@@ -70,7 +130,7 @@ Le commerce suivait les routes romaines — mais aussi les voies d'eau. La Saôn
 
 ### Citoyen·nes, pérégrin·es et esclaves
 
-La société gallo-romaine était strictement hiérarchisée. Au sommet, les **citoyen·nes romain·es** — d'abord les colons italiens, puis progressivement les élites gauloises. L'empereur Claude, en 48 EC, accorda aux notables gaulois le droit d'accéder au Sénat romain, une décision controversée qui marqua l'intégration politique des élites [source:britannica-gaul].
+La société gallo-romaine était strictement hiérarchisée. Au sommet, les **citoyen·nes romain·es** — d'abord les colons italiens, puis progressivement les élites gauloises. L'empereur Claude, en 48 EC, accorda aux notables gaulois·es le droit d'accéder au Sénat romain, une décision controversée qui marqua l'intégration politique des élites [source:britannica-gaul].
 
 En dessous, les **pérégrin·es** — habitant·es libres mais sans citoyenneté romaine. E·ils payaient des impôts, servaient dans l'armée, mais ne pouvaient pas voter ni occuper de charges publiques. La situation changea en 212 EC, quand l'édit de Caracalla accorda la citoyenneté romaine à tou·tes les habitant·es libres de l'Empire.
 
@@ -86,11 +146,11 @@ Les stèles funéraires nous montrent des femmes gauloises vêtues à la romaine
 
 La Gaule romaine ne fut pas un long fleuve tranquille. À côté de l'histoire célèbre de Vercingétorix, d'autres révoltes, moins connues, racontent la résistance des humbles.
 
-En 21 EC, les chefs des tribus Trévire et Éduenne — Julius Florus et Julius Sacrovir — menèrent une insurrection contre les impôts romains. La révolte, écrasée en quelques semaines, montre que même les élites romanisées supportaient mal le poids du fisc [source:britannica-gaul].
+En 21 EC, les chef·fes des tribus Trévire et Éduenne — Julius Florus et Julius Sacrovir — menèrent une insurrection contre les impôts romains. La révolte, écrasée en quelques semaines, montre que même les élites romanisées supportaient mal le poids du fisc [source:britannica-gaul].
 
 En 69-70 EC, la révolte des Bataves sous Julius Civilis — un chef germain romanisé — faillit faire sécession de toute la Gaule du Nord. Elle fut réprimée par l'empereur Vespasien.
 
-Mais la plus fascinante des résistances est peut-être celle des **Bagaudes** (III<sup>e</sup>–V<sup>e</sup> siècles EC) : des bandes de paysan·nes et d'esclaves en fuite, de déserteur·ses et de berger·ères qui, pendant des générations, tinrent tête à l'armée romaine dans les campagnes de Gaule centrale. E·ils n'avaient pas d'armées organisées, pas de chefs charismatiques — seulement la volonté de ne pas mourir de faim sous le poids des impôts et du travail forcé. Les Bagaudes furent finalement écrasées, mais leur existence montre que la « paix romaine » n'était pas la même pour tout le monde [source:worldhistory-roman-gaul].
+Mais la plus fascinante des résistances est peut-être celle des **Bagaudes** (III<sup>e</sup>–V<sup>e</sup> siècles EC) : des bandes de paysan·nes et d'esclaves en fuite, de déserteur·ses et de berger·ères qui, pendant des générations, tinrent tête à l'armée romaine dans les campagnes de Gaule centrale. E·ils n'avaient pas d'armées organisées, pas de chef·fes charismatiques — seulement la volonté de ne pas mourir de faim sous le poids des impôts et du travail forcé. Les Bagaudes furent finalement écrasées, mais leur existence montre que la « paix romaine » n'était pas la même pour tout le monde [source:worldhistory-roman-gaul].
 
 ## L'Empire gaulois (260–274 EC)
 
@@ -102,7 +162,7 @@ L'empereur Aurélien reconquit la Gaule en 274 EC, mais l'épisode révéla une 
 
 ## L'arrivée du christianisme
 
-Le christianisme fit son apparition en Gaule dès le II<sup>e</sup> siècle EC, apporté par des marchands et des soldats venus d'Orient. Les premières communautés chrétiennes étaient urbaines, modestes, souvent hellénophones.
+Le christianisme fit son apparition en Gaule dès le II<sup>e</sup> siècle EC, apporté par des marchand·es et des soldat·es venu·es d'Orient. Les premières communautés chrétiennes étaient urbaines, modestes, souvent hellénophones.
 
 En 177 EC, la première persécution connue en Gaule frappa la communauté de Lugdunum. L'évêque Pothin et la jeune esclave Blandine furent livrés aux bêtes dans l'amphithéâtre. Leurs supplices furent décrits en détail par la correspondance des Églises de Lyon et de Vienne [source:britannica-gaul].
 
