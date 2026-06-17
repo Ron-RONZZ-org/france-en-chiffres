@@ -1,0 +1,10 @@
+{
+  "id": "britannica-middle-ages",
+  "type": "entry-encyclopedia",
+  "title": "Middle Ages",
+  "author": [{ "literal": "The Editors of Encyclopaedia Britannica" }],
+  "publisher": "Encyclopaedia Britannica",
+  "issued": { "date-parts": [[2026, 5, 28]] },
+  "URL": "https://www.britannica.com/event/Middle-Ages",
+  "accessed": { "date-parts": [[2026, 6, 17]] }
+}

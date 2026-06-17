@@ -1,0 +1,12 @@
+{
+  "id": "britannica-feudalism",
+  "type": "entry-encyclopedia",
+  "title": "Feudalism",
+  "author": [
+    { "family": "Brown", "given": "Elizabeth A. R." }
+  ],
+  "publisher": "Encyclopaedia Britannica",
+  "issued": { "date-parts": [[2026, 6, 8]] },
+  "URL": "https://www.britannica.com/topic/feudalism",
+  "accessed": { "date-parts": [[2026, 6, 17]] }
+}
