@@ -1,0 +1,15 @@
+{
+  "id": "de-lumley-2015-tautavel",
+  "type": "article-journal",
+  "title": "L'homme de Tautavel. Un Homo erectus européen évolué. Homo erectus tautavelensis",
+  "author": [
+    { "family": "de Lumley", "given": "Marie-Antoinette" }
+  ],
+  "container-title": "L'Anthropologie",
+  "volume": "119",
+  "issue": "3",
+  "page": "303-348",
+  "issued": { "date-parts": [[2015]] },
+  "DOI": "10.1016/j.anthro.2015.06.001",
+  "note": "Synthèse actualisée sur les fossiles humains de la Caune de l'Arago à Tautavel, incluant les datations récentes par uranium-thorium qui situent les niveaux d'occupation entre 570 000 et 400 000 ans."
+}

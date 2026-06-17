@@ -1,0 +1,13 @@
+{
+  "id": "de-lumley-2007-terra-amata",
+  "type": "book",
+  "title": "La Grande Histoire des premiers hommes européens",
+  "author": [
+    { "family": "de Lumley", "given": "Henry" }
+  ],
+  "publisher": "Odile Jacob",
+  "publisher-place": "Paris",
+  "issued": { "date-parts": [[2007]] },
+  "ISBN": "978-2-7381-1918-6",
+  "note": "Ouvrage de référence décrivant les plus anciens sites préhistoriques européens, dont Terra Amata (Nice), où les plus anciens foyers domestiqués d'Europe ont été découverts, datés d'environ 400 000 ans."
+}

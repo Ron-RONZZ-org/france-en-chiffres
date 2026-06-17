@@ -1,0 +1,13 @@
+{
+  "id": "penhallurick-1986-tin-antiquity",
+  "type": "book",
+  "title": "Tin in Antiquity: its Mining and Trade Throughout the Ancient World with Particular Reference to Cornwall",
+  "author": [
+    { "family": "Penhallurick", "given": "R. D." }
+  ],
+  "publisher": "The Institute of Metals",
+  "publisher-place": "London",
+  "issued": { "date-parts": [[1986]] },
+  "ISBN": "0-904357-81-3",
+  "note": "Ouvrage de référence sur les sources d'étain dans l'Antiquité, notamment en Cornouailles, en Bretagne, dans la péninsule Ibérique et dans les Monts Métallifères (Erzgebirge). Couvre également les réseaux d'échanges et la métallurgie du bronze en Europe."
+}
