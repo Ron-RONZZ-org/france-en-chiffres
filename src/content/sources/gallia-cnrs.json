@@ -1,0 +1,12 @@
+{
+  "id": "gallia-cnrs",
+  "type": "article-journal",
+  "title": "Archéologie de la France antique — Gallia, tome 66, fascicule 2",
+  "author": [{ "literal": "CNRS Éditions" }],
+  "publisher": "CNRS Éditions",
+  "issued": { "date-parts": [[2009]] },
+  "URL": "https://www.persee.fr/collection/galia",
+  "accessed": { "date-parts": [[2026, 6, 17]] },
+  "DOI": "10.3406/galia",
+  "note": "Revue fondée par le CNRS en 1943. Publie des synthèses sur l'archéologie de la France protohistorique, antique et tardive. Référence académique majeure."
+}

@@ -1,0 +1,10 @@
+{
+  "id": "unrv-gallia",
+  "type": "webpage",
+  "title": "Gallia (Gaul) — Roman Province",
+  "publisher": "UNRV Roman History",
+  "issued": { "date-parts": [[2026]] },
+  "URL": "https://www.unrv.com/provinces/gallia.php",
+  "accessed": { "date-parts": [[2026, 6, 17]] },
+  "note": "Compilation détaillée sur la province romaine de Gaule : tribus, économie, administration, urbanisation. Sources : Polybe, Tite-Live, César, Strabon, Pline, Tacite."
+}

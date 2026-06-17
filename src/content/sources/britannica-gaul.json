@@ -1,0 +1,11 @@
+{
+  "id": "britannica-gaul",
+  "type": "entry-encyclopedia",
+  "title": "Gaul — ancient region, Europe",
+  "author": [{ "family": "The Editors of Encyclopaedia Britannica", "literal": "Encyclopaedia Britannica" }],
+  "publisher": "Encyclopaedia Britannica, Inc.",
+  "issued": { "date-parts": [[2026, 4, 28]] },
+  "URL": "https://www.britannica.com/place/Gaul-ancient-region-Europe",
+  "accessed": { "date-parts": [[2026, 6, 17]] },
+  "note": "Synthèse de référence sur la Gaule, de la conquête romaine à la chute de l'Empire. Article révisé et mis à jour."
+}
