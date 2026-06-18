@@ -57,14 +57,15 @@ assert.equal(geoJson.type, 'FeatureCollection', 'GeoJSON must be a FeatureCollec
 assert.ok(geoJson.features.length >= 95, `Must have ≥ 95 departments (found ${geoJson.features.length})`);
 console.log(`✓ Test 5: departments.geojson valid (${geoJson.features.length} features)`);
 
-// ── Test 6: Population density data exists ──
-const densityPath = path.join(distDir, 'data', 'population-density.json');
-assert.ok(fs.existsSync(densityPath), 'population-density.json must exist in dist/data/');
+// ── Test 6: Commune-level density data exists ──
+const densityPath = path.join(distDir, 'data', 'communes-density.geojson');
+assert.ok(fs.existsSync(densityPath), 'communes-density.geojson must exist in dist/data/');
 const density = JSON.parse(fs.readFileSync(densityPath, 'utf-8'));
-assert.ok(density.source, 'Density data must have a source field');
-assert.ok(Array.isArray(density.departments), 'Density data must have departments array');
-assert.ok(density.departments.length >= 90, `Must have ≥ 90 departments with density (found ${density.departments.length})`);
-console.log(`✓ Test 6: population-density.json valid (${density.departments.length} departments)`);
+assert.equal(density.type, 'FeatureCollection', 'Density must be a FeatureCollection');
+assert.ok(density.features.length >= 100, `Must have ≥ 100 communes with density (found ${density.features.length})`);
+assert.ok(density.features[0].properties.density, 'Features must have density property');
+assert.ok(density.features[0].properties.population, 'Features must have population property');
+console.log(`✓ Test 6: communes-density.geojson valid (${density.features.length} communes, density range ${Math.min(...density.features.map(f=>f.properties.density))}-${Math.max(...density.features.map(f=>f.properties.density))})`);
 
 // ── Test 7: GeoJSON features have code and nom properties ──
 const sample = geoJson.features[0];
@@ -103,6 +104,16 @@ if (fs.existsSync(roadsPath)) {
   assert.ok(roads.features.length > 0, `Must have road features (found ${roads.features.length})`);
   console.log(`✓ Test 11: roads.geojson valid (${roads.features.length} segments)`);
 } else {
+<<<<<<< HEAD
+  console.log('⚠ Test 11: roads.geojson not found — generate with npm run fetch:roads');
+}
+
+// ── Test 12: Commune boundary data (same as density source) ──
+if (fs.existsSync(densityPath)) {
+  console.log(`✓ Test 12: communes-density.geojson provides both density and boundaries (${density.features.length} communes)`);
+} else {
+  console.log('⚠ Test 12: communes-density.geojson not found');
+=======
   console.log('⚠ Test 11: roads.geojson not found — generate with node scripts/fetch-roads.js');
 }
 
@@ -115,6 +126,7 @@ if (fs.existsSync(communesPath)) {
   console.log(`✓ Test 12: communes.geojson valid (${communes.features.length} communes)`);
 } else {
   console.log('⚠ Test 12: communes.geojson not found — generate with node scripts/fetch-communes.js');
+>>>>>>> origin/main
 }
 
 console.log('\n🎉 All interactive map tests passed!');

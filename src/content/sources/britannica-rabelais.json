@@ -1,0 +1,10 @@
+{
+  "id": "britannica-rabelais",
+  "type": "entry-encyclopedia",
+  "title": "François Rabelais",
+  "author": [{ "literal": "The Editors of Encyclopaedia Britannica" }],
+  "publisher": "Encyclopaedia Britannica",
+  "issued": { "date-parts": [[2025]] },
+  "URL": "https://www.britannica.com/biography/Francois-Rabelais",
+  "accessed": { "date-parts": [[2026, 6, 18]] }
+}

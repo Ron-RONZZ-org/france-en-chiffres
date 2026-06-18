@@ -1,0 +1,10 @@
+{
+  "id": "britannica-montaigne",
+  "type": "entry-encyclopedia",
+  "title": "Michel de Montaigne",
+  "author": [{ "literal": "The Editors of Encyclopaedia Britannica" }],
+  "publisher": "Encyclopaedia Britannica",
+  "issued": { "date-parts": [[2025]] },
+  "URL": "https://www.britannica.com/biography/Michel-de-Montaigne",
+  "accessed": { "date-parts": [[2026, 6, 18]] }
+}
