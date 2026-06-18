@@ -13,6 +13,12 @@ import InteractiveFranceMap from '../../components/InteractiveFranceMap.astro';
       <div class="french-separator"></div>
 
       <InteractiveFranceMap variant="geography" />
+
+      <div class="dept-page__links">
+        <a href="/geographie/carte-interactive" class="btn btn--primary">
+          Carte interactive avec données →
+        </a>
+      </div>
     </div>
   </section>
 </Base>
@@ -28,5 +34,10 @@ import InteractiveFranceMap from '../../components/InteractiveFranceMap.astro';
     max-width: 500px;
     margin: 0 auto var(--gap-lg);
     font-size: 1rem;
+  }
+
+  .dept-page__links {
+    text-align: center;
+    margin-top: var(--gap-lg);
   }
 </style>

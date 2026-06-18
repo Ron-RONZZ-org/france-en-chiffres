@@ -54,8 +54,10 @@ Pinned sections, scrub,       → GSAP + ScrollTrigger
   staggered timelines
 Complex data visualizations   → D3.js (bump charts, choropleths,
   (interactive, animated)       population pyramids, sankey diagrams)
-```
+Interactive geo-referenced   → Leaflet + OSM tiles
+  maps with tile layers
 
+```
 ---
 
 ## Project Structure
@@ -82,10 +84,11 @@ france-en-chiffres/
 │   │   ├── evenements/[slug].astro      # Per-event article page (auto-generated)
 │   │   ├── periodes/[slug].astro        # Per-era page (auto-generated)
 │   │   └── geography/
-│   │       └── departements-francais.astro  # Interactive department map
+│   │       ├── departements-francais.astro  # Artistic SVG department map
+│   │       └── carte-interactive.astro      # Leaflet-based interactive layers map
 │   ├── components/          # Reusable Astro/HTML components
 │   │   ├── InteractiveFranceMap.astro  # Department-level interactive map
-│   │   ├── Counter.astro
+│   │   ├── InteractiveDataMap.astro    # Leaflet-based geo map with layers
 │   │   ├── Timeline.astro
 │   │   ├── TimelineEvent.astro
 │   │   ├── TimelineEra.astro
@@ -99,7 +102,8 @@ france-en-chiffres/
 │   │   ├── media.ts                 # Async media resolver via getCollection('media') + import.meta.glob
 │   │   ├── france.json
 │   │   ├── france-map-data.json       # Extracted SVG paths for FranceMap
-│   │   └── france-departments.json    # Individual department paths (96 depts)
+│   │   ├── france-departments.json    # Individual department paths (96 depts)
+│   │   └── geo/                      # Build-time geo data for interactive map
 │   ├── scripts/             # Build-time helper scripts
 │   │   └── extract-france-map.js # Parse France_departements.svg → data JSON
 │   ├── tests/               # Automated validation tests
@@ -200,6 +204,7 @@ bash scripts/new-era.sh mon-ere -500 0
 | Page transitions | CSS `@view-transition` API | Standard, no JS |
 | Data-driven SVG | D3.js data joins + transitions | Population pyramid, bump chart, choropleth |
 | Map highlighting | SVG region fills with CSS transitions on hover | Geography page |
+| Interactive map layers | Leaflet with GeoJSON overlays + layer controls | Interactive data map |
 
 ---
 
@@ -214,6 +219,7 @@ bash scripts/new-era.sh mon-ere -500 0
 ### Allowed with justification (opt-in, per-page)
 - ✅ **GSAP + ScrollTrigger** — for pinned sections, scrub animations, staggered timelines where vanilla JS would require 3x+ the code.
 - ✅ **D3.js** — for complex data visualizations (bump charts, choropleths, population pyramids, sankey diagrams). Not for simple bar charts or counters.
+- ✅ **Leaflet** — for interactive geo-referenced maps with tile base maps, multiple overlay layers (choropleth, GeoJSON), and built-in zoom/pan. Use for the `/geographie/carte-interactive/` page. Not for artistic/ornamental SVG maps.
 - ✅ **TypeScript** — optional. Use `.ts` files if you want type safety in data processing logic. Page components can stay `.astro` with frontmatter types.
 
 ### Preference

@@ -1,0 +1,457 @@
+---
+// InteractiveDataMap.astro — Leaflet-based interactive geo map with toggle layers
+// Uses Leaflet for the base map, tile layers, and GeoJSON overlays.
+// One script per page per AGENTS.md conventions.
+// Data files (GeoJSON + density JSON) are lazy-fetched from /data/ on toggle.
+---
+
+<section class="data-map-section">
+  <div class="data-map-section__info">
+    <p class="data-map-section__desc">
+      Carte interactive de la France — survolez les départements, activez les couches
+      thématiques ci-dessous. Données géographiques : © les contributeurs d'OpenStreetMap,
+      © IGN. Données statistiques : © INSEE.
+    </p>
+  </div>
+
+  <div id="interactive-map" class="data-map" role="application" aria-label="Carte interactive de la France">
+    <noscript>
+      <div class="data-map__noscript">
+        <p>La carte interactive nécessite JavaScript. Veuillez activer JavaScript pour voir la carte.</p>
+      </div>
+    </noscript>
+  </div>
+
+  <div id="map-legend" class="data-map__legend" aria-hidden="true">
+    <p class="data-map__legend-title">Légende</p>
+    <div id="map-legend-content" class="data-map__legend-content">
+      <p class="data-map__legend-placeholder">Sélectionnez une couche pour voir la légende.</p>
+    </div>
+  </div>
+</section>
+
+<script>
+  import L from 'leaflet';
+  import 'leaflet/dist/leaflet.css';
+
+  (() => {
+    // ── Constants ──
+    const FRANCE_CENTER = [46.6, 2.5];
+    const DEFAULT_ZOOM = 6;
+    const MIN_ZOOM = 5;
+    const MAX_ZOOM = 12;
+
+    const DEPT_STYLE = {
+      color: '#475569',
+      weight: 1.2,
+      fillColor: '#1e293b',
+      fillOpacity: 0.15,
+    };
+
+    const DEPT_HIGHLIGHT = {
+      color: '#d4a843',
+      weight: 2.5,
+      fillColor: '#d4a843',
+      fillOpacity: 0.2,
+    };
+
+    // ── Initialize map ──
+    const mapEl = document.getElementById('interactive-map');
+    if (!mapEl) return;
+
+    const map = L.map(mapEl, {
+      center: FRANCE_CENTER,
+      zoom: DEFAULT_ZOOM,
+      minZoom: MIN_ZOOM,
+      maxZoom: MAX_ZOOM,
+      zoomControl: true,
+      attributionControl: true,
+    });
+
+    // ── Base tile layer (OSM) ──
+    const osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      maxZoom: 19,
+    }).addTo(map);
+
+    // ── State ──
+    let deptLayer = null;
+    let densityLayer = null;
+    let densityData = null;
+    let currentHighlight = null;
+
+    // ── Helpers ──
+    function escapeHtml(str) {
+      const div = document.createElement('div');
+      div.textContent = str;
+      return div.innerHTML;
+    }
+
+    function makeTooltip(feature) {
+      const code = feature.properties.code || '';
+      const name = feature.properties.nom || '';
+      return `<strong>${escapeHtml(name)}</strong> (${escapeHtml(code)})`;
+    }
+
+    function getDensityColor(density) {
+      if (density === null || density === undefined) return '#1e293b';
+      const breaks = [0, 30, 60, 100, 150, 300, 500, 1000, 5000];
+      const colors = [
+        '#f7fcf0', '#e0f3db', '#ccebc5', '#a8ddb5',
+        '#7bccc4', '#4eb3d3', '#2b8cbe', '#0868ac', '#084081',
+      ];
+      for (let i = 0; i < breaks.length; i++) {
+        if (density <= breaks[i]) return colors[i];
+      }
+      return colors[colors.length - 1];
+    }
+
+    function getDensityLabel(density) {
+      if (density === null || density === undefined) return 'N/A';
+      return density.toLocaleString('fr-FR') + ' hab/km²';
+    }
+
+    // ── Department base layer (static) ──
+    async function loadDepartments() {
+      try {
+        const resp = await fetch('/data/departements.geojson');
+        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+        const data = await resp.json();
+
+        deptLayer = L.geoJSON(data, {
+          style: DEPT_STYLE,
+          onEachFeature: (feature, layer) => {
+            layer.bindTooltip(makeTooltip(feature), {
+              sticky: true,
+              direction: 'top',
+              offset: L.point(0, -8),
+              className: 'dept-tooltip',
+            });
+
+            layer.on('mouseover', () => {
+              if (currentHighlight) {
+                currentHighlight.setStyle(DEPT_STYLE);
+              }
+              layer.setStyle(DEPT_HIGHLIGHT);
+              currentHighlight = layer;
+            });
+
+            layer.on('mouseout', () => {
+              if (currentHighlight) {
+                currentHighlight.setStyle(DEPT_STYLE);
+                currentHighlight = null;
+              }
+            });
+
+            layer.on('click', () => {
+              map.fitBounds(layer.getBounds(), { padding: [40, 40], maxZoom: 10 });
+            });
+          },
+        });
+
+        deptLayer.addTo(map);
+        console.log('✓ Départements layer loaded');
+      } catch (err) {
+        console.error('Failed to load department GeoJSON:', err);
+      }
+    }
+
+    // ── Density overlay ──
+    async function loadDensityData() {
+      if (densityData) return;
+      try {
+        const resp = await fetch('/data/population-density.json');
+        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+        densityData = await resp.json();
+        console.log('✓ Density data loaded');
+      } catch (err) {
+        console.error('Failed to load density data:', err);
+      }
+    }
+
+    function clearDensityLayer() {
+      if (densityLayer) {
+        map.removeLayer(densityLayer);
+        densityLayer = null;
+      }
+      document.getElementById('map-legend-content').innerHTML =
+        '<p class="data-map__legend-placeholder">Sélectionnez une couche pour voir la légende.</p>';
+    }
+
+    function applyDensity() {
+      clearDensityLayer();
+      if (!deptLayer || !densityData) return;
+
+      const densityMap = new Map(
+        densityData.departments.map(d => [d.code, d.density])
+      );
+
+      // Build a new GeoJSON layer with density-based fill
+      const geoJsonData = deptLayer.toGeoJSON();
+      densityLayer = L.geoJSON(geoJsonData, {
+        style: (feature) => {
+          const code = feature.properties.code;
+          const density = densityMap.get(code) ?? null;
+          return {
+            color: '#475569',
+            weight: 0.8,
+            fillColor: getDensityColor(density),
+            fillOpacity: 0.7,
+          };
+        },
+        onEachFeature: (feature, layer) => {
+          const code = feature.properties.code;
+          const name = feature.properties.nom || '';
+          const density = densityMap.get(code) ?? null;
+          const tooltipHtml = `${escapeHtml(name)} (${escapeHtml(code)})<br><strong>${getDensityLabel(density)}</strong>`;
+          layer.bindTooltip(tooltipHtml, {
+            sticky: true,
+            direction: 'top',
+            offset: L.point(0, -8),
+            className: 'dept-tooltip dept-tooltip--density',
+          });
+        },
+      });
+
+      densityLayer.addTo(map);
+
+      // Show legend
+      const legendHtml = `
+        <p class="data-map__legend-subtitle">Densité de population (${densityData.unit})</p>
+        <div class="density-legend">
+          ${makeDensityLegend()}
+        </div>
+        <p class="data-map__legend-source">Source: <a href="${escapeHtml(densityData.sourceUrl)}" target="_blank" rel="noopener">${escapeHtml(densityData.source)}</a></p>
+      `;
+      document.getElementById('map-legend-content').innerHTML = legendHtml;
+    }
+
+    function makeDensityLegend() {
+      const breaks = [0, 30, 60, 100, 150, 300, 500, 1000, 5000];
+      const labels = ['0', '30', '60', '100', '150', '300', '500', '1 000', '5 000', '20 000+'];
+      let html = '';
+      for (let i = 0; i < labels.length; i++) {
+        const color = getDensityColor(breaks[i - 1] !== undefined ? breaks[i - 1] + 1 : 0);
+        html += `<div class="density-legend__item"><span class="density-legend__swatch" style="background:${getDensityColor(i === 0 ? 0 : breaks[i - 1] + 1)}"></span>${labels[i]}</div>`;
+      }
+      // Fix: use correct colors for each break
+      html = '';
+      for (let i = 0; i < labels.length; i++) {
+        const min = i === 0 ? 0 : breaks[i - 1] + 1;
+        const color = getDensityColor(min);
+        html += `<div class="density-legend__item"><span class="density-legend__swatch" style="background:${color}"></span>${labels[i]}</div>`;
+      }
+      return html;
+    }
+
+    // ── Layer toggles (custom UI) ──
+    function setupToggles() {
+      const toggles = document.querySelectorAll('[data-map-toggle]');
+      toggles.forEach((toggle) => {
+        toggle.addEventListener('change', async (e) => {
+          const layer = e.target.dataset.mapToggle;
+
+          if (layer === 'density') {
+            if (e.target.checked) {
+              await loadDensityData();
+              applyDensity();
+            } else {
+              clearDensityLayer();
+            }
+          }
+
+          // Future: other layers (elevation, roads, communes)
+        });
+      });
+    }
+
+    // ── Init ──
+    loadDepartments();
+    setupToggles();
+
+    // Invalidate map size when container becomes visible (Astro navigation)
+    setTimeout(() => map.invalidateSize(), 200);
+
+    // Handle Astro View Transitions
+    document.addEventListener('astro:after-swap', () => {
+      setTimeout(() => map.invalidateSize(), 200);
+    });
+  })();
+</script>
+
+<style>
+  .data-map-section {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 var(--gap-lg);
+  }
+
+  .data-map-section__info {
+    margin-bottom: var(--gap-md);
+  }
+
+  .data-map-section__desc {
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.5;
+  }
+
+  .data-map {
+    width: 100%;
+    height: 600px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+    overflow: hidden;
+    background: #1e293b;
+  }
+
+  .data-map__noscript {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: var(--color-text-muted);
+    font-size: 1rem;
+    padding: var(--gap-lg);
+    text-align: center;
+  }
+
+  /* ── Legend ── */
+  .data-map__legend {
+    margin-top: var(--gap-md);
+    padding: var(--gap-md);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-bg-card);
+  }
+
+  .data-map__legend-title {
+    font-family: var(--font-serif);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--color-text-light);
+    margin-bottom: var(--gap-sm);
+  }
+
+  .data-map__legend-content {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+  }
+
+  .data-map__legend-placeholder {
+    font-style: italic;
+  }
+
+  .data-map__legend-subtitle {
+    font-weight: 600;
+    color: var(--color-text-light);
+    margin-bottom: var(--gap-xs);
+  }
+
+  .data-map__legend-source {
+    margin-top: var(--gap-xs);
+    font-size: 0.75rem;
+  }
+
+  .data-map__legend-source a {
+    color: var(--color-french-blue);
+    text-decoration: none;
+  }
+
+  .data-map__legend-source a:hover {
+    text-decoration: underline;
+  }
+
+  /* ── Density legend ── */
+  .density-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 0.5rem;
+    margin: var(--gap-xs) 0;
+  }
+
+  .density-legend__item {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+  }
+
+  .density-legend__swatch {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border-radius: 2px;
+    border: 1px solid rgba(255,255,255,0.1);
+    flex-shrink: 0;
+  }
+
+  /* ── Leaflet overrides ── */
+  :global(.leaflet-container) {
+    font-family: inherit;
+    background: #1e293b;
+  }
+
+  :global(.leaflet-control-zoom a) {
+    background: #1e293b;
+    color: #e2e8f0;
+    border-color: #334155;
+  }
+
+  :global(.leaflet-control-zoom a:hover) {
+    background: #334155;
+    color: #d4a843;
+  }
+
+  :global(.leaflet-control-attribution) {
+    background: rgba(15, 23, 42, 0.85) !important;
+    color: #64748b;
+    font-size: 0.65rem;
+  }
+
+  :global(.leaflet-control-attribution a) {
+    color: #94a3b8;
+  }
+
+  /* ── Tooltip ── */
+  :global(.dept-tooltip) {
+    background: #111827;
+    border: 1px solid #1e293b;
+    border-radius: 0.5rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    color: #e2e8f0;
+    font-size: 0.8rem;
+    padding: 0.35rem 0.6rem;
+    white-space: nowrap;
+  }
+
+  :global(.dept-tooltip::before) {
+    border-top-color: #1e293b;
+  }
+
+  :global(.dept-tooltip--density) {
+    font-size: 0.85rem;
+  }
+
+  :global(.dept-tooltip--density strong) {
+    color: #d4a843;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    .data-map {
+      height: 400px;
+    }
+  }
+
+  @media (max-width: 400px) {
+    .data-map {
+      height: 300px;
+    }
+  }
+</style>

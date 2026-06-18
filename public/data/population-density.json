@@ -1,0 +1,488 @@
+{
+  "source": "INSEE — Estimations de population 2021",
+  "sourceUrl": "https://www.insee.fr/fr/statistiques/",
+  "unit": "habitants/km²",
+  "year": 2021,
+  "departments": [
+    {
+      "code": "01",
+      "name": "Ain",
+      "density": 72
+    },
+    {
+      "code": "02",
+      "name": "Aisne",
+      "density": 74
+    },
+    {
+      "code": "2A",
+      "name": "Corse-du-Sud",
+      "density": 40
+    },
+    {
+      "code": "2B",
+      "name": "Haute-Corse",
+      "density": 37
+    },
+    {
+      "code": "03",
+      "name": "Allier",
+      "density": 80
+    },
+    {
+      "code": "04",
+      "name": "Alpes-de-Haute-Provence",
+      "density": 27
+    },
+    {
+      "code": "05",
+      "name": "Hautes-Alpes",
+      "density": 26
+    },
+    {
+      "code": "06",
+      "name": "Alpes-Maritimes",
+      "density": 256
+    },
+    {
+      "code": "07",
+      "name": "Ardèche",
+      "density": 87
+    },
+    {
+      "code": "08",
+      "name": "Ardennes",
+      "density": 53
+    },
+    {
+      "code": "09",
+      "name": "Ariège",
+      "density": 32
+    },
+    {
+      "code": "10",
+      "name": "Aube",
+      "density": 69
+    },
+    {
+      "code": "11",
+      "name": "Aude",
+      "density": 71
+    },
+    {
+      "code": "12",
+      "name": "Aveyron",
+      "density": 34
+    },
+    {
+      "code": "13",
+      "name": "Bouches-du-Rhône",
+      "density": 388
+    },
+    {
+      "code": "14",
+      "name": "Calvados",
+      "density": 129
+    },
+    {
+      "code": "15",
+      "name": "Cantal",
+      "density": 26
+    },
+    {
+      "code": "16",
+      "name": "Charente",
+      "density": 55
+    },
+    {
+      "code": "17",
+      "name": "Charente-Maritime",
+      "density": 76
+    },
+    {
+      "code": "18",
+      "name": "Cher",
+      "density": 68
+    },
+    {
+      "code": "19",
+      "name": "Corrèze",
+      "density": 44
+    },
+    {
+      "code": "21",
+      "name": "Côte-d'Or",
+      "density": 62
+    },
+    {
+      "code": "22",
+      "name": "Côtes-d'Armor",
+      "density": 60
+    },
+    {
+      "code": "23",
+      "name": "Creuse",
+      "density": 21
+    },
+    {
+      "code": "24",
+      "name": "Dordogne",
+      "density": 46
+    },
+    {
+      "code": "25",
+      "name": "Doubs",
+      "density": 100
+    },
+    {
+      "code": "26",
+      "name": "Drôme",
+      "density": 74
+    },
+    {
+      "code": "27",
+      "name": "Eure",
+      "density": 92
+    },
+    {
+      "code": "28",
+      "name": "Eure-et-Loir",
+      "density": 72
+    },
+    {
+      "code": "29",
+      "name": "Finistère",
+      "density": 149
+    },
+    {
+      "code": "30",
+      "name": "Gard",
+      "density": 184
+    },
+    {
+      "code": "31",
+      "name": "Haute-Garonne",
+      "density": 236
+    },
+    {
+      "code": "32",
+      "name": "Gers",
+      "density": 33
+    },
+    {
+      "code": "33",
+      "name": "Gironde",
+      "density": 161
+    },
+    {
+      "code": "34",
+      "name": "Hérault",
+      "density": 240
+    },
+    {
+      "code": "35",
+      "name": "Ille-et-Vilaine",
+      "density": 187
+    },
+    {
+      "code": "36",
+      "name": "Indre",
+      "density": 44
+    },
+    {
+      "code": "37",
+      "name": "Indre-et-Loire",
+      "density": 100
+    },
+    {
+      "code": "38",
+      "name": "Isère",
+      "density": 176
+    },
+    {
+      "code": "39",
+      "name": "Jura",
+      "density": 54
+    },
+    {
+      "code": "40",
+      "name": "Landes",
+      "density": 43
+    },
+    {
+      "code": "41",
+      "name": "Loir-et-Cher",
+      "density": 68
+    },
+    {
+      "code": "42",
+      "name": "Loire",
+      "density": 163
+    },
+    {
+      "code": "43",
+      "name": "Haute-Loire",
+      "density": 48
+    },
+    {
+      "code": "44",
+      "name": "Loire-Atlantique",
+      "density": 262
+    },
+    {
+      "code": "45",
+      "name": "Loiret",
+      "density": 106
+    },
+    {
+      "code": "46",
+      "name": "Lot",
+      "density": 33
+    },
+    {
+      "code": "47",
+      "name": "Lot-et-Garonne",
+      "density": 39
+    },
+    {
+      "code": "48",
+      "name": "Lozère",
+      "density": 16
+    },
+    {
+      "code": "49",
+      "name": "Maine-et-Loire",
+      "density": 112
+    },
+    {
+      "code": "50",
+      "name": "Manche",
+      "density": 84
+    },
+    {
+      "code": "51",
+      "name": "Marne",
+      "density": 98
+    },
+    {
+      "code": "52",
+      "name": "Haute-Marne",
+      "density": 32
+    },
+    {
+      "code": "53",
+      "name": "Mayenne",
+      "density": 91
+    },
+    {
+      "code": "54",
+      "name": "Meurthe-et-Moselle",
+      "density": 156
+    },
+    {
+      "code": "55",
+      "name": "Meuse",
+      "density": 28
+    },
+    {
+      "code": "56",
+      "name": "Morbihan",
+      "density": 110
+    },
+    {
+      "code": "57",
+      "name": "Moselle",
+      "density": 170
+    },
+    {
+      "code": "58",
+      "name": "Nièvre",
+      "density": 36
+    },
+    {
+      "code": "59",
+      "name": "Nord",
+      "density": 1806
+    },
+    {
+      "code": "60",
+      "name": "Oise",
+      "density": 163
+    },
+    {
+      "code": "61",
+      "name": "Orne",
+      "density": 70
+    },
+    {
+      "code": "62",
+      "name": "Pas-de-Calais",
+      "density": 224
+    },
+    {
+      "code": "63",
+      "name": "Puy-de-Dôme",
+      "density": 91
+    },
+    {
+      "code": "64",
+      "name": "Pyrénées-Atlantiques",
+      "density": 90
+    },
+    {
+      "code": "65",
+      "name": "Hautes-Pyrénées",
+      "density": 82
+    },
+    {
+      "code": "66",
+      "name": "Pyrénées-Orientales",
+      "density": 208
+    },
+    {
+      "code": "67",
+      "name": "Bas-Rhin",
+      "density": 233
+    },
+    {
+      "code": "68",
+      "name": "Haut-Rhin",
+      "density": 244
+    },
+    {
+      "code": "69",
+      "name": "Rhône",
+      "density": 1098
+    },
+    {
+      "code": "70",
+      "name": "Haute-Saône",
+      "density": 61
+    },
+    {
+      "code": "71",
+      "name": "Saône-et-Loire",
+      "density": 67
+    },
+    {
+      "code": "72",
+      "name": "Sarthe",
+      "density": 108
+    },
+    {
+      "code": "73",
+      "name": "Savoie",
+      "density": 71
+    },
+    {
+      "code": "74",
+      "name": "Haute-Savoie",
+      "density": 185
+    },
+    {
+      "code": "75",
+      "name": "Paris",
+      "density": 20797
+    },
+    {
+      "code": "76",
+      "name": "Seine-Maritime",
+      "density": 205
+    },
+    {
+      "code": "77",
+      "name": "Seine-et-Marne",
+      "density": 241
+    },
+    {
+      "code": "78",
+      "name": "Yvelines",
+      "density": 643
+    },
+    {
+      "code": "79",
+      "name": "Deux-Sèvres",
+      "density": 73
+    },
+    {
+      "code": "80",
+      "name": "Somme",
+      "density": 95
+    },
+    {
+      "code": "81",
+      "name": "Tarn",
+      "density": 68
+    },
+    {
+      "code": "82",
+      "name": "Tarn-et-Garonne",
+      "density": 62
+    },
+    {
+      "code": "83",
+      "name": "Var",
+      "density": 199
+    },
+    {
+      "code": "84",
+      "name": "Vaucluse",
+      "density": 141
+    },
+    {
+      "code": "85",
+      "name": "Vendée",
+      "density": 104
+    },
+    {
+      "code": "86",
+      "name": "Vienne",
+      "density": 66
+    },
+    {
+      "code": "87",
+      "name": "Haute-Vienne",
+      "density": 65
+    },
+    {
+      "code": "88",
+      "name": "Vosges",
+      "density": 67
+    },
+    {
+      "code": "89",
+      "name": "Yonne",
+      "density": 48
+    },
+    {
+      "code": "90",
+      "name": "Territoire de Belfort",
+      "density": 42
+    },
+    {
+      "code": "91",
+      "name": "Essonne",
+      "density": 665
+    },
+    {
+      "code": "92",
+      "name": "Hauts-de-Seine",
+      "density": 9273
+    },
+    {
+      "code": "93",
+      "name": "Seine-Saint-Denis",
+      "density": 6788
+    },
+    {
+      "code": "94",
+      "name": "Val-de-Marne",
+      "density": 5682
+    },
+    {
+      "code": "95",
+      "name": "Val-d'Oise",
+      "density": 213
+    }
+  ]
+}
