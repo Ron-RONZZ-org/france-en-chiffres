@@ -1,0 +1,178 @@
+---
+import Base from '../../layouts/Base.astro';
+import InteractiveDataMap from '../../components/InteractiveDataMap.astro';
+---
+
+<Base title="Carte interactive — France en Chiffres" description="Carte interactive de la France avec couches thématiques : densité de population, relief, routes, communes — données IGN, INSEE et OpenStreetMap">
+  <section class="interactive-page">
+    <div class="container">
+      <h1 class="interactive-page__title">Carte interactive de la France</h1>
+      <p class="interactive-page__subtitle">
+        Explorez le territoire français à travers ses données géographiques et statistiques.
+      </p>
+      <div class="french-separator"></div>
+
+      <!-- Layer toggles -->
+      <div class="layer-controls" role="group" aria-label="Couches thématiques">
+        <label class="layer-controls__item" data-map-toggle="density" for="toggle-density">
+          <input type="checkbox" id="toggle-density" data-map-toggle="density" class="layer-controls__checkbox">
+          <span class="layer-controls__swatch layer-controls__swatch--density"></span>
+          <span class="layer-controls__label">
+            <strong>Densité de population</strong>
+            <span class="layer-controls__desc">Habitants par km² par département (INSEE 2021)</span>
+          </span>
+        </label>
+
+        <label class="layer-controls__item layer-controls__item--disabled" data-map-toggle="elevation" for="toggle-elevation">
+          <input type="checkbox" id="toggle-elevation" data-map-toggle="elevation" class="layer-controls__checkbox" disabled>
+          <span class="layer-controls__swatch layer-controls__swatch--elevation"></span>
+          <span class="layer-controls__label">
+            <strong>Relief</strong>
+            <span class="layer-controls__desc">Altitude et ombrage du terrain (IGN BD ALTI®) — à venir</span>
+          </span>
+        </label>
+
+        <label class="layer-controls__item layer-controls__item--disabled" data-map-toggle="roads" for="toggle-roads">
+          <input type="checkbox" id="toggle-roads" data-map-toggle="roads" class="layer-controls__checkbox" disabled>
+          <span class="layer-controls__swatch layer-controls__swatch--roads"></span>
+          <span class="layer-controls__label">
+            <strong>Réseau routier</strong>
+            <span class="layer-controls__desc">Autoroutes et routes nationales (OpenStreetMap) — à venir</span>
+          </span>
+        </label>
+
+        <label class="layer-controls__item layer-controls__item--disabled" data-map-toggle="communes" for="toggle-communes">
+          <input type="checkbox" id="toggle-communes" data-map-toggle="communes" class="layer-controls__checkbox" disabled>
+          <span class="layer-controls__swatch layer-controls__swatch--communes"></span>
+          <span class="layer-controls__label">
+            <strong>Communes</strong>
+            <span class="layer-controls__desc">Limites communales (~35 000, IGN ADMIN EXPRESS) — à venir</span>
+          </span>
+        </label>
+      </div>
+
+      <!-- The map -->
+      <InteractiveDataMap />
+
+      <div class="interactive-page__links">
+        <a href="/geographie/departements-francais" class="btn btn--ghost">
+          ← Carte artistique des départements
+        </a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .interactive-page {
+    padding-top: var(--gap-xl);
+    padding-bottom: var(--gap-2xl);
+  }
+
+  .interactive-page__title {
+    font-family: var(--font-serif);
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    font-weight: 800;
+    text-align: center;
+    color: var(--color-text-light);
+    margin-bottom: var(--gap-sm);
+  }
+
+  .interactive-page__subtitle {
+    color: var(--color-text-muted);
+    text-align: center;
+    max-width: 550px;
+    margin: 0 auto var(--gap-lg);
+    font-size: 1rem;
+  }
+
+  /* ── Layer controls ── */
+  .layer-controls {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: var(--gap-sm);
+    margin-bottom: var(--gap-lg);
+  }
+
+  .layer-controls__item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: border-color var(--transition-fast), background var(--transition-fast);
+    user-select: none;
+  }
+
+  .layer-controls__item:hover {
+    border-color: var(--color-french-blue);
+    background: rgba(59, 130, 246, 0.05);
+  }
+
+  .layer-controls__item--disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .layer-controls__item--disabled:hover {
+    border-color: var(--color-border);
+    background: transparent;
+  }
+
+  .layer-controls__checkbox {
+    margin-top: 0.2rem;
+    accent-color: var(--color-french-blue);
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+  }
+
+  .layer-controls__swatch {
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
+    flex-shrink: 0;
+    margin-top: 0.3rem;
+  }
+
+  .layer-controls__swatch--density {
+    background: linear-gradient(135deg, #f7fcf0, #084081);
+  }
+
+  .layer-controls__swatch--elevation {
+    background: linear-gradient(135deg, #22c55e, #78716c, #f8fafc);
+  }
+
+  .layer-controls__swatch--roads {
+    background: #ef4444;
+  }
+
+  .layer-controls__swatch--communes {
+    background: #6366f1;
+  }
+
+  .layer-controls__label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    font-size: 0.85rem;
+  }
+
+  .layer-controls__label strong {
+    color: var(--color-text-light);
+    font-weight: 600;
+  }
+
+  .layer-controls__desc {
+    color: var(--color-text-muted);
+    font-size: 0.75rem;
+  }
+
+  @media (max-width: 600px) {
+    .layer-controls {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
