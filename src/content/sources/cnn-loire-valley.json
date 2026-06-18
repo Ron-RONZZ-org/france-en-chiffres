@@ -1,0 +1,10 @@
+{
+  "id": "cnn-loire-valley",
+  "type": "article-magazine",
+  "title": "Chateaux spectacular: 5 best Loire Valley castles",
+  "author": [{ "family": "Lounes", "given": "Allison" }],
+  "publisher": "CNN Travel",
+  "issued": { "date-parts": [[2017, 7, 12]] },
+  "URL": "https://www.cnn.com/travel/article/loire-valley-castles/index.html",
+  "accessed": { "date-parts": [[2026, 6, 19]] }
+}

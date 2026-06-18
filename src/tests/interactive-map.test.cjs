@@ -101,7 +101,7 @@ const roadsPath = path.join(distDir, 'data', 'roads.geojson');
 if (fs.existsSync(roadsPath)) {
   const roads = JSON.parse(fs.readFileSync(roadsPath, 'utf-8'));
   assert.equal(roads.type, 'FeatureCollection', 'Roads must be a FeatureCollection');
-  assert.ok(roads.features.length > 0, `Must have road features (found ${roads.features.length})`);
+  assert.ok(roads.features.length > 1000, `Must have > 1000 road features (found ${roads.features.length})`);
   console.log(`✓ Test 11: roads.geojson valid (${roads.features.length} segments)`);
 } else {
   console.log('⚠ Test 11: roads.geojson not found — generate with npm run fetch:roads');

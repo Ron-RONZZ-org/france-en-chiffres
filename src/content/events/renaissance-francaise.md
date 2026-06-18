@@ -8,7 +8,7 @@ description: "Des guerres d'Italie aux châteaux de la Loire, de l'imprimerie au
 
 ## Prologue
 
-Lyon, 1476. Antoine, quartoze ans, fils d'un tonnelier. Comme la plupart des gens à l'époque, il ne savait pas lire. Rien n'empêchait que il avait été placé chez un certain M. Buyer depuis l'année dernière.  Ce monsieur Buyer, marchand, venait d'importer à Lyon la plus grande invention du siècle : la presse à imprimer. Ce n'était malheuresement pas un développement joyeux pour Antoine: il avait maintenant les mains noires d'encre, les bras endoloris à force d'actionner le levier. Il ne comprenait rien des textes latins qui sortent de la presse — des manuels de droit, les lettres d'un pape, des grammaires — mais il voit ce que tout le monde voit : ils s'agitaient des livres.
+Lyon, 1476. Antoine, quatorze ans, fils d'un tonnelier. Comme la plupart des gens à l'époque, il ne savait pas lire. Rien n'empêchait qu'il eût été placé chez un certain M. Buyer depuis l'année dernière.  Ce monsieur Buyer, marchand, venait d'importer à Lyon la plus grande invention du siècle : la presse à imprimer. Ce n'était malheureusement pas un développement joyeux pour Antoine : il avait maintenant les mains noires d'encre, les bras endoloris à force d'actionner le levier. Il ne comprenait rien des textes latins qui sortaient de la presse — des manuels de droit, les lettres d'un pape, des grammaires — mais il voyait ce que tout le monde voyait : il s'agissait de livres.
 
 Des livres, qui ne sont plus recopiés à la main, un par un, dans le silence des monastères. Des livres, manufacturés à la chaîne, comme des étoffes. Des livres, que les marchands peuvent acheter, que les femmes lettrées peuvent lire chez elles, que les étudiant·es peuvent emprunter au lieu de les recopier sous la dictée d'un maître [source:britannica-printing].
 
@@ -18,13 +18,13 @@ Ce qu'Antoine ne peut pas savoir — pas encore — c'est que les caractères de
 
 ## Les guerres d'Italie : le choc de la découverte (1494–1559)
 
-En 1494, le jeune roi Charles VIII, vingt-quatre ans, descend en Italie avec une armée de 30 000 hommes pour revendiquer le royaume de Naples. Militairement, l'expédition fut un demi-succès : Charles entra dans Naples presque sans combat, mais une coalition le força à battre en retraite dès l'année suivante. Cependant, son expédition fut un séisme inattendu: non pas parce que il a brièvement occupé Naples [source:britannica-renaissance-france], mais parce que il a inadvertement exposé la France à un très grand mouvement qui était en plein essor en Italie.
+En 1494, le jeune roi Charles VIII, vingt-quatre ans, descend en Italie avec une armée de 30 000 hommes pour revendiquer le royaume de Naples. Militairement, l'expédition fut un demi-succès : Charles entra dans Naples presque sans combat, mais une coalition le força à battre en retraite dès l'année suivante. Cependant, son expédition fut un séisme inattendu : non pas parce qu'il avait brièvement occupé Naples [source:britannica-renaissance-france], mais parce qu'il avait involontairement exposé la France à un très grand mouvement qui était en plein essor en Italie.
 
-en traversant les Alpes,les soldats français découvrirent un monde dont ils ignoraient jusqu'à l'existence : des palais et des jardins ornés de statues antiques, des fresques aux couleurs éclatantes, des places publiques dessinées selon les règles géométriques de la perspective. Les villes italiennes — Florence, Rome, Milan — vivaient depuis un siècle ce que les historien·nes appellent aujourd'hui la Première Renaissance, portée par les Médicis, les papes et des artistes comme Botticelli et Léonard de Vinci.
+En traversant les Alpes, les soldats français découvrirent un monde dont ils ignoraient jusqu'à l'existence : des palais et des jardins ornés de statues antiques, des fresques aux couleurs éclatantes, des places publiques dessinées selon les règles géométriques de la perspective. Les villes italiennes — Florence, Rome, Milan — vivaient depuis un siècle ce que les historien·nes appellent aujourd'hui la Première Renaissance, portée par les Médicis, les papes et des artistes comme Botticelli et Léonard de Vinci.
 
 Les armées françaises revinrent chargées de trésors : des manuscrits grecs inconnus à Paris, des statues de marbre déterrées du sol romain, des artisans italiens prêts à travailler pour des seigneurs français. Les nobles français, jusque-là cantonnés dans des châteaux forts bien sombres, voulurent soudain des palais lumineux, des loggia, des jardins à l'italienne.
 
-Les campagnes italiennes se succédèrent sous Louis XII, puis sous François I<sup>er</sup>. La bataille de **Marignan** (1515) consacra le jeune roi comme un conquérant à la hauteur de ses ambitions. Mais les guerres d'Italie se terminèrent mal : en 1525, à Pavie, François I<sup>er</sup> fut capturé par les troupes de Charles Quint et emmené prisonnier à Madrid. Le traité de Cateau-Cambrésis (1559) mit un terme définitif aux ambitions françaises en Italie. La France ne garda ni Naples ni Milan, mais elle rapportait bien une autre chose : la Renaissance [source:britannica-renaissance-france].
+Les campagnes italiennes se succédèrent sous Louis XII, puis sous François I<sup>er</sup>. La bataille de **Marignan** (1515) consacra le jeune roi comme un conquérant à la hauteur de ses ambitions. Mais les guerres d'Italie se terminèrent mal : en 1525, à Pavie, François I<sup>er</sup> fut capturé par les troupes de Charles Quint et emmené prisonnier à Madrid. Le traité de Cateau-Cambrésis (1559) mit un terme définitif aux ambitions françaises en Italie. La France ne garda ni Naples ni Milan, mais elle rapportait bien autre chose : la Renaissance [source:britannica-renaissance-france].
 
 ## François I<sup>er</sup>, le roi au long nez
 
@@ -40,16 +40,16 @@ En 1539, François I<sup>er</sup> promulguait son ordonnance la plus durable : l
 
 ## L'imprimerie transformait la société française
 
-L'imprimerie ne produisait que des livres : elle bouleversa la structure de la société française du XVI<sup>e</sup> siècle, comme Internet a transformé la nôtre.
+L'imprimerie ne produisait pas que des livres : elle bouleversa la structure de la société française du XVI<sup>e</sup> siècle, comme Internet a transformé la nôtre.
 
-Avant Gutenberg, un manuscrit pouvait coûter le prix d'une petite ferme. Après, le même texte imprimé coûtait le salaire de quelques journées de travail d'un[source:britannica-printing].
+Avant Gutenberg, un manuscrit pouvait coûter le prix d'une petite ferme. Après, le même texte imprimé coûtait le salaire de quelques journées de travail d'un·e artisan·e[source:britannica-printing].
 
 Les conséquences furent immenses :
 
 - **Les textes antiques** — Platon, Aristote, Plutarque — furent diffusés massivement, traduits du grec et du latin en français par des humanistes comme Guillaume Budé.
 - **La Bible** fut traduite et imprimée en français dès les années 1520 par Lefèvre d'Étaples, permettant aux croyant·es de lire les textes sacrés sans passer par le clergé.
 - **Les idées nouvelles** — celles de la Renaissance italienne, puis celles de la Réforme protestante — circulèrent d'une ville à l'autre en quelques semaines, portées par les colporteur·euses.
-{l'effet pratique de ce changement sur la structure de la société française}
+- **La structure sociale s'en trouva bouleversée** : l'imprimerie créa des métiers nouveaux (imprimeur·euses, correcteur·ices, libraires) et fit émerger une bourgeoisie lettrée qui concurrençait le clergé dans la production et la diffusion du savoir. Le livre imprimé permit à des milliers de personnes d'accéder aux textes sans passer par l'Église, affaiblissant le monopole intellectuel du clergé et préparant l'émergence d'un espace public — un siècle avant les premiers journaux[source:britannica-renaissance-france].
 
 Lyon devint le cœur battant de cette révolution en France. En 1500, la ville comptait déjà une cinquantaine d'ateliers d'imprimerie. Les presses lyonnaises publiaient de tout : des éditions des classiques grecs et latins, des romans de chevalerie, des almanachs, des pamphlets religieux, des livres illustrés. Les imprimeurs — souvent d'ancien·nes commerçant·es ou des savant·es — faisaient fortune. Leurs ateliers employaient des apprenti·es, des correcteur·ices, des illustrateur·ices [source:britannica-renaissance-france].
 
@@ -130,7 +130,7 @@ La réponse catholique fut violente. Le **massacre de Wassy** (1<sup>er</sup> ma
 
 Pendant trente-six ans, la France subit huit guerres civiles entrecoupées de trêves précaires. Les armées des deux camps pillèrent les campagnes. Les villes changèrent de main, subirent des sièges, des massacres. Le conflit n'était pas seulement religieux : il mêlait des rivalités nobiliaires (les Guise et la Ligue catholique contre les Bourbon et les Montmorency protestant·es), des ambitions politiques (les grandes familles voulaient contrôler le roi), et une profonde lassitude populaire.
 
-L'épisode le plus célèbre et le plus horrible fut le **massacre de la Saint-Barthélemy** (nuit du 24 août 1572). Le mariage de la princesse Marguerite de Valois (la « reine Margot ») avec le protestant Henri de Navarre devait sceller la paix. Mais le surlendemain des noces, alors que les chefs protestant·es étaient encore à Paris, la Cour décida de les éliminer. Le tocsin sonna à l'aube. Les milices parisiennes, menées par les Guise, massacrèrent des milliers de protestant·es — on estime entre 3 000 et 10 000 morts à Paris en trois jours, et peut-être 30 000 dans toute la France dans les semaines qui suivirent [source:britannica-wars-religion].
+L'épisode le plus infâme fut le **massacre de la Saint-Barthélemy** (nuit du 24 août 1572). Le mariage de la princesse Marguerite de Valois (la « reine Margot ») avec le protestant Henri de Navarre devait sceller la paix. Mais le surlendemain des noces, alors que les chefs protestant·es étaient encore à Paris, la Cour décida de les éliminer. Le tocsin sonna à l'aube. Les milices parisiennes, menées par les Guise, massacrèrent des milliers de protestant·es — on estime entre 3 000 et 10 000 morts à Paris en trois jours, et peut-être 30 000 dans toute la France dans les semaines qui suivirent [source:britannica-wars-religion].
 
 La Saint-Barthélemy brisa le camp protestant, mais ne mit pas fin à la guerre. Au contraire, elle radicalisa les deux camps. La **Ligue catholique**, dirigée par les Guise, devint un pouvoir quasi-indépendant, contrôlant Paris, défiant le roi. La monarchie vacilla.
 
@@ -152,15 +152,16 @@ Le 13 avril 1598, Henri IV signa l'**Édit de Nantes**. Le texte accordait aux p
 
 Les douze dernières années du règne d'Henri IV furent une période de reconstruction étonnante. Avec son ministre **Sully**, il redressa les finances, restaura les routes et les ponts, encouragea l'agriculture. La légende raconte qu'il voulait que chaque paysan·e ait « une poule au pot le dimanche » — le premier « pouvoir d'achat » de l'histoire de France.
 
-Henri IV fut assassiné le 14 mai 1610 par un autre catholique fanatique, Ravaillac. Un siècle après Marignan, la Renaissance s'achevait sur un autre coup de couteau.
+Henri IV fut assassiné le 14 mai 1610 par un autre catholique fanatique, Ravaillac. Un siècle après Marignan : la Renaissance s'achevait sur un autre coup de couteau.
 
 ## Épilogue : un héritage en pierre et en mots
 
-Quand on regarde la France d'aujourd'hui, les vestiges de la Renaissance sont omniprésents. Commençons par les plus tangibles :
+Quand on regarde la France d'aujourd'hui, les vestiges de la Renaissance sont omniprésents :
 
-- **Les châteaux de la Loire** — Chambord, Chenonceau, Blois, Azay-le-Rideau — attirent chaque année des millions de visiteur·euses du monde entier. Mais la Renaissance, c'est aussi le **Louvre** transformé par François I<sup>er</sup>, le château de **Fontainebleau** avec sa galerie François I<sup>er</sup>, l'**Hôtel de Ville** de Paris, le **Palais des Papes** d'Avignon transformé en citadelle de la culture.
-- **Le français que nous parlons** a été forgé au XVI<sup>e</sup> siècle — par l'ordonnance de Villers-Cotterêts qui en imposa l'usage officiel, et par la Pléiade qui en fit une langue littéraire. Les mots de Rabelais, de Montaigne, de Ronsard sont encore les nôtres [source:knecht-francois-ier].
+- **Les châteaux de la Loire** — plus de trois cents demeures, dont une quarantaine inscrites au patrimoine mondial de l'UNESCO depuis 2000, attirent chaque année plus de 3,3 millions de visiteurs·euses[source:cnn-loire-valley]. Le seul château de Chambord, avec ses 440 pièces et son célèbre escalier à double révolution, en accueille environ 700 000 par an[source:cnn-loire-valley].
+
 - **Le Collège de France** et bien d'autres institutions intellectuelles françaises sont nées de la volonté de François I<sup>er</sup> de libérer le savoir des dogmes.
+- **Le français que nous parlons** a été forgé au XVI<sup>e</sup> siècle — par l'ordonnance de Villers-Cotterêts qui en imposa l'usage officiel, et par la Pléiade qui en fit une langue littéraire. Les mots de Rabelais, de Montaigne, de Ronsard sont encore les nôtres [source:knecht-francois-ier].
 - **L'idée de tolérance** — fragile, toujours contestée — a été formulée par Montaigne, Bodin, et les survivant·es des guerres de Religion. L'Édit de Nantes en fut la première application politique à grande échelle en Europe [source:britannica-henri-iv].
 
 La Renaissance bâtissait les bases de ce que la France allait devenir au Grand Siècle — centralisée, catholique mais fracturée, brillante mais inégalitaire. Elle inventa aussi une culture à la française : celle du livre, du doute, de la conversation, plutôt que du château fort tourné vers la guerre. En cela, elle ne fut pas seulement une renaissance des Anciens, mais la naissance d'un monde nouveau.
