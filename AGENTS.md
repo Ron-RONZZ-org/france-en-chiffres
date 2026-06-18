@@ -15,6 +15,18 @@ The site uses Astro (static site generator) with Tailwind CSS for styling, and a
 - **Filenames**: kebab-case for all files (e.g., `france-map.astro`, `global.css`)
 - **CSS**: Tailwind utility classes for layout and styling. Hand-written CSS only for complex animations or component-specific overrides that Tailwind can't express cleanly.
 
+### Inclusive Language
+
+- Use **point médian** for gender-dependent nouns and adjectives when the subject includes people of multiple genders: chercheur·e, agriculteur·euse, heureux·euse, e·ils (instead of ils)
+  - Do NOT use point médian when the subjects are known to be all masculine (e.g., kings, bishops in the Middle Ages, unless you are sure there was a female)
+- Maintain **religious neutrality** with AEC/EC (avant ère commune / ère commune) instead of av. J.-C. / apr. J.-C.
+
+### Grammar
+
+- Use **past tenses** when speaking of past events (passé simple, imparfait, passé composé as appropriate)
+- Avoid present tense for historical narratives, even when telling stories — it confuses the timeline
+- Correct grammar while preserving the author's writing style to the maximum
+
 ---
 
 ## Tech Stack
@@ -113,6 +125,30 @@ france-en-chiffres/
 8. **Responsive before fancy** — layout must work at 320px before adding any animation.
 9. **Content Collections** — all content data (eras, events, sources, media) lives in `src/content/` as Astro Content Collections with Zod schemas in `src/content/config.ts`. Data validation happens at build time. Aggregation layers reside in `src/data/*.ts`.
 10. **Era–event matching by year range** — events are automatically matched to eras by `start`/`end` year containment (see `src/data/history.ts`). When a year is shared by adjacent eras (e.g., 1789), the event is assigned to the era whose `start` matches that year. Editors add an event file to `content/events/` without specifying which era it belongs to. Each era has a dedicated page at `/periodes/[slug]` (auto-generated from `content/eras/`). On the timeline page, era titles link to these internal pages and descriptions are displayed inline.
+
+---
+
+## Content Writing Guidelines
+
+### Reference and Source Citation
+
+Every fact in event content must be backed by a reliable source. The project uses a structured citation system with CSL-JSON files.
+
+1. **Search for reliable references**
+   - Prioritise academic journals and reliable scientific sites
+   - Avoid unverified, low-quality content
+   - Must not invent fictitious sources — use web search
+   - If no source found to support a claim, signal to the user
+
+2. **Create the source file** in `src/content/sources/<id>.json` with valid CSL-JSON schema
+   - The source `id` must be unique and kebab-case (e.g., `larousse-2023`)
+
+3. **Cite the source inline** in the event markdown file with `[source:{source-id}]`
+   - Example: `La bataille de Marignan eut lieu en 1515[source:larousse-2023]`
+
+4. **If the passage contains factual errors** (wrong year, names, etc.), rewrite the concerned sections according to the sources found
+
+See also **Coding Guidelines** rule 6 (stat must cite its source via `sourceId`).
 
 ---
 
