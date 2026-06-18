@@ -91,4 +91,17 @@ assert.ok(geoHtml.includes('department--geography'), 'Geography page must have i
 assert.ok(geoHtml.includes('data-preview-name'), 'Geography page must have Tippy tooltip data attributes');
 console.log('✓ Test 7: Geography sub-page built correctly');
 
+// ── Test 8: Home page hero map (with Tippy data attributes) ──
+const heroHtml = fs.readFileSync(distPath, 'utf-8');
+assert.ok(heroHtml.includes('france-map-layout'), 'Home page must contain hero map layout');
+assert.ok(heroHtml.includes('data-preview-name'), 'Home page hero map must have Tippy data attributes');
+assert.ok(heroHtml.includes('data-preview-num'), 'Home page hero map must have Tippy data attributes');
+// Ensure at least a few department codes are present in data-preview attributes
+assert.ok(heroHtml.includes('data-preview-num="01"'), 'Home page must have dept 01 preview data');
+assert.ok(heroHtml.includes('data-preview-num="75"'), 'Home page must have dept 75 preview data');
+// DOM-COM territories should also have the attributes
+assert.ok(heroHtml.includes('data-preview-name="Guadeloupe"'), 'Home page hero must have Guadeloupe preview attribute');
+assert.ok(heroHtml.includes('data-preview-name="Mayotte"'), 'Home page hero must have Mayotte preview attribute');
+console.log('✓ Test 8: Home page hero map has Tippy tooltip data attributes');
+
 console.log('\n🎉 All tests passed!');
