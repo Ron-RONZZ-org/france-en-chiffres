@@ -32,6 +32,7 @@ const deptTransform = departmentsData.transform;
             {departments.map((dept) => (
               <path key={dept.num} class="department" d={dept.path}
                 data-num={dept.num} data-name={dept.name}
+                data-preview-num={dept.num} data-preview-name={dept.name}
                 fill="rgba(0,0,0,0)" stroke="currentColor" stroke-width="1.2"
                 stroke-linecap="round" stroke-linejoin="round">
                 <title>{dept.name} ({dept.num})</title>
@@ -41,8 +42,9 @@ const deptTransform = departmentsData.transform;
         </svg>
 
         <div class="france-map-layout__dom-row">
-          {dom.map((territory, i) => (
-            <div class="dom-insets__item" style={`--i: ${i}`}>
+            {dom.map((territory, i) => (
+            <div class="dom-insets__item" style={`--i: ${i}`}
+              data-preview-num={territory.num} data-preview-name={territory.label}>
               <svg class="dom-insets__svg"
                 viewBox={`${territory.viewBox.x} ${territory.viewBox.y} ${territory.viewBox.width} ${territory.viewBox.height}`}
                 fill="none" xmlns="http://www.w3.org/2000/svg"
@@ -104,11 +106,12 @@ const deptTransform = departmentsData.transform;
   import 'tippy.js/animations/shift-away.css';
 
   (() => {
+    const isHero = document.querySelector('.france-map-layout') !== null;
     const isGeo = document.querySelector('.geography-layout') !== null;
-    if (!isGeo) return;
+    if (!isHero && !isGeo) return;
 
     const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-    const ACCENT = '#d4a843'; // gold accent for geography
+    const ACCENT = '#d4a843'; // gold accent
 
     const escapeHTML = (str) => {
       const div = document.createElement('div');
@@ -127,11 +130,9 @@ const deptTransform = departmentsData.transform;
       `;
     };
 
-    // ── Departments ──
-    const depts = document.querySelectorAll('.department--geography');
-    depts.forEach((path) => {
-      tippy(path, {
-        content: buildPreviewHTML(path),
+    const makeTippy = (el, group) => {
+      tippy(el, {
+        content: buildPreviewHTML(el),
         allowHTML: true,
         trigger: isTouch ? 'click' : 'mouseenter',
         interactive: false,
@@ -142,41 +143,25 @@ const deptTransform = departmentsData.transform;
         animation: 'shift-away',
         duration: [250, 150],
         appendTo: document.body,
-        onShow(instance) {
-          // Hide all other tippies
-          depts.forEach((other) => {
-            if (other !== path && other._tippy) {
+        onShow() {
+          group.forEach((other) => {
+            if (other !== el && other._tippy) {
               other._tippy.hide();
             }
           });
         },
       });
-    });
+    };
+
+    // ── Departments ──
+    const deptSelector = isGeo ? '.department--geography' : '.france-map-layout .department';
+    const depts = document.querySelectorAll(deptSelector);
+    depts.forEach((path) => makeTippy(path, depts));
 
     // ── DOM-COM territories ──
-    const domItems = document.querySelectorAll('.dom-insets__item--geography');
-    domItems.forEach((item) => {
-      tippy(item, {
-        content: buildPreviewHTML(item),
-        allowHTML: true,
-        trigger: isTouch ? 'click' : 'mouseenter',
-        interactive: false,
-        hideOnClick: isTouch,
-        placement: 'top',
-        maxWidth: 280,
-        theme: 'dark',
-        animation: 'shift-away',
-        duration: [250, 150],
-        appendTo: document.body,
-        onShow(instance) {
-          domItems.forEach((other) => {
-            if (other !== item && other._tippy) {
-              other._tippy.hide();
-            }
-          });
-        },
-      });
-    });
+    const domSelector = isGeo ? '.dom-insets__item--geography' : '.france-map-layout .dom-insets__item';
+    const domItems = document.querySelectorAll(domSelector);
+    domItems.forEach((item) => makeTippy(item, domItems));
   })();
 </script>
 
