@@ -19,6 +19,8 @@
     "fetch:geo": "bash scripts/fetch-geo-data.sh",
     "build:density": "node scripts/build-density-grid.js",
     "fetch:roads": "node scripts/fetch-roads.js",
+    "fetch:communes": "node scripts/fetch-communes.js",
+>>>>>>> origin/main
     "populate:density": "node scripts/populate-density.js"
   },
   "dependencies": {

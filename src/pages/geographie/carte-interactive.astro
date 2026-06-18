@@ -23,21 +23,21 @@ import InteractiveDataMap from '../../components/InteractiveDataMap.astro';
           </span>
         </label>
 
-        <label class="layer-controls__item layer-controls__item--disabled" data-map-toggle="elevation" for="toggle-elevation">
-          <input type="checkbox" id="toggle-elevation" data-map-toggle="elevation" class="layer-controls__checkbox" disabled>
+        <label class="layer-controls__item" data-map-toggle="elevation" for="toggle-elevation">
+          <input type="checkbox" id="toggle-elevation" data-map-toggle="elevation" class="layer-controls__checkbox">
           <span class="layer-controls__swatch layer-controls__swatch--elevation"></span>
           <span class="layer-controls__label">
             <strong>Relief</strong>
-            <span class="layer-controls__desc">Altitude et ombrage du terrain (IGN BD ALTI®) — à venir</span>
+            <span class="layer-controls__desc">Carte topographique avec courbes de niveau (OpenTopoMap)</span>
           </span>
         </label>
 
-        <label class="layer-controls__item layer-controls__item--disabled" data-map-toggle="roads" for="toggle-roads">
-          <input type="checkbox" id="toggle-roads" data-map-toggle="roads" class="layer-controls__checkbox" disabled>
+        <label class="layer-controls__item" data-map-toggle="roads" for="toggle-roads">
+          <input type="checkbox" id="toggle-roads" data-map-toggle="roads" class="layer-controls__checkbox">
           <span class="layer-controls__swatch layer-controls__swatch--roads"></span>
           <span class="layer-controls__label">
             <strong>Réseau routier</strong>
-            <span class="layer-controls__desc">Autoroutes et routes nationales (OpenStreetMap) — à venir</span>
+            <span class="layer-controls__desc">Autoroutes (rouge) et routes nationales (orange) — OpenStreetMap</span>
           </span>
         </label>
 
@@ -46,7 +46,11 @@ import InteractiveDataMap from '../../components/InteractiveDataMap.astro';
           <span class="layer-controls__swatch layer-controls__swatch--communes"></span>
           <span class="layer-controls__label">
             <strong>Communes</strong>
+<<<<<<< HEAD
             <span class="layer-controls__desc">Limites des 2 156 communes de ≥ 5 000 habitant·es</span>
+=======
+            <span class="layer-controls__desc">Limites communales (échantillon de 1 000 — API géo)</span>
+>>>>>>> origin/main
           </span>
         </label>
       </div>
