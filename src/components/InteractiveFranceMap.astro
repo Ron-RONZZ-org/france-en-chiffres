@@ -69,9 +69,9 @@ const deptTransform = departmentsData.transform;
             {departments.map((dept) => (
               <path key={dept.num} class="department department--geography" d={dept.path}
                 data-num={dept.num} data-name={dept.name}
+                data-preview-num={dept.num} data-preview-name={dept.name}
                 stroke="currentColor" stroke-width="1"
                 stroke-linecap="round" stroke-linejoin="round">
-                <title>{dept.name} ({dept.num})</title>
               </path>
             ))}
           </g>
@@ -79,7 +79,8 @@ const deptTransform = departmentsData.transform;
 
         <div class="geography-layout__dom">
           {dom.map((territory) => (
-            <div class="dom-insets__item">
+            <div class="dom-insets__item dom-insets__item--geography"
+              data-preview-name={territory.label} data-preview-num={territory.num}>
               <svg class="dom-insets__svg dom-insets__svg--geography"
                 viewBox={`${territory.viewBox.x} ${territory.viewBox.y} ${territory.viewBox.width} ${territory.viewBox.height}`}
                 fill="none" xmlns="http://www.w3.org/2000/svg"
@@ -98,29 +99,85 @@ const deptTransform = departmentsData.transform;
 }
 
 <script>
-  // Interactive tooltip for geography mode
-  const isGeo = document.querySelector('.geography-layout') !== null;
-  if (isGeo) {
-    const tooltip = document.createElement('div');
-    tooltip.className = 'dept-tooltip';
-    document.body.appendChild(tooltip);
+  import tippy from 'tippy.js';
+  import 'tippy.js/dist/tippy.css';
+  import 'tippy.js/animations/shift-away.css';
 
-    document.querySelectorAll('.department--geography').forEach((path) => {
-      path.addEventListener('mouseenter', () => {
-        const name = path.getAttribute('data-name');
-        const num = path.getAttribute('data-num');
-        tooltip.textContent = name + ' (' + num + ')';
-        tooltip.classList.add('is-visible');
-      });
-      path.addEventListener('mousemove', (e) => {
-        tooltip.style.left = (e.clientX + 12) + 'px';
-        tooltip.style.top = (e.clientY + 12) + 'px';
-      });
-      path.addEventListener('mouseleave', () => {
-        tooltip.classList.remove('is-visible');
+  (() => {
+    const isGeo = document.querySelector('.geography-layout') !== null;
+    if (!isGeo) return;
+
+    const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    const ACCENT = '#d4a843'; // gold accent for geography
+
+    const escapeHTML = (str) => {
+      const div = document.createElement('div');
+      div.textContent = str;
+      return div.innerHTML;
+    };
+
+    const buildPreviewHTML = (el) => {
+      const name = el.dataset.previewName || '';
+      const num = el.dataset.previewNum || '';
+      return `
+        <div class="geog-preview" style="--accent:${ACCENT}">
+          <span class="geog-preview__num">${escapeHTML(num)}</span>
+          <h4 class="geog-preview__title">${escapeHTML(name)}</h4>
+        </div>
+      `;
+    };
+
+    // ── Departments ──
+    const depts = document.querySelectorAll('.department--geography');
+    depts.forEach((path) => {
+      tippy(path, {
+        content: buildPreviewHTML(path),
+        allowHTML: true,
+        trigger: isTouch ? 'click' : 'mouseenter',
+        interactive: false,
+        hideOnClick: isTouch,
+        placement: 'top',
+        maxWidth: 280,
+        theme: 'dark',
+        animation: 'shift-away',
+        duration: [250, 150],
+        appendTo: document.body,
+        onShow(instance) {
+          // Hide all other tippies
+          depts.forEach((other) => {
+            if (other !== path && other._tippy) {
+              other._tippy.hide();
+            }
+          });
+        },
       });
     });
-  }
+
+    // ── DOM-COM territories ──
+    const domItems = document.querySelectorAll('.dom-insets__item--geography');
+    domItems.forEach((item) => {
+      tippy(item, {
+        content: buildPreviewHTML(item),
+        allowHTML: true,
+        trigger: isTouch ? 'click' : 'mouseenter',
+        interactive: false,
+        hideOnClick: isTouch,
+        placement: 'top',
+        maxWidth: 280,
+        theme: 'dark',
+        animation: 'shift-away',
+        duration: [250, 150],
+        appendTo: document.body,
+        onShow(instance) {
+          domItems.forEach((other) => {
+            if (other !== item && other._tippy) {
+              other._tippy.hide();
+            }
+          });
+        },
+      });
+    });
+  })();
 </script>
 
 <style>
@@ -282,25 +339,8 @@ const deptTransform = departmentsData.transform;
     stroke: var(--color-text-muted);
   }
 
-  /* Tooltip */
-  .dept-tooltip {
-    position: fixed;
-    z-index: 1000;
-    pointer-events: none;
-    background: var(--color-bg-card);
-    color: var(--color-accent-gold);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-sm);
-    padding: 4px 10px;
-    font-size: 0.8rem;
-    font-weight: 600;
-    opacity: 0;
-    transition: opacity 0.15s ease;
-    white-space: nowrap;
-  }
-
-  .dept-tooltip.is-visible {
-    opacity: 1;
+  .dom-insets__item--geography {
+    cursor: pointer;
   }
 
   /* ===== Responsive ===== */
@@ -322,5 +362,57 @@ const deptTransform = departmentsData.transform;
     .france-map { width: 200px; }
     .dom-insets__svg { width: 30px; height: 30px; }
     .dom-insets__svg--geography { width: 40px; height: 40px; }
+  }
+</style>
+
+<!-- Global popup styles (unscoped — Tippy renders at <body> level) -->
+<style is:global>
+  /* Reuse dark theme from history page */
+  .tippy-box[data-theme~="dark"] {
+    background: #111827;
+    border: 1px solid #1e293b;
+    border-radius: 0.75rem;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+    color: #e2e8f0;
+  }
+
+  .tippy-box[data-theme~="dark"] .tippy-arrow {
+    color: #111827;
+    stroke: #1e293b;
+  }
+
+  .tippy-box[data-theme~="dark"] .tippy-content {
+    padding: 0.5rem 0.75rem;
+  }
+
+  .tippy-box[data-theme~="dark"][data-placement^="bottom"] > .tippy-arrow::before {
+    border-bottom-color: #1e293b;
+  }
+
+  .geog-preview {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-family: 'Inter', system-ui, sans-serif;
+    text-align: left;
+    border-left: 3px solid var(--accent, #d4a843);
+    padding-left: 0.75rem;
+  }
+
+  .geog-preview__num {
+    font-size: 0.75rem;
+    color: #94a3b8;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .geog-preview__title {
+    font-family: 'Playfair Display', 'Times New Roman', Georgia, serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #e2e8f0;
+    line-height: 1.3;
+    margin: 0;
   }
 </style>

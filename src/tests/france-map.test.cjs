@@ -88,7 +88,7 @@ const geoPagePath = path.join(__dirname, '..', '..', 'dist', 'geography', 'depar
 assert.ok(fs.existsSync(geoPagePath), 'Geography sub-page must exist');
 const geoHtml = fs.readFileSync(geoPagePath, 'utf-8');
 assert.ok(geoHtml.includes('department--geography'), 'Geography page must have interactive map');
-assert.ok(geoHtml.includes('dept-tooltip'), 'Geography page must have tooltip JS');
+assert.ok(geoHtml.includes('data-preview-name'), 'Geography page must have Tippy tooltip data attributes');
 console.log('✓ Test 7: Geography sub-page built correctly');
 
 console.log('\n🎉 All tests passed!');

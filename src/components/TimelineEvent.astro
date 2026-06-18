@@ -26,6 +26,7 @@ const refMedia = event.mediaId ? await getMedia(event.mediaId) : undefined;
   data-preview-description={event.description}
   data-preview-media-src={refMedia?.src ?? ''}
   data-preview-media-alt={refMedia?.alt ?? ''}
+  data-preview-slug={event.id}
 >
   <!-- Timeline dot on the central line -->
   <div class="timeline-event__dot">
@@ -172,6 +173,7 @@ const refMedia = event.mediaId ? await getMedia(event.mediaId) : undefined;
       const description = el.dataset.previewDescription || '';
       const mediaSrc = el.dataset.previewMediaSrc || '';
       const mediaAlt = el.dataset.previewMediaAlt || '';
+      const slug = el.dataset.previewSlug || '';
 
       return `
         <div class="tippy-preview" style="--accent:${ACCENT}">
@@ -183,6 +185,10 @@ const refMedia = event.mediaId ? await getMedia(event.mediaId) : undefined;
           <h4 class="tippy-preview__title">${escapeHTML(title)}</h4>
           <div class="tippy-preview__divider" style="background:${ACCENT}"></div>
           <p class="tippy-preview__description">${escapeHTML(description)}</p>
+          ${slug
+            ? `<a href="/evenements/${escapeHTML(slug)}" class="tippy-preview__link">Lire l'article →</a>`
+            : ''
+          }
         </div>
       `;
     };
