@@ -1,11 +1,11 @@
 import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
-import rehypeCitationLinks from './src/plugins/rehype-citation-links.js';
+import remarkCitationLinks from './src/plugins/remark-citation-links.js';
 
 export default defineConfig({
   integrations: [tailwind()],
   markdown: {
-    rehypePlugins: [rehypeCitationLinks],
+    remarkPlugins: [remarkCitationLinks],
   },
   site: 'https://france-stats.org',
 });

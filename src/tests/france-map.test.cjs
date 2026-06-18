@@ -84,7 +84,7 @@ assert.ok(componentLines <= 500, `Component must be ≤ 500 lines (currently ${c
 console.log(`✓ Test 6: Component at ${componentLines} lines (≤ 500)`);
 
 // ── Test 7: Geography sub-page exists ──
-const geoPagePath = path.join(__dirname, '..', '..', 'dist', 'geography', 'departements-francais', 'index.html');
+const geoPagePath = path.join(__dirname, '..', '..', 'dist', 'geographie', 'departements-francais', 'index.html');
 assert.ok(fs.existsSync(geoPagePath), 'Geography sub-page must exist');
 const geoHtml = fs.readFileSync(geoPagePath, 'utf-8');
 assert.ok(geoHtml.includes('department--geography'), 'Geography page must have interactive map');

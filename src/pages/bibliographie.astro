@@ -18,7 +18,7 @@ const sources = await allSources();
       <div class="bibliography">
         {sources.map((source) => (
           <article class="bibliography__entry" id={source.id}>
-            <a href={`/bibliography/${source.id}`} class="bibliography__link">
+            <a href={`/bibliographie/${source.id}`} class="bibliography__link">
               <h2 class="bibliography__title">
                 {source.title ?? formatSourceLabel(source)}
               </h2>

@@ -19,7 +19,7 @@ const { Content } = await entry.render();
 
 // Extract inline source IDs from Markdown body
 const sourceIds = [...new Set(
-  [...entry.body.matchAll(/\[source:\s+([\w-]+)\]/g)].map((m) => m[1])
+  [...entry.body.matchAll(/\[source:\s*([\w-]+)\]/g)].map((m) => m[1])
 )];
 
 const sources = (await Promise.all(
@@ -31,7 +31,7 @@ const refMedia = event.mediaId ? await getMedia(event.mediaId) : undefined;
 <Base title={`${event.title} — Histoire`} description={event.description ?? ''}>
   <article class="event-page">
     <header class="event-page__header">
-      <a href="/history" class="event-page__back">← Chronologie</a>
+      <a href="/histoire" class="event-page__back">← Chronologie</a>
       <time class="event-page__year">{event.yearDisplay}</time>
       <h1 class="event-page__title">{event.title}</h1>
     </header>
@@ -51,7 +51,7 @@ const refMedia = event.mediaId ? await getMedia(event.mediaId) : undefined;
           <ol class="event-page__sources-list">
             {sources.map((s) => (
               <li class="event-page__source-item">
-                <a href={`/bibliography/${s.id}`}>{formatSourceLabel(s)}</a>
+                <a href={`/bibliographie/${s.id}`}>{formatSourceLabel(s)}</a>
               </li>
             ))}
           </ol>

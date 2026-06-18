@@ -10,10 +10,10 @@ export interface Props {
 const { title = 'La France en Chiffres', description = 'Histoire, culture, géographie — racontées par les nombres' } = Astro.props;
 const navItems = [
   { label: 'Accueil', href: '/' },
-  { label: 'Histoire', href: '/history' },
+  { label: 'Histoire', href: '/histoire' },
   { label: 'Culture', href: '/culture' },
-  { label: 'Géographie', href: '/geography/departements-francais' },
-  { label: 'Actualité', href: '/current' },
+  { label: 'Géographie', href: '/geographie/departements-francais' },
+  { label: 'Actualité', href: '/actualites' },
 ];
 ---
 
@@ -43,7 +43,7 @@ const navItems = [
         <div class="footer__inner">
           <div class="french-separator"></div>
           <p class="footer__text">
-            La France en Chiffres — <a href="/bibliography" class="footer__link">Consulter les sources</a>
+            La France en Chiffres — <a href="/bibliographie" class="footer__link">Consulter les sources</a>
           </p>
           <p class="footer__small">
             Construit avec Astro • Animations vanilla JS • Zéro framework

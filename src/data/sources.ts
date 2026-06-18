@@ -37,5 +37,5 @@ export function formatSourceLabel(source: CslSource): string {
 
 /** Get the bibliography page URL for a source — sync helper */
 export function sourceUrl(id: string): string {
-  return `/bibliography/${id}`;
+  return `/bibliographie/${id}`;
 }
