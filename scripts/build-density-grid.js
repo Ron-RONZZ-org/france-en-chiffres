@@ -5,20 +5,24 @@
  * Merges commune boundary geometry (gregoiredavid/france-geojson) with
  * commune population data (geo.api.gouv.fr), computes density per commune.
  *
- * Filtered to communes with population ≥ 5000 for a manageable, useful dataset.
+ * Caches API responses to disk — subsequent runs are instant.
+ * Delete src/data/geo/populations-cache.json and communes-cache.geojson to force refresh.
  *
  * Output: public/data/communes-density.geojson
  */
 
-import { writeFileSync } from 'fs';
+import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'fs';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
+const CACHE_DIR = resolve(__dirname, '..', 'src', 'data', 'geo');
+const POP_CACHE = resolve(CACHE_DIR, 'populations-cache.json');
+const BOUNDARIES_CACHE = resolve(CACHE_DIR, 'communes-cache.geojson');
 const OUTPUT = resolve(__dirname, '..', 'public', 'data', 'communes-density.geojson');
 const COMMUNES_URL = 'https://raw.githubusercontent.com/gregoiredavid/france-geojson/master/communes.geojson';
 const API = 'https://geo.api.gouv.fr/communes';
-const MIN_POP = 5000; // threshold for inclusion
+const MIN_POP = 0; // include all — too many small communes in France to leave gaps
 
 const DEPT_CODES = [
   '01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16','17',
@@ -30,9 +34,19 @@ const DEPT_CODES = [
 ];
 
 async function fetchPopulations() {
-  console.log('→ Fetching commune populations from API...');
+  // Try cache first
+  if (existsSync(POP_CACHE)) {
+    console.log('  → Using cached population data');
+    const cached = JSON.parse(readFileSync(POP_CACHE, 'utf-8'));
+    const popMap = new Map(Object.entries(cached));
+    console.log(`  ✓ ${popMap.size} communes (cached)`);
+    return popMap;
+  }
+
+  console.log('  → Fetching from API (first run — will be cached)...');
   const popMap = new Map();
   let total = 0;
+  mkdirSync(CACHE_DIR, { recursive: true });
   for (const dept of DEPT_CODES) {
     const url = `${API}?codeDepartement=${dept}&fields=code,population&format=geojson&limit=1000`;
     try {
@@ -49,7 +63,10 @@ async function fetchPopulations() {
       }
     } catch { /* skip failed depts */ }
   }
-  console.log(`  ✓ ${popMap.size} communes with population data (${total} total)`);
+
+  // Write cache
+  writeFileSync(POP_CACHE, JSON.stringify(Object.fromEntries(popMap)));
+  console.log(`  ✓ ${popMap.size} communes with population data (cached to disk)`);
   return popMap;
 }
 
@@ -77,7 +94,13 @@ function polygonAreaKm2(geom) {
 }
 
 async function downloadCommuneBoundaries() {
-  console.log('→ Downloading commune boundaries (43 MB)...');
+  // Try cache first
+  if (existsSync(BOUNDARIES_CACHE)) {
+    console.log('  → Using cached commune boundaries');
+    return JSON.parse(readFileSync(BOUNDARIES_CACHE, 'utf-8'));
+  }
+
+  console.log('  → Downloading from GitHub (first run — will be cached)...');
   const resp = await fetch(COMMUNES_URL, {
     headers: { 'User-Agent': 'france-en-chiffres/1.0' },
     signal: AbortSignal.timeout(120_000),
@@ -85,6 +108,12 @@ async function downloadCommuneBoundaries() {
   if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
   const data = await resp.json();
   console.log(`  ✓ ${data.features.length} commune boundaries`);
+
+  // Cache to disk
+  mkdirSync(CACHE_DIR, { recursive: true });
+  writeFileSync(BOUNDARIES_CACHE, JSON.stringify(data));
+  console.log('  → Cached to disk for future runs');
+
   return data;
 }
 

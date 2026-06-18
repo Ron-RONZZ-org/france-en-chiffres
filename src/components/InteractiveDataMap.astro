@@ -66,6 +66,7 @@
       maxZoom: MAX_ZOOM,
       zoomControl: true,
       attributionControl: true,
+      preferCanvas: true,  // Render vectors on <canvas> instead of SVG DOM — critical for performance
     });
 
     // ── Base tile layer (OSM) ──
@@ -77,6 +78,7 @@
     // ── State ──
     let deptLayer = null;
     let densityLayer = null;
+    let densityAttributionAdded = false;
     let elevationLayer = null;
     let roadsLayer = null;
     let communesLayer = null;
@@ -214,20 +216,17 @@
         const maxDen = Math.max(...densities).toLocaleString('fr-FR');
         const legendHtml = `
           <p class="data-map__legend-subtitle">Densité de population</p>
-          <p>Par commune (population ≥ 5 000 hab) — ${data.features.length} communes affichées</p>
+          <p>Par commune — ${data.features.length} communes. Maximale : ${maxDen} hab/km².</p>
           <div class="density-legend">
             ${makeDensityLegend()}
           </div>
-          <p class="data-map__legend-source">Source: <a href="https://geo.api.gouv.fr/" target="_blank" rel="noopener">INSEE — via api.gouv.fr</a></p>
         `;
         document.getElementById('map-legend-content').innerHTML = legendHtml;
+        map.attributionControl.addAttribution('Données population : <a href="https://geo.api.gouv.fr/">INSEE — api.gouv.fr</a>');
+        densityAttributionAdded = true;
         console.log('✓ Commune-level density loaded');
       } catch (err) {
         console.error('Failed to load commune density:', err);
-        document.getElementById('map-legend-content').innerHTML = `
-          <p class="data-map__legend-subtitle">Densité de population</p>
-          <p>Données non disponibles. Générez-les avec : <code>node scripts/build-density-grid.js</code></p>
-        `;
       }
     }
 
@@ -274,6 +273,7 @@
         });
 
         roadsLayer = L.geoJSON(data, {
+          minZoom: 7,  // Only visible when zoomed in — 175k segments at zoom 6 would be overwhelming
           style: roadStyle,
           onEachFeature: (feature, layer) => {
             const name = feature.properties.name || feature.properties.ref || '';
@@ -290,6 +290,7 @@
 
         const legendHtml = `
           <p class="data-map__legend-subtitle">Réseau routier</p>
+          <p class="data-map__legend-hint">Visible à partir du zoom 7 (rapprochez-vous).</p>
           <div class="roads-legend">
             <div class="roads-legend__item">
               <span class="roads-legend__line roads-legend__line--motorway"></span>
@@ -303,6 +304,7 @@
           <p class="data-map__legend-source">Source: <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© les contributeurs d'OpenStreetMap</a></p>
         `;
         document.getElementById('map-legend-content').innerHTML = legendHtml;
+        map.attributionControl.addAttribution('Réseau routier : <a href="https://www.openstreetmap.org/copyright">© contributeurs OSM</a>');
         console.log('✓ Roads layer loaded');
       } catch (err) {
         console.error('Failed to load roads:', err);
@@ -337,6 +339,7 @@
         communesFetched = true;
 
         communesLayer = L.geoJSON(data, {
+          minZoom: 9,  // Only visible when zoomed in — commune boundaries at national level are too dense
           style: {
             color: '#6366f1',
             weight: 0.4,
@@ -358,9 +361,11 @@
 
         document.getElementById('map-legend-content').innerHTML = `
           <p class="data-map__legend-subtitle">Communes</p>
-          <p>Limites des ${data.features.length} communes de ≥ 5 000 habitant·es.</p>
-          <p class="data-map__legend-source">Source: <a href="https://geo.api.gouv.fr/" target="_blank" rel="noopener">API géo — data.gouv.fr</a>, <a href="https://github.com/gregoiredavid/france-geojson" target="_blank" rel="noopener">france-geojson</a></p>
+          <p class="data-map__legend-hint">Visible à partir du zoom 9.</p>
+          <p>Limites des ${data.features.length} communes de France.</p>
         `;
+        map.attributionControl.addAttribution('Limites communales : <a href="https://github.com/gregoiredavid/france-geojson">france-geojson</a>');
+        console.log('✓ Communes layer loaded');
         console.log('✓ Communes layer loaded');
       } catch (err) {
         console.error('Failed to load communes:', err);
@@ -574,6 +579,13 @@
     color: var(--color-accent-gold, #d4a843);
     font-size: 0.75rem;
     margin-top: var(--gap-xs);
+  }
+
+  .data-map__legend-hint {
+    font-size: 0.75rem;
+    color: var(--color-accent-gold, #d4a843);
+    font-style: italic;
+    margin-bottom: var(--gap-xs);
   }
 
   /* ── Leaflet overrides ── */

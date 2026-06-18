@@ -62,7 +62,7 @@ const densityPath = path.join(distDir, 'data', 'communes-density.geojson');
 assert.ok(fs.existsSync(densityPath), 'communes-density.geojson must exist in dist/data/');
 const density = JSON.parse(fs.readFileSync(densityPath, 'utf-8'));
 assert.equal(density.type, 'FeatureCollection', 'Density must be a FeatureCollection');
-assert.ok(density.features.length >= 100, `Must have ≥ 100 communes with density (found ${density.features.length})`);
+  assert.ok(density.features.length >= 10000, `Must have ≥ 10000 communes with density (found ${density.features.length})`);
 assert.ok(density.features[0].properties.density, 'Features must have density property');
 assert.ok(density.features[0].properties.population, 'Features must have population property');
 console.log(`✓ Test 6: communes-density.geojson valid (${density.features.length} communes, density range ${Math.min(...density.features.map(f=>f.properties.density))}-${Math.max(...density.features.map(f=>f.properties.density))})`);
@@ -109,7 +109,7 @@ if (fs.existsSync(roadsPath)) {
 
 // ── Test 12: Commune boundary data (from communes-density.geojson) ──
 if (fs.existsSync(densityPath)) {
-  console.log(`✓ Test 12: communes-density.geojson valid (${density.features.length} communes ≥ 5 000 hab)`);
+  console.log(`✓ Test 12: communes-density.geojson valid (${density.features.length} communes, all of France)`);
 } else {
   console.log('⚠ Test 12: communes-density.geojson not found — generate with npm run build:density');
 }
