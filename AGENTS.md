@@ -39,7 +39,7 @@ The site uses Astro (static site generator) with Tailwind CSS for styling, and a
 | Simple animations | **Vanilla JS** | IntersectionObserver, requestAnimationFrame, View Transitions API |
 | Cinematic timelines | **GSAP + ScrollTrigger** | Pin sections, scrub animations, staggered reveals — use for the history timeline |
 | Complex data viz | **D3.js** | Population pyramids, bump charts, choropleth maps — use for pages where data relationships are non-trivial |
-| Deployment | Static host (Netlify/Vercel/GitHub Pages) | `npm run build` → deploy `dist/` |
+| Deployment | **GitHub Pages** ([france-stats.org](https://france-stats.org/)) | `npm run build` → GitHub Actions workflow → `gh-pages` branch with custom domain |
 
 ### Core Principle — Graduated Tool Selection
 
