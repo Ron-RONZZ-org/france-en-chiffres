@@ -16,7 +16,9 @@
     "test:media": "node src/tests/media.test.cjs",
     "test:agents": "node src/tests/agents.test.cjs",
     "test:map": "node src/tests/interactive-map.test.cjs",
-    "fetch:geo": "bash scripts/fetch-geo-data.sh && node scripts/simplify-geojson.js && node scripts/populate-density.js",
+    "fetch:geo": "bash scripts/fetch-geo-data.sh",
+    "build:density": "node scripts/build-density-grid.js",
+    "fetch:roads": "node scripts/fetch-roads.js",
     "populate:density": "node scripts/populate-density.js"
   },
   "dependencies": {

@@ -77,7 +77,9 @@
     // ── State ──
     let deptLayer = null;
     let densityLayer = null;
-    let densityData = null;
+    let elevationLayer = null;
+    let roadsLayer = null;
+    let communesLayer = null;
     let currentHighlight = null;
 
     // ── Helpers ──
@@ -156,17 +158,10 @@
       }
     }
 
-    // ── Density overlay ──
-    async function loadDensityData() {
-      if (densityData) return;
-      try {
-        const resp = await fetch('/data/population-density.json');
-        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-        densityData = await resp.json();
-        console.log('✓ Density data loaded');
-      } catch (err) {
-        console.error('Failed to load density data:', err);
-      }
+    // ── Density overlay (commune-level choropleth) ──
+    function clearLegend() {
+      document.getElementById('map-legend-content').innerHTML =
+        '<p class="data-map__legend-placeholder">Sélectionnez une couche pour voir la légende.</p>';
     }
 
     function clearDensityLayer() {
@@ -174,74 +169,218 @@
         map.removeLayer(densityLayer);
         densityLayer = null;
       }
-      document.getElementById('map-legend-content').innerHTML =
-        '<p class="data-map__legend-placeholder">Sélectionnez une couche pour voir la légende.</p>';
+      clearLegend();
     }
 
-    function applyDensity() {
+    async function applyCommuneDensity() {
       clearDensityLayer();
-      if (!deptLayer || !densityData) return;
+      if (!deptLayer) return;
 
-      const densityMap = new Map(
-        densityData.departments.map(d => [d.code, d.density])
-      );
+      try {
+        const resp = await fetch('/data/communes-density.geojson');
+        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+        const data = await resp.json();
 
-      // Build a new GeoJSON layer with density-based fill
-      const geoJsonData = deptLayer.toGeoJSON();
-      densityLayer = L.geoJSON(geoJsonData, {
-        style: (feature) => {
-          const code = feature.properties.code;
-          const density = densityMap.get(code) ?? null;
-          return {
-            color: '#475569',
-            weight: 0.8,
-            fillColor: getDensityColor(density),
-            fillOpacity: 0.7,
-          };
-        },
-        onEachFeature: (feature, layer) => {
-          const code = feature.properties.code;
-          const name = feature.properties.nom || '';
-          const density = densityMap.get(code) ?? null;
-          const tooltipHtml = `${escapeHtml(name)} (${escapeHtml(code)})<br><strong>${getDensityLabel(density)}</strong>`;
-          layer.bindTooltip(tooltipHtml, {
-            sticky: true,
-            direction: 'top',
-            offset: L.point(0, -8),
-            className: 'dept-tooltip dept-tooltip--density',
-          });
-        },
-      });
+        densityLayer = L.geoJSON(data, {
+          style: (feature) => {
+            const density = feature.properties.density || 0;
+            return {
+              color: '#475569',
+              weight: 0.3,
+              fillColor: getDensityColor(density),
+              fillOpacity: 0.7,
+            };
+          },
+          onEachFeature: (feature, layer) => {
+            const name = feature.properties.nom || '';
+            const code = feature.properties.code || '';
+            const density = feature.properties.density || 0;
+            const pop = feature.properties.population || 0;
+            const tooltipHtml = `
+              <strong>${escapeHtml(name)}</strong> (${escapeHtml(code)})<br>
+              <strong>${getDensityLabel(density)}</strong><br>
+              Population: ${pop.toLocaleString('fr-FR')}
+            `;
+            layer.bindTooltip(tooltipHtml, {
+              sticky: true,
+              className: 'dept-tooltip dept-tooltip--density',
+            });
+          },
+        });
 
-      densityLayer.addTo(map);
+        densityLayer.addTo(map);
 
-      // Show legend
-      const legendHtml = `
-        <p class="data-map__legend-subtitle">Densité de population (${densityData.unit})</p>
-        <div class="density-legend">
-          ${makeDensityLegend()}
-        </div>
-        <p class="data-map__legend-source">Source: <a href="${escapeHtml(densityData.sourceUrl)}" target="_blank" rel="noopener">${escapeHtml(densityData.source)}</a></p>
-      `;
-      document.getElementById('map-legend-content').innerHTML = legendHtml;
+        const densities = data.features.map(f => f.properties.density || 0);
+        const maxDen = Math.max(...densities).toLocaleString('fr-FR');
+        const legendHtml = `
+          <p class="data-map__legend-subtitle">Densité de population</p>
+          <p>Par commune (population ≥ 5 000 hab) — ${data.features.length} communes affichées</p>
+          <div class="density-legend">
+            ${makeDensityLegend()}
+          </div>
+          <p class="data-map__legend-source">Source: <a href="https://geo.api.gouv.fr/" target="_blank" rel="noopener">INSEE — via api.gouv.fr</a></p>
+        `;
+        document.getElementById('map-legend-content').innerHTML = legendHtml;
+        console.log('✓ Commune-level density loaded');
+      } catch (err) {
+        console.error('Failed to load commune density:', err);
+        document.getElementById('map-legend-content').innerHTML = `
+          <p class="data-map__legend-subtitle">Densité de population</p>
+          <p>Données non disponibles. Générez-les avec : <code>node scripts/build-density-grid.js</code></p>
+        `;
+      }
     }
 
-    function makeDensityLegend() {
-      const breaks = [0, 30, 60, 100, 150, 300, 500, 1000, 5000];
-      const labels = ['0', '30', '60', '100', '150', '300', '500', '1 000', '5 000', '20 000+'];
-      let html = '';
-      for (let i = 0; i < labels.length; i++) {
-        const color = getDensityColor(breaks[i - 1] !== undefined ? breaks[i - 1] + 1 : 0);
-        html += `<div class="density-legend__item"><span class="density-legend__swatch" style="background:${getDensityColor(i === 0 ? 0 : breaks[i - 1] + 1)}"></span>${labels[i]}</div>`;
+    // ── Elevation (tile overlay — no data file needed) ──
+    function toggleElevation(enabled) {
+      if (enabled) {
+        if (!elevationLayer) {
+          elevationLayer = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://opentopomap.org/about">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)',
+            maxZoom: 17,
+            opacity: 0.7,
+          });
+        }
+        map.addLayer(elevationLayer);
+        document.getElementById('map-legend-content').innerHTML = `
+          <p class="data-map__legend-subtitle">Relief</p>
+          <p>Carte topographique avec courbes de niveau et ombrage du terrain.</p>
+          <p class="data-map__legend-source">Source: <a href="https://opentopomap.org/about" target="_blank" rel="noopener">OpenTopoMap</a> (© contributeurs OSM, SRTM)</p>
+        `;
+      } else {
+        if (elevationLayer) {
+          map.removeLayer(elevationLayer);
+        }
+        clearLegend();
       }
-      // Fix: use correct colors for each break
-      html = '';
-      for (let i = 0; i < labels.length; i++) {
-        const min = i === 0 ? 0 : breaks[i - 1] + 1;
-        const color = getDensityColor(min);
-        html += `<div class="density-legend__item"><span class="density-legend__swatch" style="background:${color}"></span>${labels[i]}</div>`;
+    }
+
+    // ── Roads (GeoJSON overlay) ──
+    let roadsFetched = false;
+
+    async function fetchRoads() {
+      if (roadsFetched) return;
+      try {
+        const resp = await fetch('/data/roads.geojson');
+        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+        const data = await resp.json();
+        roadsFetched = true;
+
+        // Style by road class
+        const roadStyle = (feature) => ({
+          color: feature.properties.highway === 'motorway' ? '#ef4444' : '#f97316',
+          weight: feature.properties.highway === 'motorway' ? 1.8 : 1.2,
+          opacity: 0.8,
+        });
+
+        roadsLayer = L.geoJSON(data, {
+          style: roadStyle,
+          onEachFeature: (feature, layer) => {
+            const name = feature.properties.name || feature.properties.ref || '';
+            const cls = feature.properties.highway === 'motorway' ? 'Autoroute' : 'Route nationale';
+            if (name) {
+              layer.bindTooltip(`${cls}: ${escapeHtml(name)}`, {
+                sticky: true, className: 'dept-tooltip',
+              });
+            }
+          },
+        });
+
+        map.addLayer(roadsLayer);
+
+        const legendHtml = `
+          <p class="data-map__legend-subtitle">Réseau routier</p>
+          <div class="roads-legend">
+            <div class="roads-legend__item">
+              <span class="roads-legend__line roads-legend__line--motorway"></span>
+              Autoroutes
+            </div>
+            <div class="roads-legend__item">
+              <span class="roads-legend__line roads-legend__line--trunk"></span>
+              Routes nationales
+            </div>
+          </div>
+          <p class="data-map__legend-source">Source: <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© les contributeurs d'OpenStreetMap</a></p>
+        `;
+        document.getElementById('map-legend-content').innerHTML = legendHtml;
+        console.log('✓ Roads layer loaded');
+      } catch (err) {
+        console.error('Failed to load roads:', err);
+        document.getElementById('map-legend-content').innerHTML = `
+          <p class="data-map__legend-subtitle">Réseau routier</p>
+          <p>Données non disponibles. Générez-les avec : <code>node scripts/fetch-roads.js</code></p>
+        `;
       }
-      return html;
+    }
+
+    function toggleRoads(enabled) {
+      if (enabled) {
+        fetchRoads();
+      } else {
+        if (roadsLayer) {
+          map.removeLayer(roadsLayer);
+          roadsLayer = null;
+        }
+        clearLegend();
+      }
+    }
+
+    // ── Communes (GeoJSON overlay — from communes-density.geojson) ──
+    let communesFetched = false;
+
+    async function fetchCommunes() {
+      if (communesFetched) return;
+      try {
+        const resp = await fetch('/data/communes-density.geojson');
+        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+        const data = await resp.json();
+        communesFetched = true;
+
+        communesLayer = L.geoJSON(data, {
+          style: {
+            color: '#6366f1',
+            weight: 0.4,
+            fillOpacity: 0,
+          },
+          onEachFeature: (feature, layer) => {
+            const name = feature.properties.nom || '';
+            const code = feature.properties.code || '';
+            const pop = feature.properties.population || 0;
+            if (name) {
+              layer.bindTooltip(`${escapeHtml(name)} (${escapeHtml(code)})<br>Population: ${pop.toLocaleString('fr-FR')}`, {
+                sticky: true, className: 'dept-tooltip',
+              });
+            }
+          },
+        });
+
+        map.addLayer(communesLayer);
+
+        document.getElementById('map-legend-content').innerHTML = `
+          <p class="data-map__legend-subtitle">Communes</p>
+          <p>Limites des ${data.features.length} communes de ≥ 5 000 habitant·es.</p>
+          <p class="data-map__legend-source">Source: <a href="https://geo.api.gouv.fr/" target="_blank" rel="noopener">API géo — data.gouv.fr</a>, <a href="https://github.com/gregoiredavid/france-geojson" target="_blank" rel="noopener">france-geojson</a></p>
+        `;
+        console.log('✓ Communes layer loaded');
+      } catch (err) {
+        console.error('Failed to load communes:', err);
+        document.getElementById('map-legend-content').innerHTML = `
+          <p class="data-map__legend-subtitle">Communes</p>
+          <p>Données non disponibles. Générez-les avec : <code>node scripts/build-density-grid.js</code></p>
+        `;
+      }
+    }
+
+    function toggleCommunes(enabled) {
+      if (enabled) {
+        fetchCommunes();
+      } else {
+        if (communesLayer) {
+          map.removeLayer(communesLayer);
+          communesLayer = null;
+        }
+        clearLegend();
+      }
     }
 
     // ── Layer toggles (custom UI) ──
@@ -251,16 +390,24 @@
         toggle.addEventListener('change', async (e) => {
           const layer = e.target.dataset.mapToggle;
 
-          if (layer === 'density') {
-            if (e.target.checked) {
-              await loadDensityData();
-              applyDensity();
-            } else {
-              clearDensityLayer();
-            }
+          switch (layer) {
+            case 'density':
+              if (e.target.checked) {
+                await applyCommuneDensity();
+              } else {
+                clearDensityLayer();
+              }
+              break;
+            case 'elevation':
+              toggleElevation(e.target.checked);
+              break;
+            case 'roads':
+              toggleRoads(e.target.checked);
+              break;
+            case 'communes':
+              toggleCommunes(e.target.checked);
+              break;
           }
-
-          // Future: other layers (elevation, roads, communes)
         });
       });
     }
@@ -389,6 +536,44 @@
     border-radius: 2px;
     border: 1px solid rgba(255,255,255,0.1);
     flex-shrink: 0;
+  }
+
+  /* ── Roads legend ── */
+  .roads-legend {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    margin: var(--gap-xs) 0;
+  }
+
+  .roads-legend__item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+  }
+
+  .roads-legend__line {
+    display: inline-block;
+    height: 4px;
+    width: 28px;
+    border-radius: 1px;
+    flex-shrink: 0;
+  }
+
+  .roads-legend__line--motorway {
+    background: #ef4444;
+  }
+
+  .roads-legend__line--trunk {
+    background: #f97316;
+  }
+
+  .data-map__legend-warning {
+    color: var(--color-accent-gold, #d4a843);
+    font-size: 0.75rem;
+    margin-top: var(--gap-xs);
   }
 
   /* ── Leaflet overrides ── */

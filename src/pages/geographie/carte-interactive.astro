@@ -19,7 +19,7 @@ import InteractiveDataMap from '../../components/InteractiveDataMap.astro';
           <span class="layer-controls__swatch layer-controls__swatch--density"></span>
           <span class="layer-controls__label">
             <strong>Densité de population</strong>
-            <span class="layer-controls__desc">Habitants par km² par département (INSEE 2021)</span>
+            <span class="layer-controls__desc">Habitants par km² par commune (INSEE via geo.api.gouv.fr)</span>
           </span>
         </label>
 
@@ -41,12 +41,12 @@ import InteractiveDataMap from '../../components/InteractiveDataMap.astro';
           </span>
         </label>
 
-        <label class="layer-controls__item layer-controls__item--disabled" data-map-toggle="communes" for="toggle-communes">
-          <input type="checkbox" id="toggle-communes" data-map-toggle="communes" class="layer-controls__checkbox" disabled>
+        <label class="layer-controls__item" data-map-toggle="communes" for="toggle-communes">
+          <input type="checkbox" id="toggle-communes" data-map-toggle="communes" class="layer-controls__checkbox">
           <span class="layer-controls__swatch layer-controls__swatch--communes"></span>
           <span class="layer-controls__label">
             <strong>Communes</strong>
-            <span class="layer-controls__desc">Limites communales (~35 000, IGN ADMIN EXPRESS) — à venir</span>
+            <span class="layer-controls__desc">Limites des 2 156 communes de ≥ 5 000 habitant·es</span>
           </span>
         </label>
       </div>

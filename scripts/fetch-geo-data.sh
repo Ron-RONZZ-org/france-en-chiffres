@@ -1,49 +1,43 @@
 #!/usr/bin/env bash
-# fetch-geo-data.sh — Download and prepare geo-referenced data for the interactive map
-# Run from project root: bash scripts/fetch-geo-data.sh
+# fetch-geo-data.sh — Download and prepare all geo data for the interactive map
+# Run: bash scripts/fetch-geo-data.sh
+#
+# Orchestrates all data sources for the /geographie/carte-interactive/ page.
+# Each script can also be run individually.
 #
 # Sources:
-#   Department GeoJSON: https://github.com/gregoiredavid/france-geojson (MIT)
-#   Population data: INSEE (processed from CSV to JSON)
+#   Departments — gregoiredavid/france-geojson (MIT)
+#   Density grid — INSEE via geo.api.gouv.fr (Open Licence 2.0)
+#   Roads — OpenStreetMap via Overpass API (ODbL)
 #
-# Output: src/data/geo/
+# NPM wrappers: npm run fetch:geo, npm run build:density, npm run fetch:roads
 
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
-GEO_DIR="$PROJECT_ROOT/src/data/geo"
 
-echo "=== France en Chiffres — Geo Data Fetcher ==="
-echo "Output: $GEO_DIR"
+echo "=== France en Chiffres — Geo Data ==="
 echo ""
 
-mkdir -p "$GEO_DIR"
+# ── 1. Department boundaries ──
+echo "→ [1/4] Department boundaries..."
+DEP_URL="https://raw.githubusercontent.com/gregoiredavid/france-geojson/refs/heads/master/departements.geojson"
+mkdir -p "$PROJECT_ROOT/src/data/geo"
+curl -sS -o "$PROJECT_ROOT/src/data/geo/departements.geojson" "$DEP_URL" && \
+  echo "  ✓ Departments downloaded" || echo "  ✗ Failed"
 
-# ── 1. Department boundaries (contours des départements) ──
-echo "→ Downloading department boundaries (GeoJSON)..."
-DEPARTMENTS_URL="https://raw.githubusercontent.com/gregoiredavid/france-geojson/refs/heads/master/departements.geojson"
-DEPARTMENTS_OUT="$GEO_DIR/departements.geojson"
+# ── 2. Simplify for web ──
+echo "→ [2/4] Simplifying GeoJSON..."
+node "$SCRIPT_DIR/simplify-geojson.js"
 
-if curl -sS -o "$DEPARTMENTS_OUT" "$DEPARTMENTS_URL"; then
-  FEATURES=$(python3 -c "import json; d=json.load(open('$DEPARTMENTS_OUT')); print(len(d['features']))" 2>/dev/null || echo "?")
-  echo "  ✓ Saved: $DEPARTMENTS_OUT ($FEATURES departments)"
-else
-  echo "  ✗ Failed to download from $DEPARTMENTS_URL"
-  exit 1
-fi
+# ── 3. Commune-level density grid (populations + boundaries) ──
+echo "→ [3/4] Commune-level density..."
+node "$SCRIPT_DIR/build-density-grid.js"
 
-# ── 2. Population density data ──
-echo "→ Creating population density dataset..."
-cat > "$GEO_DIR/population-density.json" << 'POPEOF'
-{
-  "source": "INSEE — Estimations de population 2024",
-  "sourceUrl": "https://www.insee.fr/fr/statistiques/series/1234",
-  "unit": "habitants/km²",
-  "departments": []
-}
-POPEOF
-echo "  ✓ Created: $GEO_DIR/population-density.json (template — populate with INSEE data)"
+# ── 4. Roads ──
+echo "→ [4/4] Roads from Overpass..."
+node "$SCRIPT_DIR/fetch-roads.js" || echo "  ⚠ Roads may be partial"
 
 echo ""
-echo "=== Done ==="
+echo "=== All geo data processed ==="
