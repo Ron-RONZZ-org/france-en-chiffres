@@ -40,16 +40,14 @@ const toggleCount = (html.match(/data-map-toggle/g) || []).length;
 assert.ok(toggleCount >= 4, `Must have at least 4 layer toggles (found ${toggleCount})`);
 console.log(`✓ Test 3: ${toggleCount} layer toggle controls found`);
 
-// ── Test 4: Density toggle is enabled, future layers are disabled ──
-assert.ok(
-  html.includes('id="toggle-density"'),
-  'Density toggle must exist'
-);
-assert.ok(
-  html.includes('disabled') && html.includes('toggle-elevation'),
-  'Elevation toggle should be disabled (future layer)'
-);
-console.log('✓ Test 4: Layer toggles correctly enabled/disabled');
+// ── Test 4: All layer toggles present and enabled ──
+const toggleIds = ['toggle-density', 'toggle-elevation', 'toggle-roads', 'toggle-communes'];
+for (const id of toggleIds) {
+  assert.ok(html.includes(`id="${id}"`), `Toggle ${id} must exist`);
+  // No checkbox should be disabled
+  assert.ok(!html.includes(`id="${id}" disabled`), `Toggle ${id} must not be disabled`);
+}
+console.log(`✓ Test 4: All ${toggleIds.length} layer toggles enabled`);
 
 // ── Test 5: GeoJSON data files exist in build output ──
 const geoJsonPath = path.join(distDir, 'data', 'departements.geojson');
@@ -96,5 +94,27 @@ console.log('✓ Test 9: No-JS fallback present');
 const srcGeoJson = path.join(geoDir, 'departements.geojson');
 assert.ok(fs.existsSync(srcGeoJson), 'Source departements.geojson must exist in src/data/geo/');
 console.log('✓ Test 10: Source GeoJSON in src/data/geo/');
+
+// ── Test 11: Road network data exists ──
+const roadsPath = path.join(distDir, 'data', 'roads.geojson');
+if (fs.existsSync(roadsPath)) {
+  const roads = JSON.parse(fs.readFileSync(roadsPath, 'utf-8'));
+  assert.equal(roads.type, 'FeatureCollection', 'Roads must be a FeatureCollection');
+  assert.ok(roads.features.length > 0, `Must have road features (found ${roads.features.length})`);
+  console.log(`✓ Test 11: roads.geojson valid (${roads.features.length} segments)`);
+} else {
+  console.log('⚠ Test 11: roads.geojson not found — generate with node scripts/fetch-roads.js');
+}
+
+// ── Test 12: Commune boundaries data exists ──
+const communesPath = path.join(distDir, 'data', 'communes.geojson');
+if (fs.existsSync(communesPath)) {
+  const communes = JSON.parse(fs.readFileSync(communesPath, 'utf-8'));
+  assert.equal(communes.type, 'FeatureCollection', 'Communes must be a FeatureCollection');
+  assert.ok(communes.features.length > 0, `Must have commune features (found ${communes.features.length})`);
+  console.log(`✓ Test 12: communes.geojson valid (${communes.features.length} communes)`);
+} else {
+  console.log('⚠ Test 12: communes.geojson not found — generate with node scripts/fetch-communes.js');
+}
 
 console.log('\n🎉 All interactive map tests passed!');
