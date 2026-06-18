@@ -1,0 +1,11 @@
+{
+  "id": "constitutio-antoniniana",
+  "type": "entry-encyclopedia",
+  "title": "Constitutio Antoniniana — Roman citizenship edict (212 CE)",
+  "author": [{ "literal": "Wikipedia contributors" }],
+  "publisher": "Wikipedia, The Free Encyclopedia",
+  "issued": { "date-parts": [[2026, 3, 7]] },
+  "URL": "https://en.wikipedia.org/wiki/Constitutio_Antoniniana",
+  "accessed": { "date-parts": [[2026, 6, 17]] },
+  "note": "Édit de Caracalla (Constitutio Antoniniana) de 212 EC accordant la citoyenneté romaine à tous les hommes libres de l'Empire. Source primaire : Cassius Dio, Histoire romaine LXXVIII.9 ; Digest 1.5.17 (Ulpien)."
+}

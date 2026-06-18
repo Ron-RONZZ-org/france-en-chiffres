@@ -19,6 +19,7 @@ The site uses Astro (static site generator) with Tailwind CSS for styling, and a
 
 - Use **point médian** for gender-dependent nouns and adjectives when the subject includes people of multiple genders: chercheur·e, agriculteur·euse, heureux·euse, e·ils (instead of ils)
   - Do NOT use point médian when the subjects are known to be all masculine (e.g., kings, bishops in the Middle Ages, unless you are sure there was a female)
+  - the gender neutral form for "they" in French is "e·ils", NOT "e·lls")
 - Maintain **religious neutrality** with AEC/EC (avant ère commune / ère commune) instead of av. J.-C. / apr. J.-C.
 
 ### Grammar

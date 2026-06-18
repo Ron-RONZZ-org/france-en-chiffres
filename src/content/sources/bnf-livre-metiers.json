@@ -1,0 +1,8 @@
+{
+  "id": "bnf-livre-metiers",
+  "type": "book",
+  "title": "Livre des métiers (Le Livre des métiers d'Étienne Boileau)",
+  "author": [{ "family": "Boileau", "given": "Étienne" }],
+  "issued": { "date-parts": [["~1268"]] },
+  "note": "Registre des corporations parisiennes rédigé par le prévôt de Paris Étienne Boileau vers 1268 — document fondateur pour l'histoire des métiers à Paris au XIIIe siècle"
+}
