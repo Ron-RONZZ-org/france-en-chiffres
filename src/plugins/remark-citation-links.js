@@ -1,15 +1,15 @@
 /**
- * rehype-citation-links.js
+ * remark-citation-links.js
  *
- * Rehype plugin that transforms `[source: id]` patterns in Markdown body text
+ * Remark plugin that transforms `[source: id]` patterns in Markdown body text
  * into numbered superscript citation links pointing to the bibliography page.
  *
  * Syntax in Markdown:
- *   Some text [source: bnf] and more text [source: insee-2024].
+ *   Some text [source:bnf] and more text [source:insee-2024].
  *
  * Output HTML:
- *   Some text <sup class="citation"><a href="/bibliography/bnf" data-source-id="bnf">[1]</a></sup>
- *   and more text <sup class="citation"><a href="/bibliography/insee-2024" data-source-id="insee-2024">[2]</a></sup>
+ *   Some text <sup class="citation"><a href="/bibliographie/bnf" data-source-id="bnf">[1]</a></sup>
+ *   and more text <sup class="citation"><a href="/bibliographie/insee-2024" data-source-id="insee-2024">[2]</a></sup>
  *
  * Citations are numbered sequentially in order of appearance.
  * This plugin runs at build time — zero client JS required.
@@ -17,12 +17,12 @@
 
 import { visit } from 'unist-util-visit';
 
-const CITATION_RE = /\[source:\s+([\w-]+)\]/g;
+const CITATION_RE = /\[source:\s*([\w-]+)\]/g;
 
 /**
  * @returns {import('unified').Plugin}
  */
-export default function rehypeCitationLinks() {
+export default function remarkCitationLinks() {
   /** Sequential counter scoped to one tree traversal */
   let counter = 0;
 
@@ -60,21 +60,8 @@ export default function rehypeCitationLinks() {
         counter++;
 
         children.push({
-          type: 'element',
-          tagName: 'sup',
-          properties: { className: ['citation'] },
-          children: [
-            {
-              type: 'element',
-              tagName: 'a',
-              properties: {
-                href: `/bibliography/${sourceId}`,
-                'data-source-id': sourceId,
-                title: `Source : ${sourceId}`,
-              },
-              children: [{ type: 'text', value: `[${counter}]` }],
-            },
-          ],
+          type: 'html',
+          value: `<sup class="citation"><a href="/bibliographie/${sourceId}" data-source-id="${sourceId}" title="Source : ${sourceId}">[${counter}]</a></sup>`,
         });
 
         last = match.index + match[0].length;

@@ -102,7 +102,7 @@ if (fs.existsSync(contentEventsDir)) {
 }
 
 // ── Test 8: Media thumbnails rendered in built HTML ──
-const distHistory = path.join(__dirname, '..', '..', 'dist', 'history', 'index.html');
+const distHistory = path.join(__dirname, '..', '..', 'dist', 'histoire', 'index.html');
 if (fs.existsSync(distHistory)) {
   const html = fs.readFileSync(distHistory, 'utf-8');
 

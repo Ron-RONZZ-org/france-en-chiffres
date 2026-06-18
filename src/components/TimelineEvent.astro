@@ -186,7 +186,7 @@ const refMedia = event.mediaId ? await getMedia(event.mediaId) : undefined;
           <div class="tippy-preview__divider" style="background:${ACCENT}"></div>
           <p class="tippy-preview__description">${escapeHTML(description)}</p>
           ${slug
-            ? `<a href="/evenements/${escapeHTML(slug)}" class="tippy-preview__link">Lire l'article →</a>`
+            ? `<a href="/histoire/${escapeHTML(slug)}" class="tippy-preview__link">Lire l'article →</a>`
             : ''
           }
         </div>

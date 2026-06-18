@@ -12,7 +12,7 @@ const fs = require('fs');
 const path = require('path');
 
 // The same regex used by the rehype plugin and the page component
-const CITATION_RE = /\[source:\s+([\w-]+)\]/g;
+const CITATION_RE = /\[source:\s*([\w-]+)\]/g;
 
 // ── Helper: extract source IDs from body text ──
 function extractSourceIds(body) {
@@ -108,13 +108,13 @@ console.log('✓ Test 6: All inline [source: id] references in events resolve to
 const distDir = path.join(__dirname, '..', '..', 'dist');
 if (fs.existsSync(distDir)) {
   // Use the first event that has inline citations
-  const eventDirs = fs.readdirSync(path.join(distDir, 'evenements'))
-    .filter(f => fs.statSync(path.join(distDir, 'evenements', f)).isDirectory());
+  const eventDirs = fs.readdirSync(path.join(distDir, 'histoire'))
+    .filter(f => fs.statSync(path.join(distDir, 'histoire', f)).isDirectory());
 
   // Find first event with actual [source:] citations
   let eventPage = null;
   for (const slug of eventDirs) {
-    const indexPath = path.join(distDir, 'evenements', slug, 'index.html');
+    const indexPath = path.join(distDir, 'histoire', slug, 'index.html');
     if (fs.existsSync(indexPath)) {
       const candidateHtml = fs.readFileSync(indexPath, 'utf-8');
       if (candidateHtml.includes('<sup class="citation">')) {

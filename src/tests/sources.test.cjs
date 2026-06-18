@@ -52,7 +52,7 @@ if (fs.existsSync(contentEventsDir)) {
     const bodyMatch = content.match(/---\n[\s\S]*?\n---\n([\s\S]*)/);
     if (!bodyMatch) continue;
     const body = bodyMatch[1];
-    const refRegex = /\[source:\s+([\w-]+)\]/g;
+    const refRegex = /\[source:\s*([\w-]+)\]/g;
     let match;
     while ((match = refRegex.exec(body)) !== null) {
       const refId = match[1];
@@ -69,15 +69,15 @@ console.log('✓ Test 2: All inline [source:] citations resolve to valid source 
 // ── Test 3: Build output includes bibliography pages ──
 const distDir = path.join(__dirname, '..', '..', 'dist');
 if (fs.existsSync(distDir)) {
-  const bibIndex = path.join(distDir, 'bibliography', 'index.html');
+  const bibIndex = path.join(distDir, 'bibliographie', 'index.html');
   assert.ok(fs.existsSync(bibIndex),
-    'Built /bibliography/index.html must exist');
+    'Built /bibliographie/index.html must exist');
   const html = fs.readFileSync(bibIndex, 'utf-8');
   assert.ok(html.includes('Bibliographie'),
     'Bibliography page must contain "Bibliographie"');
 
   // Check that at least some per-source pages were generated
-  const bibDir = path.join(distDir, 'bibliography');
+  const bibDir = path.join(distDir, 'bibliographie');
   const pages = fs.existsSync(bibDir)
     ? fs.readdirSync(bibDir, { recursive: true }).filter(f => f.endsWith('index.html'))
     : [];

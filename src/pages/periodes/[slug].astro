@@ -25,7 +25,7 @@ const events = matchedEra?.events ?? [];
 <Base title={`${era.title} — Histoire`} description={era.description ?? `Période ${era.period}`}>
   <article class="era-page">
     <header class="era-page__header" style={{ '--era-color': era.color }}>
-      <a href="/history" class="era-page__back">← Chronologie</a>
+      <a href="/histoire" class="era-page__back">← Chronologie</a>
       <time class="era-page__period">{era.period}</time>
       <h1 class="era-page__title">{era.title}</h1>
       {era.description && (
