@@ -1,0 +1,12 @@
+{
+  "id": "britannica-jacquerie",
+  "type": "entry-encyclopedia",
+  "title": "Jacquerie",
+  "author": [
+    { "literal": "The Editors of Encyclopaedia Britannica" }
+  ],
+  "publisher": "Encyclopaedia Britannica",
+  "issued": { "date-parts": [[2026, 6, 3]] },
+  "URL": "https://www.britannica.com/event/Jacquerie",
+  "accessed": { "date-parts": [[2026, 6, 17]] }
+}

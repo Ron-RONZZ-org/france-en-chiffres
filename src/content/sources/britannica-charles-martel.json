@@ -1,0 +1,13 @@
+{
+  "id": "britannica-charles-martel",
+  "type": "entry-encyclopedia",
+  "title": "Charles Martel",
+  "author": [
+    { "family": "Duckett", "given": "Eleanor Shipley" },
+    { "literal": "The Editors of Encyclopaedia Britannica" }
+  ],
+  "publisher": "Encyclopaedia Britannica",
+  "issued": { "date-parts": [[2026, 5, 15]] },
+  "URL": "https://www.britannica.com/biography/Charles-Martel",
+  "accessed": { "date-parts": [[2026, 6, 17]] }
+}

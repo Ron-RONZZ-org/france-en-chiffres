@@ -7,5 +7,5 @@ export default defineConfig({
   markdown: {
     rehypePlugins: [rehypeCitationLinks],
   },
-  site: 'https://france-en-chiffres.netlify.app',
+  site: 'https://france-stats.org',
 });

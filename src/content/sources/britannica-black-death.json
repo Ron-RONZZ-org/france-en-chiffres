@@ -1,0 +1,10 @@
+{
+  "id": "britannica-black-death",
+  "type": "entry-encyclopedia",
+  "title": "Black Death",
+  "author": [{ "literal": "The Editors of Encyclopaedia Britannica" }],
+  "publisher": "Encyclopaedia Britannica",
+  "issued": { "date-parts": [[2025]] },
+  "URL": "https://www.britannica.com/event/Black-Death",
+  "accessed": { "date-parts": [[2026, 6, 17]] }
+}

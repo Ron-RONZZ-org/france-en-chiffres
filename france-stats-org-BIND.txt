@@ -1,0 +1,20 @@
+; DNS records for france-stats.org → GitHub Pages
+; Upload this zone file to your DNS provider (registrar or DNS host).
+;
+; IMPORTANT: Verify the current GitHub Pages IPs before applying:
+; https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site#configuring-an-apex-domain
+
+; ── Apex domain (france-stats.org) ──
+; Point to GitHub Pages servers (copy all four records)
+france-stats.org.    IN  A   185.199.108.153
+france-stats.org.    IN  A   185.199.109.153
+france-stats.org.    IN  A   185.199.110.153
+france-stats.org.    IN  A   185.199.111.153
+
+; ── www subdomain ──
+; Redirect www → GitHub Pages (CNAME to your user site)
+www.france-stats.org.  IN  CNAME  ron-ronzz-org.github.io.
+
+; ── GitHub Pages verification TXT (recommended) ──
+; Prevents someone else from claiming your domain on GitHub Pages
+france-stats.org.    IN  TXT  "github-pages-verify=replace-with-your-verification-token"

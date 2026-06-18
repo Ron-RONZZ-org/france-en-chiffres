@@ -1,0 +1,11 @@
+{
+  "id": "britannica-hugh-capet",
+  "type": "entry-encyclopedia",
+  "title": "Hugh Capet",
+  "author": [
+    { "literal": "The Editors of Encyclopaedia Britannica" }
+  ],
+  "publisher": "Encyclopaedia Britannica",
+  "URL": "https://www.britannica.com/biography/Hugh-Capet",
+  "accessed": { "date-parts": [[2026, 6, 17]] }
+}
