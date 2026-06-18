@@ -178,8 +178,12 @@
       clearDensityLayer();
       if (!deptLayer) return;
 
+      // Show loading indicator
+      document.getElementById('map-legend-content').innerHTML =
+        '<p class="data-map__legend-subtitle">Densité de population</p><p class="data-map__legend-loading">Chargement des données...</p>';
+
       try {
-        const resp = await fetch('/data/communes-density.geojson');
+        const resp = await fetch('/data/density-simple.geojson');
         if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
         const data = await resp.json();
 
@@ -586,6 +590,17 @@
     color: var(--color-accent-gold, #d4a843);
     font-style: italic;
     margin-bottom: var(--gap-xs);
+  }
+
+  .data-map__legend-loading {
+    font-style: italic;
+    color: var(--color-accent-gold, #d4a843);
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
   }
 
   /* ── Leaflet overrides ── */

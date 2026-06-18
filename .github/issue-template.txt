@@ -1,0 +1,57 @@
+## Overview
+
+Three-part proposal for the geography section.
+
+---
+
+## Part 1 — Speed: commune/population density layer loads too slowly
+
+**Problem**: Enabling the density layer takes ~1 minute because `communes-density.geojson` is 13 MB gzipped (35k polygons). Parsing and rendering all features at once blocks the UI.
+
+**Proposed fixes**:
+- Convert to **TopoJSON** format — deduplicates shared boundaries, 60–80% smaller
+- Add a **loading indicator** so the user knows something is happening
+- **Simplify geometry** more aggressively for the density layer
+- Use a **Web Worker** for GeoJSON parsing
+
+---
+
+## Part 2 — Geography home page
+
+**Current**: `/geographie/` is a placeholder with links.
+
+**Goal**: A proper listing page with two tiles:
+1. Carte des départements — SVG map preview, click → department page
+2. Carte interactive — Leaflet map preview, data exploration
+
+---
+
+## Part 3 — Department pages (96 content files + dedicated pages)
+
+**Goal**: One `src/content/departements/<code>.md` per department, rendered to `/geographie/departements/<slug>/`.
+
+The SVG map becomes an entry point: clicking a department navigates to its page.
+
+**Architecture needed**:
+- New Content Collection `departements` in `src/content/config.ts` with Zod schema
+- 96 `.md` files scaffolded from existing GeoJSON + INSEE data
+- Page template `src/pages/geographie/departements/[slug].astro`
+- Updated click behavior on `InteractiveFranceMap.astro`
+- Editorial script: `npm run new:dept -- <code>`
+
+**Data sources already available**:
+- `src/data/geo/departements.geojson` — codes, names, geometries
+- `src/data/population-density.json` — population, area, density
+
+---
+
+## Phased implementation
+
+| Phase | What | Effort |
+|---|---|---|
+| P1 | Speed: TopoJSON + loading indicator | 1 day |
+| P2 | Geography home page (tiles) | 0.5 day |
+| P3 | Department Content Collection schema + scaffolding | 1 day |
+| P4 | 96 auto-generated .md files | 0.5 day |
+| P5 | Department page template + SVG nav click | 1 day |
+| P6 | Editorial workflows + tests | 1 day |

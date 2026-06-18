@@ -153,6 +153,23 @@ const deptTransform = departmentsData.transform;
       });
     };
 
+    // ── Click → navigate to department page (geography variant only) ──
+    function setupNavigation() {
+      if (!isGeo) return;
+
+      const allClickable = document.querySelectorAll('.department--geography, .dom-insets__item--geography');
+      allClickable.forEach((el) => {
+        el.addEventListener('click', (e) => {
+          // Don't navigate if Tippy is handling the click (touch devices)
+          if (isTouch) return;
+          const num = el.dataset.num || el.dataset.previewNum;
+          if (num) {
+            window.location.href = `/geographie/departements/${num}/`;
+          }
+        });
+      });
+    }
+
     // ── Departments ──
     const deptSelector = isGeo ? '.department--geography' : '.france-map-layout .department';
     const depts = document.querySelectorAll(deptSelector);
@@ -162,6 +179,9 @@ const deptTransform = departmentsData.transform;
     const domSelector = isGeo ? '.dom-insets__item--geography' : '.france-map-layout .dom-insets__item';
     const domItems = document.querySelectorAll(domSelector);
     domItems.forEach((item) => makeTippy(item, domItems));
+
+    // ── Navigate on click ──
+    setupNavigation();
   })();
 </script>
 
