@@ -12,8 +12,9 @@
     "test:citations": "node src/tests/citations.test.cjs",
     "new:event": "scripts/new-event.sh",
     "new:era": "scripts/new-era.sh",
-    "test:all": "npm run build && npm run test && npm run test:sources && npm run test:media && npm run test:citations",
-    "test:media": "node src/tests/media.test.cjs"
+    "test:all": "npm run build && npm run test && npm run test:sources && npm run test:media && npm run test:citations && npm run test:agents",
+    "test:media": "node src/tests/media.test.cjs",
+    "test:agents": "node src/tests/agents.test.cjs"
   },
   "dependencies": {
     "@astrojs/tailwind": "^6.0.2",

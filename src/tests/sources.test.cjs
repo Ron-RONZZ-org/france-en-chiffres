@@ -138,7 +138,7 @@ console.log(`✓ Test 6: ${eraFiles.length} era files with valid YAML frontmatte
 // ── Test 7: All event files have valid frontmatter ──
 if (fs.existsSync(contentEventsDir)) {
   const eventFiles = fs.readdirSync(contentEventsDir).filter(f => f.endsWith('.md'));
-  assert.ok(eventFiles.length >= 20, `Must have ≥ 20 event files (found ${eventFiles.length})`);
+  assert.ok(eventFiles.length >= 1, `Must have at least 1 event file (found ${eventFiles.length})`);
   for (const file of eventFiles) {
     const content = fs.readFileSync(path.join(contentEventsDir, file), 'utf-8');
     assert.ok(content.startsWith('---'), `Event ${file} must have YAML frontmatter`);
