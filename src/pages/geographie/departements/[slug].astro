@@ -1,0 +1,184 @@
+---
+import Base from '../../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+import { getDepartment, getAllDepartments } from '../../../data/departements';
+
+export async function getStaticPaths() {
+  const depts = await getAllDepartments();
+  return depts.map((dept) => ({
+    params: { slug: dept.slug || dept.code },
+    props: { dept },
+  }));
+}
+
+const { dept } = Astro.props;
+const { Content } = await (await getCollection('departements'))
+  .find(e => e.data.code === dept.code)
+  ?.render() ?? {};
+---
+
+<Base title={`${dept.nom} (${dept.code}) — Géographie`} description={`Le département ${dept.nom} (${dept.code}) en chiffres : population, superficie, densité. ${dept.region}.`}>
+  <article class="dept-page">
+    <header class="dept-page__header">
+      <a href="/geographie/departements-francais" class="dept-page__back">← Carte des départements</a>
+      <div class="dept-page__title-row">
+        <span class="dept-page__code">{dept.code}</span>
+        <h1 class="dept-page__title">{dept.nom}</h1>
+      </div>
+      <p class="dept-page__region">{dept.region}</p>
+    </header>
+
+    <div class="dept-page__stats">
+      <div class="stat-card">
+        <span class="stat-card__value">{dept.population.toLocaleString('fr-FR')}</span>
+        <span class="stat-card__label">Habitant·es</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-card__value">{dept.area.toLocaleString('fr-FR')} km²</span>
+        <span class="stat-card__label">Superficie</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-card__value">{dept.density.toLocaleString('fr-FR')}</span>
+        <span class="stat-card__label">hab/km²</span>
+      </div>
+    </div>
+
+    {dept.prefecture && (
+      <p class="dept-page__prefecture">Préfecture : {dept.prefecture}</p>
+    )}
+
+    <div class="dept-page__body">
+      {Content ? <Content /> : (
+        <p class="dept-page__placeholder">
+          Page en construction. Les informations sur ce département seront bientôt disponibles.
+        </p>
+      )}
+    </div>
+
+    <footer class="dept-page__footer">
+      <a href="/geographie/departements-francais" class="btn btn--ghost">← Retour à la carte des départements</a>
+    </footer>
+  </article>
+</Base>
+
+<style>
+  .dept-page {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: var(--gap-xl) var(--gap-lg) var(--gap-2xl);
+  }
+
+  .dept-page__back {
+    display: inline-block;
+    color: var(--color-text-muted);
+    font-size: 0.875rem;
+    margin-bottom: var(--gap-lg);
+    transition: color var(--transition-fast);
+  }
+
+  .dept-page__back:hover {
+    color: var(--color-french-blue);
+  }
+
+  .dept-page__title-row {
+    display: flex;
+    align-items: baseline;
+    gap: var(--gap-md);
+    margin-bottom: var(--gap-sm);
+  }
+
+  .dept-page__code {
+    font-family: var(--font-mono, monospace);
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--color-french-blue);
+    line-height: 1;
+    opacity: 0.6;
+  }
+
+  .dept-page__title {
+    font-family: var(--font-serif);
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 800;
+    color: var(--color-text-light);
+    margin: 0;
+    line-height: 1.1;
+  }
+
+  .dept-page__region {
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+    margin-bottom: var(--gap-lg);
+  }
+
+  /* ── Stats row ── */
+  .dept-page__stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--gap-md);
+    margin-bottom: var(--gap-lg);
+  }
+
+  .stat-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: var(--gap-md);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-bg-card);
+  }
+
+  .stat-card__value {
+    font-family: var(--font-serif);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--color-accent-gold);
+  }
+
+  .stat-card__label {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    margin-top: var(--gap-xs);
+  }
+
+  .dept-page__prefecture {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    margin-bottom: var(--gap-lg);
+    text-align: center;
+  }
+
+  .dept-page__body {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--color-text-light);
+  }
+
+  .dept-page__body :global(h2) {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-top: var(--gap-xl);
+    margin-bottom: var(--gap-md);
+    color: var(--color-text-light);
+  }
+
+  .dept-page__placeholder {
+    text-align: center;
+    color: var(--color-text-muted);
+    font-style: italic;
+    padding: var(--gap-xl) 0;
+  }
+
+  .dept-page__footer {
+    margin-top: var(--gap-2xl);
+    text-align: center;
+  }
+
+  @media (max-width: 500px) {
+    .dept-page__stats {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

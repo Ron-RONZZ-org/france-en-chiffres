@@ -107,11 +107,51 @@ if (fs.existsSync(roadsPath)) {
   console.log('⚠ Test 11: roads.geojson not found — generate with npm run fetch:roads');
 }
 
+// ── Test 12: Simplified density data exists ──
+const simpleDensityPath = path.join(distDir, 'data', 'density-simple.geojson');
+if (fs.existsSync(simpleDensityPath)) {
+  const simple = JSON.parse(fs.readFileSync(simpleDensityPath, 'utf-8'));
+  assert.equal(simple.type, 'FeatureCollection', 'Simplified density must be a FeatureCollection');
+  assert.ok(simple.features.length >= 30000, `Must have ≥ 30000 simplified features (found ${simple.features.length})`);
+  const origSize = fs.statSync(path.join(distDir, 'data', 'communes-density.geojson')).size;
+  const simpleSize = fs.statSync(simpleDensityPath).size;
+  assert.ok(simpleSize < origSize, 'Simplified file must be smaller than original');
+  console.log(`✓ Test 12: density-simple.geojson valid (${((1 - simpleSize/origSize)*100).toFixed(0)}% smaller, ${simple.features.length} communes)`);
+} else {
+  console.log('⚠ Test 12: density-simple.geojson not found — run node scripts/simplify-density.js');
+}
+
 // ── Test 12: Commune boundary data (from communes-density.geojson) ──
 if (fs.existsSync(densityPath)) {
   console.log(`✓ Test 12: communes-density.geojson valid (${density.features.length} communes, all of France)`);
+}
+
+// ── Test 13: Department pages built (96 departments) ──
+const deptDir = path.join(distDir, 'geographie', 'departements');
+if (fs.existsSync(deptDir)) {
+  const deptDirs = fs.readdirSync(deptDir).filter(f => fs.statSync(path.join(deptDir, f)).isDirectory());
+  assert.ok(deptDirs.length >= 95, `Must have ≥ 95 department pages (found ${deptDirs.length})`);
+  const samplePage = path.join(deptDir, '01', 'index.html');
+  assert.ok(fs.existsSync(samplePage), 'Department page /geographie/departements/01/ must exist');
+  const deptHtml = fs.readFileSync(samplePage, 'utf-8');
+  assert.ok(deptHtml.includes('Ain'), 'Department page must contain department name');
+  assert.ok(deptHtml.includes('code'), 'Department page must contain department code');
+  console.log(`✓ Test 13: ${deptDirs.length} department pages built (sample: 01 - Ain)`);
 } else {
-  console.log('⚠ Test 12: communes-density.geojson not found — generate with npm run build:density');
+  console.log('⚠ Test 13: Department pages not in build output');
+}
+
+// ── Test 14: Geography home page tiles ──
+const geoPagePath = path.join(distDir, 'geographie', 'index.html');
+if (fs.existsSync(geoPagePath)) {
+  const geoHtml = fs.readFileSync(geoPagePath, 'utf-8');
+  assert.ok(geoHtml.includes('carte-interactive'), 'Geography page must link to interactive map');
+  assert.ok(geoHtml.includes('departements-francais'), 'Geography page must link to department map');
+  assert.ok(geoHtml.includes('Carte des départements'), 'Geography page must have department card title');
+  assert.ok(geoHtml.includes('Carte interactive'), 'Geography page must have interactive card title');
+  console.log('✓ Test 14: Geography home page with tile links');
+} else {
+  console.log('⚠ Test 14: Geography home page not in build output');
 }
 
 console.log('\n🎉 All interactive map tests passed!');

@@ -28,6 +28,7 @@ export const eventSchema = z.object({
   title: z.string().min(1),
   description: z.string().optional(),
   mediaId: z.string().optional(),
+  departmentId: z.string().optional(),
 }).refine(
   (data) => data.end >= data.start,
   { message: 'end must be >= start', path: ['end'] }
@@ -90,6 +91,20 @@ const mediaSchema = z.object({
   height: z.number().optional(),
 });
 
+// ── Departments ──
+
+export const departmentSchema = z.object({
+  code: z.string().regex(/^(\d{2,3}|[2-9][A-B])$/, 'Must be a valid department code'),
+  nom: z.string().min(1),
+  region: z.string().min(1),
+  prefecture: z.string().optional(),
+  mediaIds: z.array(z.string()).optional(),
+  sourceIds: z.array(z.string()).optional(),
+}).transform((data) => ({
+  ...data,
+  slug: data.code,
+}));
+
 // ── Export collections ──
 
 export const collections = {
@@ -97,6 +112,7 @@ export const collections = {
   events:  defineCollection({ type: 'content', schema: eventSchema }),
   sources: defineCollection({ type: 'data',    schema: sourceSchema }),
   media:   defineCollection({ type: 'data',    schema: mediaSchema }),
+  departements: defineCollection({ type: 'content', schema: departmentSchema }),
 };
 
 // ── Convenience types ──
@@ -105,3 +121,4 @@ export type Era = z.infer<typeof eraSchema>;
 export type TimelineEvent = z.infer<typeof eventSchema>;
 export type CslSource = z.infer<typeof sourceSchema>;
 export type MediaEntry = z.infer<typeof mediaSchema>;
+export type Department = z.infer<typeof departmentSchema>;
