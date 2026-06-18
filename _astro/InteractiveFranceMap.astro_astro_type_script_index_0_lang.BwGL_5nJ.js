@@ -1,6 +1,0 @@
-import{t as s}from"./shift-away.C_6sW2wX.js";(()=>{if(!(document.querySelector(".geography-layout")!==null))return;const o="ontouchstart"in window||navigator.maxTouchPoints>0,d="#d4a843",i=e=>{const n=document.createElement("div");return n.textContent=e,n.innerHTML},a=e=>{const n=e.dataset.previewName||"",t=e.dataset.previewNum||"";return`
-        <div class="geog-preview" style="--accent:${d}">
-          <span class="geog-preview__num">${i(t)}</span>
-          <h4 class="geog-preview__title">${i(n)}</h4>
-        </div>
-      `},c=document.querySelectorAll(".department--geography");c.forEach(e=>{s(e,{content:a(e),allowHTML:!0,trigger:o?"click":"mouseenter",interactive:!1,hideOnClick:o,placement:"top",maxWidth:280,theme:"dark",animation:"shift-away",duration:[250,150],appendTo:document.body,onShow(n){c.forEach(t=>{t!==e&&t._tippy&&t._tippy.hide()})}})});const r=document.querySelectorAll(".dom-insets__item--geography");r.forEach(e=>{s(e,{content:a(e),allowHTML:!0,trigger:o?"click":"mouseenter",interactive:!1,hideOnClick:o,placement:"top",maxWidth:280,theme:"dark",animation:"shift-away",duration:[250,150],appendTo:document.body,onShow(n){r.forEach(t=>{t!==e&&t._tippy&&t._tippy.hide()})}})})})();
