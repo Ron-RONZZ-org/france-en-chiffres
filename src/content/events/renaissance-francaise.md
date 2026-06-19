@@ -16,7 +16,7 @@ En 1470, six ans plus tôt, trois imprimeurs allemands — Gering, Friburger et 
 
 Ce qu'Antoine ne peut pas savoir — pas encore — c'est que les caractères de plomb qu'il assemble chaque jour vont bouleverser la France plus profondément que n'importe quelle armée. L'imprimerie et le bouillonnement italien arrivent ensemble : les idées de la Renaissance, reproduites par centaines de presses, se répandent dans tout le royaume avec une vitesse inédite.
 
-## Les guerres d'Italie : le choc de la découverte (1494–1559)
+## Les guerres d'Italie : une découverte éventuelle(1494–1559)
 
 En 1494, le jeune roi Charles VIII, vingt-quatre ans, descend en Italie avec une armée de 30 000 hommes pour revendiquer le royaume de Naples. Militairement, l'expédition fut un demi-succès : Charles entra dans Naples presque sans combat, mais une coalition le força à battre en retraite dès l'année suivante. Cependant, son expédition fut un séisme inattendu : non pas parce qu'il avait brièvement occupé Naples [source:britannica-renaissance-france], mais parce qu'il avait involontairement exposé la France à un très grand mouvement qui était en plein essor en Italie.
 
@@ -49,18 +49,19 @@ Les conséquences furent immenses :
 - **Les textes antiques** — Platon, Aristote, Plutarque — furent diffusés massivement, traduits du grec et du latin en français par des humanistes comme Guillaume Budé.
 - **La Bible** fut traduite et imprimée en français dès les années 1520 par Lefèvre d'Étaples, permettant aux croyant·es de lire les textes sacrés sans passer par le clergé.
 - **Les idées nouvelles** — celles de la Renaissance italienne, puis celles de la Réforme protestante — circulèrent d'une ville à l'autre en quelques semaines, portées par les colporteur·euses.
-- **La structure sociale s'en trouva bouleversée** : l'imprimerie créa des métiers nouveaux (imprimeur·euses, correcteur·ices, libraires) et fit émerger une bourgeoisie lettrée qui concurrençait le clergé dans la production et la diffusion du savoir. Le livre imprimé permit à des milliers de personnes d'accéder aux textes sans passer par l'Église, affaiblissant le monopole intellectuel du clergé et préparant l'émergence d'un espace public — un siècle avant les premiers journaux[source:britannica-renaissance-france].
+
+Ainsi la société française s'en trouva bouleversée** : l'imprimerie créa des métiers nouveaux (imprimeur·euses, correcteur·ices, libraires) et fit émerger une bourgeoisie lettrée qui concurrençait le clergé dans la production et la diffusion du savoir. Le livre imprimé permit à des milliers de personnes d'accéder aux textes sans passer par l'Église, affaiblissant **le monopole intellectuel du clergé** et préparant l'émergence d'un espace public — un siècle avant les premiers journaux[source:britannica-renaissance-france].
 
 Lyon devint le cœur battant de cette révolution en France. En 1500, la ville comptait déjà une cinquantaine d'ateliers d'imprimerie. Les presses lyonnaises publiaient de tout : des éditions des classiques grecs et latins, des romans de chevalerie, des almanachs, des pamphlets religieux, des livres illustrés. Les imprimeurs — souvent d'ancien·nes commerçant·es ou des savant·es — faisaient fortune. Leurs ateliers employaient des apprenti·es, des correcteur·ices, des illustrateur·ices [source:britannica-renaissance-france].
 
 
-Antoine, l'apprenti de notre prologue, vieillit avec son siècle. Il devint probablement compagnon imprimeur, puis maître. Peut-être apprit-il à lire en assemblant les lettres de plomb. Peut-être, un soir de 1532, tint-il entre ses mains un exemplaire tout chaud de *Pantagruel* — le livre effrayant et hilarant d'un certain Alcofribas Nasier.
+Antoine, le petit apprenti que nous avons rencontré dans le prologue, grandissait et viellissait avec son siècle. Il devint probablement compagnon imprimeur, puis maître. Éventuellement il apprit à lire en assemblant les lettres de plomb; éventuellement, un soir de 1532, il tint entre ses mains un exemplaire tout chaud de *Pantagruel* et commenca à y lire — le livre effrayant et hilarant d'un certain Alcofribas Nasier.
 
 ## Humanistes, poètes et savant·es : la France s'invente une culture
 
 ### Rabelais, le rire savant
 
-Ce fameux Alcofribas Nasier n'était autre que **François Rabelais** (vers 1483–1553). Moine, médecin, érudit, il fut l'un des écrivains les plus connus de la langue française. Ses romans *Pantagruel* (1532) et *Gargantua* (1534) racontent l'histoire de deux géants, père et fils, qui traversent un monde absurde, violent et merveilleux [source:britannica-rabelais].
+Ce fameux Alcofribas Nasier n'était autre que **François Rabelais** (vers 1483–1553). Moine, médecin, érudit, il fut l'un des écrivains les plus connus de la langue française. Ses romans *Pantagruel* (1532) et *Gargantua* (1534) racontent l'histoire de deux géants, père et fils, qui traversent un monde absurde, violent et merveilleux [source:britannica-rabelais].{! il faut une expliquation pourquoi François Rabelais se faisait connu comme Alcofribas Nasier ?}
 
 Sous les rires et les obscénités, Rabelais défendait des idées radicales : l'éducation doit être joyeuse et complète (corps et esprit) ; la religion ne doit pas être un carcan ; le savoir est une libération. Sa célèbre abbaye de Thélème, où « fais ce que voudras » est la seule règle, résume son humanisme : une société idéale où les hommes et les femmes seraient libres, instruits et heureux. La Sorbonne condamna ses livres, mais François I<sup>er</sup> l'appréciait trop pour le laisser brûler.
 
@@ -82,7 +83,7 @@ Sœur de François I<sup>er</sup>, Marguerite de Navarre (1492–1549) fut l'une
 
 La même liberté d'esprit se retrouvait à Lyon, où la poétesse **Louise Labé** (vers 1524–1566) publia en 1555 un recueil de sonnets qui proclamaient, avec une intensité rare, le droit des femmes à aimer, à écrire et à être prises au sérieux. Fille d'un marchand de cordes, elle participait aux joutes poétiques lyonnaises et fréquentait les cercles d'imprimeurs. Sa « querelle des Amies » engagea toute la ville dans un débat sur l'égalité des sexes [source:britannica-renaissance-france].
 
-## La société française évoluait
+## Renaissance, mais aussi des nouvelles naissances
 
 ### La noblesse se transforme
 
