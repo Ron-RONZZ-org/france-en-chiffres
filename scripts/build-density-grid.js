@@ -72,25 +72,32 @@ async function fetchPopulations() {
 
 /** Compute polygon area in km² using spherical approximation */
 function polygonAreaKm2(geom) {
-  let rings;
-  if (geom.type === 'Polygon') rings = geom.coordinates;
-  else if (geom.type === 'MultiPolygon') rings = geom.coordinates[0];
-  else return 0;
+  if (!geom || !geom.type) return 0;
 
-  const ring = rings[0];
-  if (!ring || ring.length < 3) return 0;
+  // Collect all exterior rings (Polygon has 1, MultiPolygon has many)
+  const rings = geom.type === 'Polygon'
+    ? [geom.coordinates[0]]
+    : geom.coordinates.map(poly => poly[0]);
+
   const R = 6371;
-  let area = 0;
-  for (let i = 0; i < ring.length - 1; i++) {
-    const [lon1, lat1] = ring[i];
-    const [lon2, lat2] = ring[i + 1];
-    const lat1r = lat1 * Math.PI / 180;
-    const lat2r = lat2 * Math.PI / 180;
-    const lon1r = lon1 * Math.PI / 180;
-    const lon2r = lon2 * Math.PI / 180;
-    area += (lon2r - lon1r) * (2 + Math.sin(lat1r) + Math.sin(lat2r));
+  let totalArea = 0;
+
+  for (const ring of rings) {
+    if (!ring || ring.length < 3) continue;
+
+    let area = 0;
+    for (let i = 0; i < ring.length - 1; i++) {
+      const [lon1, lat1] = ring[i];
+      const [lon2, lat2] = ring[i + 1];
+      const lat1r = lat1 * Math.PI / 180;
+      const lat2r = lat2 * Math.PI / 180;
+      const lon1r = lon1 * Math.PI / 180;
+      const lon2r = lon2 * Math.PI / 180;
+      area += (lon2r - lon1r) * (2 + Math.sin(lat1r) + Math.sin(lat2r));
+    }
+    totalArea += Math.abs(area);
   }
-  return Math.abs(area * R * R / 2);
+  return totalArea * R * R / 2;
 }
 
 async function downloadCommuneBoundaries() {

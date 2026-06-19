@@ -67,16 +67,20 @@ function buildFranceIndex(departmentsPath) {
     if (!geom) continue;
 
     // Compute bounding box for fast pre-filter
-    const coords = geom.type === 'Polygon'
-      ? geom.coordinates[0]
-      : geom.coordinates[0][0];
+    // Iterate ALL polygons in a MultiPolygon (not just the first —
+    // Finistère's first polygon is a tiny island, giving a wrong bbox)
+    const rings = geom.type === 'Polygon'
+      ? [geom.coordinates[0]]
+      : geom.coordinates.map(poly => poly[0]);
 
     let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
-    for (const [x, y] of coords) {
-      if (x < minX) minX = x;
-      if (y < minY) minY = y;
-      if (x > maxX) maxX = x;
-      if (y > maxY) maxY = y;
+    for (const ring of rings) {
+      for (const [x, y] of ring) {
+        if (x < minX) minX = x;
+        if (y < minY) minY = y;
+        if (x > maxX) maxX = x;
+        if (y > maxY) maxY = y;
+      }
     }
 
     index.push({ bbox: [minX, minY, maxX, maxY], geometry: geom });
