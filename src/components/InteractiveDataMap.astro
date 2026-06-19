@@ -254,7 +254,7 @@
           <div class="density-legend">
             ${makeDensityLegend()}
           </div>
-          <p class="data-map__legend-source">Source&nbsp;: <sup class="citation"><a href="/bibliographie/insee-2024" data-source-id="insee-2024" title="Source : insee-2024">[1]</a></sup></p>
+          <p class="data-map__legend-source"><sup class="citation"><a href="/bibliographie/insee-2024" data-source-id="insee-2024" title="Source : insee-2024">[1]</a></sup></p>
         `;
         document.getElementById('map-legend-content').innerHTML = legendHtml;
         if (!densityAttributionAdded) {
@@ -281,7 +281,7 @@
         document.getElementById('map-legend-content').innerHTML = `
           <p class="data-map__legend-subtitle">Relief</p>
           <p>Carte topographique avec courbes de niveau et ombrage du terrain.</p>
-          <p class="data-map__legend-source">Source&nbsp;: <sup class="citation"><a href="/bibliographie/opentopomap" data-source-id="opentopomap" title="Source : opentopomap">[4]</a></sup></p>
+          <p class="data-map__legend-source"><sup class="citation"><a href="/bibliographie/opentopomap" data-source-id="opentopomap" title="Source : opentopomap">[4]</a></sup></p>
         `;
       } else {
         if (elevationLayer) {
@@ -337,7 +337,7 @@
               Routes nationales
             </div>
           </div>
-          <p class="data-map__legend-source">Source&nbsp;: <sup class="citation"><a href="/bibliographie/openstreetmap" data-source-id="openstreetmap" title="Source : openstreetmap">[3]</a></sup></p>
+          <p class="data-map__legend-source"><sup class="citation"><a href="/bibliographie/openstreetmap" data-source-id="openstreetmap" title="Source : openstreetmap">[3]</a></sup></p>
         `;
         document.getElementById('map-legend-content').innerHTML = legendHtml;
         map.attributionControl.addAttribution('Réseau routier : <a href="https://www.openstreetmap.org/copyright">© contributeurs OSM</a>');
@@ -377,7 +377,7 @@
         document.getElementById('map-legend-content').innerHTML = `
           <p class="data-map__legend-subtitle">Réseau ferroviaire</p>
           <p>Réseau ferré français — lignes principales, secondaires et de fret.</p>
-          <p class="data-map__legend-source">Source&nbsp;: <sup class="citation"><a href="/bibliographie/openrailwaymap" data-source-id="openrailwaymap" title="Source : openrailwaymap">[5]</a></sup></p>
+          <p class="data-map__legend-source"><sup class="citation"><a href="/bibliographie/openrailwaymap" data-source-id="openrailwaymap" title="Source : openrailwaymap">[5]</a></sup></p>
         `;
       } else {
         if (railwaysLayer) {
@@ -441,7 +441,7 @@
             </div>
           </div>
           <p>${canalCount} canaux, ${riverCount} rivières navigables.</p>
-          <p class="data-map__legend-source">Source&nbsp;: <sup class="citation"><a href="/bibliographie/openstreetmap" data-source-id="openstreetmap" title="Source : openstreetmap">[3]</a></sup></p>
+          <p class="data-map__legend-source"><sup class="citation"><a href="/bibliographie/openstreetmap" data-source-id="openstreetmap" title="Source : openstreetmap">[3]</a></sup></p>
         `;
         document.getElementById('map-legend-content').innerHTML = legendHtml;
         map.attributionControl.addAttribution('Voies navigables : <a href="https://www.openstreetmap.org/copyright">© contributeurs OSM</a>');
@@ -503,7 +503,7 @@
           <p class="data-map__legend-subtitle">Communes</p>
           <p class="data-map__legend-hint">Visible à partir du zoom 9.</p>
           <p>Limites des ${data.features.length} communes de France.</p>
-          <p class="data-map__legend-source">Source&nbsp;: <sup class="citation"><a href="/bibliographie/france-geojson" data-source-id="france-geojson" title="Source : france-geojson">[6]</a></sup></p>
+          <p class="data-map__legend-source"><sup class="citation"><a href="/bibliographie/france-geojson" data-source-id="france-geojson" title="Source : france-geojson">[6]</a></sup></p>
         `;
         map.attributionControl.addAttribution('Limites communales : <a href="https://github.com/gregoiredavid/france-geojson">france-geojson</a>');
         console.log('✓ Communes layer loaded');
