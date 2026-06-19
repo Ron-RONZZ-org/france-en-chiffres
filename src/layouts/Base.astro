@@ -75,12 +75,18 @@ const navItems = [
   }
 
   .footer__link {
-    color: var(--color-french-blue);
+    color: var(--color-link-on-dark);
     text-decoration: none;
   }
 
   .footer__link:hover {
     text-decoration: underline;
+  }
+
+  .footer__link:focus-visible {
+    outline: 2px solid var(--color-link-on-dark);
+    outline-offset: 2px;
+    border-radius: 2px;
   }
 
   .footer__small {

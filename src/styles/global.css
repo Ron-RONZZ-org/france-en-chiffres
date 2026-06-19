@@ -184,7 +184,7 @@ img {
 
 .btn--primary:hover {
   background: transparent;
-  color: var(--color-french-blue);
+  color: var(--color-link-on-dark);
 }
 
 .btn--ghost {
