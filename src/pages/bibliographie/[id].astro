@@ -124,7 +124,7 @@ const label = formatSourceLabel(source);
   }
 
   .breadcrumb:hover {
-    color: var(--color-french-blue);
+    color: var(--color-link-on-dark);
   }
 
   .source-page {
@@ -175,7 +175,13 @@ const label = formatSourceLabel(source);
   }
 
   .source-page__fields dd a {
-    color: var(--color-french-blue);
+    color: var(--color-link-on-dark);
+  }
+
+  .source-page__fields dd a:focus-visible {
+    outline: 2px solid var(--color-link-on-dark);
+    outline-offset: 2px;
+    border-radius: 2px;
   }
 
   .source-page__fields dd a:hover {

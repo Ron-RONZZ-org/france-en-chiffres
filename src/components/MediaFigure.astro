@@ -135,7 +135,7 @@ const cssClass = Astro.props.class ?? '';
   }
 
   .media-figure__source {
-    color: var(--color-french-blue);
+    color: var(--color-link-on-dark);
     text-decoration: none;
     transition: opacity var(--transition-fast);
   }
@@ -143,6 +143,12 @@ const cssClass = Astro.props.class ?? '';
   .media-figure__source:hover {
     opacity: 0.8;
     text-decoration: underline;
+  }
+
+  .media-figure__source:focus-visible {
+    outline: 2px solid var(--color-link-on-dark);
+    outline-offset: 2px;
+    border-radius: 2px;
   }
 
   @media (max-width: 768px) {

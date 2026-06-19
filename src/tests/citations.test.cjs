@@ -153,4 +153,47 @@ if (fs.existsSync(distDir)) {
   console.log('⚠ Test 7: Build output not found — skip (run `npm run build` first)');
 }
 
+// ── Test 8: CSS contrast — citation links use accessible color on dark background ──
+if (fs.existsSync(distDir)) {
+  const cssDir = path.join(distDir, '_astro');
+  if (fs.existsSync(cssDir)) {
+    const cssFiles = fs.readdirSync(cssDir).filter(f => f.endsWith('.css'));
+    let linkLightDefined = false;
+    let citationUsesFrenchBlue = false;
+    let citationUsesLinkLight = false;
+
+    for (const file of cssFiles) {
+      const content = fs.readFileSync(path.join(cssDir, file), 'utf-8');
+
+      // Check if the new variable is defined
+      if (content.includes('--color-link-on-dark')) {
+        linkLightDefined = true;
+      }
+
+      // Check if citation superscripts still use the old dark color
+      // We look for patterns like: sup.citation ... color:var(--color-french-blue)
+      // Vite/Astro scopes CSS with data-astro-cid attributes
+      if (/citation[^}]*color:\s*var\(--color-french-blue\)/.test(content)) {
+        citationUsesFrenchBlue = true;
+      }
+
+      // Check if citation superscripts use the new light color
+      if (/citation[^}]*color:\s*var\(--color-link-on-dark\)/.test(content)) {
+        citationUsesLinkLight = true;
+      }
+    }
+
+    assert.ok(linkLightDefined, 'CSS must define --color-link-on-dark for accessible link contrast on dark background');
+    if (citationUsesFrenchBlue) {
+      console.log('⚠  citation superscripts still reference --color-french-blue — check if intentional');
+    }
+    assert.ok(citationUsesLinkLight, 'Citation superscripts must use --color-link-on-dark for WCAG AA contrast');
+    console.log('✓ Test 8: Citation superscripts use accessible contrast color (--color-link-on-dark)');
+  } else {
+    console.log('⚠ Test 8: Built CSS not found — skip');
+  }
+} else {
+  console.log('⚠ Test 8: Build output not found — skip (run `npm run build` first)');
+}
+
 console.log('\n🎉 All inline citation tests passed!');
