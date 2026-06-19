@@ -32,47 +32,47 @@ export default function remarkCitationLinks() {
     /** Collect (node, index, parent) tuples for text nodes that contain citations */
     const targets = [];
 
-    visit(tree, 'text', (node, _index, _parent) => {
-      // Quick check before collecting
+    visit(tree, 'text', (node, index, parent) => {
+      CITATION_RE.lastIndex = 0;
       if (CITATION_RE.test(node.value)) {
-        targets.push({ node, index: _index, parent: _parent });
+        targets.push({ node, index, parent });
+        CITATION_RE.lastIndex = 0;
         return visit.SKIP;
       }
     });
 
-    // Process in reverse order so that earlier splice() calls do not
-    // invalidate the indices of later ones.
-    for (const { node, index, parent } of targets.reverse()) {
+    // Pass 1: Pre-compute numbered children in document order.
+    // Targets are in document order (DFS).  We iterate forward so that
+    // `counter` increments in order-of-appearance.
+    const replacements = [];
+    for (const { node } of targets) {
       const children = [];
       let last = 0;
       let match;
 
-      // Reset lastIndex for this node's iteration
       CITATION_RE.lastIndex = 0;
-
       while ((match = CITATION_RE.exec(node.value)) !== null) {
-        // Text segment before this citation
         if (match.index > last) {
           children.push({ type: 'text', value: node.value.slice(last, match.index) });
         }
-
-        const sourceId = match[1];
         counter++;
-
         children.push({
           type: 'html',
-          value: `<sup class="citation"><a href="/bibliographie/${sourceId}" data-source-id="${sourceId}" title="Source : ${sourceId}">[${counter}]</a></sup>`,
+          value: `<sup class="citation"><a href="/bibliographie/${match[1]}" data-source-id="${match[1]}" title="Source : ${match[1]}">[${counter}]</a></sup>`,
         });
-
         last = match.index + match[0].length;
       }
-
-      // Trailing text after the last citation
       if (last < node.value.length) {
         children.push({ type: 'text', value: node.value.slice(last) });
       }
+      replacements.push(children);
+    }
 
-      parent.children.splice(index, 1, ...children);
+    // Pass 2: Apply replacements in reverse order so that earlier splice()
+    // calls do not invalidate the indices of later ones.
+    for (let i = targets.length - 1; i >= 0; i--) {
+      const { index, parent } = targets[i];
+      parent.children.splice(index, 1, ...replacements[i]);
     }
   };
 }
