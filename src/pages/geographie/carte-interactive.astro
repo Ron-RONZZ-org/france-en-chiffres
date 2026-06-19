@@ -1,9 +1,27 @@
 ---
 import Base from '../../layouts/Base.astro';
 import InteractiveDataMap from '../../components/InteractiveDataMap.astro';
+import { getSource, formatSourceLabel } from '../../data/sources';
+
+// Sources used on this page — resolved at build time
+const sourceIds = [
+  'insee-2024',
+  'ign-2024',
+  'openstreetmap',
+  'opentopomap',
+  'openrailwaymap',
+  'france-geojson',
+];
+
+const sources = (await Promise.all(
+  sourceIds.map((id) => getSource(id)),
+)).filter(Boolean);
 ---
 
-<Base title="Carte interactive — France en Chiffres" description="Carte interactive de la France avec couches thématiques : densité de population, relief, routes, communes — données IGN, INSEE et OpenStreetMap">
+<Base
+  title="Carte interactive — France en Chiffres"
+  description="Carte interactive de la France avec couches thématiques : densité de population, relief, routes, voies ferrées, voies navigables, communes — données IGN, INSEE et OpenStreetMap"
+>
   <section class="interactive-page">
     <div class="container">
       <h1 class="interactive-page__title">Carte interactive de la France</h1>
@@ -12,41 +30,83 @@ import InteractiveDataMap from '../../components/InteractiveDataMap.astro';
       </p>
       <div class="french-separator"></div>
 
-      <!-- Layer toggles -->
+      <!-- Layer toggles — titles visible, descriptions appear in Tippy hover popups -->
       <div class="layer-controls" role="group" aria-label="Couches thématiques">
-        <label class="layer-controls__item" data-map-toggle="density" for="toggle-density">
+        <label
+          class="layer-controls__item"
+          data-map-toggle="density"
+          data-description="Habitants par km² par commune — 35&nbsp;228 communes. Source&nbsp;<sup class=&quot;citation&quot;><a href=&quot;/bibliographie/insee-2024&quot; data-source-id=&quot;insee-2024&quot; title=&quot;Source&nbsp;: insee-2024&quot;>[1]</a></sup>"
+          for="toggle-density"
+        >
           <input type="checkbox" id="toggle-density" data-map-toggle="density" class="layer-controls__checkbox">
           <span class="layer-controls__swatch layer-controls__swatch--density"></span>
           <span class="layer-controls__label">
             <strong>Densité de population</strong>
-            <span class="layer-controls__desc">Habitants par km² par commune — 35 228 communes (INSEE)</span>
           </span>
         </label>
 
-        <label class="layer-controls__item" data-map-toggle="elevation" for="toggle-elevation">
+        <label
+          class="layer-controls__item"
+          data-map-toggle="elevation"
+          data-description="Carte topographique avec courbes de niveau et ombrage du relief. Source&nbsp;<sup class=&quot;citation&quot;><a href=&quot;/bibliographie/opentopomap&quot; data-source-id=&quot;opentopomap&quot; title=&quot;Source&nbsp;: opentopomap&quot;>[4]</a></sup>"
+          for="toggle-elevation"
+        >
           <input type="checkbox" id="toggle-elevation" data-map-toggle="elevation" class="layer-controls__checkbox">
           <span class="layer-controls__swatch layer-controls__swatch--elevation"></span>
           <span class="layer-controls__label">
             <strong>Relief</strong>
-            <span class="layer-controls__desc">Carte topographique avec courbes de niveau (OpenTopoMap)</span>
           </span>
         </label>
 
-        <label class="layer-controls__item" data-map-toggle="roads" for="toggle-roads">
+        <label
+          class="layer-controls__item"
+          data-map-toggle="roads"
+          data-description="Autoroutes (rouge) et routes nationales (orange). Source&nbsp;<sup class=&quot;citation&quot;><a href=&quot;/bibliographie/openstreetmap&quot; data-source-id=&quot;openstreetmap&quot; title=&quot;Source&nbsp;: openstreetmap&quot;>[3]</a></sup>"
+          for="toggle-roads"
+        >
           <input type="checkbox" id="toggle-roads" data-map-toggle="roads" class="layer-controls__checkbox">
           <span class="layer-controls__swatch layer-controls__swatch--roads"></span>
           <span class="layer-controls__label">
             <strong>Réseau routier</strong>
-            <span class="layer-controls__desc">Autoroutes (rouge) et routes nationales (orange) — OpenStreetMap</span>
           </span>
         </label>
 
-        <label class="layer-controls__item" data-map-toggle="communes" for="toggle-communes">
+        <label
+          class="layer-controls__item"
+          data-map-toggle="railways"
+          data-description="Réseau ferré français — toutes les lignes (TGV, TER, fret). Source&nbsp;<sup class=&quot;citation&quot;><a href=&quot;/bibliographie/openrailwaymap&quot; data-source-id=&quot;openrailwaymap&quot; title=&quot;Source&nbsp;: openrailwaymap&quot;>[5]</a></sup>"
+          for="toggle-railways"
+        >
+          <input type="checkbox" id="toggle-railways" data-map-toggle="railways" class="layer-controls__checkbox">
+          <span class="layer-controls__swatch layer-controls__swatch--railways"></span>
+          <span class="layer-controls__label">
+            <strong>Réseau ferroviaire</strong>
+          </span>
+        </label>
+
+        <label
+          class="layer-controls__item"
+          data-map-toggle="waterways"
+          data-description="Canaux et rivières navigables — voies navigables de France. Source&nbsp;<sup class=&quot;citation&quot;><a href=&quot;/bibliographie/openstreetmap&quot; data-source-id=&quot;openstreetmap&quot; title=&quot;Source&nbsp;: openstreetmap&quot;>[3]</a></sup>"
+          for="toggle-waterways"
+        >
+          <input type="checkbox" id="toggle-waterways" data-map-toggle="waterways" class="layer-controls__checkbox">
+          <span class="layer-controls__swatch layer-controls__swatch--waterways"></span>
+          <span class="layer-controls__label">
+            <strong>Voies navigables</strong>
+          </span>
+        </label>
+
+        <label
+          class="layer-controls__item"
+          data-map-toggle="communes"
+          data-description="Limites des 35&nbsp;228 communes de France. Source&nbsp;<sup class=&quot;citation&quot;><a href=&quot;/bibliographie/france-geojson&quot; data-source-id=&quot;france-geojson&quot; title=&quot;Source&nbsp;: france-geojson&quot;>[6]</a></sup>"
+          for="toggle-communes"
+        >
           <input type="checkbox" id="toggle-communes" data-map-toggle="communes" class="layer-controls__checkbox">
           <span class="layer-controls__swatch layer-controls__swatch--communes"></span>
           <span class="layer-controls__label">
             <strong>Communes</strong>
-            <span class="layer-controls__desc">Limites des 35 228 communes de France</span>
           </span>
         </label>
       </div>
@@ -54,11 +114,33 @@ import InteractiveDataMap from '../../components/InteractiveDataMap.astro';
       <!-- The map -->
       <InteractiveDataMap />
 
-      <div class="interactive-page__links">
-        <a href="/geographie/departements-francais" class="btn btn--ghost">
-          ← Carte des départements
-        </a>
+      <!-- "Ça peut vous intéresser aussi" section -->
+      <div class="interactive-page__related">
+        <h2 class="interactive-page__related-title">Ça peut vous intéresser aussi&nbsp;:</h2>
+        <ul class="interactive-page__related-links">
+          <li>
+            <a href="/geographie/departements-francais/">
+              La carte des départements français
+            </a>
+          </li>
+        </ul>
       </div>
+
+      <!-- Structured sources footer (same pattern as histoire/[slug].astro) -->
+      <footer class="interactive-page__sources">
+        {sources.length > 0 && (
+          <>
+            <p class="interactive-page__sources-title">Sources des données</p>
+            <ol class="interactive-page__sources-list">
+              {sources.map((s) => (
+                <li class="interactive-page__source-item">
+                  <a href={`/bibliographie/${s.id}`}>{formatSourceLabel(s)}</a>
+                </li>
+              ))}
+            </ol>
+          </>
+        )}
+      </footer>
     </div>
   </section>
 </Base>
@@ -89,16 +171,16 @@ import InteractiveDataMap from '../../components/InteractiveDataMap.astro';
   /* ── Layer controls ── */
   .layer-controls {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: var(--gap-sm);
     margin-bottom: var(--gap-lg);
   }
 
   .layer-controls__item {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     gap: 0.5rem;
-    padding: 0.75rem;
+    padding: 0.6rem 0.75rem;
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
     cursor: pointer;
@@ -131,7 +213,7 @@ import InteractiveDataMap from '../../components/InteractiveDataMap.astro';
     background: #1e293b;
     cursor: pointer;
     flex-shrink: 0;
-    margin-top: 0.2rem;
+    margin-top: 0;
     transition: border-color var(--transition-fast), background var(--transition-fast);
     position: relative;
   }
@@ -163,7 +245,6 @@ import InteractiveDataMap from '../../components/InteractiveDataMap.astro';
     height: 12px;
     border-radius: 2px;
     flex-shrink: 0;
-    margin-top: 0.3rem;
   }
 
   .layer-controls__swatch--density {
@@ -176,6 +257,14 @@ import InteractiveDataMap from '../../components/InteractiveDataMap.astro';
 
   .layer-controls__swatch--roads {
     background: #ef4444;
+  }
+
+  .layer-controls__swatch--railways {
+    background: #a855f7;
+  }
+
+  .layer-controls__swatch--waterways {
+    background: #06b6d4;
   }
 
   .layer-controls__swatch--communes {
@@ -194,9 +283,94 @@ import InteractiveDataMap from '../../components/InteractiveDataMap.astro';
     font-weight: 600;
   }
 
-  .layer-controls__desc {
-    color: var(--color-text-muted);
-    font-size: 0.75rem;
+  /* ── Related links ── */
+  .interactive-page__related {
+    margin-top: var(--gap-xl);
+    padding-top: var(--gap-lg);
+    border-top: 1px solid var(--color-border);
+    text-align: center;
+  }
+
+  .interactive-page__related-title {
+    font-family: var(--font-serif);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--color-text-light);
+    margin-bottom: var(--gap-sm);
+  }
+
+  .interactive-page__related-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .interactive-page__related-links li {
+    margin-bottom: var(--gap-xs);
+  }
+
+  .interactive-page__related-links a {
+    color: var(--color-link-on-dark);
+    text-decoration: none;
+    font-weight: 500;
+    transition: text-decoration var(--transition-fast);
+  }
+
+  .interactive-page__related-links a:hover {
+    text-decoration: underline;
+  }
+
+  /* ── Sources footer (same pattern as histoire/[slug].astro) ── */
+  .interactive-page__sources {
+    margin-top: var(--gap-lg);
+    padding-top: var(--gap-md);
+    border-top: 1px solid var(--color-border);
+    font-size: 0.85rem;
+  }
+
+  .interactive-page__sources-title {
+    font-weight: 700;
+    color: var(--color-text-light);
+    margin-bottom: var(--gap-xs);
+  }
+
+  .interactive-page__sources-list {
+    padding-left: var(--gap-lg);
+    margin: 0;
+    list-style: decimal;
+  }
+
+  .interactive-page__source-item {
+    margin-bottom: var(--gap-xs);
+    line-height: 1.5;
+  }
+
+  .interactive-page__source-item a {
+    color: var(--color-link-on-dark);
+    text-decoration: none;
+  }
+
+  .interactive-page__source-item a:focus-visible {
+    outline: 2px solid var(--color-link-on-dark);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  .interactive-page__source-item a:hover {
+    text-decoration: underline;
+  }
+
+  /* ── Citation superscripts in map page content ── */
+  :global(.layer-controls sup.citation) {
+    font-size: 0.75em;
+    vertical-align: super;
+    line-height: 1;
+  }
+
+  :global(.layer-controls sup.citation a) {
+    color: var(--color-link-on-dark);
+    text-decoration: none;
+    font-weight: 600;
   }
 
   @media (max-width: 600px) {

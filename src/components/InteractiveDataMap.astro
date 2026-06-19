@@ -6,14 +6,6 @@
 ---
 
 <section class="data-map-section">
-  <div class="data-map-section__info">
-    <p class="data-map-section__desc">
-      Carte interactive de la France — survolez les départements, activez les couches
-      thématiques ci-dessous. Données géographiques : © les contributeurs d'OpenStreetMap,
-      © IGN. Données statistiques : © INSEE.
-    </p>
-  </div>
-
   <div id="interactive-map" class="data-map" role="application" aria-label="Carte interactive de la France">
     <noscript>
       <div class="data-map__noscript">
@@ -33,6 +25,9 @@
 <script>
   import L from 'leaflet';
   import 'leaflet/dist/leaflet.css';
+  import tippy from 'tippy.js';
+  import 'tippy.js/dist/tippy.css';
+  import 'tippy.js/animations/shift-away.css';
 
   (() => {
     // ── Constants ──
@@ -66,7 +61,7 @@
       maxZoom: MAX_ZOOM,
       zoomControl: true,
       attributionControl: true,
-      preferCanvas: true,  // Render vectors on <canvas> instead of SVG DOM — critical for performance
+      preferCanvas: true,
     });
 
     // ── Base tile layer (OSM) ──
@@ -81,6 +76,8 @@
     let densityAttributionAdded = false;
     let elevationLayer = null;
     let roadsLayer = null;
+    let railwaysLayer = null;
+    let waterwaysLayer = null;
     let communesLayer = null;
     let currentHighlight = null;
 
@@ -113,6 +110,25 @@
     function getDensityLabel(density) {
       if (density === null || density === undefined) return 'N/A';
       return density.toLocaleString('fr-FR') + ' hab/km²';
+    }
+
+    // ── Tippy: layer controls with HTML descriptions ──
+    function setupTippy() {
+      const items = document.querySelectorAll('.layer-controls__item[data-description]');
+      items.forEach((el) => {
+        const html = el.getAttribute('data-description');
+        if (!html) return;
+        tippy(el, {
+          content: html,
+          allowHTML: true,
+          placement: 'top',
+          animation: 'shift-away',
+          theme: 'dark',
+          maxWidth: 320,
+          delay: [200, 0],
+          interactive: true,  // allow clicking citation links
+        });
+      });
     }
 
     // ── Department base layer (static) ──
@@ -174,11 +190,25 @@
       clearLegend();
     }
 
+    function makeDensityLegend() {
+      const breaks = [0, 30, 60, 100, 150, 300, 500, 1000, 5000];
+      const colors = [
+        '#f7fcf0', '#e0f3db', '#ccebc5', '#a8ddb5',
+        '#7bccc4', '#4eb3d3', '#2b8cbe', '#0868ac', '#084081',
+      ];
+      const labels = ['0', '30', '60', '100', '150', '300', '500', '1 000', '5 000+'];
+      return labels.map((label, i) => `
+        <span class="density-legend__item">
+          <span class="density-legend__swatch" style="background:${colors[i]}"></span>
+          ${label}
+        </span>
+      `).join('');
+    }
+
     async function applyCommuneDensity() {
       clearDensityLayer();
       if (!deptLayer) return;
 
-      // Show loading indicator
       document.getElementById('map-legend-content').innerHTML =
         '<p class="data-map__legend-subtitle">Densité de population</p><p class="data-map__legend-loading">Chargement des données...</p>';
 
@@ -224,17 +254,20 @@
           <div class="density-legend">
             ${makeDensityLegend()}
           </div>
+          <p class="data-map__legend-source">Source&nbsp;: <sup class="citation"><a href="/bibliographie/insee-2024" data-source-id="insee-2024" title="Source : insee-2024">[1]</a></sup></p>
         `;
         document.getElementById('map-legend-content').innerHTML = legendHtml;
-        map.attributionControl.addAttribution('Données population : <a href="https://geo.api.gouv.fr/">INSEE — api.gouv.fr</a>');
-        densityAttributionAdded = true;
+        if (!densityAttributionAdded) {
+          map.attributionControl.addAttribution('Données population : <a href="https://geo.api.gouv.fr/">INSEE — api.gouv.fr</a>');
+          densityAttributionAdded = true;
+        }
         console.log('✓ Commune-level density loaded');
       } catch (err) {
         console.error('Failed to load commune density:', err);
       }
     }
 
-    // ── Elevation (tile overlay — no data file needed) ──
+    // ── Elevation (tile overlay) ──
     function toggleElevation(enabled) {
       if (enabled) {
         if (!elevationLayer) {
@@ -248,7 +281,7 @@
         document.getElementById('map-legend-content').innerHTML = `
           <p class="data-map__legend-subtitle">Relief</p>
           <p>Carte topographique avec courbes de niveau et ombrage du terrain.</p>
-          <p class="data-map__legend-source">Source: <a href="https://opentopomap.org/about" target="_blank" rel="noopener">OpenTopoMap</a> (© contributeurs OSM, SRTM)</p>
+          <p class="data-map__legend-source">Source&nbsp;: <sup class="citation"><a href="/bibliographie/opentopomap" data-source-id="opentopomap" title="Source : opentopomap">[4]</a></sup></p>
         `;
       } else {
         if (elevationLayer) {
@@ -269,7 +302,6 @@
         const data = await resp.json();
         roadsFetched = true;
 
-        // Style by road class
         const roadStyle = (feature) => ({
           color: feature.properties.highway === 'motorway' ? '#ef4444' : '#f97316',
           weight: feature.properties.highway === 'motorway' ? 1.8 : 1.2,
@@ -277,7 +309,7 @@
         });
 
         roadsLayer = L.geoJSON(data, {
-          minZoom: 7,  // Only visible when zoomed in — 175k segments at zoom 6 would be overwhelming
+          minZoom: 7,
           style: roadStyle,
           onEachFeature: (feature, layer) => {
             const name = feature.properties.name || feature.properties.ref || '';
@@ -305,7 +337,7 @@
               Routes nationales
             </div>
           </div>
-          <p class="data-map__legend-source">Source: <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© les contributeurs d'OpenStreetMap</a></p>
+          <p class="data-map__legend-source">Source&nbsp;: <sup class="citation"><a href="/bibliographie/openstreetmap" data-source-id="openstreetmap" title="Source : openstreetmap">[3]</a></sup></p>
         `;
         document.getElementById('map-legend-content').innerHTML = legendHtml;
         map.attributionControl.addAttribution('Réseau routier : <a href="https://www.openstreetmap.org/copyright">© contributeurs OSM</a>');
@@ -314,7 +346,7 @@
         console.error('Failed to load roads:', err);
         document.getElementById('map-legend-content').innerHTML = `
           <p class="data-map__legend-subtitle">Réseau routier</p>
-          <p>Données non disponibles. Générez-les avec : <code>node scripts/fetch-roads.js</code></p>
+          <p>Données non disponibles. Générez avec : <code>node scripts/fetch-roads.js</code></p>
         `;
       }
     }
@@ -331,7 +363,111 @@
       }
     }
 
-    // ── Communes (GeoJSON overlay — from communes-density.geojson) ──
+    // ── Railways (tile overlay — OpenRailwayMap) ──
+    function toggleRailways(enabled) {
+      if (enabled) {
+        if (!railwaysLayer) {
+          railwaysLayer = L.tileLayer('https://{s}.tiles.openrailwaymap.org/standard/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openrailwaymap.org/">OpenRailwayMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)',
+            maxZoom: 19,
+            opacity: 0.75,
+          });
+        }
+        map.addLayer(railwaysLayer);
+        document.getElementById('map-legend-content').innerHTML = `
+          <p class="data-map__legend-subtitle">Réseau ferroviaire</p>
+          <p>Réseau ferré français — lignes principales, secondaires et de fret.</p>
+          <p class="data-map__legend-source">Source&nbsp;: <sup class="citation"><a href="/bibliographie/openrailwaymap" data-source-id="openrailwaymap" title="Source : openrailwaymap">[5]</a></sup></p>
+        `;
+      } else {
+        if (railwaysLayer) {
+          map.removeLayer(railwaysLayer);
+          railwaysLayer = null;
+        }
+        clearLegend();
+      }
+    }
+
+    // ── Waterways (GeoJSON overlay) ──
+    let waterwaysFetched = false;
+
+    async function fetchWaterways() {
+      if (waterwaysFetched) return;
+      try {
+        const resp = await fetch('/data/waterways.geojson');
+        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+        const data = await resp.json();
+        waterwaysFetched = true;
+
+        const waterwayStyle = (feature) => {
+          const isCanal = feature.properties.waterway === 'canal';
+          return {
+            color: isCanal ? '#06b6d4' : '#0ea5e9',
+            weight: isCanal ? 2.5 : 1.5,
+            opacity: 0.8,
+            dashArray: isCanal ? null : '6, 4',
+          };
+        };
+
+        waterwaysLayer = L.geoJSON(data, {
+          minZoom: 6,
+          style: waterwayStyle,
+          onEachFeature: (feature, layer) => {
+            const name = feature.properties.name || '';
+            const type = feature.properties.waterway === 'canal' ? 'Canal' : 'Rivière navigable';
+            if (name) {
+              layer.bindTooltip(`${type}: ${escapeHtml(name)}`, {
+                sticky: true, className: 'dept-tooltip',
+              });
+            }
+          },
+        });
+
+        map.addLayer(waterwaysLayer);
+
+        const canalCount = data.features.filter(f => f.properties.waterway === 'canal').length;
+        const riverCount = data.features.filter(f => f.properties.waterway === 'river').length;
+        const legendHtml = `
+          <p class="data-map__legend-subtitle">Voies navigables</p>
+          <p class="data-map__legend-hint">Visible à partir du zoom 6.</p>
+          <div class="waterways-legend">
+            <div class="waterways-legend__item">
+              <span class="waterways-legend__line waterways-legend__line--canal"></span>
+              Canaux
+            </div>
+            <div class="waterways-legend__item">
+              <span class="waterways-legend__line waterways-legend__line--river"></span>
+              Rivières navigables
+            </div>
+          </div>
+          <p>${canalCount} canaux, ${riverCount} rivières navigables.</p>
+          <p class="data-map__legend-source">Source&nbsp;: <sup class="citation"><a href="/bibliographie/openstreetmap" data-source-id="openstreetmap" title="Source : openstreetmap">[3]</a></sup></p>
+        `;
+        document.getElementById('map-legend-content').innerHTML = legendHtml;
+        map.attributionControl.addAttribution('Voies navigables : <a href="https://www.openstreetmap.org/copyright">© contributeurs OSM</a>');
+        console.log('✓ Waterways layer loaded');
+      } catch (err) {
+        console.error('Failed to load waterways:', err);
+        document.getElementById('map-legend-content').innerHTML = `
+          <p class="data-map__legend-subtitle">Voies navigables</p>
+          <p>Données non disponibles. Générez avec : <code>node scripts/fetch-waterways.js</code></p>
+        `;
+      }
+    }
+
+    function toggleWaterways(enabled) {
+      if (enabled) {
+        fetchWaterways();
+      } else {
+        if (waterwaysLayer) {
+          map.removeLayer(waterwaysLayer);
+          waterwaysLayer = null;
+        }
+        clearLegend();
+      }
+    }
+
+    // ── Communes (GeoJSON overlay) ──
     let communesFetched = false;
 
     async function fetchCommunes() {
@@ -343,7 +479,7 @@
         communesFetched = true;
 
         communesLayer = L.geoJSON(data, {
-          minZoom: 9,  // Only visible when zoomed in — commune boundaries at national level are too dense
+          minZoom: 9,
           style: {
             color: '#6366f1',
             weight: 0.4,
@@ -367,15 +503,15 @@
           <p class="data-map__legend-subtitle">Communes</p>
           <p class="data-map__legend-hint">Visible à partir du zoom 9.</p>
           <p>Limites des ${data.features.length} communes de France.</p>
+          <p class="data-map__legend-source">Source&nbsp;: <sup class="citation"><a href="/bibliographie/france-geojson" data-source-id="france-geojson" title="Source : france-geojson">[6]</a></sup></p>
         `;
         map.attributionControl.addAttribution('Limites communales : <a href="https://github.com/gregoiredavid/france-geojson">france-geojson</a>');
-        console.log('✓ Communes layer loaded');
         console.log('✓ Communes layer loaded');
       } catch (err) {
         console.error('Failed to load communes:', err);
         document.getElementById('map-legend-content').innerHTML = `
           <p class="data-map__legend-subtitle">Communes</p>
-          <p>Données non disponibles. Générez-les avec : <code>node scripts/build-density-grid.js</code></p>
+          <p>Données non disponibles. Générez avec : <code>node scripts/build-density-grid.js</code></p>
         `;
       }
     }
@@ -413,6 +549,12 @@
             case 'roads':
               toggleRoads(e.target.checked);
               break;
+            case 'railways':
+              toggleRailways(e.target.checked);
+              break;
+            case 'waterways':
+              toggleWaterways(e.target.checked);
+              break;
             case 'communes':
               toggleCommunes(e.target.checked);
               break;
@@ -424,6 +566,7 @@
     // ── Init ──
     loadDepartments();
     setupToggles();
+    setupTippy();
 
     // Invalidate map size when container becomes visible (Astro navigation)
     setTimeout(() => map.invalidateSize(), 200);
@@ -441,19 +584,6 @@
     max-width: 1100px;
     margin: 0 auto;
     padding: 0 var(--gap-lg);
-  }
-
-  .data-map-section__info {
-    margin-bottom: var(--gap-md);
-  }
-
-  .data-map-section__desc {
-    color: var(--color-text-muted);
-    font-size: 0.85rem;
-    text-align: center;
-    max-width: 600px;
-    margin: 0 auto;
-    line-height: 1.5;
   }
 
   .data-map {
@@ -522,6 +652,24 @@
     text-decoration: underline;
   }
 
+  .data-map__legend-hint {
+    font-size: 0.75rem;
+    color: var(--color-accent-gold, #d4a843);
+    font-style: italic;
+    margin-bottom: var(--gap-xs);
+  }
+
+  .data-map__legend-loading {
+    font-style: italic;
+    color: var(--color-accent-gold, #d4a843);
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+  }
+
   /* ── Density legend ── */
   .density-legend {
     display: flex;
@@ -579,28 +727,58 @@
     background: #f97316;
   }
 
-  .data-map__legend-warning {
-    color: var(--color-accent-gold, #d4a843);
-    font-size: 0.75rem;
-    margin-top: var(--gap-xs);
+  /* ── Waterways legend ── */
+  .waterways-legend {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    margin: var(--gap-xs) 0;
   }
 
-  .data-map__legend-hint {
-    font-size: 0.75rem;
-    color: var(--color-accent-gold, #d4a843);
-    font-style: italic;
-    margin-bottom: var(--gap-xs);
+  .waterways-legend__item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
   }
 
-  .data-map__legend-loading {
-    font-style: italic;
-    color: var(--color-accent-gold, #d4a843);
-    animation: pulse 1.5s ease-in-out infinite;
+  .waterways-legend__line {
+    display: inline-block;
+    height: 4px;
+    width: 28px;
+    border-radius: 1px;
+    flex-shrink: 0;
   }
 
-  @keyframes pulse {
-    0%, 100% { opacity: 0.5; }
-    50% { opacity: 1; }
+  .waterways-legend__line--canal {
+    background: #06b6d4;
+    height: 4px;
+  }
+
+  .waterways-legend__line--river {
+    background: #0ea5e9;
+    height: 3px;
+    border-top: 1px dashed #0ea5e9;
+    height: 0;
+    border-top-width: 3px;
+  }
+
+  /* Citation superscripts in legend */
+  .data-map__legend-content sup.citation {
+    font-size: 0.75em;
+    vertical-align: super;
+    line-height: 1;
+  }
+
+  .data-map__legend-content sup.citation a {
+    color: var(--color-link-on-dark);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .data-map__legend-content sup.citation a:hover {
+    text-decoration: underline;
   }
 
   /* ── Leaflet overrides ── */
@@ -652,6 +830,25 @@
 
   :global(.dept-tooltip--density strong) {
     color: #d4a843;
+  }
+
+  /* ── Tippy dark theme ── */
+  :global(.tippy-box[data-theme~="dark"]) {
+    background: #111827;
+    border: 1px solid #1e293b;
+    border-radius: 0.5rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    color: #e2e8f0;
+    font-size: 0.8rem;
+  }
+
+  :global(.tippy-box[data-theme~="dark"] .tippy-arrow) {
+    color: #111827;
+    stroke: #1e293b;
+  }
+
+  :global(.tippy-box[data-theme~="dark"] .tippy-content) {
+    padding: 0.5rem 0.65rem;
   }
 
   /* ── Responsive ── */

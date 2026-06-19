@@ -1,0 +1,9 @@
+{
+  "id": "openstreetmap",
+  "type": "dataset",
+  "title": "OpenStreetMap — données cartographiques libres",
+  "publisher": "OpenStreetMap Foundation",
+  "issued": { "date-parts": [[2025]] },
+  "URL": "https://www.openstreetmap.org/copyright",
+  "genre": "Geospatial data — ODbL"
+}
