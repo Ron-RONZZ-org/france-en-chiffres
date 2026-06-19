@@ -1,0 +1,9 @@
+{
+  "id": "france-geojson",
+  "type": "dataset",
+  "title": "france-geojson — limites administratives de la France",
+  "publisher": "Grégoire David",
+  "issued": { "date-parts": [[2025]] },
+  "URL": "https://github.com/gregoiredavid/france-geojson",
+  "genre": "Geospatial data — ODbL"
+}

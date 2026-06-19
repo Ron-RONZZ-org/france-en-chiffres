@@ -22,7 +22,9 @@
     "build:density": "node scripts/build-density-grid.js",
     "fetch:roads": "node scripts/fetch-roads.js",
     "fetch:communes": "node scripts/fetch-communes.js",
-    "populate:density": "node scripts/populate-density.js"
+    "populate:density": "node scripts/populate-density.js",
+    "fetch:waterways": "node scripts/fetch-waterways.js",
+    "cache:waterways": "bash scripts/cache-waterways.sh"
   },
   "dependencies": {
     "@astrojs/tailwind": "^6.0.2",

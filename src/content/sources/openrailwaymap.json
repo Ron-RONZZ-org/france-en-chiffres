@@ -1,0 +1,9 @@
+{
+  "id": "openrailwaymap",
+  "type": "dataset",
+  "title": "OpenRailwayMap — carte mondiale du réseau ferroviaire",
+  "publisher": "OpenRailwayMap",
+  "issued": { "date-parts": [[2025]] },
+  "URL": "https://www.openrailwaymap.org/",
+  "genre": "Tile layer — © OSM contributors, ODbL"
+}

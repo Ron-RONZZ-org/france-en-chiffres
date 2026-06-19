@@ -1,0 +1,9 @@
+{
+  "id": "opentopomap",
+  "type": "dataset",
+  "title": "OpenTopoMap — carte topographique libre",
+  "publisher": "OpenTopoMap",
+  "issued": { "date-parts": [[2025]] },
+  "URL": "https://opentopomap.org/about",
+  "genre": "Tile layer — © OSM contributors, SRTM"
+}

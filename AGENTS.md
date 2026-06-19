@@ -205,6 +205,7 @@ bash scripts/new-era.sh mon-ere -500 0
 | Data-driven SVG | D3.js data joins + transitions | Population pyramid, bump chart, choropleth |
 | Map highlighting | SVG region fills with CSS transitions on hover | Geography page |
 | Interactive map layers | Leaflet with GeoJSON overlays + layer controls | Interactive data map |
+| Tooltip / popover | **Tippy.js** — via `data-*` attributes or JS instantiation | Hover descriptions, layer info, department names |
 
 ---
 
@@ -220,6 +221,7 @@ bash scripts/new-era.sh mon-ere -500 0
 - ✅ **GSAP + ScrollTrigger** — for pinned sections, scrub animations, staggered timelines where vanilla JS would require 3x+ the code.
 - ✅ **D3.js** — for complex data visualizations (bump charts, choropleths, population pyramids, sankey diagrams). Not for simple bar charts or counters.
 - ✅ **Leaflet** — for interactive geo-referenced maps with tile base maps, multiple overlay layers (choropleth, GeoJSON), and built-in zoom/pan. Use for the `/geographie/carte-interactive/` page. Not for artistic/ornamental SVG maps.
+- ✅ **Tippy.js** — for tooltips, popovers, and hover descriptions. Already a dependency and used across multiple pages (department map, timeline, interactive map). Use via `data-*` attributes or direct JS instantiation. Prefer Tippy over custom tooltip implementations for consistency.
 - ✅ **TypeScript** — optional. Use `.ts` files if you want type safety in data processing logic. Page components can stay `.astro` with frontmatter types.
 
 ### Preference
