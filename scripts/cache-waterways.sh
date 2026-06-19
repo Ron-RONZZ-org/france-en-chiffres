@@ -25,4 +25,6 @@ echo "$$" > "$LOCKFILE"
 trap 'rm -f "$LOCKFILE"' EXIT
 
 echo "→ No cached waterways data found — fetching from Overpass API..."
-node "$PROJECT_DIR/scripts/fetch-waterways.js"
+node "$PROJECT_DIR/scripts/fetch-waterways.js" && \
+  echo "→ Clipping waterways to France boundaries..." && \
+  node "$PROJECT_DIR/scripts/clip-to-france.js" "$OUTPUT"

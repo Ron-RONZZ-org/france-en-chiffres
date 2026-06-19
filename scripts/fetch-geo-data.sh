@@ -32,7 +32,10 @@ node "$SCRIPT_DIR/build-density-grid.js"
 
 # ── 4. Roads ──
 echo "→ [4/5] Roads from Overpass..."
-node "$SCRIPT_DIR/fetch-roads.js" || echo "  ⚠ Roads may be partial"
+node "$SCRIPT_DIR/fetch-roads.js" && \
+  echo "→ Clipping roads to France boundaries..." && \
+  node "$SCRIPT_DIR/clip-to-france.js" "$PROJECT_ROOT/public/data/roads.geojson" || \
+  echo "  ⚠ Roads may be partial"
 
 # ── 5. Communes (point data from API, legacy) ──
 echo "→ [5/5] Commune centroids (legacy)..."

@@ -24,7 +24,8 @@
     "fetch:communes": "node scripts/fetch-communes.js",
     "populate:density": "node scripts/populate-density.js",
     "fetch:waterways": "node scripts/fetch-waterways.js",
-    "cache:waterways": "bash scripts/cache-waterways.sh"
+    "cache:waterways": "bash scripts/cache-waterways.sh",
+    "clip:france": "node scripts/clip-to-france.js"
   },
   "dependencies": {
     "@astrojs/tailwind": "^6.0.2",
