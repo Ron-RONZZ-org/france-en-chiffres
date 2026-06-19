@@ -16,11 +16,11 @@ import{t as qo}from"./shift-away.C_6sW2wX.js";function jo(yt){return yt&&yt.__es
           <div class="density-legend">
             ${qt()}
           </div>
-          <p class="data-map__legend-source">Source&nbsp;: <sup class="citation"><a href="/bibliographie/insee-2024" data-source-id="insee-2024" title="Source : insee-2024">[1]</a></sup></p>
+          <p class="data-map__legend-source"><sup class="citation"><a href="/bibliographie/insee-2024" data-source-id="insee-2024" title="Source : insee-2024">[1]</a></sup></p>
         `;document.getElementById("map-legend-content").innerHTML=I,xt||(Z.attributionControl.addAttribution('Données population : <a href="https://geo.api.gouv.fr/">INSEE — api.gouv.fr</a>'),xt=!0),console.log("✓ Commune-level density loaded")}catch(c){console.error("Failed to load commune density:",c)}}}function G(c){c?(E||(E=ct.tileLayer("https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png",{attribution:'&copy; <a href="https://opentopomap.org/about">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)',maxZoom:17,opacity:.7})),Z.addLayer(E),document.getElementById("map-legend-content").innerHTML=`
           <p class="data-map__legend-subtitle">Relief</p>
           <p>Carte topographique avec courbes de niveau et ombrage du terrain.</p>
-          <p class="data-map__legend-source">Source&nbsp;: <sup class="citation"><a href="/bibliographie/opentopomap" data-source-id="opentopomap" title="Source : opentopomap">[4]</a></sup></p>
+          <p class="data-map__legend-source"><sup class="citation"><a href="/bibliographie/opentopomap" data-source-id="opentopomap" title="Source : opentopomap">[4]</a></sup></p>
         `):(E&&Z.removeLayer(E),ft())}let j=!1;async function ke(){if(!j)try{const c=await fetch("/data/roads.geojson");if(!c.ok)throw new Error(`HTTP ${c.status}`);const m=await c.json();j=!0;const f=I=>({color:I.properties.highway==="motorway"?"#ef4444":"#f97316",weight:I.properties.highway==="motorway"?1.8:1.2,opacity:.8});U=ct.geoJSON(m,{minZoom:7,style:f,onEachFeature:(I,A)=>{const R=I.properties.name||I.properties.ref||"",X=I.properties.highway==="motorway"?"Autoroute":"Route nationale";R&&A.bindTooltip(`${X}: ${rt(R)}`,{sticky:!0,className:"dept-tooltip"})}}),Z.addLayer(U);const _=`
           <p class="data-map__legend-subtitle">Réseau routier</p>
           <p class="data-map__legend-hint">Visible à partir du zoom 7 (rapprochez-vous).</p>
@@ -34,14 +34,14 @@ import{t as qo}from"./shift-away.C_6sW2wX.js";function jo(yt){return yt&&yt.__es
               Routes nationales
             </div>
           </div>
-          <p class="data-map__legend-source">Source&nbsp;: <sup class="citation"><a href="/bibliographie/openstreetmap" data-source-id="openstreetmap" title="Source : openstreetmap">[3]</a></sup></p>
+          <p class="data-map__legend-source"><sup class="citation"><a href="/bibliographie/openstreetmap" data-source-id="openstreetmap" title="Source : openstreetmap">[3]</a></sup></p>
         `;document.getElementById("map-legend-content").innerHTML=_,Z.attributionControl.addAttribution('Réseau routier : <a href="https://www.openstreetmap.org/copyright">© contributeurs OSM</a>'),console.log("✓ Roads layer loaded")}catch(c){console.error("Failed to load roads:",c),document.getElementById("map-legend-content").innerHTML=`
           <p class="data-map__legend-subtitle">Réseau routier</p>
           <p>Données non disponibles. Générez avec : <code>node scripts/fetch-roads.js</code></p>
         `}}function it(c){c?ke():(U&&(Z.removeLayer(U),U=null),ft())}function Oe(c){c?(st||(st=ct.tileLayer("https://{s}.tiles.openrailwaymap.org/standard/{z}/{x}/{y}.png",{attribution:'&copy; <a href="https://www.openrailwaymap.org/">OpenRailwayMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)',maxZoom:19,opacity:.75})),Z.addLayer(st),document.getElementById("map-legend-content").innerHTML=`
           <p class="data-map__legend-subtitle">Réseau ferroviaire</p>
           <p>Réseau ferré français — lignes principales, secondaires et de fret.</p>
-          <p class="data-map__legend-source">Source&nbsp;: <sup class="citation"><a href="/bibliographie/openrailwaymap" data-source-id="openrailwaymap" title="Source : openrailwaymap">[5]</a></sup></p>
+          <p class="data-map__legend-source"><sup class="citation"><a href="/bibliographie/openrailwaymap" data-source-id="openrailwaymap" title="Source : openrailwaymap">[5]</a></sup></p>
         `):(st&&(Z.removeLayer(st),st=null),ft())}let V=!1;async function Tt(){if(!V)try{const c=await fetch("/data/waterways.geojson");if(!c.ok)throw new Error(`HTTP ${c.status}`);const m=await c.json();V=!0;const f=R=>{const X=R.properties.waterway==="canal";return{color:X?"#06b6d4":"#0ea5e9",weight:X?2.5:1.5,opacity:.8,dashArray:X?null:"6, 4"}};Y=ct.geoJSON(m,{minZoom:6,style:f,onEachFeature:(R,X)=>{const Lt=R.properties.name||"",_t=R.properties.waterway==="canal"?"Canal":"Rivière navigable";Lt&&X.bindTooltip(`${_t}: ${rt(Lt)}`,{sticky:!0,className:"dept-tooltip"})}}),Z.addLayer(Y);const _=m.features.filter(R=>R.properties.waterway==="canal").length,I=m.features.filter(R=>R.properties.waterway==="river").length,A=`
           <p class="data-map__legend-subtitle">Voies navigables</p>
           <p class="data-map__legend-hint">Visible à partir du zoom 6.</p>
@@ -56,7 +56,7 @@ import{t as qo}from"./shift-away.C_6sW2wX.js";function jo(yt){return yt&&yt.__es
             </div>
           </div>
           <p>${_} canaux, ${I} rivières navigables.</p>
-          <p class="data-map__legend-source">Source&nbsp;: <sup class="citation"><a href="/bibliographie/openstreetmap" data-source-id="openstreetmap" title="Source : openstreetmap">[3]</a></sup></p>
+          <p class="data-map__legend-source"><sup class="citation"><a href="/bibliographie/openstreetmap" data-source-id="openstreetmap" title="Source : openstreetmap">[3]</a></sup></p>
         `;document.getElementById("map-legend-content").innerHTML=A,Z.attributionControl.addAttribution('Voies navigables : <a href="https://www.openstreetmap.org/copyright">© contributeurs OSM</a>'),console.log("✓ Waterways layer loaded")}catch(c){console.error("Failed to load waterways:",c),document.getElementById("map-legend-content").innerHTML=`
           <p class="data-map__legend-subtitle">Voies navigables</p>
           <p>Données non disponibles. Générez avec : <code>node scripts/fetch-waterways.js</code></p>
@@ -64,7 +64,7 @@ import{t as qo}from"./shift-away.C_6sW2wX.js";function jo(yt){return yt&&yt.__es
           <p class="data-map__legend-subtitle">Communes</p>
           <p class="data-map__legend-hint">Visible à partir du zoom 9.</p>
           <p>Limites des ${m.features.length} communes de France.</p>
-          <p class="data-map__legend-source">Source&nbsp;: <sup class="citation"><a href="/bibliographie/france-geojson" data-source-id="france-geojson" title="Source : france-geojson">[6]</a></sup></p>
+          <p class="data-map__legend-source"><sup class="citation"><a href="/bibliographie/france-geojson" data-source-id="france-geojson" title="Source : france-geojson">[6]</a></sup></p>
         `,Z.attributionControl.addAttribution('Limites communales : <a href="https://github.com/gregoiredavid/france-geojson">france-geojson</a>'),console.log("✓ Communes layer loaded")}catch(c){console.error("Failed to load communes:",c),document.getElementById("map-legend-content").innerHTML=`
           <p class="data-map__legend-subtitle">Communes</p>
           <p>Données non disponibles. Générez avec : <code>node scripts/build-density-grid.js</code></p>
