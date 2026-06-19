@@ -54,6 +54,27 @@ const NE_SW_C_SUB = [
   { name: 'NE-SW-c4', bbox: '51.07,3.25,51.5,4.0' },
 ];
 
+// NE-NW split into 2 at 48.9°N (missing fallback — the 48-49.8°N band
+// covering most of Grand Est: Vosges, Moselle, Meuse, Alsace, Marne)
+const NE_NW_SUB = [
+  { name: 'NE-NW-a', bbox: '48.0,2.5,48.9,5.5' },
+  { name: 'NE-NW-b', bbox: '48.9,2.5,49.8,5.5' },
+];
+
+// NE-NE split into 2 at 48.9°N
+const NE_NE_SUB = [
+  { name: 'NE-NE-a', bbox: '48.0,5.5,48.9,8.5' },
+  { name: 'NE-NE-b', bbox: '48.9,5.5,49.8,8.5' },
+];
+
+// SE split into 4 at 44.65°N and 5.5°E (missing retry — same bug as NE-NW/NE-NE)
+const SE_SUB = [
+  { name: 'SE-NW', bbox: '41.3,2.5,44.65,5.5' },
+  { name: 'SE-NE', bbox: '41.3,5.5,44.65,8.5' },
+  { name: 'SE-SW', bbox: '44.65,2.5,48.0,5.5' },
+  { name: 'SE-SE', bbox: '44.65,5.5,48.0,8.5' },
+];
+
 // SW split into canals-only and rivers-only
 const SW_SUB = [
   { name: 'SW-canals', bbox: '41.3,-5.1,48.0,2.5', filter: 'way["waterway"="canal"]' },
@@ -95,11 +116,17 @@ async function queryQuadrant(name, bbox, customFilter) {
   return data.elements;
 }
 
-async function tryQuadrant(name, bbox) {
+async function tryQuadrant(name, bbox, customFilter, attempt = 1) {
   try {
-    return await queryQuadrant(name, bbox);
+    return await queryQuadrant(name, bbox, customFilter);
   } catch (err) {
-    console.log(`  ✗ ${name}: ${err.message.substring(0, 60)}`);
+    console.log(`  ✗ ${name} (attempt ${attempt}): ${err.message.substring(0, 60)}`);
+    if (attempt < 3) {
+      const delay = attempt * 5000; // 5s, then 10s backoff
+      console.log(`    Retrying in ${delay / 1000}s...`);
+      await new Promise(r => setTimeout(r, delay));
+      return tryQuadrant(name, bbox, customFilter, attempt + 1);
+    }
     return null;
   }
 }
@@ -207,12 +234,47 @@ async function main() {
         }
       }
     }
+
+    // Phase 2d: If NE-NW still sparse, try its sub-quadrants
+    // (covers 48-49.8°N, 2.5-5.5°E — missing Grand Est waterways)
+    const neNwElements = elementsInBBox(allElements, 48.0, 2.5, 49.8, 5.5);
+    if (neNwElements < 200) {
+      console.log(`\nPhase 2d — NE-NW sparse (${neNwElements} elements), trying smaller quadrants:\n`);
+      for (const q of NE_NW_SUB) {
+        const elements = await tryQuadrant(q.name, q.bbox);
+        if (elements) allElements.push(...elements);
+        await new Promise(r => setTimeout(r, 2000));
+      }
+    }
+
+    // Phase 2e: If NE-NE still sparse, try its sub-quadrants
+    // (covers 48-49.8°N, 5.5-8.5°E — missing Alsace/Lorraine waterways)
+    const neNeElements = elementsInBBox(allElements, 48.0, 5.5, 49.8, 8.5);
+    if (neNeElements < 200) {
+      console.log(`\nPhase 2e — NE-NE sparse (${neNeElements} elements), trying smaller quadrants:\n`);
+      for (const q of NE_NE_SUB) {
+        const elements = await tryQuadrant(q.name, q.bbox);
+        if (elements) allElements.push(...elements);
+        await new Promise(r => setTimeout(r, 2000));
+      }
+    }
   }
 
-  // Phase 3: Retry SW if missing (try canals-only, then rivers)
+  // Phase 3: Retry SE if missing
+  const seElements = elementsInBBox(allElements, 41.3, 2.5, 48.0, 8.5);
+  if (seElements < 1000) {
+    console.log(`\nPhase 3 — SE quadrant sparse (${seElements} elements), retrying with sub-quadrants:\n`);
+    for (const q of SE_SUB) {
+      const elements = await tryQuadrant(q.name, q.bbox);
+      if (elements) allElements.push(...elements);
+      await new Promise(r => setTimeout(r, 2000));
+    }
+  }
+
+  // Phase 4: Retry SW if missing (try canals-only, then rivers)
   const swElements = elementsInBBox(allElements, 41.3, -5.1, 48.0, 2.5);
   if (swElements < 1000) {
-    console.log(`\nPhase 3 — SW quadrant sparse (${swElements} elements), retrying with filtered queries:\n`);
+    console.log(`\nPhase 4 — SW quadrant sparse (${swElements} elements), retrying with filtered queries:\n`);
     // Canals only (separate query works better)
     const swCanals = await tryQuadrant('SW-canals', '41.3,-5.1,48.0,2.5', 'way["waterway"="canal"]');
     if (swCanals) {
