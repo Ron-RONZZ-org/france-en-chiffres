@@ -1,0 +1,11 @@
+{
+  "id": "fenelon-salm-distress",
+  "type": "book",
+  "title": "Les misères de la guerre sous le règne de Louis XIV",
+  "publisher": "Armand Colin",
+  "publisher-place": "Paris",
+  "author": [
+    { "family": "Fénelon", "given": "François de Salignac de La Mothe-" }
+  ],
+  "issued": { "date-parts": [[2005]] }
+}
