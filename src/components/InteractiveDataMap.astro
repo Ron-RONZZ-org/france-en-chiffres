@@ -209,13 +209,19 @@
       clearDensityLayer();
       if (!deptLayer) return;
 
+      const checkbox = document.getElementById('toggle-density');
+      if (!checkbox || !checkbox.checked) return;
+
       document.getElementById('map-legend-content').innerHTML =
-        '<p class="data-map__legend-subtitle">Densité de population</p><p class="data-map__legend-loading">Chargement des données...</p>';
+        '<p class="data-map__legend-subtitle">Densit\u00e9 de population</p><p class="data-map__legend-loading">Chargement des donn\u00e9es...</p>';
 
       try {
         const resp = await fetch('/data/density-simple.geojson');
         if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
         const data = await resp.json();
+
+        // Guard: user may have unchecked while we were loading
+        if (!checkbox.checked) return;
 
         densityLayer = L.geoJSON(data, {
           style: (feature) => {
@@ -243,6 +249,9 @@
             });
           },
         });
+
+        // Double-check after layer creation
+        if (!checkbox.checked) return;
 
         densityLayer.addTo(map);
 
@@ -388,48 +397,82 @@
       }
     }
 
-    // ── Waterways (GeoJSON overlay) ──
+    // ── Waterways (GeoJSON overlay with zoom-based filtering) ──
     let waterwaysFetched = false;
+    let waterwaysData = null;       // cached GeoJSON data
+    let waterwaysVisible = false;   // whether the toggle is on
+
+    function renderWaterwaysLayer() {
+      // Remove existing layer if any
+      if (waterwaysLayer) {
+        map.removeLayer(waterwaysLayer);
+        waterwaysLayer = null;
+      }
+      if (!waterwaysData) return;
+      if (!waterwaysVisible) return;
+
+      const currentZoom = map.getZoom();
+
+      // Show features whose minZoom <= current zoom
+      const filteredFeatures = waterwaysData.features.filter(
+        (f) => (f.properties.minZoom || 10) <= currentZoom,
+      );
+
+      if (filteredFeatures.length === 0) {
+        clearLegend();
+        return;
+      }
+
+      const filteredData = { ...waterwaysData, features: filteredFeatures };
+
+      const waterwayStyle = (feature) => {
+        const isCanal = feature.properties.waterway === 'canal';
+        return {
+          color: isCanal ? '#06b6d4' : '#0ea5e9',
+          weight: isCanal ? 2.5 : 1.8,
+          opacity: isCanal ? 0.85 : 0.7,
+          // Solid lines only — dashArray is expensive on canvas at low zooms
+        };
+      };
+
+      waterwaysLayer = L.geoJSON(filteredData, {
+        style: waterwayStyle,
+        onEachFeature: (feature, layer) => {
+          const name = feature.properties.name || '';
+          const waterway = feature.properties.waterway === 'canal' ? 'Canal' : 'Rivière navigable';
+          if (name) {
+            const lenKm = feature.properties.lengthKm;
+            const lenStr = lenKm ? ` — ${lenKm} km` : '';
+            layer.bindTooltip(`${waterway}: <strong>${escapeHtml(name)}</strong>${lenStr}`, {
+              sticky: true, className: 'dept-tooltip',
+            });
+          }
+        },
+      });
+
+      waterwaysLayer.addTo(map);
+    }
 
     async function fetchWaterways() {
-      if (waterwaysFetched) return;
+      if (waterwaysFetched && waterwaysData) return;
       try {
         const resp = await fetch('/data/waterways.geojson');
         if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-        const data = await resp.json();
+        waterwaysData = await resp.json();
         waterwaysFetched = true;
 
-        const waterwayStyle = (feature) => {
-          const isCanal = feature.properties.waterway === 'canal';
-          return {
-            color: isCanal ? '#06b6d4' : '#0ea5e9',
-            weight: isCanal ? 2.5 : 1.5,
-            opacity: 0.8,
-            dashArray: isCanal ? null : '6, 4',
-          };
-        };
+        renderWaterwaysLayer();
 
-        waterwaysLayer = L.geoJSON(data, {
-          minZoom: 6,
-          style: waterwayStyle,
-          onEachFeature: (feature, layer) => {
-            const name = feature.properties.name || '';
-            const type = feature.properties.waterway === 'canal' ? 'Canal' : 'Rivière navigable';
-            if (name) {
-              layer.bindTooltip(`${type}: ${escapeHtml(name)}`, {
-                sticky: true, className: 'dept-tooltip',
-              });
-            }
-          },
-        });
-
-        map.addLayer(waterwaysLayer);
-
-        const canalCount = data.features.filter(f => f.properties.waterway === 'canal').length;
-        const riverCount = data.features.filter(f => f.properties.waterway === 'river').length;
+        // Update legend
+        const canalCount = waterwaysData.features.filter(f => f.properties.waterway === 'canal').length;
+        const riverCount = waterwaysData.features.filter(f => f.properties.waterway === 'river').length;
+        const atZoom = map.getZoom();
+        const visibleCount = waterwaysData.features.filter(
+          (f) => (f.properties.minZoom || 10) <= atZoom,
+        ).length;
         const legendHtml = `
           <p class="data-map__legend-subtitle">Voies navigables</p>
-          <p class="data-map__legend-hint">Visible à partir du zoom 6.</p>
+          <p class="data-map__legend-hint">Affichage progressif selon le niveau de zoom&nbsp;: ${visibleCount} voies visibles (zoom ${atZoom}).</p>
           <div class="waterways-legend">
             <div class="waterways-legend__item">
               <span class="waterways-legend__line waterways-legend__line--canal"></span>
@@ -440,22 +483,23 @@
               Rivières navigables
             </div>
           </div>
-          <p>${canalCount} canaux, ${riverCount} rivières navigables.</p>
+          <p>${canalCount} canaux, ${riverCount} rivières navigables (${waterwaysData.features.length} segments après fusion).</p>
           <p class="data-map__legend-source"><sup class="citation"><a href="/bibliographie/openstreetmap" data-source-id="openstreetmap" title="Source : openstreetmap">[3]</a></sup></p>
         `;
         document.getElementById('map-legend-content').innerHTML = legendHtml;
         map.attributionControl.addAttribution('Voies navigables : <a href="https://www.openstreetmap.org/copyright">© contributeurs OSM</a>');
-        console.log('✓ Waterways layer loaded');
+        console.log(`✓ Waterways layer loaded (${waterwaysData.features.length} features, ${visibleCount} visible at zoom ${atZoom})`);
       } catch (err) {
         console.error('Failed to load waterways:', err);
         document.getElementById('map-legend-content').innerHTML = `
           <p class="data-map__legend-subtitle">Voies navigables</p>
-          <p>Données non disponibles. Générez avec : <code>node scripts/fetch-waterways.js</code></p>
+          <p>Données non disponibles. Générez avec : <code>node scripts/fetch-waterways.js</code> puis <code>node scripts/simplify-line-layers.js</code></p>
         `;
       }
     }
 
     function toggleWaterways(enabled) {
+      waterwaysVisible = enabled;
       if (enabled) {
         fetchWaterways();
       } else {
@@ -466,6 +510,22 @@
         clearLegend();
       }
     }
+
+    // ── Zoom listener: rebuild waterways layer when zoom changes ──
+    map.on('zoomend', () => {
+      if (waterwaysVisible && waterwaysData) {
+        renderWaterwaysLayer();
+        // Update visible count in legend
+        const zoom = map.getZoom();
+        const visibleCount = waterwaysData.features.filter(
+          (f) => (f.properties.minZoom || 10) <= zoom,
+        ).length;
+        const hintEl = document.querySelector('.data-map__legend-hint');
+        if (hintEl) {
+          hintEl.textContent = `Affichage progressif selon le niveau de zoom : ${visibleCount} voies visibles (zoom ${zoom}).`;
+        }
+      }
+    });
 
     // ── Communes (GeoJSON overlay) ──
     let communesFetched = false;
@@ -563,10 +623,88 @@
       });
     }
 
+    // ── Fullscreen control ──
+    const fullscreenControl = L.control({ position: 'topright' });
+    let isFullscreen = false;
+
+    fullscreenControl.onAdd = function () {
+      const btn = L.DomUtil.create('button', 'leaflet-control-zoom leaflet-control-fullscreen');
+      btn.setAttribute('type', 'button');
+      btn.setAttribute('aria-label', 'Plein écran');
+      btn.setAttribute('title', 'Plein écran');
+      btn.innerHTML = '<span class="fullscreen-icon">⛶</span>';
+      btn.style.cssText = `
+        font-size: 18px; line-height: 30px; text-align: center;
+        cursor: pointer; width: 30px; height: 30px;
+      `;
+
+      btn.addEventListener('click', () => {
+        const wrapper = document.getElementById('map-page-wrapper');
+        if (!wrapper) return;
+
+        if (!document.fullscreenElement) {
+          wrapper.requestFullscreen().catch(() => {});
+        } else {
+          document.exitFullscreen().catch(() => {});
+        }
+      });
+
+      return btn;
+    };
+
+    fullscreenControl.addTo(map);
+
+    // Track fullscreen state to resize map and toggle overlay
+    document.addEventListener('fullscreenchange', () => {
+      isFullscreen = !!document.fullscreenElement;
+      map.invalidateSize();
+      // Toggle class on wrapper and controls for overlay mode
+      const wrapper = document.getElementById('map-page-wrapper');
+      if (wrapper) {
+        wrapper.classList.toggle('is-fullscreen', isFullscreen);
+      }
+      const controls = document.querySelector('.layer-controls');
+      if (controls) {
+        controls.classList.toggle('layer-controls--fullscreen', isFullscreen);
+      }
+      // When entering fullscreen, auto-show layers panel
+      if (isFullscreen) {
+        document.body.classList.add('has-fullscreen-map');
+      } else {
+        document.body.classList.remove('has-fullscreen-map');
+      }
+      // Update button icon
+      const btn = document.querySelector('.leaflet-control-fullscreen');
+      if (btn) {
+        btn.innerHTML = isFullscreen
+          ? '<span class="fullscreen-icon">✕</span>'
+          : '<span class="fullscreen-icon">⛶</span>';
+        btn.setAttribute('aria-label', isFullscreen ? 'Quitter le plein écran' : 'Plein écran');
+        btn.setAttribute('title', isFullscreen ? 'Quitter le plein écran' : 'Plein écran');
+      }
+    });
+
+    // ── Fullscreen: layer panel collapse toggle ──
+    function setupFullscreenCollapse() {
+      const collapseBtn = document.querySelector('.layer-controls__collapse');
+      const controls = document.querySelector('.layer-controls');
+      if (!collapseBtn || !controls) return;
+
+      collapseBtn.addEventListener('click', () => {
+        const isCollapsed = controls.classList.toggle('layer-controls--collapsed');
+        collapseBtn.setAttribute('aria-label', isCollapsed ? 'Afficher les couches' : 'Masquer les couches');
+        collapseBtn.setAttribute('title', isCollapsed ? 'Afficher les couches' : 'Masquer les couches');
+        collapseBtn.innerHTML = isCollapsed ? '<span>☰</span>' : '<span>◀</span>';
+        // Re-trigger map size recalculation
+        map.invalidateSize();
+      });
+    }
+
     // ── Init ──
     loadDepartments();
     setupToggles();
     setupTippy();
+    setupFullscreenCollapse();
 
     // Invalidate map size when container becomes visible (Astro navigation)
     setTimeout(() => map.invalidateSize(), 200);

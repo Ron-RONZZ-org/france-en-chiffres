@@ -25,6 +25,7 @@
     "populate:density": "node scripts/populate-density.js",
     "fetch:waterways": "node scripts/fetch-waterways.js",
     "cache:waterways": "bash scripts/cache-waterways.sh",
+    "build:layers": "node scripts/simplify-line-layers.js",
     "clip:france": "node scripts/clip-to-france.js"
   },
   "dependencies": {
