@@ -177,9 +177,17 @@
     }
 
     // ── Density overlay (commune-level choropleth) ──
+    function setLegendContent(html) {
+      const normalEl = document.getElementById('map-legend-content');
+      const infoLegend = document.getElementById('map-info-legend');
+      if (normalEl) normalEl.innerHTML = html;
+      if (infoLegend) infoLegend.innerHTML = html;
+    }
+
     function clearLegend() {
-      document.getElementById('map-legend-content').innerHTML =
-        '<p class="data-map__legend-placeholder">Sélectionnez une couche pour voir la légende.</p>';
+      setLegendContent(
+        '<p class="data-map__legend-placeholder">Sélectionnez une couche pour voir la légende.</p>'
+      );
     }
 
     function clearDensityLayer() {
@@ -212,8 +220,8 @@
       const checkbox = document.getElementById('toggle-density');
       if (!checkbox || !checkbox.checked) return;
 
-      document.getElementById('map-legend-content').innerHTML =
-        '<p class="data-map__legend-subtitle">Densit\u00e9 de population</p><p class="data-map__legend-loading">Chargement des donn\u00e9es...</p>';
+      setLegendContent(
+        '<p class="data-map__legend-subtitle">Densit\u00e9 de population</p><p class="data-map__legend-loading">Chargement des donn\u00e9es...</p>');
 
       try {
         const resp = await fetch('/data/density-simple.geojson');
@@ -265,7 +273,7 @@
           </div>
           <p class="data-map__legend-source"><sup class="citation"><a href="/bibliographie/insee-2024" data-source-id="insee-2024" title="Source : insee-2024">[1]</a></sup></p>
         `;
-        document.getElementById('map-legend-content').innerHTML = legendHtml;
+        setLegendContent(legendHtml);
         if (!densityAttributionAdded) {
           map.attributionControl.addAttribution('Données population : <a href="https://geo.api.gouv.fr/">INSEE — api.gouv.fr</a>');
           densityAttributionAdded = true;
@@ -287,11 +295,11 @@
           });
         }
         map.addLayer(elevationLayer);
-        document.getElementById('map-legend-content').innerHTML = `
+        setLegendContent(`
           <p class="data-map__legend-subtitle">Relief</p>
           <p>Carte topographique avec courbes de niveau et ombrage du terrain.</p>
           <p class="data-map__legend-source"><sup class="citation"><a href="/bibliographie/opentopomap" data-source-id="opentopomap" title="Source : opentopomap">[4]</a></sup></p>
-        `;
+        `);
       } else {
         if (elevationLayer) {
           map.removeLayer(elevationLayer);
@@ -348,15 +356,15 @@
           </div>
           <p class="data-map__legend-source"><sup class="citation"><a href="/bibliographie/openstreetmap" data-source-id="openstreetmap" title="Source : openstreetmap">[3]</a></sup></p>
         `;
-        document.getElementById('map-legend-content').innerHTML = legendHtml;
+        setLegendContent(legendHtml);
         map.attributionControl.addAttribution('Réseau routier : <a href="https://www.openstreetmap.org/copyright">© contributeurs OSM</a>');
         console.log('✓ Roads layer loaded');
       } catch (err) {
         console.error('Failed to load roads:', err);
-        document.getElementById('map-legend-content').innerHTML = `
+        setLegendContent(`
           <p class="data-map__legend-subtitle">Réseau routier</p>
           <p>Données non disponibles. Générez avec : <code>node scripts/fetch-roads.js</code></p>
-        `;
+        `);
       }
     }
 
@@ -383,11 +391,11 @@
           });
         }
         map.addLayer(railwaysLayer);
-        document.getElementById('map-legend-content').innerHTML = `
+        setLegendContent(`
           <p class="data-map__legend-subtitle">Réseau ferroviaire</p>
           <p>Réseau ferré français — lignes principales, secondaires et de fret.</p>
           <p class="data-map__legend-source"><sup class="citation"><a href="/bibliographie/openrailwaymap" data-source-id="openrailwaymap" title="Source : openrailwaymap">[5]</a></sup></p>
-        `;
+        `);
       } else {
         if (railwaysLayer) {
           map.removeLayer(railwaysLayer);
@@ -486,15 +494,15 @@
           <p>${canalCount} canaux, ${riverCount} rivières navigables (${waterwaysData.features.length} segments après fusion).</p>
           <p class="data-map__legend-source"><sup class="citation"><a href="/bibliographie/openstreetmap" data-source-id="openstreetmap" title="Source : openstreetmap">[3]</a></sup></p>
         `;
-        document.getElementById('map-legend-content').innerHTML = legendHtml;
+        setLegendContent(legendHtml);
         map.attributionControl.addAttribution('Voies navigables : <a href="https://www.openstreetmap.org/copyright">© contributeurs OSM</a>');
         console.log(`✓ Waterways layer loaded (${waterwaysData.features.length} features, ${visibleCount} visible at zoom ${atZoom})`);
       } catch (err) {
         console.error('Failed to load waterways:', err);
-        document.getElementById('map-legend-content').innerHTML = `
+        setLegendContent(`
           <p class="data-map__legend-subtitle">Voies navigables</p>
           <p>Données non disponibles. Générez avec : <code>node scripts/fetch-waterways.js</code> puis <code>node scripts/simplify-line-layers.js</code></p>
-        `;
+        `);
       }
     }
 
@@ -559,20 +567,20 @@
 
         map.addLayer(communesLayer);
 
-        document.getElementById('map-legend-content').innerHTML = `
+        setLegendContent(`
           <p class="data-map__legend-subtitle">Communes</p>
           <p class="data-map__legend-hint">Visible à partir du zoom 9.</p>
           <p>Limites des ${data.features.length} communes de France.</p>
           <p class="data-map__legend-source"><sup class="citation"><a href="/bibliographie/france-geojson" data-source-id="france-geojson" title="Source : france-geojson">[6]</a></sup></p>
-        `;
+        `);
         map.attributionControl.addAttribution('Limites communales : <a href="https://github.com/gregoiredavid/france-geojson">france-geojson</a>');
         console.log('✓ Communes layer loaded');
       } catch (err) {
         console.error('Failed to load communes:', err);
-        document.getElementById('map-legend-content').innerHTML = `
+        setLegendContent(`
           <p class="data-map__legend-subtitle">Communes</p>
           <p>Données non disponibles. Générez avec : <code>node scripts/build-density-grid.js</code></p>
-        `;
+        `);
       }
     }
 
@@ -654,7 +662,7 @@
 
     fullscreenControl.addTo(map);
 
-    // Track fullscreen state to resize map and toggle overlay
+    // Track fullscreen state to resize map, move legend, toggle panels
     document.addEventListener('fullscreenchange', () => {
       isFullscreen = !!document.fullscreenElement;
       map.invalidateSize();
@@ -666,10 +674,23 @@
       const controls = document.querySelector('.layer-controls');
       if (controls) {
         controls.classList.toggle('layer-controls--fullscreen', isFullscreen);
+        if (!isFullscreen) controls.classList.remove('layer-controls--collapsed');
       }
-      // When entering fullscreen, auto-show layers panel
+      // Move legend content between normal and fullscreen containers
+      const legendContent = document.getElementById('map-legend-content');
+      const infoLegend = document.getElementById('map-info-legend');
+      if (isFullscreen && legendContent && infoLegend) {
+        infoLegend.innerHTML = legendContent.innerHTML;
+        legendContent.innerHTML = '';
+      } else if (!isFullscreen && infoLegend && legendContent) {
+        legendContent.innerHTML = infoLegend.innerHTML;
+        infoLegend.innerHTML = '';
+      }
+      // When entering fullscreen, auto-show panels
       if (isFullscreen) {
         document.body.classList.add('has-fullscreen-map');
+        const infoPanel = document.getElementById('map-info-panel');
+        if (infoPanel) infoPanel.classList.remove('interactive-page__info-panel--collapsed');
       } else {
         document.body.classList.remove('has-fullscreen-map');
       }
@@ -700,11 +721,29 @@
       });
     }
 
+    // ── Fullscreen: info panel collapse toggle ──
+    function setupInfoPanelToggle() {
+      const header = document.querySelector('.interactive-page__info-panel-header');
+      const panel = document.getElementById('map-info-panel');
+      if (!header || !panel) return;
+
+      header.addEventListener('click', () => {
+        const isCollapsed = panel.classList.toggle('interactive-page__info-panel--collapsed');
+        const toggleBtn = panel.querySelector('.interactive-page__info-panel-toggle');
+        if (toggleBtn) {
+          toggleBtn.setAttribute('aria-label', isCollapsed ? 'Afficher le panneau d\'information' : 'Masquer le panneau d\'information');
+          toggleBtn.setAttribute('title', isCollapsed ? 'Afficher le panneau d\'information' : 'Masquer le panneau d\'information');
+        }
+        map.invalidateSize();
+      });
+    }
+
     // ── Init ──
     loadDepartments();
     setupToggles();
     setupTippy();
     setupFullscreenCollapse();
+    setupInfoPanelToggle();
 
     // Invalidate map size when container becomes visible (Astro navigation)
     setTimeout(() => map.invalidateSize(), 200);
