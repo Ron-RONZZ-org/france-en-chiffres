@@ -1,5 +1,8 @@
 ---
-import { getSource, formatSourceLabel, sourceUrl } from '../data/sources';
+// MediaFigure.astro — Renders a media asset (image) with attribution.
+// Refactored to use Figure.astro base component.
+
+import Figure from './Figure.astro';
 import type { ResolvedMedia } from '../data/media';
 
 export interface Props {
@@ -11,16 +14,20 @@ export interface Props {
 }
 
 const { entry, variant = 'inline' } = Astro.props;
-const refSource = entry.sourceId ? await getSource(entry.sourceId) : undefined;
 const isSvg = entry.format === 'svg';
 const cssClass = Astro.props.class ?? '';
 ---
 
-<figure
-  class={`media-figure media-figure--${variant} ${cssClass}`.trim()}
-  data-media-id={entry.id}
-  itemscope
-  itemtype="http://schema.org/ImageObject"
+<Figure
+  variant={variant}
+  class={`media-figure ${cssClass}`.trim()}
+  caption={entry.caption}
+  credit={entry.credit}
+  license={entry.license}
+  licenseUrl={entry.licenseUrl}
+  sourceId={entry.sourceId}
+  dataFigureType="media"
+  dataFigureId={entry.id}
 >
   {isSvg ? (
     <img
@@ -29,7 +36,6 @@ const cssClass = Astro.props.class ?? '';
       class="media-figure__img"
       loading="lazy"
       decoding="async"
-      itemprop="contentUrl"
     />
   ) : (
     <img
@@ -40,124 +46,16 @@ const cssClass = Astro.props.class ?? '';
       height={entry.height}
       loading="lazy"
       decoding="async"
-      itemprop="contentUrl"
     />
   )}
-
-  {(entry.caption || entry.credit) && (
-    <figcaption class="media-figure__caption" itemprop="description">
-      {entry.caption && (
-        <p class="media-figure__text">{entry.caption}</p>
-      )}
-
-      {(entry.credit || entry.license || refSource) && (
-        <ul class="media-figure__meta">
-          {entry.credit && (
-            <li class="media-figure__credit" itemprop="author">
-              {entry.credit}
-            </li>
-          )}
-          {entry.license && (
-            <li class="media-figure__license">{entry.license}</li>
-          )}
-          {refSource && (
-            <li>
-              <a
-                href={sourceUrl(entry.sourceId!)}
-                class="media-figure__source"
-                itemprop="mainEntityOfPage"
-              >
-                {formatSourceLabel(refSource)}
-              </a>
-            </li>
-          )}
-        </ul>
-      )}
-    </figcaption>
-  )}
-</figure>
+</Figure>
 
 <style>
-  .media-figure {
-    margin: var(--gap-lg) 0;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    background: var(--color-bg-card);
-  }
-
-  .media-figure--hero {
-    margin: var(--gap-xl) calc(-1 * var(--gap-lg));
-    border-radius: 0;
-    border-left: none;
-    border-right: none;
-  }
-
   .media-figure__img {
     display: block;
     width: 100%;
     height: auto;
     object-fit: cover;
     background: var(--color-bg-dark);
-  }
-
-  .media-figure__caption {
-    display: flex;
-    flex-direction: column;
-    gap: var(--gap-xs);
-    padding: var(--gap-md) var(--gap-lg);
-    font-size: 0.85rem;
-    color: var(--color-text-muted);
-    border-top: 1px solid var(--color-border);
-  }
-
-  .media-figure__text {
-    line-height: 1.5;
-    color: var(--color-text-light);
-  }
-
-  .media-figure__meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--gap-sm);
-    list-style: none;
-    font-size: 0.75rem;
-  }
-
-  .media-figure__meta > li::after {
-    content: "·";
-    margin-left: var(--gap-sm);
-    opacity: 0.4;
-  }
-
-  .media-figure__meta > li:last-child::after {
-    content: none;
-  }
-
-  .media-figure__source {
-    color: var(--color-link-on-dark);
-    text-decoration: none;
-    transition: opacity var(--transition-fast);
-  }
-
-  .media-figure__source:hover {
-    opacity: 0.8;
-    text-decoration: underline;
-  }
-
-  .media-figure__source:focus-visible {
-    outline: 2px solid var(--color-link-on-dark);
-    outline-offset: 2px;
-    border-radius: 2px;
-  }
-
-  @media (max-width: 768px) {
-    .media-figure--hero {
-      margin: var(--gap-lg) calc(-1 * var(--gap-md));
-    }
-
-    .media-figure__caption {
-      padding: var(--gap-md);
-    }
   }
 </style>

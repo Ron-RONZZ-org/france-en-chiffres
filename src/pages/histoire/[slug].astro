@@ -25,7 +25,16 @@ const sourceIds = [...new Set(
 const sources = (await Promise.all(
   sourceIds.map((id) => getSource(id)),
 )).filter(Boolean);
-const refMedia = event.mediaId ? await getMedia(event.mediaId) : undefined;
+
+// Hero media: first from mediaIds, fallback to mediaId
+const allMediaIds = [...(event.mediaIds ?? []), ...(event.mediaId ? [event.mediaId] : [])];
+const heroMediaId = allMediaIds[0];
+const galleryMediaIds = allMediaIds.slice(1);
+
+const heroMedia = heroMediaId ? await getMedia(heroMediaId) : undefined;
+const galleryMedia = (await Promise.all(
+  galleryMediaIds.map((id) => getMedia(id)),
+)).filter(Boolean);
 ---
 
 <Base title={`${event.title} — Histoire`} description={event.description ?? ''}>
@@ -36,8 +45,16 @@ const refMedia = event.mediaId ? await getMedia(event.mediaId) : undefined;
       <h1 class="event-page__title">{event.title}</h1>
     </header>
 
-    {refMedia && (
-      <MediaFigure entry={refMedia} variant="hero" />
+    {heroMedia && (
+      <MediaFigure entry={heroMedia} variant="hero" />
+    )}
+
+    {galleryMedia.length > 0 && (
+      <div class="event-page__gallery">
+        {galleryMedia.map((m) => (
+          <MediaFigure entry={m} variant="inline" />
+        ))}
+      </div>
     )}
 
     <div class="event-page__body">
@@ -102,6 +119,18 @@ const refMedia = event.mediaId ? await getMedia(event.mediaId) : undefined;
     margin-bottom: var(--gap-md);
   }
 
+  .event-page__gallery {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-lg);
+    margin-bottom: var(--gap-lg);
+    max-width: 720px;
+  }
+
+  .event-page__gallery :global(.figure) {
+    margin: 0;
+  }
+
   .event-page__body {
     font-size: 1.05rem;
     line-height: 1.8;
@@ -164,6 +193,33 @@ const refMedia = event.mediaId ? await getMedia(event.mediaId) : undefined;
     outline: 2px solid var(--color-link-on-dark);
     outline-offset: 2px;
     border-radius: 2px;
+  }
+
+  /* ── Inline figure embeddings (from remark plugin) ── */
+
+  .event-page__body :global(.chart-figure__container svg) {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    display: block;
+  }
+
+  .event-page__body :global(.chart-figure__container) {
+    padding: var(--gap-md) var(--gap-lg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 200px;
+  }
+
+  .event-page__body :global(.figure-warning) {
+    padding: var(--gap-md);
+    border: 1px dashed var(--color-french-red);
+    border-radius: var(--radius-md);
+    color: var(--color-french-red);
+    font-size: 0.85rem;
+    text-align: center;
+    margin: var(--gap-lg) 0;
   }
 
   /* ── Footer sources list ── */

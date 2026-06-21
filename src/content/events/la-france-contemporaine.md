@@ -168,6 +168,8 @@ La France fait face à trois défis majeurs, intimement liés entre eux. {! simp
 
 **Le défi social** : les retraites, la santé, l'éducation, le logement — les piliers de l'État-providence — sont sous tension budgétaire et démographique. La mondialisation a enrichi certains territoires (les métropoles, les pôles d'excellence) et en a laissé d'autres à l'écart (les petites villes industrielles, les campagnes reculées). Le sentiment de déclassement touche les classes moyennes et populaires. La question que la Révolution française avait posée — que signifie être libre et égaux quand certain·es accumulent et d'autres survivent ? — n'a toujours pas trouvé sa réponse.
 
+Cette évolution démographique [chart:population-evolution] illustre la transformation spectaculaire de la France en trois siècles : d'une population rurale de 21 millions d'habitants en 1700 à une société urbaine et industrielle de près de 70 millions aujourd'hui.
+
 ## Épilogue : l'Histoire avec une grande « H » est une histoire sans fin
 
 L'histoire de France n'est ni un beau roman ni une fresque édifiante. Elle est faite de fractures, de souffrances, de guerres, de réconciliations, d'avancées et de reculs. Elle est marquée par la question toujours ouverte de l'égalité — entre hommes et femmes, entre classes sociales, entre Français·es d'origine et Français·es d'adoption, entre la métropole et ses anciennes colonies.
