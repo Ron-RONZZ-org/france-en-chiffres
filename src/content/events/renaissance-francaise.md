@@ -42,7 +42,7 @@ En 1539, François I<sup>er</sup> promulguait son ordonnance la plus durable : l
 
 L'imprimerie ne produisait pas que des livres : elle bouleversa la structure de la société française du XVI<sup>e</sup> siècle, comme Internet a transformé la nôtre.
 
-Avant Gutenberg, un manuscrit pouvait coûter le prix d'une petite ferme. Après, le même texte imprimé coûtait le salaire de quelques journées de travail d'un·e artisan·e[source:britannica-printing].
+Avant Gutenberg, un manuscrit pouvait coûter le prix d'une petite ferme. Après, le même texte imprimé coûtait le salaire de quelques journées de travail d'un·e artisan·e [source:britannica-printing].
 
 Les conséquences furent immenses :
 
@@ -50,18 +50,20 @@ Les conséquences furent immenses :
 - **La Bible** fut traduite et imprimée en français dès les années 1520 par Lefèvre d'Étaples, permettant aux croyant·es de lire les textes sacrés sans passer par le clergé.
 - **Les idées nouvelles** — celles de la Renaissance italienne, puis celles de la Réforme protestante — circulèrent d'une ville à l'autre en quelques semaines, portées par les colporteur·euses.
 
-Ainsi la société française s'en trouva bouleversée** : l'imprimerie créa des métiers nouveaux (imprimeur·euses, correcteur·ices, libraires) et fit émerger une bourgeoisie lettrée qui concurrençait le clergé dans la production et la diffusion du savoir. Le livre imprimé permit à des milliers de personnes d'accéder aux textes sans passer par l'Église, affaiblissant **le monopole intellectuel du clergé** et préparant l'émergence d'un espace public — un siècle avant les premiers journaux[source:britannica-renaissance-france].
+Ainsi la société française s'en trouva bouleversée : l'imprimerie créa des métiers nouveaux (imprimeur·euses, correcteur·ices, libraires) et fit émerger une bourgeoisie lettrée qui concurrençait le clergé dans la production et la diffusion du savoir. Le livre imprimé permit à des milliers de personnes d'accéder aux textes sans passer par l'Église, affaiblissant **le monopole intellectuel du clergé** et préparant l'émergence d'un espace public — un siècle avant les premiers journaux [source:britannica-renaissance-france].
 
 Lyon devint le cœur battant de cette révolution en France. En 1500, la ville comptait déjà une cinquantaine d'ateliers d'imprimerie. Les presses lyonnaises publiaient de tout : des éditions des classiques grecs et latins, des romans de chevalerie, des almanachs, des pamphlets religieux, des livres illustrés. Les imprimeurs — souvent d'ancien·nes commerçant·es ou des savant·es — faisaient fortune. Leurs ateliers employaient des apprenti·es, des correcteur·ices, des illustrateur·ices [source:britannica-renaissance-france].
 
 
-Antoine, le petit apprenti que nous avons rencontré dans le prologue, grandissait et viellissait avec son siècle. Il devint probablement compagnon imprimeur, puis maître. Éventuellement il apprit à lire en assemblant les lettres de plomb; éventuellement, un soir de 1532, il tint entre ses mains un exemplaire tout chaud de *Pantagruel* et commenca à y lire — le livre effrayant et hilarant d'un certain Alcofribas Nasier.
+Antoine, le petit apprenti que nous avons rencontré dans le prologue, grandissait et vieillissait avec son siècle. Il devint probablement compagnon imprimeur, puis maître. Peu à peu, il apprit à lire en assemblant les lettres de plomb ; jusqu'au soir de 1532 où il tint entre ses mains un exemplaire tout chaud de *Pantagruel* et se mit à y lire — le livre effrayant et hilarant d'un certain Alcofribas Nasier.
 
 ## Humanistes, poètes et savant·es : la France s'invente une culture
 
 ### Rabelais, le rire savant
 
-Ce fameux Alcofribas Nasier n'était autre que **François Rabelais** (vers 1483–1553). Moine, médecin, érudit, il fut l'un des écrivains les plus connus de la langue française. Ses romans *Pantagruel* (1532) et *Gargantua* (1534) racontent l'histoire de deux géants, père et fils, qui traversent un monde absurde, violent et merveilleux [source:britannica-rabelais].{! il faut une expliquation pourquoi François Rabelais se faisait connu comme Alcofribas Nasier ?}
+Ce fameux Alcofribas Nasier n'était autre que **François Rabelais** (vers 1483–1553). Moine, médecin, érudit, il fut l'un des écrivains les plus connus de la langue française. Ses romans *Pantagruel* (1532) et *Gargantua* (1534) racontent l'histoire de deux géants, père et fils, qui traversent un monde absurde, violent et merveilleux [source:britannica-rabelais].
+
+Pourquoi ce pseudonyme ? « Alcofribas Nasier » est tout simplement l'anagramme de « François Rabelais » — un jeu d'esprit typique de la Renaissance, où les humanistes aimaient dissimuler leur identité sous des noms forgés. Mais l'enjeu était sérieux : publier des satires de l'Église et des moines pouvait valoir le bûcher. En 1532, la Sorbonne censurait déjà les livres jugés hérétiques. Le pseudonyme protégeait Rabelais : si ses livres étaient condamnés, il pouvait nier en être l'auteur. Alcofribas n'est pas seulement un masque : dans *Pantagruel*, il devient aussi le narrateur des voyages du géant, une voix facétieuse qui permet à Rabelais de rire de tout sans se dévoiler tout à fait [source:britannica-rabelais].
 
 Sous les rires et les obscénités, Rabelais défendait des idées radicales : l'éducation doit être joyeuse et complète (corps et esprit) ; la religion ne doit pas être un carcan ; le savoir est une libération. Sa célèbre abbaye de Thélème, où « fais ce que voudras » est la seule règle, résume son humanisme : une société idéale où les hommes et les femmes seraient libres, instruits et heureux. La Sorbonne condamna ses livres, mais François I<sup>er</sup> l'appréciait trop pour le laisser brûler.
 
@@ -159,7 +161,7 @@ Henri IV fut assassiné le 14 mai 1610 par un autre catholique fanatique, Ravail
 
 Quand on regarde la France d'aujourd'hui, les vestiges de la Renaissance sont omniprésents :
 
-- **Les châteaux de la Loire** — plus de trois cents demeures, dont une quarantaine inscrites au patrimoine mondial de l'UNESCO depuis 2000, attirent chaque année plus de 3,3 millions de visiteurs·euses[source:cnn-loire-valley]. Le seul château de Chambord, avec ses 440 pièces et son célèbre escalier à double révolution, en accueille environ 700 000 par an[source:cnn-loire-valley].
+- **Les châteaux de la Loire** — plus de trois cents demeures, dont une quarantaine inscrites au patrimoine mondial de l'UNESCO depuis 2000, attirent chaque année plus de 3,3 millions de visiteurs·euses [source:cnn-loire-valley]. Le seul château de Chambord, avec ses 440 pièces et son célèbre escalier à double révolution, en accueille environ 700 000 par an [source:cnn-loire-valley].
 
 - **Le Collège de France** et bien d'autres institutions intellectuelles françaises sont nées de la volonté de François I<sup>er</sup> de libérer le savoir des dogmes.
 - **Le français que nous parlons** a été forgé au XVI<sup>e</sup> siècle — par l'ordonnance de Villers-Cotterêts qui en imposa l'usage officiel, et par la Pléiade qui en fit une langue littéraire. Les mots de Rabelais, de Montaigne, de Ronsard sont encore les nôtres [source:knecht-francois-ier].

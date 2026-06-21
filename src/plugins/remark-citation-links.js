@@ -19,6 +19,14 @@ import { visit } from 'unist-util-visit';
 
 const CITATION_RE = /\[source:\s*([\w-]+)\]/g;
 
+// Detection regex for bracket groups containing "source:" that DON'T match the canonical pattern.
+// Used to warn about malformed citations that would be silently ignored.
+const ANY_SOURCE_BRACKET_RE = /\[[^\]]*source:[^\]]*\]/g;
+const KNOWN_BROKEN_PATTERNS = [
+  /\[source:\s*\{[^}]*\}\]/,      // [source:{...} — curly braces in id
+  /\[\{.*?source:\s*[\w-]+\}\]/,   // [{... source:id} — editorial note wrapping
+];
+
 /**
  * @returns {import('unified').Plugin}
  */
@@ -26,11 +34,33 @@ export default function remarkCitationLinks() {
   /** Sequential counter scoped to one tree traversal */
   let counter = 0;
 
-  return (tree) => {
+  return (tree, file) => {
     counter = 0;
 
     /** Collect (node, index, parent) tuples for text nodes that contain citations */
     const targets = [];
+
+    // ── Warning pass: detect malformed source: patterns that would be silently ignored ──
+    visit(tree, 'text', (node) => {
+      ANY_SOURCE_BRACKET_RE.lastIndex = 0;
+      let bracketMatch;
+      while ((bracketMatch = ANY_SOURCE_BRACKET_RE.exec(node.value)) !== null) {
+        const bracketText = bracketMatch[0];
+        // If it already matches the canonical pattern, it's fine
+        CITATION_RE.lastIndex = 0;
+        if (CITATION_RE.test(bracketText)) continue;
+        // Check if it matches known broken patterns
+        for (const broken of KNOWN_BROKEN_PATTERNS) {
+          if (broken.test(bracketText)) {
+            const filename = file?.path ?? 'unknown';
+            console.warn(
+              `[remark-citation-links] ⚠ Malformed citation in ${filename}: "${bracketText.substring(0, 80)}"`
+            );
+            break;
+          }
+        }
+      }
+    });
 
     visit(tree, 'text', (node, index, parent) => {
       CITATION_RE.lastIndex = 0;

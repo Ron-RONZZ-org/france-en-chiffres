@@ -268,4 +268,84 @@ for (const [start, end, expected] of inferenceCases) {
 }
 console.log(`✓ Test 10: ${inferenceCases.length} auto-inference cases all pass`);
 
+// ── Test 11: No malformed inline source citations ──
+// Detect non-canonical [source:...] patterns that would be silently ignored by the plugin.
+const malformedPatterns = [
+  /\[source:\s*\{[^}]*\}\]/,      // [source:{...} — curly braces in id
+  /\[\{.*?source:\s*[\w-]+\}\]/,   // [{... source:id} — editorial note wrapping
+];
+const malformedFound = [];
+if (fs.existsSync(contentEventsDir)) {
+  const eventFiles = fs.readdirSync(contentEventsDir).filter(f => f.endsWith('.md'));
+  for (const file of eventFiles) {
+    const content = fs.readFileSync(path.join(contentEventsDir, file), 'utf-8');
+    const bodyMatch = content.match(/---\n[\s\S]*?\n---\n([\s\S]*)/);
+    if (!bodyMatch) continue;
+    const body = bodyMatch[1];
+    for (const pattern of malformedPatterns) {
+      const match = body.match(pattern);
+      if (match) {
+        malformedFound.push({ file, match: match[0].substring(0, 80) });
+      }
+    }
+  }
+}
+assert.equal(malformedFound.length, 0,
+  `Malformed [source:] citations detected: ${JSON.stringify(malformedFound, null, 2)}`);
+console.log('✓ Test 11: No malformed [source:] citations');
+
+// ── Test 12: Space before every inline [source:] citation ──
+// AGENTS.md mandates a space between the last word and [source:xxx].
+const missingSpace = [];
+if (fs.existsSync(contentEventsDir)) {
+  const eventFiles = fs.readdirSync(contentEventsDir).filter(f => f.endsWith('.md'));
+  for (const file of eventFiles) {
+    const content = fs.readFileSync(path.join(contentEventsDir, file), 'utf-8');
+    const bodyMatch = content.match(/---\n[\s\S]*?\n---\n([\s\S]*)/);
+    if (!bodyMatch) continue;
+    const body = bodyMatch[1];
+    const spaceRegex = /\w\[source:/g;
+    let match;
+    while ((match = spaceRegex.exec(body)) !== null) {
+      // Get some surrounding context
+      const start = Math.max(0, match.index - 20);
+      const end = Math.min(body.length, match.index + 30);
+      const context = body.slice(start, end).replace(/\n/g, '\\n');
+      missingSpace.push({ file, context });
+    }
+  }
+}
+assert.equal(missingSpace.length, 0,
+  `Missing space before [source:] citation (${missingSpace.length} instances).\n` +
+  `AGENTS.md mandates a space before the bracket. First violations:\n` +
+  missingSpace.slice(0, 5).map(s =>
+    `  ${s.file}: "...${s.context}..."`
+  ).join('\n'));
+console.log('✓ Test 12: All [source:] citations have proper spacing');
+
+// ── Test 13: All event files have at least one inline citation ──
+const uncitedFiles = [];
+if (fs.existsSync(contentEventsDir)) {
+  const eventFiles = fs.readdirSync(contentEventsDir).filter(f => f.endsWith('.md'));
+  for (const file of eventFiles) {
+    const content = fs.readFileSync(path.join(contentEventsDir, file), 'utf-8');
+    const bodyMatch = content.match(/---\n[\s\S]*?\n---\n([\s\S]*)/);
+    if (!bodyMatch) continue;
+    const body = bodyMatch[1];
+    // Check for any [source:...] pattern (including edge cases)
+    const refRegex = /\[source:\s*[\w-]+\]/;
+    if (!refRegex.test(body)) {
+      uncitedFiles.push(file);
+    }
+  }
+}
+// This is a warning, not a hard failure — event files may legitimately have zero citations
+// if they are stub/summary files. But flag them for content review.
+if (uncitedFiles.length > 0) {
+  console.warn(`⚠ Test 13: ${uncitedFiles.length} event file(s) with zero inline citations\n  ${uncitedFiles.join('\n  ')}`);
+  console.warn('  These files should be reviewed for source attribution.');
+} else {
+  console.log('✓ Test 13: All event files have at least one inline citation');
+}
+
 console.log('\n🎉 All source validation tests passed!');
