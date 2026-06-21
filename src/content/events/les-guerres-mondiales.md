@@ -31,11 +31,11 @@ Quatre ans dans les tranchées. Les soldats — les « poilus » — vivaient da
 
 Les attaques étaient toujours précédées par des bombardements d'artillerie qui duraient des heures, parfois des jours. Au commandement, les hommes sortaient de la tranchée, baïonnette au canon, et couraient vers les lignes allemandes à travers le « no man's land » — un champ de cratères, de cadavres et de barbelés. Les mitrailleuses allemandes les fauchaient par centaines. Certaines attaques ne gagnaient que quelques mètres, au prix de milliers de morts.
 
-**Verdun** (février-décembre 1916) fut l'incarnation de cette guerre d'usure. Les Allemands voulaient « saigner à blanc l'armée française ». Neuf mois de combats fut 700 000 pertes des deux côtés : des soldats tué·es, blessé·es et disparu·es. La « voie sacrée » — une route unique ravitaillant le front — vit passer 90 000 hommes et 50 000 tonnes de munitions par semaine. [source:britannica-wwi].
+**Verdun** (février-décembre 1916) fut l'incarnation de cette guerre d'usure. Les Allemands voulaient « saigner à blanc l'armée française ». Neuf mois de combats firent 700 000 pertes des deux côtés : des soldats tué·es, blessé·es et disparu·es. La « voie sacrée » — une route unique ravitaillant le front — vit passer 90 000 hommes et 50 000 tonnes de munitions par semaine [source:britannica-wwi].
 
 ### Les mutineries
 
-En avril-mai 1917, le général Nivelle lança une offensive sur le Chemin des Dames. Le bilan fut de 187 000 pertes en dix jours. Les soldats, épuisés par trois ans de massacres inutiles, refusèrent de monter en ligne. 40 000 hommes se mutinèrent — certains discrets, d'autres criant « À bas la guerre ! »[source:britannica-wwi].
+En avril-mai 1917, le général Nivelle lança une offensive sur le Chemin des Dames. Le bilan fut de 187 000 pertes en dix jours. Les soldats, épuisés par trois ans de massacres inutiles, refusèrent de monter en ligne. 40 000 hommes se mutinèrent — certains discrets, d'autres criant « À bas la guerre ! » [source:britannica-wwi].
 
 Les mutineries furent réprimées sans publicité : 3 000 condamnations, 540 peines de mort, une cinquantaine d'exécutions. Le général Pétain, nommé commandant en chef, améliora les conditions de vie des soldats (permissions régulières, meilleure nourriture) pour calmer le mécontentement.
 
@@ -45,7 +45,7 @@ Pendant que les hommes étaient au front, les femmes les remplacèrent aux champ
 
 Les colonies françaises envoyèrent aussi leurs enfants. 600 000 soldats des colonies — tirailleurs sénégalais, soldats indochinois, Maghrébins, Malgaches — combattirent sur le sol français. 100 000 y laissèrent la vie.
 
-En addition, 140 000 travailleurs chinois (140 000) furent recrutés pour décharger les navires, creuser les tranchées, enterrer les morts, {! ont-ils reçu la reconnaissance dû à la victoire ?}
+En outre, 140 000 travailleurs chinois furent recrutés pour décharger les navires, creuser les tranchées, enterrer les morts. Après l'armistice, les survivants reçurent la British War Medal, mais leur contribution fut largement oubliée pendant des décennies. Ce n'est qu'à partir de 2002 que des cérémonies militaires au cimetière chinois de Noyelles-sur-Mer commémorèrent leur sacrifice ; une statue leur fut érigée à la gare de Lyon à Paris [source:wikipedia-chinese-labour-corps].
 
 ### Le bilan
 
@@ -55,8 +55,8 @@ Le 11 novembre 1918, l'armistice fut signé dans un wagon à Rethondes.
 
 La guerre était finie, avec un bilan désastreux pour la France :
 
-- **1 400 000 mort·es** — les soldats tués et les victimes civiles des bombardements et maladies, soit {} de la population française
-- **3 000 000 de blessé·es** — dont 1 500 000 « gueules cassées » (mutilé·es du visage), {combien invalides ?}
+- **1 400 000 mort·es** — les soldats tués et les victimes civiles des bombardements et maladies, soit 3,5 % de la population française
+- **3 000 000 de blessé·es** — dont 1 500 000 mutilé·es de guerre (dont 300 000 « gueules cassées », défiguré·es)
 - **600 000 veuves, 760 000 orphelin·es**
 - **10 départements dévastés** (le nord et l'est de la France étaient un champ de ruines)
 - **Une dette de 219 milliards de francs** (l'équivalent de sept années de budget)
@@ -65,7 +65,7 @@ La France victorieuse était ainsi aussi une France exsangue.
 
 ## L'entre-deux-guerres (1919–1939)
 
-{! expand: les hommes rentré de la guerre, les villages détruit par les bombardements, les veuves et orphelin·es, e·ils vivaient comment depuis la guerre ?}
+Les hommes qui rentrèrent du front retrouvèrent des villages en ruine — le nord et l'est de la France n'étaient que champs de cratères, les sols imbibés d'obus non explosés, les maisons réduites en gravats. Les mutilé·es, nombreux·euses, durent apprendre à vivre avec leurs blessures : les « gueules cassées » portaient des masques, les amputé·es des prothèses rudimentaires. Les veuves et les orphelin·es, 600 000 et 760 000, vécurent de pensions d'État souvent insuffisantes ; beaucoup durent quitter leurs terres pour chercher du travail en ville. Des associations comme l'Union des Blessés de la Face et de la Tête (1921) se créèrent pour défendre les droits des mutilé·es — un lent combat pour que la République reconnaisse sa dette envers ses soldats [source:britannica-wwi].
 
 ### Les Années folles
 
@@ -75,13 +75,13 @@ La condition des femmes évolua rapidement : les cheveux courts, les jupes plus 
 
 ### La crise de 1929 et le Front populaire
 
-Le krach boursier {?} de Wall Street, en octobre 1929, provoqua une panique bancaire aux États-Unis. Les banques américaines rappelèrent leurs prêts à l'Europe, provoquant une onde de choc qui atteignit la France à partir de 1931. La production industrielle chuta, les exportations s'effondrèrent. Le chômage de masse apparut : 500 000 chômeur·euses en 1932, 800 000 en 1936. Les usines fermaient, les salaires baissaient, la misère gagnait les villes [source:britannica-front-populaire].
+Le krach boursier de Wall Street, en octobre 1929, provoqua une panique bancaire aux États-Unis. Les banques américaines rappelèrent leurs prêts à l'Europe, provoquant une onde de choc qui atteignit la France à partir de 1931. La production industrielle chuta, les exportations s'effondrèrent. Le chômage de masse apparut : 500 000 chômeur·euses en 1932, 800 000 en 1936. Les usines fermaient, les salaires baissaient, la misère gagnait les villes [source:britannica-front-populaire].
 
 Les ligues d'extrême droite — l'Action française, les Croix-de-Feu, la Solidarité française — gagnèrent du terrain. Le 6 février 1934, des milliers de militants d'extrême droite tentèrent de prendre l'Assemblée nationale par la force. La République vacilla.
 
 En réponse, la gauche s'unit. Le **Front populaire** — une coalition entre la SFIO (socialistes), le Parti radical et le Parti communiste — remporta les élections de mai 1936. **Léon Blum** devint président du Conseil, le premier socialiste (et le premier juif) à diriger le gouvernement français [source:britannica-front-populaire].
 
-Les **accords de Matignon** (7-8 juin 1936), signés sous la pression des grèves générales (2 millions de grévistes occupèrent leurs usines), furent une avancée sociale majeure : la semaine de 40 heures, les congés payés (15 jours par an), les conventions collectives, l'augmentation des salaires (7 à 15 %). Les ouvrier·ères découvrirent la mer, la campagne, le vélo, les bals populaires. L'été 1936 resta dans les mémoires comme un été de liberté[source:britannica-front-populaire].
+Les **accords de Matignon** (7-8 juin 1936), signés sous la pression des grèves générales (2 millions de grévistes occupèrent leurs usines), furent une avancée sociale majeure : la semaine de 40 heures, les congés payés (15 jours par an), les conventions collectives, l'augmentation des salaires (7 à 15 %). Les ouvrier·ères découvrirent la mer, la campagne, le vélo, les bals populaires. L'été 1936 resta dans les mémoires comme un été de liberté [source:britannica-front-populaire].
 
 Mais le Front populaire ne dura que deux ans. Les divisions internes, les difficultés économiques, la menace de la guerre le firent chuter en 1938.
 
@@ -97,7 +97,7 @@ Le 14 juin, les Allemands entrèrent dans Paris. Le 22 juin, l'armistice fut sig
 
 ### Vichy : l'État français collaborationniste
 
-Après l'armistice, le gouvernement français, dirigé par Paul Reynaud, se réfugia à Bordeaux. Reynaud démissionna ; le président Lebrun appela le maréchal Pétain, héros de Verdun, à former un nouveau gouvernement. Pétain demanda immédiatement l'armistice. Le 10 juillet 1940, l'Assemblée nationale, réunie à Vichy, vota les pleins pouvoirs constituants au maréchal Pétain (569 voix contre 80). La III<sup>e</sup> République était morte. Le nouveau régime — « l'État français » — remplaça la devise républicaine « Liberté, Égalité, Fraternité » par « Travail, Famille, Patrie »[source:britannica-wwii].
+Après l'armistice, le gouvernement français, dirigé par Paul Reynaud, se réfugia à Bordeaux. Reynaud démissionna ; le président Lebrun appela le maréchal Pétain, héros de Verdun, à former un nouveau gouvernement. Pétain demanda immédiatement l'armistice. Le 10 juillet 1940, l'Assemblée nationale, réunie à Vichy, vota les pleins pouvoirs constituants au maréchal Pétain (569 voix contre 80). La III<sup>e</sup> République était morte. Le nouveau régime — « l'État français » — remplaça la devise républicaine « Liberté, Égalité, Fraternité » par « Travail, Famille, Patrie » [source:britannica-wwii].
 
 Le régime de Vichy mena une politique de collaboration active avec l'Allemagne nazie. Le 30 octobre 1940, Pétain déclara à la radio : « J'entre aujourd'hui dans la voie de la collaboration. » Il rencontra Hitler à Montoire.
 
@@ -135,4 +135,4 @@ Pour la France, le bilan était une fois encore dévastateur — comparable à c
 
 Au-delà des chiffres, la guerre laissa une France meurtrie, divisée par la collaboration, mais aussi portée par l'espoir de la Reconstruction.
 
-Le retour des prisonniers, le procès de Pétain, l'épuration, l'établissement de la IV<sup>e</sup> République et le début des Trente Glorieuses façonneronts les années d'après-guerre.
+Le retour des prisonniers, le procès de Pétain, l'épuration, l'établissement de la IV<sup>e</sup> République et le début des Trente Glorieuses façonneront les années d'après-guerre.
