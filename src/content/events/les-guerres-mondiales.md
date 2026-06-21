@@ -27,7 +27,7 @@ La contre-offensive française sur la Marne (septembre 1914) sauva Paris, au pri
 
 ### La vie dans les tranchées
 
-Quatre ans dans les tranchées. Les soldats — les « poilus » — vivaient dans des boyaux creusés à même la terre, sous la pluie, la neige, le soleil d'été. L'hygiène était quasi inexistante : les poux, la dysenterie, les rats. La nourriture arrivait froide dans des gamelles [source:britannica-wwi].
+Quatre ans dans les tranchées. Les soldats — les « poilus » — vivaient dans des boyaux creusés à même la terre, sous la pluie, la neige, le soleil d'été. L'hygiène était quasi inexistante : les poux, la dysenterie, les rats. La nourriture arrivait froide dans des gamelles [source:cronier-2021-food-nutrition].
 
 Les attaques étaient toujours précédées par des bombardements d'artillerie qui duraient des heures, parfois des jours. Au commandement, les hommes sortaient de la tranchée, baïonnette au canon, et couraient vers les lignes allemandes à travers le « no man's land » — un champ de cratères, de cadavres et de barbelés. Les mitrailleuses allemandes les fauchaient par centaines. Certaines attaques ne gagnaient que quelques mètres, au prix de milliers de morts.
 

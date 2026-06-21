@@ -1,0 +1,21 @@
+{
+  "id": "cronier-2021-food-nutrition",
+  "type": "entry-encyclopedia",
+  "title": "Food and Nutrition",
+  "author": [
+    {
+      "family": "Cronier",
+      "given": "Emmanuelle"
+    }
+  ],
+  "publisher": "Freie Universität Berlin",
+  "publisher-place": "Berlin",
+  "issued": {
+    "date-parts": [
+      [2021, 6, 22]
+    ]
+  },
+  "URL": "https://encyclopedia.1914-1918-online.net/article/food-and-nutrition/",
+  "collection-title": "1914-1918-Online: International Encyclopedia of the First World War",
+  "genre": "Peer-reviewed academic article"
+}
