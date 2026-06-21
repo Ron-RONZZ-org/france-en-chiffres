@@ -45,7 +45,7 @@ Pendant que les hommes étaient au front, les femmes les remplacèrent aux champ
 
 Les colonies françaises envoyèrent aussi leurs enfants. 600 000 soldats des colonies — tirailleurs sénégalais, soldats indochinois, Maghrébins, Malgaches — combattirent sur le sol français. 100 000 y laissèrent la vie.
 
-En outre, 140 000 travailleurs chinois furent recrutés pour décharger les navires, creuser les tranchées, enterrer les morts. Après l'armistice, les survivants reçurent la British War Medal, mais leur contribution fut largement oubliée pendant des décennies. Ce n'est qu'à partir de 2002 que des cérémonies militaires au cimetière chinois de Noyelles-sur-Mer commémorèrent leur sacrifice ; une statue leur fut érigée à la gare de Lyon à Paris [source:wikipedia-chinese-labour-corps].
+En outre, 140 000 travailleurs chinois furent recrutés pour décharger les navires, creuser les tranchées, enterrer les morts. Après l'armistice, les survivants reçurent la British War Medal, mais leur contribution fut largement oubliée pendant des décennies. Ce n'est qu'à partir de 2002 que des cérémonies militaires au cimetière chinois de Noyelles-sur-Mer commémorèrent leur sacrifice ; une statue leur fut érigée à la gare de Lyon à Paris [source:wikipedia-chinese-labour-corps {meilleure source requise. regarde la liste de bibliographie dans cet article de wikipédie.].
 
 ### Le bilan
 
@@ -65,10 +65,10 @@ La France victorieuse était ainsi aussi une France exsangue.
 
 ## L'entre-deux-guerres (1919–1939)
 
-Les hommes qui rentrèrent du front retrouvèrent des villages en ruine — le nord et l'est de la France n'étaient que champs de cratères, les sols imbibés d'obus non explosés, les maisons réduites en gravats. Les mutilé·es, nombreux·euses, durent apprendre à vivre avec leurs blessures : les « gueules cassées » portaient des masques, les amputé·es des prothèses rudimentaires. Les veuves et les orphelin·es, 600 000 et 760 000, vécurent de pensions d'État souvent insuffisantes ; beaucoup durent quitter leurs terres pour chercher du travail en ville. Des associations comme l'Union des Blessés de la Face et de la Tête (1921) se créèrent pour défendre les droits des mutilé·es — un lent combat pour que la République reconnaisse sa dette envers ses soldats [source:britannica-wwi].
+Les hommes qui rentrèrent du front retrouvèrent des villages en ruine {! trop absolue. Ce n'était pas le cas dans la plupart des départements}— le nord et l'est de la France n'étaient que champs de cratères, les sols imbibés d'obus non explosés, les maisons réduites en gravats. Les mutilé·es, nombreux·euses, durent apprendre à vivre avec leurs blessures : les « gueules cassées » portaient des masques, les amputé·es des prothèses rudimentaires. Les veuves et les orphelin·es, 600 000 et 760 000, vécurent de pensions d'État souvent insuffisantes ; beaucoup durent quitter leurs terres pour chercher du travail en ville. Des associations comme l'Union des Blessés de la Face et de la Tête (1921) se créèrent pour défendre les droits des mutilé·es — un lent combat pour que la République reconnaisse sa dette envers ses soldats [source:britannica-wwi].
 
 ### Les Années folles
-
+ {! meilleure transition requise} 
 La paix revenue, les années 1920 furent une explosion de liberté et de création. Paris devint la capitale culturelle du monde : Hemingway, Fitzgerald, Picasso, Stravinski, Josephine Baker — écrivain·es, peintres, musicien·nes, danseur·euses du monde entier se retrouvaient à Montparnasse et Montmartre. Le jazz, les films, la mode changèrent [source:britannica-wwi].
 
 La condition des femmes évolua rapidement : les cheveux courts, les jupes plus courtes, le travail salarié devinrent plus communs. Mais le droit de vote — promis par la Chambre des députés en 1919 — fut bloqué par le Sénat.

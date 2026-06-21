@@ -15,20 +15,9 @@ The site uses Astro (static site generator) with Tailwind CSS for styling, and a
 - **Filenames**: kebab-case for all files (e.g., `france-map.astro`, `global.css`)
 - **CSS**: Tailwind utility classes for layout and styling. Hand-written CSS only for complex animations or component-specific overrides that Tailwind can't express cleanly.
 
-### Inclusive Language
+## IMPORTANT: grammatical conventions and writing style guide
 
-- Use **point médian** for gender-dependent nouns and adjectives when the subject includes people of multiple genders: chercheur·e, agriculteur·euse, heureux·euse
-  - IMPORTANT: Do NOT use point médian when the subjects are known to be all masculine (e.g., kings, bishops in the Middle Ages, unless you are sure there was a female)
-- use **e·ils** instead of ils when the subjects are of mixed or uncertain gender
-- Maintain **religious neutrality** with AEC/EC (avant ère commune / ère commune) instead of av. J.-C. / apr. J.-C.
-
-### Grammar
-
-- Use **past tenses** when speaking of past events (passé simple, imparfait, passé composé as appropriate)
-- Avoid present tense for historical narratives, even when telling stories — it confuses the timeline
-- use « et » without "," before last item in the list: « les rois, les évêques et les bourgeosies»
-- Correct grammar while preserving the author's writing style to the maximum
-
+See [grammar-AGENTS.md](grammar-AGENTS.md)
 ---
 
 ## Tech Stack
@@ -150,7 +139,8 @@ Every fact in event content must be backed by a reliable source. The project use
    - The source `id` must be unique and kebab-case (e.g., `larousse-2023`)
 
 3. **Cite the source inline** in the event markdown file with `[source:{source-id}]`
-   - Example: `La bataille de Marignan eut lieu en 1515[source:larousse-2023]`
+   - Example: `La bataille de Marignan eut lieu en 1515 [source:larousse-2023]`
+     - PARAMOUNT to leave a space between last word of sentence and `[source: xxx]`
 
 4. **If the passage contains factual errors** (wrong year, names, etc.), rewrite the concerned sections according to the sources found
 
