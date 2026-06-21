@@ -11,8 +11,9 @@ export interface Props {
 const { event, index, total } = Astro.props;
 const side = index % 2 === 0 ? 'left' : 'right';
 
-// Resolve media thumbnail (build-time)
-const refMedia = event.mediaId ? await getMedia(event.mediaId) : undefined;
+// Resolve media thumbnail (build-time) — prefers mediaIds[0], falls back to mediaId
+const primaryMediaId = event.mediaIds?.[0] ?? event.mediaId;
+const refMedia = primaryMediaId ? await getMedia(primaryMediaId) : undefined;
 ---
 
 <div

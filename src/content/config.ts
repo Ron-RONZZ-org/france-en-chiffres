@@ -28,6 +28,7 @@ export const eventSchema = z.object({
   title: z.string().min(1),
   description: z.string().optional(),
   mediaId: z.string().optional(),
+  mediaIds: z.array(z.string()).optional(),
   departmentId: z.string().optional(),
 }).refine(
   (data) => data.end >= data.start,
@@ -105,14 +106,197 @@ export const departmentSchema = z.object({
   slug: data.code,
 }));
 
+// ── Figures (data-driven charts, prerendered to SVG) ──
+
+const chartType = z.enum([
+  'line',
+  'bar',
+  'population-pyramid',
+  'bump',
+  'choropleth',
+  'comparison',
+  'sankey',
+]);
+
+const figureBase = {
+  id: z.string().min(1),
+  type: chartType,
+  title: z.string().optional(),
+  caption: z.string().optional(),
+  credit: z.string().optional(),
+  license: z.string().optional(),
+  licenseUrl: z.string().url().optional(),
+  sourceIds: z.array(z.string()).min(1).optional(),
+  width: z.number().positive().optional(),
+  height: z.number().positive().optional(),
+  palette: z.array(z.string()).optional(),
+  previewMediaId: z.string().optional(),
+};
+
+// ── Line chart ──
+const lineFigureSchema = z.object({
+  ...figureBase,
+  type: z.literal('line'),
+  config: z.object({
+    xAxis: z.object({ label: z.string().optional() }).optional(),
+    yAxis: z.object({
+      label: z.string().optional(),
+      min: z.number().optional(),
+      max: z.number().optional(),
+      unit: z.string().optional(),
+    }).optional(),
+    interpolation: z.enum(['linear', 'monotone', 'step']).optional(),
+    showLegend: z.boolean().optional(),
+  }).optional(),
+  data: z.object({
+    series: z.array(z.object({
+      name: z.string(),
+      values: z.array(z.object({
+        x: z.union([z.number(), z.string()]),
+        y: z.number(),
+      })).min(1),
+    })).min(1),
+  }),
+});
+
+// ── Bar chart ──
+const barFigureSchema = z.object({
+  ...figureBase,
+  type: z.literal('bar'),
+  config: z.object({
+    orientation: z.enum(['grouped', 'stacked']).optional(),
+    xAxis: z.object({ label: z.string().optional() }).optional(),
+    yAxis: z.object({ label: z.string().optional(), unit: z.string().optional() }).optional(),
+    showLegend: z.boolean().optional(),
+  }).optional(),
+  data: z.object({
+    values: z.array(z.object({
+      category: z.string(),
+      groups: z.array(z.object({
+        name: z.string(),
+        value: z.number(),
+      })).min(1),
+    })).min(1),
+  }),
+});
+
+// ── Population pyramid ──
+const pyramidFigureSchema = z.object({
+  ...figureBase,
+  type: z.literal('population-pyramid'),
+  config: z.object({
+    year: z.number(),
+    xLabel: z.string().optional(),
+    unit: z.string().optional(),
+  }).optional(),
+  data: z.object({
+    male: z.array(z.object({
+      ageGroup: z.string(),
+      value: z.number(),
+    })).min(1),
+    female: z.array(z.object({
+      ageGroup: z.string(),
+      value: z.number(),
+    })).min(1),
+  }),
+});
+
+// ── Bump chart ──
+const bumpFigureSchema = z.object({
+  ...figureBase,
+  type: z.literal('bump'),
+  config: z.object({
+    xAxis: z.object({ label: z.string().optional() }).optional(),
+    yLabel: z.string().optional(),
+  }).optional(),
+  data: z.object({
+    series: z.array(z.object({
+      name: z.string(),
+      values: z.array(z.object({
+        x: z.union([z.number(), z.string()]),
+        rank: z.number().int().positive(),
+      })).min(1),
+    })).min(1),
+  }),
+});
+
+// ── Choropleth ──
+const choroplethFigureSchema = z.object({
+  ...figureBase,
+  type: z.literal('choropleth'),
+  config: z.object({
+    geoLayer: z.string(),
+    valueProperty: z.string(),
+    legend: z.object({
+      label: z.string(),
+      unit: z.string().optional(),
+    }).optional(),
+    classification: z.enum(['quantile', 'equal', 'jenks']).optional(),
+    numClasses: z.number().int().min(3).max(9).optional(),
+  }),
+  data: z.object({
+    features: z.array(z.object({
+      id: z.string(),
+      value: z.number(),
+    })).min(1),
+  }),
+});
+
+// ── Comparison (before/after side-by-side) ──
+const comparisonFigureSchema = z.object({
+  ...figureBase,
+  type: z.literal('comparison'),
+  config: z.object({
+    labelBefore: z.string().optional(),
+    labelAfter: z.string().optional(),
+  }).optional(),
+  data: z.object({
+    before: z.string(),
+    after: z.string(),
+    mediaIdBefore: z.string().optional(),
+    mediaIdAfter: z.string().optional(),
+  }),
+});
+
+// ── Sankey diagram ──
+const sankeyFigureSchema = z.object({
+  ...figureBase,
+  type: z.literal('sankey'),
+  config: z.object({
+    nodeLabel: z.enum(['name', 'value', 'none']).optional(),
+  }).optional(),
+  data: z.object({
+    nodes: z.array(z.object({
+      name: z.string(),
+      category: z.string().optional(),
+    })).min(1),
+    links: z.array(z.object({
+      source: z.union([z.string(), z.number()]),
+      target: z.union([z.string(), z.number()]),
+      value: z.number(),
+    })).min(1),
+  }),
+});
+
+export const figureSchema = z.discriminatedUnion('type', [
+  lineFigureSchema,
+  barFigureSchema,
+  pyramidFigureSchema,
+  bumpFigureSchema,
+  choroplethFigureSchema,
+  comparisonFigureSchema,
+  sankeyFigureSchema,
+]);
+
 // ── Export collections ──
 
 export const collections = {
-  eras:    defineCollection({ type: 'content', schema: eraSchema }),
-  events:  defineCollection({ type: 'content', schema: eventSchema }),
-  sources: defineCollection({ type: 'data',    schema: sourceSchema }),
-  media:   defineCollection({ type: 'data',    schema: mediaSchema }),
+  eras:         defineCollection({ type: 'content', schema: eraSchema }),
+  events:       defineCollection({ type: 'content', schema: eventSchema }),
+  sources:      defineCollection({ type: 'data',    schema: sourceSchema }),
+  media:        defineCollection({ type: 'data',    schema: mediaSchema }),
   departements: defineCollection({ type: 'content', schema: departmentSchema }),
+  figures:      defineCollection({ type: 'data',    schema: figureSchema }),
 };
 
 // ── Convenience types ──
@@ -122,3 +306,5 @@ export type TimelineEvent = z.infer<typeof eventSchema>;
 export type CslSource = z.infer<typeof sourceSchema>;
 export type MediaEntry = z.infer<typeof mediaSchema>;
 export type Department = z.infer<typeof departmentSchema>;
+export type ChartFigure = z.infer<typeof figureSchema>;
+export type ChartType = z.infer<typeof chartType>;

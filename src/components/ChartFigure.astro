@@ -1,0 +1,86 @@
+---
+// ChartFigure.astro — Renders a data-driven chart prerendered to inline SVG.
+// Charts are generated at build time by scripts/render-charts.js using
+// DOM-free D3 modules (d3-scale, d3-shape).
+
+import Figure from './Figure.astro';
+import type { ChartFigure as ChartFigureData } from '../content/config';
+
+export interface Props {
+  figure: ChartFigureData;
+  /** Pre-rendered SVG string (from build-time render script) */
+  svg?: string;
+  /** Display variant */
+  variant?: 'inline' | 'hero';
+  class?: string;
+}
+
+const { figure, svg, variant = 'inline' } = Astro.props;
+const cssClass = Astro.props.class ?? '';
+---
+
+<Figure
+  variant={variant}
+  class={`chart-figure chart-figure--${figure.type} ${cssClass}`.trim()}
+  caption={figure.caption}
+  credit={figure.credit}
+  license={figure.license}
+  licenseUrl={figure.licenseUrl}
+  sourceIds={figure.sourceIds}
+  dataFigureType="chart"
+  dataFigureId={figure.id}
+>
+  {svg ? (
+    <div class="chart-figure__container" data-chart-id={figure.id} data-chart-type={figure.type}>
+      {svg}
+    </div>
+  ) : (
+    <div class="chart-figure__container chart-figure__placeholder" data-chart-id={figure.id} data-chart-type={figure.type}>
+      <p class="chart-figure__placeholder-text">
+        {figure.title ?? `Graphique : ${figure.id}`}
+      </p>
+      <p class="chart-figure__placeholder-hint">
+        Ce graphique sera généré à la construction du site.
+      </p>
+    </div>
+  )}
+</Figure>
+
+<style>
+  .chart-figure__container {
+    padding: var(--gap-md) var(--gap-lg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 200px;
+  }
+
+  .chart-figure__container :global(svg) {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    display: block;
+  }
+
+  .chart-figure__placeholder {
+    background: var(--color-bg-dark);
+    border-bottom: 1px solid var(--color-border);
+    flex-direction: column;
+    gap: var(--gap-sm);
+    text-align: center;
+  }
+
+  .chart-figure__placeholder-text {
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+
+  .chart-figure__placeholder-hint {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    opacity: 0.6;
+    margin: 0;
+  }
+</style>

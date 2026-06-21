@@ -65,9 +65,10 @@ france-en-chiffres/
 │   ├── content/             # Astro Content Collections (Zod-validated)
 │   │   ├── config.ts        # Zod schemas for all collections
 │   │   ├── eras/            # One .md per era (id, title, color, start, end, description; period auto-inferred via .transform())
-│   │   ├── events/          # One .md per event (id, start, end, title, description, mediaId; yearDisplay auto-inferred)
+│   │   ├── events/          # One .md per event (id, start, end, title, description, mediaIds; yearDisplay auto-inferred)
 │   │   ├── sources/         # CSL-JSON source files (ISO 690-compatible)
-│   │   └── media/           # Media metadata (.json) + media files (.svg, rasters)
+│   │   ├── media/           # Media metadata (.json) + media files (.svg, rasters)
+│   │   └── figures/         # Chart figure data (.json) with Zod-discriminated union per type (line, bar, population-pyramid, bump, choropleth, comparison, sankey)
 │   ├── pages/               # Route pages (index, history, culture, ...)
 │   │   ├── bibliography.astro           # Aggregated sources listing
 │   │   ├── bibliography/[id].astro      # Per-source page (auto-generated)
@@ -83,23 +84,32 @@ france-en-chiffres/
 │   │   ├── TimelineEvent.astro
 │   │   ├── TimelineEra.astro
 │   │   ├── EraEventCard.astro          # Lightweight event card for era detail pages
-│   │   ├── MediaFigure.astro           # <figure> with caption, credit, license
+│   │   ├── MediaFigure.astro          # <figure> with caption, credit, license
+│   │   ├── Figure.astro               # Base figure shell (used by MediaFigure + ChartFigure)
+│   │   ├── ChartFigure.astro          # Data-driven chart figure with prerendered SVG
 │   │   └── ...
 │   ├── layouts/             # Page layout wrappers (Base.astro)
 │   ├── data/                # Data utilities + non-content JSON files
 │   │   ├── history.ts               # Aggregation layer: loads eras + events, matches by year
 │   │   ├── sources.ts               # Async source lookup via getCollection('sources')
 │   │   ├── media.ts                 # Async media resolver via getCollection('media') + import.meta.glob
+│   │   ├── figures.ts               # Async figure (chart) resolver via getCollection('figures')
 │   │   ├── france.json
 │   │   ├── france-map-data.json       # Extracted SVG paths for FranceMap
 │   │   ├── france-departments.json    # Individual department paths (96 depts)
 │   │   └── geo/                      # Build-time geo data for interactive map
 │   ├── scripts/             # Build-time helper scripts
-│   │   └── extract-france-map.js # Parse France_departements.svg → data JSON
+│   │   ├── extract-france-map.js # Parse France_departements.svg → data JSON
+│   │   └── charts/
+│   │       └── render-svg.js     # DOM-free D3 chart → SVG renderer (d3-scale, d3-shape)
 │   ├── tests/               # Automated validation tests
 │   │   ├── france-map.test.cjs
 │   │   ├── sources.test.cjs           # CSL-JSON + era + event validation
-│   │   └── media.test.cjs             # Media asset validation
+│   │   ├── media.test.cjs             # Media asset validation
+│   │   └── figures.test.cjs           # Chart figure validation
+│   ├── plugins/              # Remark/rehype build-time plugins
+│   │   ├── remark-citation-links.js  # [source:id] → citation superscript
+│   │   └── remark-figure-embed.js    # [media:id] / [chart:id] → rendered figure HTML
 │   └── styles/              # Global CSS
 ├── AGENTS.md                # This file
 ├── astro.config.mjs
@@ -144,13 +154,40 @@ Every fact in event content must be backed by a reliable source. The project use
 
 4. **If the passage contains factual errors** (wrong year, names, etc.), rewrite the concerned sections according to the sources found
 
+### Inline Media and Charts
+
+Embed media and charts inline in event Markdown body text:
+
+```markdown
+Texte avant [media:versailles-chateau] texte après.
+
+Texte avec graphique [chart:population-evolution] suite du texte.
+```
+
+- `[media:id]` — embeds a registered media asset (image) with full caption/credit/license. All files in `src/content/media/` are resolved at build time.
+- `[chart:id]` — embeds a data-driven chart (prerendered to inline SVG). Chart definitions live in `src/content/figures/<id>.json`.
+- Leave a space before the bracket (same rule as citations).
+- All figures are rendered server-side at build time — zero client JS required.
+
+### Creating Chart Figures
+
+```bash
+npm run new:figure -- <kebab-case-id> <type>
+# Example:
+npm run new:figure -- population-evolution line
+```
+
+Supported types: `line`, `bar`, `population-pyramid`, `bump`, `choropleth`, `comparison`, `sankey`
+
+Chart data is structured JSON with a Zod-discriminated union per type. The D3 renderer (`src/scripts/charts/render-svg.js`) uses only DOM-free modules (`d3-scale`, `d3-shape`, `d3-array`) to generate SVG at build time.
+
 See also **Coding Guidelines** rule 6 (stat must cite its source via `sourceId`).
 
 ---
 
 ## Editorial Workflow
 
-Content creators can scaffold new event and era files using the helper scripts:
+Content creators can scaffold new content files using the helper scripts:
 
 ```bash
 # Event (with year — prefills start/end)
@@ -161,24 +198,29 @@ npm run new:event -- <kebab-case-id>
 
 # Era (requires start and end years)
 npm run new:era -- <kebab-case-id> <start-year> <end-year>
+
+# Chart figure (type: line, bar, population-pyramid, bump, ...)
+npm run new:figure -- <kebab-case-id> <type>
 ```
 
 **Examples:**
 ```bash
 npm run new:event -- bataille-de-marignan 1515
 npm run new:era -- restauration 1814 1848
+npm run new:figure -- population-evolution line
 ```
 
 The scripts:
-1. Copy the appropriate template from `templates/` to `src/content/events/<id>.md` or `src/content/eras/<id>.md`
+1. Copy the appropriate template from `templates/` to the target directory
 2. Prefill the `id:` field with the provided slug
-3. Prefill `start:` and `end:` (when years are given)
+3. Prefill metadata fields (start/end for events, type for figures)
 4. Open the new file in `$EDITOR` (defaults to `vim`)
 
 Direct invocation is also possible:
 ```bash
 bash scripts/new-event.sh mon-evenement 1789
 bash scripts/new-era.sh mon-ere -500 0
+bash scripts/new-figure.sh population-evolution line
 ```
 
 ---

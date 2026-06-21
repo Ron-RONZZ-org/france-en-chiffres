@@ -1,0 +1,38 @@
+{
+  "id": "population-evolution",
+  "type": "line",
+  "title": "Évolution de la population française (1700–2024)",
+  "caption": "Population de la France métropolitaine en millions d'habitants, 1700–2024",
+  "credit": "France en Chiffres d'après INSEE",
+  "license": "CC BY-SA 4.0",
+  "sourceIds": ["insee-2024"],
+  "width": 720,
+  "height": 400,
+  "palette": ["#1a5276", "#922b21"],
+  "config": {
+    "xAxis": { "label": "Année" },
+    "yAxis": { "label": "Population (millions)", "min": 0 },
+    "interpolation": "monotone"
+  },
+  "data": {
+    "series": [
+      {
+        "name": "France métropolitaine",
+        "values": [
+          { "x": 1700, "y": 21.5 },
+          { "x": 1750, "y": 24.6 },
+          { "x": 1789, "y": 28.6 },
+          { "x": 1800, "y": 29.1 },
+          { "x": 1850, "y": 35.7 },
+          { "x": 1900, "y": 38.9 },
+          { "x": 1914, "y": 39.8 },
+          { "x": 1939, "y": 41.5 },
+          { "x": 1946, "y": 40.1 },
+          { "x": 1960, "y": 45.5 },
+          { "x": 2000, "y": 58.9 },
+          { "x": 2024, "y": 68.4 }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,175 @@
+---
+// Figure.astro — Base figure shell with caption, credit, and source attribution.
+// Used by both MediaFigure and ChartFigure for consistent styling.
+
+import { getSource, formatSourceLabel } from '../data/sources';
+import type { CslSource } from '../content/config';
+
+export interface Props {
+  /** Display variant */
+  variant?: 'inline' | 'hero';
+  /** CSS class added to the <figure> element */
+  class?: string;
+  /** Caption text (displayed below the content) */
+  caption?: string;
+  /** Credit/author attribution */
+  credit?: string;
+  /** License name (e.g. "CC BY-SA 4.0") */
+  license?: string;
+  /** License URL */
+  licenseUrl?: string;
+  /** Source ID for attribution */
+  sourceId?: string;
+  /** Source IDs (plural, for charts with multiple sources) */
+  sourceIds?: string[];
+  /** Data attribute for machine readability */
+  dataFigureType?: string;
+  dataFigureId?: string;
+}
+
+const {
+  variant = 'inline',
+  caption,
+  credit,
+  license,
+  licenseUrl,
+  sourceId,
+  sourceIds,
+  dataFigureType,
+  dataFigureId,
+} = Astro.props;
+
+// Resolve sources (supports both single and plural)
+const allSourceIds = [...(sourceIds ?? []), ...(sourceId ? [sourceId] : [])];
+const resolvedSources: Array<CslSource & { id: string }> = [];
+if (allSourceIds.length > 0) {
+  const results = await Promise.all(
+    allSourceIds.map((id) => getSource(id))
+  );
+  for (const s of results) {
+    if (s) resolvedSources.push(s);
+  }
+}
+
+const cssClass = Astro.props.class ?? '';
+const hasAttribution = !!(caption || credit || license || resolvedSources.length > 0);
+---
+
+
+<figure
+  class={`figure figure--${variant} ${cssClass}`.trim()}
+  {...(dataFigureType ? { 'data-figure-type': dataFigureType } : {})}
+  {...(dataFigureId ? { 'data-figure-id': dataFigureId } : {})}
+>
+  <slot />
+
+  {hasAttribution && (
+    <figcaption class="figure__caption">
+      {caption && <p class="figure__caption-text">{caption}</p>}
+
+      {(credit || license || resolvedSources.length > 0) && (
+        <ul class="figure__meta">
+          {credit && <li class="figure__credit">{credit}</li>}
+          {license && (
+            <li class="figure__license">
+              {licenseUrl
+                ? <a href={licenseUrl} target="_blank" rel="license">{license}</a>
+                : license
+              }
+            </li>
+          )}
+          {resolvedSources.map((s) => (
+            <li key={s.id}>
+              <a
+                href={`/bibliographie/${s.id}`}
+                class="figure__source"
+              >
+                {formatSourceLabel(s)}
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
+    </figcaption>
+  )}
+</figure>
+
+<style>
+  .figure {
+    margin: var(--gap-lg) 0;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--color-bg-card);
+  }
+
+  .figure--hero {
+    margin: var(--gap-xl) calc(-1 * var(--gap-lg));
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+  }
+
+  .figure__caption {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-xs);
+    padding: var(--gap-md) var(--gap-lg);
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .figure__caption-text {
+    line-height: 1.5;
+    color: var(--color-text-light);
+    margin: 0;
+  }
+
+  .figure__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gap-sm);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: 0.75rem;
+  }
+
+  .figure__meta > li::after {
+    content: "·";
+    margin-left: var(--gap-sm);
+    opacity: 0.4;
+  }
+
+  .figure__meta > li:last-child::after {
+    content: none;
+  }
+
+  .figure__source {
+    color: var(--color-link-on-dark);
+    text-decoration: none;
+    transition: opacity var(--transition-fast);
+  }
+
+  .figure__source:hover {
+    opacity: 0.8;
+    text-decoration: underline;
+  }
+
+  .figure__source:focus-visible {
+    outline: 2px solid var(--color-link-on-dark);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  @media (max-width: 768px) {
+    .figure--hero {
+      margin: var(--gap-lg) calc(-1 * var(--gap-md));
+    }
+
+    .figure__caption {
+      padding: var(--gap-md);
+    }
+  }
+</style>
