@@ -23,6 +23,7 @@
     "test:map": "node src/tests/interactive-map.test.cjs",
     "fetch:geo": "bash scripts/fetch-geo-data.sh",
     "build:density": "node scripts/build-density-grid.js",
+    "build:lod": "node scripts/build-commune-lod.js",
     "fetch:roads": "node scripts/fetch-roads.js",
     "fetch:communes": "node scripts/fetch-communes.js",
     "populate:density": "node scripts/populate-density.js",
@@ -43,5 +44,9 @@
     "leaflet": "^1.9.4",
     "tailwindcss": "^3.4.19",
     "tippy.js": "^6.3.7"
+  },
+  "devDependencies": {
+    "@turf/area": "^7.3.5",
+    "@turf/union": "^7.3.5"
   }
 }

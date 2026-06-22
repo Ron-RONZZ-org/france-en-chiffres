@@ -36,6 +36,19 @@
     const MIN_ZOOM = 5;
     const MAX_ZOOM = 12;
 
+    // ── Level-of-Detail config for density/commune layers ──
+    // Each level defines the max zoom at which it's used, and the data source.
+    const LOD_LEVELS = [
+      { maxZoom: 7, densitySrc: '/data/communes-lod-regions.geojson',   densityLevel: 'region' },
+      { maxZoom: 9, densitySrc: '/data/communes-lod-departements.geojson', densityLevel: 'department' },
+      { maxZoom: 11, densitySrc: '/data/density-simple.geojson',         densityLevel: 'commune-simple' },
+      { maxZoom: 99, densitySrc: '/data/communes-density.geojson',       densityLevel: 'commune-full' },
+    ];
+
+    function getLodLevel(zoom) {
+      return LOD_LEVELS.find(l => zoom <= l.maxZoom) || LOD_LEVELS[LOD_LEVELS.length - 1];
+    }
+
     const DEPT_STYLE = {
       color: '#475569',
       weight: 1.2,
@@ -87,6 +100,7 @@
     let railwaysLayer = null;
     let waterwaysLayer = null;
     let communesLayer = null;
+    let currentDensityLevel = null;  // LOD level name of current density layer
     let currentHighlight = null;
 
     // ── Helpers ──
@@ -207,6 +221,7 @@
         map.removeLayer(densityLayer);
         densityLayer = null;
       }
+      currentDensityLevel = null;
       clearLegend();
     }
 
@@ -244,23 +259,39 @@
       densityLoading = true;
       densityCancel = false;
 
+      // Determine LOD level based on current zoom
+      const zoom = map.getZoom();
+      const lod = getLodLevel(zoom);
+      currentDensityLevel = lod.densityLevel;
+
       setLegendContent(
         '<p class="data-map__legend-subtitle">Densit\u00e9 de population</p><p class="data-map__legend-loading">Chargement des donn\u00e9es...</p>');
 
       try {
-        const resp = await fetch('/data/density-simple.geojson');
+        const resp = await fetch(lod.densitySrc);
         if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
         const data = await resp.json();
 
         // Guard: cancelled or user unchecked while loading
         if (densityCancel || !checkbox.checked) return;
 
+        // Recompute lod in case zoom changed during fetch
+        const currentZoom = map.getZoom();
+        const currentLod = getLodLevel(currentZoom);
+        currentDensityLevel = currentLod.densityLevel;
+
+        const levelLabel = currentLod.densityLevel === 'region' ? 'par région'
+          : currentLod.densityLevel === 'department' ? 'par département'
+          : 'par commune';
+
         densityLayer = L.geoJSON(data, {
           style: (feature) => {
             const density = feature.properties.density || 0;
             return {
               color: '#475569',
-              weight: 0.3,
+              weight: currentLod.densityLevel === 'region' ? 1.5
+                : currentLod.densityLevel === 'department' ? 1
+                : 0.3,
               fillColor: getDensityColor(density),
               fillOpacity: 0.7,
             };
@@ -270,10 +301,15 @@
             const code = feature.properties.code || '';
             const density = feature.properties.density || 0;
             const pop = feature.properties.population || 0;
+            const count = feature.properties.commune_count;
+            let extra = '';
+            if (count) {
+              extra = `<br><span class="dept-tooltip__meta">${count.toLocaleString('fr-FR')} communes</span>`;
+            }
             const tooltipHtml = `
               <strong>${escapeHtml(name)}</strong> (${escapeHtml(code)})<br>
               <strong>${getDensityLabel(density)}</strong><br>
-              Population: ${pop.toLocaleString('fr-FR')}
+              Population: ${pop.toLocaleString('fr-FR')}${extra}
             `;
             layer.bindTooltip(tooltipHtml, {
               sticky: true,
@@ -292,9 +328,11 @@
 
         const densities = data.features.map(f => f.properties.density || 0);
         const maxDen = Math.max(...densities).toLocaleString('fr-FR');
+        const featureCount = data.features.length;
         const legendHtml = `
           <p class="data-map__legend-subtitle">Densité de population</p>
-          <p>Par commune — ${data.features.length} communes. Maximale : ${maxDen} hab/km².</p>
+          <p class="data-map__legend-hint">Niveau : ${levelLabel} (${featureCount.toLocaleString('fr-FR')} entités, zoom ${currentZoom})</p>
+          <p>Maximale : ${maxDen} hab/km².</p>
           <div class="density-legend">
             ${makeDensityLegend()}
           </div>
@@ -305,7 +343,7 @@
           map.attributionControl.addAttribution('Données population : <a href="https://geo.api.gouv.fr/">INSEE — api.gouv.fr</a>');
           densityAttributionAdded = true;
         }
-        console.log('✓ Commune-level density loaded');
+        console.log(`✓ Density loaded: ${currentLod.densitySrc} (${featureCount} features, level=${currentLod.densityLevel})`);
       } catch (err) {
         console.error('Failed to load commune density:', err);
       } finally {
@@ -559,18 +597,27 @@
       }
     }
 
-    // ── Zoom listener: rebuild waterways layer when zoom changes ──
+    // ── Zoom listener: rebuild waterways & swap density LOD when zoom changes ──
     map.on('zoomend', () => {
+      const zoom = map.getZoom();
+
+      // Waterways: re-filter by zoom
       if (waterwaysVisible && waterwaysData) {
         renderWaterwaysLayer();
-        // Update visible count in legend
-        const zoom = map.getZoom();
         const visibleCount = waterwaysData.features.filter(
           (f) => (f.properties.minZoom || 10) <= zoom,
         ).length;
         const hintEl = document.querySelector('.data-map__legend-hint');
         if (hintEl) {
           hintEl.textContent = `Affichage progressif selon le niveau de zoom : ${visibleCount} voies visibles (zoom ${zoom}).`;
+        }
+      }
+
+      // Density layer LOD: re-evaluate source when crossing thresholds
+      if (densityLayer) {
+        const newLod = getLodLevel(zoom);
+        if (newLod.densityLevel !== currentDensityLevel) {
+          applyCommuneDensity();
         }
       }
     });
@@ -599,8 +646,15 @@
             const name = feature.properties.nom || '';
             const code = feature.properties.code || '';
             const pop = feature.properties.population || 0;
+            const density = feature.properties.density;
+            const densityCheck = document.getElementById('toggle-density');
+            const densityActive = densityCheck && densityCheck.checked && density > 0;
             if (name) {
-              layer.bindTooltip(`${escapeHtml(name)} (${escapeHtml(code)})<br>Population: ${pop.toLocaleString('fr-FR')}`, {
+              let tip = `${escapeHtml(name)} (${escapeHtml(code)})<br>Population: ${pop.toLocaleString('fr-FR')}`;
+              if (densityActive) {
+                tip += `<br><strong>${getDensityLabel(density)}</strong>`;
+              }
+              layer.bindTooltip(tip, {
                 sticky: true, className: 'dept-tooltip',
               });
             }
@@ -803,6 +857,7 @@
       });
       // Remove any existing layers
       if (densityLayer) { map.removeLayer(densityLayer); densityLayer = null; }
+      currentDensityLevel = null;
       if (elevationLayer) { map.removeLayer(elevationLayer); elevationLayer = null; }
       if (roadsLayer) { map.removeLayer(roadsLayer); roadsLayer = null; roadsFetched = false; }
       if (railwaysLayer) { map.removeLayer(railwaysLayer); railwaysLayer = null; }
