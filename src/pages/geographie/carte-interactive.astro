@@ -542,7 +542,8 @@ const sources = (await Promise.all(
   /* When collapsed the button floats at left edge (the default position above) */
 
   /* ── Map in fullscreen ── */
-  #map-page-wrapper.is-fullscreen .data-map-section {
+  /* Note: :global() needed for elements from InteractiveDataMap component */
+  #map-page-wrapper.is-fullscreen :global(.data-map-section) {
     flex: 1;
     max-width: none;
     padding: 0;
@@ -550,7 +551,7 @@ const sources = (await Promise.all(
     align-items: stretch;
   }
 
-  #map-page-wrapper.is-fullscreen .data-map {
+  #map-page-wrapper.is-fullscreen :global(.data-map) {
     height: 100vh;
     border-radius: 0;
     border: none;
@@ -623,13 +624,9 @@ const sources = (await Promise.all(
     align-items: flex-start;
   }
 
-  #map-page-wrapper.is-fullscreen .data-map__legend {
-    margin: 0;
-    padding: 0;
-    border: none;
-    background: transparent;
-    flex: 0 1 auto;
-    min-width: 200px;
+  /* Hide original legend container in fullscreen — content is shown via info-panel */
+  #map-page-wrapper.is-fullscreen :global(.data-map__legend) {
+    display: none;
   }
 
   /* Sources footer inside the info panel */
