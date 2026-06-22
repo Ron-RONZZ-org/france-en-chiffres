@@ -64,11 +64,9 @@
       preferCanvas: true,
     });
 
-    // ── Custom panes for z-ordering ──
-    // polygon-pane (z-index 300): density, communes — renders BELOW line features
-    // line-pane (z-index 400): waterways, roads — renders ABOVE polygons
-    map.createPane('polygon-pane');
-    map.getPane('polygon-pane').style.zIndex = 300;
+    // ── Custom pane for line features (renders ABOVE polygon layers) ──
+    // Polygon layers (density, communes) stay on the default overlay pane (z-index 400).
+    // Line features need a higher pane to render above polygon fills.
     map.createPane('line-pane');
     map.getPane('line-pane').style.zIndex = 400;
 
@@ -258,7 +256,6 @@
         if (densityCancel || !checkbox.checked) return;
 
         densityLayer = L.geoJSON(data, {
-          pane: 'polygon-pane',
           style: (feature) => {
             const density = feature.properties.density || 0;
             return {
@@ -592,7 +589,6 @@
         communesFetched = true;
 
         communesLayer = L.geoJSON(data, {
-          pane: 'polygon-pane',
           minZoom: 9,
           style: {
             color: '#6366f1',
