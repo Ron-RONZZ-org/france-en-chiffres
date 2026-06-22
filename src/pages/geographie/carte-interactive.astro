@@ -245,6 +245,20 @@ const sources = (await Promise.all(
     display: none;
   }
 
+  /* ── Loading indicator on toggle labels ── */
+  .layer-controls__item[data-loading] .layer-controls__label::after {
+    content: '…';
+    display: inline-block;
+    animation: loading-blink 1.2s steps(1, end) infinite;
+    margin-left: 0.25rem;
+    color: var(--color-accent-gold);
+  }
+
+  @keyframes loading-blink {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 1; }
+  }
+
   .layer-controls__item--disabled {
     border-color: var(--color-border);
     background: transparent;

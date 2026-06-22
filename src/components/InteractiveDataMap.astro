@@ -82,6 +82,8 @@
     let deptLayer = null;
     let densityLayer = null;
     let densityAttributionAdded = false;
+    let densityLoading = false;      // true while async fetch in progress
+    let densityCancel = false;       // set true to cancel pending load
     let elevationLayer = null;
     let roadsLayer = null;
     let railwaysLayer = null;
@@ -199,6 +201,10 @@
     }
 
     function clearDensityLayer() {
+      // Cancel any in-flight load
+      if (densityLoading) densityCancel = true;
+      densityLoading = false;
+      // Remove existing layer if present
       if (densityLayer) {
         map.removeLayer(densityLayer);
         densityLayer = null;
@@ -221,12 +227,24 @@
       `).join('');
     }
 
+    function setLoading(labelEl, loading) {
+      if (labelEl) labelEl.toggleAttribute('data-loading', loading);
+    }
+
     async function applyCommuneDensity() {
+      // Cancel any previous loading
+      if (densityLoading) densityCancel = true;
+
       clearDensityLayer();
       if (!deptLayer) return;
 
       const checkbox = document.getElementById('toggle-density');
       if (!checkbox || !checkbox.checked) return;
+
+      const labelEl = checkbox.closest('[data-map-toggle="density"]');
+      setLoading(labelEl, true);
+      densityLoading = true;
+      densityCancel = false;
 
       setLegendContent(
         '<p class="data-map__legend-subtitle">Densit\u00e9 de population</p><p class="data-map__legend-loading">Chargement des donn\u00e9es...</p>');
@@ -236,8 +254,8 @@
         if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
         const data = await resp.json();
 
-        // Guard: user may have unchecked while we were loading
-        if (!checkbox.checked) return;
+        // Guard: cancelled or user unchecked while loading
+        if (densityCancel || !checkbox.checked) return;
 
         densityLayer = L.geoJSON(data, {
           pane: 'polygon-pane',
@@ -267,8 +285,11 @@
           },
         });
 
-        // Double-check after layer creation
-        if (!checkbox.checked) return;
+        // Guard after layer creation
+        if (densityCancel || !checkbox.checked) {
+          densityLayer = null;  // discard unneeded layer
+          return;
+        }
 
         densityLayer.addTo(map);
 
@@ -290,6 +311,9 @@
         console.log('✓ Commune-level density loaded');
       } catch (err) {
         console.error('Failed to load commune density:', err);
+      } finally {
+        setLoading(labelEl, false);
+        densityLoading = false;
       }
     }
 
@@ -322,6 +346,8 @@
 
     async function fetchRoads() {
       if (roadsFetched) return;
+      const roadsLabel = document.querySelector('[data-map-toggle="roads"]');
+      setLoading(roadsLabel, true);
       try {
         const resp = await fetch('/data/roads.geojson');
         if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
@@ -375,6 +401,8 @@
           <p class="data-map__legend-subtitle">Réseau routier</p>
           <p>Données non disponibles. Générez avec : <code>node scripts/fetch-roads.js</code></p>
         `);
+      } finally {
+        setLoading(roadsLabel, false);
       }
     }
 
@@ -474,6 +502,8 @@
 
     async function fetchWaterways() {
       if (waterwaysFetched && waterwaysData) return;
+      const waterwaysLabel = document.querySelector('[data-map-toggle="waterways"]');
+      setLoading(waterwaysLabel, true);
       try {
         const resp = await fetch('/data/waterways.geojson');
         if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
@@ -514,6 +544,8 @@
           <p class="data-map__legend-subtitle">Voies navigables</p>
           <p>Données non disponibles. Générez avec : <code>node scripts/fetch-waterways.js</code> puis <code>node scripts/simplify-line-layers.js</code></p>
         `);
+      } finally {
+        setLoading(waterwaysLabel, false);
       }
     }
 
@@ -551,6 +583,8 @@
 
     async function fetchCommunes() {
       if (communesFetched) return;
+      const communesLabel = document.querySelector('[data-map-toggle="communes"]');
+      setLoading(communesLabel, true);
       try {
         const resp = await fetch('/data/communes-density.geojson');
         if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
@@ -593,6 +627,8 @@
           <p class="data-map__legend-subtitle">Communes</p>
           <p>Données non disponibles. Générez avec : <code>node scripts/build-density-grid.js</code></p>
         `);
+      } finally {
+        setLoading(communesLabel, false);
       }
     }
 
