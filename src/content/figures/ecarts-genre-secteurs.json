@@ -1,0 +1,57 @@
+{
+  "id": "ecarts-genre-secteurs",
+  "type": "bar",
+  "title": "Part des femmes et écart salarial par secteur (1975)",
+  "caption": "Part des femmes dans chaque secteur et écart de salaire médian femmes/hommes, France, 1975",
+  "credit": "France en Chiffres d'après INSEE",
+  "license": "CC BY-SA 4.0",
+  "sourceIds": ["insee-2024"],
+  "width": 720,
+  "height": 400,
+  "palette": ["#1a5276", "#922b21"],
+  "config": {
+    "orientation": "grouped",
+    "xAxis": { "label": "Secteur" },
+    "yAxis": { "label": "Pourcentage", "unit": "%" },
+    "showLegend": true
+  },
+  "data": {
+    "values": [
+      {
+        "category": "Agriculture",
+        "groups": [
+          { "name": "Part des femmes", "value": 42 },
+          { "name": "Écart salarial (F/H × 100)", "value": 68 }
+        ]
+      },
+      {
+        "category": "Industrie",
+        "groups": [
+          { "name": "Part des femmes", "value": 24 },
+          { "name": "Écart salarial (F/H × 100)", "value": 63 }
+        ]
+      },
+      {
+        "category": "Services",
+        "groups": [
+          { "name": "Part des femmes", "value": 48 },
+          { "name": "Écart salarial (F/H × 100)", "value": 70 }
+        ]
+      },
+      {
+        "category": "Fonction publique",
+        "groups": [
+          { "name": "Part des femmes", "value": 55 },
+          { "name": "Écart salarial (F/H × 100)", "value": 78 }
+        ]
+      },
+      {
+        "category": "Commerce",
+        "groups": [
+          { "name": "Part des femmes", "value": 45 },
+          { "name": "Écart salarial (F/H × 100)", "value": 58 }
+        ]
+      }
+    ]
+  }
+}
