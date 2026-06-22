@@ -1,8 +1,8 @@
 {
   "id": "equipements-menages-1954-1970",
-  "type": "bar",
-  "title": "Nouveaux ménages acquérant chaque appareil, par période (% des ménages français)",
-  "caption": "Part des ménages français ayant acquis l'appareil pour la première fois au cours de chaque période, en pourcentage du total des ménages, 1954–1970",
+  "type": "line",
+  "title": "Part des ménages français équipés, en pourcentage, 1954–1970",
+  "caption": "Part des ménages français possédant chaque appareil, en pourcentage, 1954–1970",
   "license": "CC BY-SA 4.0",
   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
   "sourceIds": ["insee-2024"],
@@ -10,38 +10,47 @@
   "height": 400,
   "palette": ["#1a5276", "#922b21", "#1e8449", "#d4ac0d"],
   "config": {
-    "orientation": "grouped",
-    "xAxis": { "label": "" },
-    "yAxis": { "label": "Nouveaux ménages équipés (%)", "unit": "%" },
+    "xAxis": { "label": "Année" },
+    "yAxis": { "label": "Ménages équipés (%)", "min": 0, "max": 100 },
+    "interpolation": "monotone",
     "showLegend": true
   },
   "data": {
-    "values": [
+    "series": [
       {
-        "category": "1954–1960",
-        "groups": [
-          { "name": "Réfrigérateur", "value": 15 },
-          { "name": "Machine à laver", "value": 12 },
-          { "name": "Automobile", "value": 10 },
-          { "name": "Télévision", "value": 12 }
+        "name": "Réfrigérateur",
+        "values": [
+          { "x": 1954, "y": 10 },
+          { "x": 1960, "y": 25 },
+          { "x": 1965, "y": 50 },
+          { "x": 1970, "y": 72 }
         ]
       },
       {
-        "category": "1960–1965",
-        "groups": [
-          { "name": "Réfrigérateur", "value": 25 },
-          { "name": "Machine à laver", "value": 15 },
-          { "name": "Automobile", "value": 15 },
-          { "name": "Télévision", "value": 32 }
+        "name": "Machine à laver",
+        "values": [
+          { "x": 1954, "y": 8 },
+          { "x": 1960, "y": 20 },
+          { "x": 1965, "y": 35 },
+          { "x": 1970, "y": 60 }
         ]
       },
       {
-        "category": "1965–1970",
-        "groups": [
-          { "name": "Réfrigérateur", "value": 22 },
-          { "name": "Machine à laver", "value": 25 },
-          { "name": "Automobile", "value": 17 },
-          { "name": "Télévision", "value": 25 }
+        "name": "Automobile",
+        "values": [
+          { "x": 1954, "y": 20 },
+          { "x": 1960, "y": 30 },
+          { "x": 1965, "y": 45 },
+          { "x": 1970, "y": 62 }
+        ]
+      },
+      {
+        "name": "Télévision",
+        "values": [
+          { "x": 1954, "y": 1 },
+          { "x": 1960, "y": 13 },
+          { "x": 1965, "y": 45 },
+          { "x": 1970, "y": 70 }
         ]
       }
     ]

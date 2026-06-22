@@ -165,17 +165,17 @@ function renderLineChart(figure) {
       const cx = isNumericX ? xScale(point.x) : xScale(String(point.x));
       const cy = yScale(point.y);
 
-      // Compute rate of change from previous point
+      // Compute absolute rate of change (percentage points per year)
       const prev = pi > 0 ? series.values[pi - 1] : null;
       const yPrev = prev ? prev.y : null;
       const xPrev = prev ? prev.x : null;
       let changeStr = '';
-      if (prev && yPrev !== null && yPrev !== 0 && xPrev !== null) {
+      if (prev && yPrev !== null && xPrev !== null) {
         const years = point.x - xPrev;
         if (years > 0) {
-          const totalChange = ((point.y - yPrev) / yPrev) * 100;
-          const annualRate = totalChange / years;
-          changeStr = (annualRate >= 0 ? '+' : '') + annualRate.toFixed(1) + '%/an';
+          const ppChange = point.y - yPrev;
+          const annualRate = ppChange / years;
+          changeStr = (annualRate >= 0 ? '+' : '') + annualRate.toFixed(1) + ' pp/an';
         }
       }
 
@@ -322,11 +322,7 @@ function renderBarChart(figure) {
 // ── Shared helpers ──
 
 function wrapSvg(inner, width, height, figure, tx = 60, ty = 30) {
-  const title = figure.title ? `<title>${escapeXml(figure.title)}</title>` : '';
-  const desc = figure.caption ? `<desc>${escapeXml(figure.caption)}</desc>` : '';
   return `${svgTag({ viewBox: `0 0 ${width} ${height}`, role: 'img', 'aria-label': figure.title ?? '' })}
-  ${title}
-  ${desc}
   <g transform="translate(${tx}, ${ty})">
     ${inner}
   </g>

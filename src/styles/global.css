@@ -237,7 +237,8 @@ img {
 .chart-tt__change--pos { color: #4ade80; }
 .chart-tt__change--neg { color: #f87171; }
 
-.chart-datapoint { cursor: pointer; }
+.chart-figure__container svg { pointer-events: none; }
+.chart-datapoint { cursor: pointer; pointer-events: auto; }
 
 /* Tippy overrides for chart tooltips */
 .tippy-box[data-theme~="dark"][data-tippy-root] {
