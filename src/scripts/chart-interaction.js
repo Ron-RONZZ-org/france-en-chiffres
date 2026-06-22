@@ -42,7 +42,7 @@ function initChartTooltips() {
 
     if (value !== null && value !== '') {
       const formatted = formatTooltipValue(parseFloat(value));
-      lines.push(`<span class="chart-tt__value">${formatted}</span>`);
+      lines.push(`<span class="chart-tt__value">${formatted} %</span>`);
     }
 
     if (change) {
