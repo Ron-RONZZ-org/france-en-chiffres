@@ -14,6 +14,7 @@
     "new:era": "scripts/new-era.sh",
     "new:dept": "scripts/new-dept.sh",
     "new:figure": "scripts/new-figure.sh",
+    "new:media": "scripts/new-media.sh",
     "generate:depts": "node scripts/generate-all-departments.mjs",
     "test:all": "npm run build && npm run test && npm run test:sources && npm run test:media && npm run test:figures && npm run test:citations && npm run test:agents && npm run test:map",
     "test:figures": "node src/tests/figures.test.cjs",

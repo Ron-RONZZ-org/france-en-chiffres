@@ -133,4 +133,20 @@ if (fs.existsSync(distHistory)) {
   console.log('⚠ Test 8: dist/history/ not found — skip');
 }
 
+// ── Test 9: media-template.json exists and has valid structure ──
+const mediaTemplateFile = path.join(__dirname, '..', '..', 'templates', 'media-template.json');
+assert.ok(fs.existsSync(mediaTemplateFile), 'templates/media-template.json must exist');
+const mediaTmpl = JSON.parse(fs.readFileSync(mediaTemplateFile, 'utf-8'));
+assert.ok(mediaTmpl.id !== undefined, 'media-template.json must have "id" field');
+assert.ok(mediaTmpl.alt !== undefined, 'media-template.json must have "alt" field');
+console.log('✓ Test 9: media-template.json exists and has valid structure');
+
+// ── Test 10: new-media.sh scaffold script exists and is executable ──
+const scaffoldScript = path.join(__dirname, '..', '..', 'scripts', 'new-media.sh');
+assert.ok(fs.existsSync(scaffoldScript), 'scripts/new-media.sh must exist');
+const scriptMode = fs.statSync(scaffoldScript).mode;
+// Check executable bit for owner
+assert.ok((scriptMode & 0o100) !== 0, 'scripts/new-media.sh must be executable');
+console.log('✓ Test 10: new-media.sh scaffold script exists and is executable');
+
 console.log('\n🎉 All media validation tests passed!');

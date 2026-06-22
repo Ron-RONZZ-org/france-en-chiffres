@@ -17,6 +17,7 @@ departmentId:
   Source files live in src/content/sources/ — use existing IDs or add a new CSL-JSON file.
 
   Embed media inline with [media:media-id] in the body text.
+  Register new media via: npm run new:media -- <source-file>
   Embed charts with [chart:figure-id].
   See AGENTS.md → Content Writing Guidelines for details.
 -->

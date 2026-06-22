@@ -154,6 +154,26 @@ Every fact in event content must be backed by a reliable source. The project use
 
 4. **If the passage contains factual errors** (wrong year, names, etc.), rewrite the concerned sections according to the sources found
 
+### Registering Media Assets
+
+Every image must be registered in `src/content/media/` before it can be used. Use the scaffold script:
+
+```bash
+# ID derived from filename (normalized)
+npm run new:media -- ~/Downloads/Château-versailles.jpg
+
+# Explicit ID
+npm run new:media -- versailles ~/Downloads/Château-versailles.jpg
+```
+
+The script:
+1. Copies the file into `src/content/media/<id>.<ext>`
+2. Creates a JSON metadata file from the template
+3. Opens the JSON in `$EDITOR` for you to fill in `alt` (required), `caption`, `credit`, and `sourceId`
+4. Auto-detects dimensions for raster images (PNG, JPG, etc.) if `identify` (ImageMagick) is available
+
+**ID normalization** when derived from filename: NFD-decompose → strip diacritics → lowercase → `[^a-z0-9]+` → `-` → trim dashes.
+
 ### Inline Media and Charts
 
 Embed media and charts inline in event Markdown body text:
@@ -164,8 +184,8 @@ Texte avant [media:versailles-chateau] texte après.
 Texte avec graphique [chart:population-evolution] suite du texte.
 ```
 
-- `[media:id]` — embeds a registered media asset (image) with full caption/credit/license. All files in `src/content/media/` are resolved at build time.
-- `[chart:id]` — embeds a data-driven chart (prerendered to inline SVG). Chart definitions live in `src/content/figures/<id>.json`.
+- `[media:id]` — embeds a registered media asset (image) with full caption/credit/license. Use `npm run new:media` to register first.
+- `[chart:id]` — embeds a data-driven chart (prerendered to inline SVG). Chart definitions live in `src/content/figures/<id>.json`. Use `npm run new:figure` to create.
 - Leave a space before the bracket (same rule as citations).
 - All figures are rendered server-side at build time — zero client JS required.
 
@@ -199,6 +219,11 @@ npm run new:event -- <kebab-case-id>
 # Era (requires start and end years)
 npm run new:era -- <kebab-case-id> <start-year> <end-year>
 
+# Media asset (image — ID derived from filename if omitted)
+npm run new:media -- <source-file>
+# or with explicit ID:
+npm run new:media -- <kebab-case-id> <source-file>
+
 # Chart figure (type: line, bar, population-pyramid, bump, ...)
 npm run new:figure -- <kebab-case-id> <type>
 ```
@@ -207,6 +232,7 @@ npm run new:figure -- <kebab-case-id> <type>
 ```bash
 npm run new:event -- bataille-de-marignan 1515
 npm run new:era -- restauration 1814 1848
+npm run new:media -- ~/Downloads/Château-versailles.jpg
 npm run new:figure -- population-evolution line
 ```
 
@@ -220,6 +246,8 @@ Direct invocation is also possible:
 ```bash
 bash scripts/new-event.sh mon-evenement 1789
 bash scripts/new-era.sh mon-ere -500 0
+bash scripts/new-media.sh mon-image ~/Downloads/image.jpg
+bash scripts/new-figure.sh population-evolution line
 bash scripts/new-figure.sh population-evolution line
 ```
 
