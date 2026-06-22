@@ -200,13 +200,13 @@ if (range > 0 && entries.length > 0) {
     display: flex;
     flex-direction: column;
     gap: 4px;
-    min-height: 40px;
+    min-height: 48px;
     overflow-x: hidden;                  /* clip bars wider than their track */
   }
 
   .mini-timeline__track {
     position: relative;
-    height: 40px;                        /* taller for stacked title + years */
+    height: 48px;                        /* room for 2-line title + years */
   }
 
   /* ── Bars ── */
@@ -214,7 +214,7 @@ if (range > 0 && entries.length > 0) {
     position: absolute;
     top: 0;
     height: 100%;
-    min-width: 48px;                     /* guarantee visibility for point events */
+    min-width: 96px;                     /* ~15 chars at 0.7rem */
     text-decoration: none;
     display: block;
     z-index: 1;
