@@ -66,9 +66,10 @@ function renderLineChart(figure) {
   const { data, config = {}, palette, width = 720, height = 400 } = figure;
   const colors = palette ?? DEFAULT_PALETTE;
 
+  const titleHeight = figure.title ? 28 : 0;
   const hasLegend = config.showLegend !== false && data.series.length > 1;
   const legendHeight = hasLegend ? 30 : 0;
-  const margin = { top: 30, right: 30, bottom: 50, left: 60 };
+  const margin = { top: 8 + titleHeight, right: 30, bottom: 50, left: 60 };
   const innerW = width - margin.left - margin.right;
   const innerH = height - margin.top - margin.bottom - legendHeight;
 
@@ -95,6 +96,14 @@ function renderLineChart(figure) {
   // Build SVG parts
   const parts = [];
 
+  // Centered title (above chart)
+  if (figure.title) {
+    parts.push(textEl(innerW / 2, -8, figure.title, {
+      fill: '#e2e8f0', 'font-size': '14', 'font-weight': '600',
+      'text-anchor': 'middle',
+    }));
+  }
+
   // Grid lines (horizontal)
   const yTicks = 5;
   for (let i = 0; i <= yTicks; i++) {
@@ -104,17 +113,17 @@ function renderLineChart(figure) {
     parts.push(textEl(-8, yPos + 4, formatNum(yVal), { fill: '#94a3b8', 'font-size': '11', 'text-anchor': 'end' }));
   }
 
-  // X axis labels
+  // X axis labels: show all unique x values (all data point years)
   if (isNumericX) {
-    const xTickCount = Math.min(10, allX.length);
-    const step = (xMax - xMin) / xTickCount;
-    for (let i = 0; i <= xTickCount; i++) {
-      const xVal = xMin + step * i;
+    const uniqueX = [...new Set(allX.map(Math.round))].sort((a, b) => a - b);
+    uniqueX.forEach((xVal) => {
       const xPos = xScale(xVal);
-      parts.push(textEl(xPos, innerH + 18, formatYear(xVal), {
-        fill: '#94a3b8', 'font-size': '11', 'text-anchor': 'middle',
-      }));
-    }
+      if (xPos >= 0 && xPos <= innerW) {
+        parts.push(textEl(xPos, innerH + 18, formatYear(xVal), {
+          fill: '#94a3b8', 'font-size': '11', 'text-anchor': 'middle',
+        }));
+      }
+    });
   } else {
     const uniqueX = [...new Set(allX.map(String))];
     uniqueX.forEach((x) => {
@@ -127,7 +136,7 @@ function renderLineChart(figure) {
 
   // Axis labels
   if (config.xAxis?.label) {
-    parts.push(textEl(innerW / 2, height - 5 - legendHeight, config.xAxis.label, {
+    parts.push(textEl(innerW / 2, height - 5 - margin.top - legendHeight, config.xAxis.label, {
       fill: '#94a3b8', 'font-size': '12', 'text-anchor': 'middle',
     }));
   }
@@ -181,13 +190,12 @@ function renderLineChart(figure) {
 
   // Legend
   if (hasLegend) {
-    const legendY = innerH + 40;
-    // Calculate total legend width to center it
+    const legendY = innerH + 42;
     let totalWidth = 0;
     const legendItems = data.series.map((s, i) => ({
       name: s.name,
       color: colors[i % colors.length],
-      width: s.name.length * 8 + 24, // rough estimate
+      width: s.name.length * 8 + 24,
     }));
     totalWidth = legendItems.reduce((sum, item) => sum + item.width + 12, 0) - 12;
     let legendX = innerW / 2 - totalWidth / 2;
@@ -201,7 +209,7 @@ function renderLineChart(figure) {
     });
   }
 
-  return wrapSvg(parts.join('\n'), width, height, figure);
+  return wrapSvg(parts.join('\n'), width, height, figure, margin.left, margin.top);
 }
 
 // ── Bar chart renderer ──
@@ -210,7 +218,8 @@ function renderBarChart(figure) {
   const { data, config = {}, palette, width = 720, height = 400 } = figure;
   const colors = palette ?? DEFAULT_PALETTE;
 
-  const margin = { top: 30, right: 30, bottom: 60, left: 60 };
+  const titleHeight = figure.title ? 28 : 0;
+  const margin = { top: 8 + titleHeight, right: 30, bottom: 60, left: 60 };
   const innerW = width - margin.left - margin.right;
   const innerH = height - margin.top - margin.bottom;
 
@@ -230,6 +239,14 @@ function renderBarChart(figure) {
     : null;
 
   const parts = [];
+
+  // Centered title (above chart)
+  if (figure.title) {
+    parts.push(textEl(innerW / 2, -8, figure.title, {
+      fill: '#e2e8f0', 'font-size': '14', 'font-weight': '600',
+      'text-anchor': 'middle',
+    }));
+  }
 
   // Grid lines
   const yTicks = 5;
@@ -279,30 +296,38 @@ function renderBarChart(figure) {
 
   // Legend
   if (allGroups.length > 1) {
-    const legendY = height - 5;
-    const legendX = innerW / 2 - (allGroups.length * 60) / 2;
-    allGroups.forEach((group, i) => {
-      const x = legendX + i * 60;
-      const color = colors[i % colors.length];
-      parts.push(`<rect x="${x}" y="${legendY - 8}" width="10" height="10" fill="${color}" rx="1"/>`);
-      parts.push(textEl(x + 14, legendY + 1, group, {
-        fill: '#cbd5e1', 'font-size': '10',
+    const legendY = innerH + 44;
+    let totalWidth = 0;
+    const legendItems = allGroups.map((name, i) => ({
+      name,
+      color: colors[i % colors.length],
+      width: name.length * 8 + 22,
+    }));
+    totalWidth = legendItems.reduce((sum, item) => sum + item.width + 12, 0) - 12;
+    let legendX = innerW / 2 - totalWidth / 2;
+
+    legendItems.forEach((item) => {
+      const x = legendX;
+      parts.push(`<rect x="${x}" y="${legendY - 8}" width="12" height="12" fill="${item.color}" rx="2"/>`);
+      parts.push(textEl(x + 18, legendY + 2, item.name, {
+        fill: '#cbd5e1', 'font-size': '11',
       }));
+      legendX += item.width + 12;
     });
   }
 
-  return wrapSvg(parts.join('\n'), width, height, figure);
+  return wrapSvg(parts.join('\n'), width, height, figure, margin.left, margin.top);
 }
 
 // ── Shared helpers ──
 
-function wrapSvg(inner, width, height, figure) {
+function wrapSvg(inner, width, height, figure, tx = 60, ty = 30) {
   const title = figure.title ? `<title>${escapeXml(figure.title)}</title>` : '';
   const desc = figure.caption ? `<desc>${escapeXml(figure.caption)}</desc>` : '';
   return `${svgTag({ viewBox: `0 0 ${width} ${height}`, role: 'img', 'aria-label': figure.title ?? '' })}
   ${title}
   ${desc}
-  <g transform="translate(${60}, ${30})">
+  <g transform="translate(${tx}, ${ty})">
     ${inner}
   </g>
 </svg>`;

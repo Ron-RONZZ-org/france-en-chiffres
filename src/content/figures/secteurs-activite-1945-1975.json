@@ -3,7 +3,6 @@
   "type": "line",
   "title": "Répartition de la population active par secteur (1945–1975)",
   "caption": "Part de la population active française dans l'agriculture, l'industrie et les services, 1945–1975",
-  "credit": "France en Chiffres d'après INSEE",
   "license": "CC BY-SA 4.0",
   "sourceIds": ["insee-2024"],
   "width": 720,

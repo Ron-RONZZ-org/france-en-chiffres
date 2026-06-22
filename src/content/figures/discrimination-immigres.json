@@ -3,7 +3,6 @@
   "type": "bar",
   "title": "Inégalités entre immigré·es et non-immigré·es en France (2010–2020)",
   "caption": "Indicateurs d'inégalités : taux de chômage, pauvreté, accès au logement, France",
-  "credit": "France en Chiffres d'après INSEE",
   "license": "CC BY-SA 4.0",
   "sourceIds": ["insee-2024"],
   "width": 720,
