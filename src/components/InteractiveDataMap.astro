@@ -799,7 +799,24 @@
       });
     }
 
+    // ── Force all toggles off on init (prevent stale state from view transitions) ──
+    function resetToggles() {
+      // Clear all checkbox states
+      document.querySelectorAll('[data-map-toggle]').forEach((el) => {
+        if (el.type === 'checkbox') el.checked = false;
+      });
+      // Remove any existing layers
+      if (densityLayer) { map.removeLayer(densityLayer); densityLayer = null; }
+      if (elevationLayer) { map.removeLayer(elevationLayer); elevationLayer = null; }
+      if (roadsLayer) { map.removeLayer(roadsLayer); roadsLayer = null; roadsFetched = false; }
+      if (railwaysLayer) { map.removeLayer(railwaysLayer); railwaysLayer = null; }
+      if (waterwaysLayer) { map.removeLayer(waterwaysLayer); waterwaysLayer = null; waterwaysVisible = false; }
+      if (communesLayer) { map.removeLayer(communesLayer); communesLayer = null; communesFetched = false; }
+      clearLegend();
+    }
+
     // ── Init ──
+    resetToggles();
     loadDepartments();
     setupToggles();
     setupTippy();
@@ -811,6 +828,7 @@
 
     // Handle Astro View Transitions
     document.addEventListener('astro:after-swap', () => {
+      resetToggles();
       setTimeout(() => map.invalidateSize(), 200);
     });
   })();
