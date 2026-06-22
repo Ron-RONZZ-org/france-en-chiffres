@@ -156,6 +156,12 @@ const galleryMedia = (await Promise.all(
     margin-bottom: var(--gap-md);
   }
 
+  .event-page__body :global(h2),
+  .event-page__body :global(h3),
+  .event-page__body :global(h4) {
+    position: relative;                /* anchor for .heading-anchor */
+  }
+
   .event-page__body :global(h2) {
     font-family: var(--font-serif);
     font-size: 1.5rem;
@@ -187,6 +193,19 @@ const galleryMedia = (await Promise.all(
     margin: var(--gap-lg) 0;
     color: var(--color-text-muted);
     font-style: italic;
+  }
+
+  /* ── Hidden heading anchors (from remark-heading-ids) ── */
+
+  .event-page__body :global(.heading-anchor) {
+    display: block;
+    visibility: hidden;
+    height: 0;
+    width: 0;
+    overflow: hidden;
+    position: absolute;
+    top: -80px;               /* offset for sticky nav */
+    pointer-events: none;
   }
 
   /* ── Inline citation superscripts ── */

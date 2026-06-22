@@ -200,12 +200,13 @@ if (range > 0 && entries.length > 0) {
     display: flex;
     flex-direction: column;
     gap: 4px;
-    min-height: 32px;
+    min-height: 40px;
+    overflow-x: hidden;                  /* clip bars wider than their track */
   }
 
   .mini-timeline__track {
     position: relative;
-    height: 32px;
+    height: 40px;                        /* taller for stacked title + years */
   }
 
   /* ── Bars ── */
@@ -213,6 +214,7 @@ if (range > 0 && entries.length > 0) {
     position: absolute;
     top: 0;
     height: 100%;
+    min-width: 48px;                     /* guarantee visibility for point events */
     text-decoration: none;
     display: block;
     z-index: 1;
@@ -221,17 +223,17 @@ if (range > 0 && entries.length > 0) {
 
   .mini-timeline__bar-inner {
     display: flex;
-    align-items: center;
-    gap: 4px;
+    flex-direction: column;             /* stack title + years vertically */
+    align-items: flex-start;
+    justify-content: center;
+    gap: 0;
     height: 100%;
-    padding: 0 8px;
+    padding: 2px 6px;
     background: var(--color-french-blue);
     border-radius: 4px;
     opacity: 0.7;
-    transition: opacity var(--transition-fast), background var(--transition-fast);
-    overflow: hidden;
-    white-space: nowrap;
     cursor: pointer;
+    transition: opacity var(--transition-fast), background var(--transition-fast);
   }
 
   .mini-timeline__bar:hover .mini-timeline__bar-inner {
@@ -246,19 +248,23 @@ if (range > 0 && entries.length > 0) {
   }
 
   .mini-timeline__bar-title {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     font-weight: 600;
     color: #fff;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
     line-height: 1.2;
+    word-break: break-word;
+    max-height: 2.4em;                   /* max ~2 lines before ellipsis */
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
   }
 
   .mini-timeline__bar-years {
-    font-size: 0.65rem;
+    font-size: 0.6rem;
     color: rgba(255, 255, 255, 0.7);
     flex-shrink: 0;
+    line-height: 1.2;
   }
 
   /* ── Mobile ── */
