@@ -18,6 +18,19 @@ export const eraSchema = z.object({
   period: autoInferEraPeriod(data.start, data.end),
 }));
 
+// ── Timeline sub-entries (mini-timeline within an event article) ──
+
+const timelineEntrySchema = z.object({
+  id: z.string().min(1),
+  title: z.string().min(1),
+  start: z.number(),
+  end: z.number(),
+  sectionId: z.string().optional(),
+}).refine(
+  (data) => data.end >= data.start,
+  { message: 'end must be >= start for timeline entry', path: ['end'] }
+);
+
 // ── Events ──
 
 export const eventSchema = z.object({
@@ -30,6 +43,7 @@ export const eventSchema = z.object({
   mediaId: z.string().optional(),
   mediaIds: z.array(z.string()).optional(),
   departmentId: z.string().optional(),
+  timeline: z.array(timelineEntrySchema).optional(),
 }).refine(
   (data) => data.end >= data.start,
   { message: 'end must be >= start', path: ['end'] }
@@ -308,3 +322,4 @@ export type MediaEntry = z.infer<typeof mediaSchema>;
 export type Department = z.infer<typeof departmentSchema>;
 export type ChartFigure = z.infer<typeof figureSchema>;
 export type ChartType = z.infer<typeof chartType>;
+export type TimelineEntry = z.infer<typeof timelineEntrySchema>;

@@ -4,6 +4,31 @@ start: 1815
 end: 1914
 title: "Le XIXe siècle : industrialisation, révolutions et République"
 description: "Le chemin de fer, le prolétariat, la Commune, la laïcité, l'école pour tou·tes, Dreyfus. En cent ans, la France invente le monde moderne — et se déchire sur ce qu'il doit être."
+timeline:
+  - id: restauration
+    title: Restauration et monarchie de Juillet
+    start: 1815
+    end: 1848
+  - id: revolution-industrielle
+    title: Révolution industrielle
+    start: 1820
+    end: 1870
+  - id: seconde-republique
+    title: II<sup>e</sup> République et Second Empire
+    start: 1848
+    end: 1870
+  - id: commune-paris
+    title: La Commune de Paris
+    start: 1871
+    end: 1871
+  - id: troisieme-republique
+    title: La III<sup>e</sup> République
+    start: 1871
+    end: 1914
+  - id: affaire-dreyfus
+    title: L'affaire Dreyfus
+    start: 1894
+    end: 1906
 ---
 
 ## Prologue
@@ -16,7 +41,7 @@ Louise ne savait ni lire ni écrire. L'école n'était pas obligatoire. En 1845,
 
 Ce que Louise ne pouvait pas savoir, c'est qu'elle vivait l'un des plus grands bouleversements de l'histoire humaine : la révolution industrielle. Elle ne pouvait pas savoir non plus qu'à Paris, à quelques centaines de kilomètres, on parlait déjà de renverser le roi Louis-Philippe. Dans les livres, on appelait cela le « paupérisme » — le nouveau visage de la misère.
 
-## La Restauration et la monarchie de Juillet (1815–1848)
+## La Restauration et la monarchie de Juillet (1815–1848) {#restauration}
 
 ### Le retour des Bourbons
 
@@ -32,7 +57,7 @@ Louis-Philippe, affublé d'un parapluie et vêtu d'un costume noir, cultivait l'
 
 Les premières années furent marquées par des révoltes ouvrières. En novembre 1831, les **canuts** de Lyon — les ouvrier·ères de la soie — se soulevèrent contre la baisse des salaires. « Vivre en travaillant ou mourir en combattant », proclamait leur drapeau noir. L'armée réprima dans le sang : on dénombra une centaine de morts et plus de 400 blessés, en majorité parmi les insurgés [source:britannica-french-revolution].
 
-## La révolution industrielle bouleverse la société
+## La révolution industrielle bouleverse la société {#revolution-industrielle}
 
 ### Le chemin de fer construit la France
 
@@ -48,7 +73,7 @@ Leurs conditions de travail étaient effroyables. Douze à quatorze heures par j
 
 Les ouvrier·ères n'avaient quasiment aucun droit. La grève était interdite. Les syndicats aussi. Le livret ouvrier (obligatoire jusqu'en 1890) permettait aux patrons de contrôler les allées et venues. Les enfants travaillaient dès huit ans — parfois six — dans les mines et les usines. Une loi de 1841 limita le travail des moins de huit ans, mais sans inspection sérieuse, elle resta lettre morte. Il fallut attendre 1874 pour une première réglementation efficace [source:britannica-front-populaire].
 
-## La II<sup>e</sup> République et le Second Empire (1848–1870)
+## La II<sup>e</sup> République et le Second Empire (1848–1870) {#seconde-republique}
 
 ### La révolution de 1848
 
@@ -74,7 +99,7 @@ Les buts étaient multiples : embellir la ville, améliorer la circulation, mais
 
 Les ouvrier·ères commencèrent à s'organiser malgré l'interdiction. En 1864, la grève cessa d'être un délit. En 1865, l'Internationale ouvrière (Première Internationale) compta des sections françaises. Les premières associations mutualistes et coopératives se développèrent. À la fin de l'Empire, le mouvement ouvrier était une force politique avec laquelle il fallait compter [source:britannica-commune-paris].
 
-## La Commune de Paris (1871)
+## La Commune de Paris (1871) {#commune-paris}
 
 Le 19 juillet 1870, la France déclara la guerre à la Prusse. Ce fut un désastre. L'armée française, mal commandée, fut encerclée à Sedan. Napoléon III capitula le 2 septembre. Le 4 septembre, la République fut proclamée à Paris — la III<sup>e</sup>[source:britannica-french-revolution].
 
@@ -96,7 +121,7 @@ Les prisonnier·ères — 40 000 — furent déporté·es en Nouvelle-Calédonie
 
 La Commune fut écrasée, mais elle devint le mythe fondateur du mouvement ouvrier international. Les révolutionnaires du monde entier — de Lénine à Mao — y virent la première tentative de gouvernement prolétarien de l'histoire.
 
-## La III<sup>e</sup> République s'enracine (1871–1914)
+## La III<sup>e</sup> République s'enracine (1871–1914) {#troisieme-republique}
 
 La III<sup>e</sup> République naquit dans le sang de la Commune et dans la honte de la défaite. Pourtant, elle devint, contre toute attente, le régime le plus stable que la France ait connu depuis 1789, durant soixante-cinq ans.
 
@@ -124,7 +149,7 @@ La loi de 1905 abolit le Concordat napoléonien : l'État ne reconnaissait plus,
 
 L'impact pratique fut considérable. Les congrégations religieuses durent quitter l'enseignement public, remplacées par des milliers d'instituteur·ices laïques. Les hôpitaux et cimetières furent laïcisés : les croix et symboles religieux disparurent des murs des écoles publiques, des prétoires et des bâtiments officiels. Les enterrements civils devinrent possibles sans opposition de l'autorité locale. La mise en œuvre provoqua des tensions : en 1906, lors des inventaires des biens d'Église, des heurts éclatèrent dans plusieurs régions (Ouest, Flandre, Auvergne) entre les fidèles et l'armée envoyée par l'État. Mais la loi tint bon. En un demi-siècle, la laïcité devint un élément central de l'identité républicaine française — et demeure, aujourd'hui encore, l'un des principes les plus débattus et les plus défendus de la République.
 
-### L'affaire Dreyfus (1894–1906)
+### L'affaire Dreyfus (1894–1906) {#affaire-dreyfus}
 
 En 1894, le capitaine **Alfred Dreyfus**, officier d'état-major d'origine alsacienne et de confession juive, fut accusé d'avoir livré des documents militaires à l'Allemagne. Condamné à la déportation à perpétuité sur l'île du Diable, il était innocent. Le véritable traître, le commandant Esterházy, fut couvert par l'armée.
 

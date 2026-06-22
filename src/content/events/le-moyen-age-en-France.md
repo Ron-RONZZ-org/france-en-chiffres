@@ -4,6 +4,27 @@ start: 486
 end: 1453
 title: "Le Moyen Âge en France"
 description: "Le « Moyen Âge » est un nom inventé pour dénigrer mille ans d'histoire. Pourtant, c'est au Moyen Âge que la France moderne se forme — son nom, sa langue, ses villages, ses cathédrales, son identité."
+timeline:
+  - id: naissance-royaume
+    title: La naissance du royaume des Francs
+    start: 486
+    end: 987
+  - id: societe-feodale
+    title: La société féodale
+    start: 900
+    end: 1300
+  - id: eglise-pouvoir
+    title: Le pouvoir de l'Église
+    start: 900
+    end: 1300
+  - id: guerre-cent-ans
+    title: La guerre de Cent Ans
+    start: 1337
+    end: 1453
+  - id: peste-noire
+    title: La Peste noire
+    start: 1347
+    end: 1352
 ---
 
 ## Le Moyen Âge, c'est quand ?
@@ -18,7 +39,7 @@ Logiquement, les gens qui vécurent au « Moyen Âge » n'employèrent jamais ce
 
 Dans cet article, j'essaierai au maximum d'éviter de désigner l'époque que nous allons aborder comme « le Moyen Âge ». Pour nous, les Français·es, particulièrement, le « Moyen Âge » n'est pas du tout moyen. La nation française, sa culture, sa langue et ses traditions se développèrent au cours des siècles qui suivirent la chute de l'Empire romain, qui colonisait le territoire de l'actuelle France sous forme de quatre provinces gauloises. Si l'occupation romaine, qui unifia le territoire français pour la première fois, débuta la civilisation française, ce fut pendant les siècles suivants que la France devint un pays à part entière avec ses propres coutumes. En fait, vous allez voir : même le nom de notre pays, « la France », est une invention « moyenageuse ».
 
-## La naissance du royaume des Francs
+## La naissance du royaume des Francs {#naissance-royaume}
 
 ### Un certain Clovis se faisait baptiser
 
@@ -64,7 +85,7 @@ L'extension du nom « France » à l'ensemble du royaume se fit graduellement. S
 
 En 987, les grands du royaume — les ducs, comtes et évêques les plus puissants — élurent **Hugues Capet** comme roi [source:britannica-hugh-capet]. Malgré leurs titres royaux, le pouvoir des premiers Capétiens était minuscule : ils ne contrôlaient véritablement que l'Île-de-France, un petit territoire entre Paris et Orléans. Les ducs de Normandie, d'Aquitaine, de Bourgogne étaient pratiquement autonomes et plus puissants que le roi lui-même : ils contrôlaient des territoires bien plus vastes et plus riches, battaient leur propre monnaie, levaient leurs propres armées, rendaient la justice en dernier ressort sans faire appel au roi. En théorie vassaux du roi, ils étaient en pratique des souverains indépendants [source:britannica-france-medieval].
 
-## La société féodale (X<sup>e</sup>–XIII<sup>e</sup> siècle)
+## La société féodale (X<sup>e</sup>–XIII<sup>e</sup> siècle) {#societe-feodale}
 
 C'est dans ce contexte de pouvoir royal faible que se développa ce que l'on appelle le **système féodal**. 
 
@@ -127,7 +148,7 @@ La vie urbaine était organisée autour des **corporations** (ou métiers jurés
 
 Les villes étaient dirigées par des conseils municipaux élus par les **bourgeois** — les habitant·es libres et aisés qui possédaient le droit de cité. Ces conseils géraient les finances locales, l'entretien des remparts, l'approvisionnement, l'hygiène publique, et entretenaient des relations diplomatiques avec le seigneur ou le roi. Certaines villes, comme Marseille, Montpellier ou Toulouse, jouissaient d'une quasi-indépendance et traitaient d'égal à égal avec les princes [source:britannica-urbain-prosperity].
 
-## Le pouvoir de l'Église
+## Le pouvoir de l'Église {#eglise-pouvoir}
 
 Au Moyen Âge, l'Église catholique était omniprésente. Elle rythmait le temps (les cloches, les fêtes religieuses, le dimanche chômé), encadrait la vie (le baptême, le mariage, la confession, l'extrême-onction), possédait des terres (parfois jusqu'à un tiers du royaume) et détenait le monopole de l'enseignement et de la culture écrite [source:britannica-france-medieval].
 
@@ -163,7 +184,7 @@ Pourtant, l'édifice que le Moyen Âge avait patiemment construit — l'alliance
 
 Le XIV<sup>e</sup> siècle fut un âge de multiples catastrophes. Trois fléaux frappèrent la France presque simultanément : la guerre, la famine, la peste.
 
-### La guerre de Cent Ans (1337–1453)
+### La guerre de Cent Ans (1337–1453) {#guerre-cent-ans}
 
 En 1328, roi Charles IV mourut sans héritier. Selon la loi salique — qui excluait les femmes de la succession au trône de France — la couronne revint à son cousin Philippe VI de Valois. Mais de l'autre côté de la Manche, le roi d'Angleterre Édouard III, petit-fils de Philippe le Bel par sa mère Isabelle, revendiqua le trône. Ce conflit dynastique allait embraser la France pendant plus d'un siècle [source:britannica-france-medieval].
 
@@ -183,7 +204,7 @@ Sa mort ne fut pas vaine : elle avait retourné l'opinion et galvanisé les trou
 
 Avant même la guerre de Cent Ans, la France avait connu une famine catastrophique qui fragilisa profondément le royaume. La **Grande Famine de 1315–1317** frappa toute l'Europe du Nord. Des pluies diluviennes au printemps 1315 pourrirent les semences dans le sol ; l'été froid empêcha les récoltes de mûrir. Pendant deux ans, les récoltes furent si maigres que les réserves s'épuisèrent. Le prix du blé quadrupla. Dans les campagnes, les paysan·nes affamé·es mangèrent l'herbe, les racines, l'écorce des arbres, les chats et les rats. Les chroniques rapportent des cas de cannibalisme par désespoir [source:britannica-middle-ages]. Environ 10 % de la population du nord de la France mourut de faim ou de maladies liées à la malnutrition. Pour les survivant·es, les semences furent consommées, ce qui prolongea la crise : il fallut plusieurs années pour que l'agriculture se rétablisse.
 
-### La Peste noire (1347–1352)
+### La Peste noire (1347–1352) {#peste-noire}
 
 En 1347, la peste bubonique arriva à Marseille par des navires génois venus de Crimée. En quelques mois, elle remonta le Rhône, toucha Lyon, Avignon, Paris. À son apogée en 1349, elle tua entre un tiers et la moitié de la population française [source:britannica-black-death].
 

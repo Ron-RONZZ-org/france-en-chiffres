@@ -4,6 +4,15 @@ start: -54000
 end: -30000
 title: "Arrivée d'Homo sapiens en Europe"
 description: "Il y a 54 000 ans, un·e petit·e Homo sapiens perd une dent de lait dans la grotte Mandrin. Cette dent, retrouvée 54 000 ans plus tard, a bouleversé notre chronologie du peuplement de l'Europe."
+timeline:
+  - id: aurignacien
+    title: "La grande vague : l'Aurignacien"
+    start: -42000
+    end: -30000
+  - id: disparition-neandertaliens
+    title: Que sont devenus les Néandertaliens ?
+    start: -40000
+    end: -30000
 ---
 
 ## Une dent de lait qui change tout
@@ -20,7 +29,7 @@ Pendant des décennies, le scénario dominant était simple : *Homo sapiens* ser
 
 Mais la grotte Mandrin raconte une tout autre histoire : celle d'une première incursion, réussie mais éphémère, d'*Homo sapiens* en Europe, bien plus tôt que prévu. Ces premier·es Européen·nes *sapiens* — e·ils n'étaient probablement qu'un petit groupe — ont laissé des outils d'un type particulier, appelé **Néronien**, que les archéologues connaissaient déjà mais n'arrivaient pas à attribuer avec certitude. La dent de Mandrin a permis de les identifier : le Néronien, c'est *Homo sapiens*.
 
-## La grande vague : l'Aurignacien
+## La grande vague : l'Aurignacien {#aurignacien}
 
 Il faudra attendre environ 42 000 ans AEC pour que *Homo sapiens* s'installe durablement en Europe. Cette fois, c'est la culture **aurignacienne** qui accompagne la migration — des lames en pierre d'une régularité stupéfiante, des sagaies en ivoire, des perles en coquillage et en dent animale. Des sites comme l'abri Pataud en Dordogne, la grotte Chauvet en Ardèche ou le Geissenklösterle en Allemagne témoignent de cette présence qui, cette fois, ne s'éteindra plus [source:lascaux-ministere-culture].
 
@@ -28,7 +37,7 @@ Avec l'Aurignacien arrivent aussi les premières **œuvres d'art** d'Europe : la
 
 C'est aussi de cette époque que datent les premières **Vénus paléolithiques**, comme la Vénus de Brassempouy ou la Vénus de Lespugue — de petites figurines féminines aux formes généreuses, taillées dans l'ivoire de mammouth ou la stéatite. On en a retrouvé dans toute l'Europe, de la France à la Sibérie.
 
-## Que sont devenus les Néandertaliens ?
+## Que sont devenus les Néandertaliens ? {#disparition-neandertaliens}
 
 L'arrivée d'*Homo sapiens* coïncide avec la disparition des Néandertaliens, entre 40 000 et 30 000 ans AEC. Pendant longtemps, on a supposé une guerre d'extermination : les *sapiens* conquérant, technologiquement supérieur, aurait chassé les *néandertaliens* jusqu'à son extinction.
 

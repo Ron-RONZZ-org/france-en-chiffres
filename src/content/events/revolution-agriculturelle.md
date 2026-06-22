@@ -4,6 +4,19 @@ start: -1E4
 end: -6E3
 title: "Révolution agricole en France"
 description: "L'agriculture apparaît en France il y a environ 7 500 ans, bouleversant les modes de vie des communautés humaines qui vivaient jusqu'alors de chasse et de cueillette."
+timeline:
+  - id: proto-agriculture
+    title: La proto-agriculture
+    start: -10000
+    end: -8000
+  - id: naissance-agriculture
+    title: La naissance de l'agriculture
+    start: -8000
+    end: -6000
+  - id: bouleversement-agricole
+    title: L'agriculture bouleverse la vie française
+    start: -6000
+    end: -5000
 ---
 
 ## Prologue : alors l'humain ne cultive pas sa terre
@@ -14,7 +27,7 @@ Si vous n'êtes pas parmi les exceptions rares, vous ne passez probablement pas 
 
 Ça vous surprend peut-être, mais pendant la majeure partie de l'Histoire, les humains ont passé la plupart de leurs journées à chasser, pêcher et cueillir pour se nourrir. De temps en temps, on n'arrive plus à trouver ce qu'il faut, et on emballe toutes ses possessions dans un sac de cuir pour entreprendre une marche de plusieurs dizaines voire centaines de kilomètres à la recherche d'une nouvelle terre avec plus d'abondance. Nous appelons aujourd'hui ce style de vie **chasse-cueillette** [source:bar-yosef-1998-natufian].
 
-## La proto-agriculture
+## La proto-agriculture {#proto-agriculture}
 
 Aujourd'hui, la chasse-cueillette est encore pratiquée dans certains endroits du monde [source:inrap]. En France, par contre, presque plus personne ne se nourrit par cette méthode. Ça vous semble peut-être un progrès naturel, puisqu'il est bien plus facile d'acheter sa nourriture dans un supermarché, ou si vous voulez bien, cultiver/élever une certaine partie dans votre jardin/ferme. Il faut quand même un effort, soit par l'intermédiaire d'un travail qui vous permet d'acheter, soit en sortant directement du confort de votre logement et de semer, d'arroser/de nourrir puis de récolter/d'abattre vous-même. Dans les deux cas, il s'agit d'un effort bien moins épuisant que ce que vos ancêtres chasseur·euse·cueilleur·euse ont dû donner au jour le jour, se déplaçant d'une ou deux dizaines de kilomètres par jour derrière leurs proies ou des légumes/fruits sauvages qui se font de plus en plus rares, avant une migration de jusqu'à une centaine de kilomètres à pied presque saisonnière.
 
@@ -30,7 +43,7 @@ Les humains ont donc continué à chasser et cueillir jour après jour, année a
 
 En fait, nous avons même des preuves archéologiques que ces expériences ont eu lieu. La fouille du site d'Ohalo II en Israël, datant d'environ 23 000 ans, a récupéré plusieurs outils de récolte et des restes de blé et d'orge en quantité trop importante pour avoir plausiblement été simplement cueillis à l'état sauvage [source:science-2021-ice-age-cereal].
 
-## La naissance de l'agriculture
+## La naissance de l'agriculture {#naissance-agriculture}
 
 Même si des expériences sporadiques d'agriculture ont potentiellement eu lieu partout, l'agriculture n'a pas eu de succès à grande échelle dans un premier temps. L'agriculture a été, dans le meilleur des cas, un supplément à la chasse-cueillette, y compris pour nos braves expérimenteur·es d'Ohalo II. En plus des pratiques pseudo-aléatoires qui donnaient des rendements potentiellement très décevants, le climat de la Terre à l'époque était aussi dissuasif. Nous décrivons aujourd'hui le climat de l'époque comme le **Dernier Maximum Glaciaire** [source:clark-2009-lgm]. Concrètement, ça veut dire que les températures étaient bien plus basses qu'aujourd'hui, et pas du tout favorables à la végétation.
 
@@ -40,7 +53,7 @@ Il faut attendre la fin du Dernier Maximum Glaciaire et le début de l'Holocène
 
 Les premiers humains se sont installés en France il y a [presque un million d'années](./premiers-humains-en-France.md). Comme l'agriculture, même dans les formes les plus primitives et expérimentales, n'était pas connue jusqu'à il y a quelques dizaines d'années, les premier·ère Français·es ont eu plein du temps pour développer l'agriculture eux-même à la française. Malheureusement, des preuves historiques suggérent que la pratique d'agriculture en France était plutôt importée par des vagues migratoires successives venant du Proche-Orient en environs 5000 AEC. [source:bar-yosef-1998-natufian][source:rivollat-2020-mtdna-france].
 
-## L'agriculture bouleverse la vie française
+## L'agriculture bouleverse la vie française {#bouleversement-agricole}
 
 L'adoption de l'agriculture n'a pas été un simple changement du régime alimentaire. Elle a complètement transformé la vie des premier·ères habitant·es de la France.
 

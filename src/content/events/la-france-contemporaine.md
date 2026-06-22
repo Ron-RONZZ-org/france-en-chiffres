@@ -4,6 +4,23 @@ start: 1945
 end: 2026
 title: "La France contemporaine (1945–2026)"
 description: "De la reconstruction d'après-guerre à la société numérique, des Trente Glorieuses aux défis climatiques, la France se redéfinit dans le nouveau siècle"
+timeline:
+  - id: trente-glorieuses
+    title: Les Trente Glorieuses
+    start: 1945
+    end: 1973
+  - id: decolonisation
+    title: La décolonisation
+    start: 1946
+    end: 1962
+  - id: mai-68-feminisme
+    title: Mai 68 et les avancées féministes
+    start: 1968
+    end: 1975
+  - id: france-contemporaine
+    title: La France contemporaine
+    start: 1981
+    end: 2026
 ---
 
 ## Prologue
@@ -14,7 +31,7 @@ Suzanne avait vécu l'Occupation, les alertes, les tickets de rationnement. Elle
 
 Elle trouva une place de sténodactylo (le mot fait sourire aujourd'hui, mais c'était un métier de bureau respectable pour une femme) dans une administration qui sortait de terre, la Sécurité sociale. Elle ne le savait pas encore, mais elle allait vivre le plus grand bond en avant de l'histoire de France.
 
-## Les Trente Glorieuses (1945–1973)
+## Les Trente Glorieuses (1945–1973) {#trente-glorieuses}
 
 ### La reconstruction
 
@@ -54,7 +71,7 @@ Les femmes entrèrent massivement sur le marché du travail : 35 % des femmes ac
 
 Derrière ces inégalités persistantes, le droit du travail progressait timidement. Le congé maternité (14 semaines) fut instauré par la Sécurité sociale, mais la contraception et l'avortement restaient interdits. L'accès à l'indépendance économique des femmes demeurait un combat inachevé.
 
-## La décolonisation (1946–1962)
+## La décolonisation (1946–1962) {#decolonisation}
 
 ### La guerre d'Indochine
 
@@ -82,7 +99,7 @@ E·ils vivaient souvent dans des bidonvilles (Nanterre, Saint-Denis), puis dans 
 
 Entre deux cultures, les immigré·es, y compris leurs enfants né·es en France, subissaient des discriminations à l'embauche, au logement et dans l'accès aux services publics [chart:discrimination-immigres].
 
-## De Mai 68 aux avancées féministes : la libération des mœurs
+## De Mai 68 aux avancées féministes : la libération des mœurs {#mai-68-feminisme}
 
 ### La révolte de Mai 1968 accéléra les mutations culturelles
 
@@ -102,7 +119,7 @@ La loi **Neuwirth** (1967) autorisa la contraception — mais elle ne fut vraime
 
 Le **divorce par consentement mutuel** fut autorisé en 1975. Le viol fut reconnu comme crime en 1980. Les femmes gagnèrent du terrain dans tous les domaines : dans l'enseignement supérieur, elles représentaient 47 % des étudiant·es en 1970 contre 37 % en 1960 ; dans les professions libérales, leur part doubla entre 1970 et 1990 ; en politique, la loi sur la parité n'existait pas encore, mais des figures comme Simone Veil, Françoise Giroud ou Yvette Roudy imposèrent leur présence au gouvernement.
 
-## La France contemporaine (1981–2026)
+## La France contemporaine (1981–2026) {#france-contemporaine}
 
 ### L'alternance historique du pouvoir
 

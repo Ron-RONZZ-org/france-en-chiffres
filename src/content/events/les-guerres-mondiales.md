@@ -4,6 +4,19 @@ start: 1914
 end: 1945
 title: "Les Grandes Guerres"
 description: "De la première Guerre mondiale à la Libération d'occupation Nazi, trente années qui saignent la France, l'occupent, la divisent — et finissent par la réunifier. La guerre totale transforme la société et marque la mémoire collective pour toujours."
+timeline:
+  - id: grande-guerre
+    title: La Grande Guerre
+    start: 1914
+    end: 1918
+  - id: entre-deux-guerres
+    title: L'entre-deux-guerres
+    start: 1919
+    end: 1939
+  - id: seconde-guerre-mondiale
+    title: La Seconde Guerre mondiale
+    start: 1939
+    end: 1945
 ---
 
 ## Prologue
@@ -17,7 +30,7 @@ Marc ne rentra ni pour Noël 1914, ni pour Noël 1915, ni pour Noël 1916. Le 16
 
 En 1918, quand la guerre s'acheva, 100 000 femmes françaises avaient reçu le même télégramme. Marc n'était pas un héros unique : il était l'un des 1 400 000 soldats français tués dans cette guerre — un homme sur cinq de la classe 1914.
 
-## La Grande Guerre (1914–1918)
+## La Grande Guerre (1914–1918) {#grande-guerre}
 
 ### De la guerre de mouvement à la guerre de position
 
@@ -63,7 +76,7 @@ La guerre était finie, avec un bilan désastreux pour la France :
 
 La France victorieuse était ainsi aussi une France exsangue.
 
-## L'entre-deux-guerres (1919–1939)
+## L'entre-deux-guerres (1919–1939) {#entre-deux-guerres}
 
 Les hommes qui rentrèrent du front retrouvèrent des villages en ruine {! trop absolue. Ce n'était pas le cas dans la plupart des départements}— le nord et l'est de la France n'étaient que champs de cratères, les sols imbibés d'obus non explosés, les maisons réduites en gravats. Les mutilé·es, nombreux·euses, durent apprendre à vivre avec leurs blessures : les « gueules cassées » portaient des masques, les amputé·es des prothèses rudimentaires. Les veuves et les orphelin·es, 600 000 et 760 000, vécurent de pensions d'État souvent insuffisantes ; beaucoup durent quitter leurs terres pour chercher du travail en ville. Des associations comme l'Union des Blessés de la Face et de la Tête (1921) se créèrent pour défendre les droits des mutilé·es — un lent combat pour que la République reconnaisse sa dette envers ses soldats [source:britannica-wwi].
 
@@ -85,7 +98,7 @@ Les **accords de Matignon** (7-8 juin 1936), signés sous la pression des grève
 
 Mais le Front populaire ne dura que deux ans. Les divisions internes, les difficultés économiques, la menace de la guerre le firent chuter en 1938.
 
-## La Seconde Guerre mondiale (1939–1945)
+## La Seconde Guerre mondiale (1939–1945) {#seconde-guerre-mondiale}
 
 ### La débâcle
 

@@ -203,6 +203,57 @@ Chart data is structured JSON with a Zod-discriminated union per type. The D3 re
 
 See also **Coding Guidelines** rule 6 (stat must cite its source via `sourceId`).
 
+### Article Mini-Timeline (Gantt)
+
+Each event article can display a **mini-timeline** at the top — a Gantt-style bar chart showing key sub-events within the article's timeframe, with clickable bars that scroll to the corresponding section.
+
+**To add a mini-timeline:**
+
+1. Add a `timeline:` array to the event's YAML frontmatter. Each entry has:
+   - `id` — kebab-case identifier (used as anchor link target)
+   - `title` — short display text on the bar
+   - `start` — start year (number, may equal `end` for point events)
+   - `end` — end year (number)
+   - `sectionId` — (optional) overrides the anchor target; defaults to `id`
+
+2. Add the matching `{#id}` suffix to the corresponding heading in the body:
+
+```yaml
+---
+id: mon-evenement
+start: 1789
+end: 1799
+timeline:
+  - id: prise-bastille
+    title: Prise de la Bastille
+    start: 1789
+    end: 1789
+  - id: terreur
+    title: La Terreur
+    start: 1793
+    end: 1794
+---
+```
+
+```markdown
+### La prise de la Bastille (14 juillet 1789) {#prise-bastille}
+
+### La Terreur (1793–1794) {#terreur}
+```
+
+**Behaviour:**
+- Clicking a bar scrolls to the section (smooth scroll with JS, instant jump without)
+- The active bar is highlighted as the reader scrolls through the article (IntersectionObserver)
+- Overlapping time ranges are automatically stacked on separate tracks
+- Point events (start === end) render as narrow markers
+- The component renders only when `timeline` entries exist — articles without it are unaffected
+
+**Guidelines:**
+- Only chronological sections should become timeline entries — skip intros, epilogues, and purely analytical/thematic sections
+- The `start` and `end` values can be year-precise or month/year-precise (parsed as number)
+- The `{#id}` suffix goes on the same line as the heading, separated by a space
+- Existing articles with `timeline` frontmatter: see `src/content/events/la-revolution-francaise.md` for a complete example
+
 ---
 
 ## Editorial Workflow

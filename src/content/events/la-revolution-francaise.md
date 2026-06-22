@@ -4,6 +4,31 @@ start: 1789
 end: 1799
 title: "La Révolution française"
 description: "En dix ans, la France abolit mille ans de monarchie, invente la République, exécute son roi, et se déchire dans la guerre civile et étrangère. La Révolution devient une fracture qui traverse toute la France."
+timeline:
+  - id: etats-generaux
+    title: États généraux
+    start: 1789
+    end: 1789
+  - id: prise-bastille
+    title: Prise de la Bastille
+    start: 1789
+    end: 1789
+  - id: monarchie-const
+    title: Monarchie constitutionnelle
+    start: 1789
+    end: 1792
+  - id: republique-guerre
+    title: République en guerre
+    start: 1792
+    end: 1794
+  - id: terreur
+    title: La Terreur
+    start: 1793
+    end: 1794
+  - id: directoire
+    title: Directoire
+    start: 1794
+    end: 1799
 ---
 
 ## Prologue
@@ -16,7 +41,7 @@ Il prit son marteau et ses ciseaux à froid, embrassa sa femme — enceinte de s
 
 Pierre n'avait jamais pensé à la politique. Il travaillait douze heures par jour, payait ses impôts, allait à la messe le dimanche. Mais ce jour-là, il suivit la foule. Il ne savait pas encore ni que les gardes de la Bastille allaient tirer sur eux, ni qu'e·ils allaient inciter une révolution qui fonderait un nouveau type de pays : une République.
 
-## Des États généraux à l'Assemblée nationale (mai 1789)
+## Des États généraux à l'Assemblée nationale (mai 1789) {#etats-generaux}
 
 Le 5 mai 1789, les États généraux s'ouvrirent à Versailles. 1 200 député·es — 300 pour le clergé, 300 pour la noblesse, 600 pour le tiers état. Le roi, dans son discours, parla de réformes financières. Les député·es du tiers état, elleux, parlaient de tout autre chose : la souveraineté nationale, la constitution, les droits [source:britannica-french-revolution].
 
@@ -24,7 +49,7 @@ Le conflit éclata sur le vote : le roi voulait que chaque ordre vote séparéme
 
 Le roi céda, puis durcit sa position. Il renvoya Necker, rassembla des troupes autour de Paris. La capitale s'embrasa [source:britannica-french-revolution].
 
-### La prise de la Bastille (14 juillet 1789)
+### La prise de la Bastille (14 juillet 1789) {#prise-bastille}
 
 La Bastille, forteresse de huit tours construite au XIVe siècle sous Charles V pour protéger la porte Saint-Antoine, était détestée depuis des décennies comme symbole de l'arbitraire royal : on y était emprisonné sans procès, par simple *lettre de cachet* — un ordre scellé du roi permettant l'incarcération arbitraire, sans inculpation, sans jugement et sans limite de durée [source:britannica-bastille].
 
@@ -52,7 +77,7 @@ La colère montait : le 5 octobre 1789, des milliers de femmes — marchandes, o
 
 Ces femmes — sans nom pour la plupart, sans voix dans les assemblées — avaient changé le cours des événements. Désormais, le roi était à Paris, sous la surveillance du peuple qui l'avait conquis.
 
-## La monarchie constitutionnelle (1789–1792)
+## La monarchie constitutionnelle (1789–1792) {#monarchie-const}
 
 Pendant deux ans, la France tenta de fonctionner comme une monarchie constitutionnelle. L'Assemblée nationale réorganisa tout le royaume : les provinces furent remplacées par 83 départements ; l'Église fut réorganisée par la Constitution civile du clergé (1790) ; la justice, les impôts, les poids et mesures furent unifiés.
 
@@ -64,7 +89,7 @@ Le 20 avril 1792, l'Assemblée législative déclara la guerre à l'Autriche. Le
 
 Le 10 août 1792, les sans-culottes — les petit·es artisan·es et ouvrier·ères parisien·nes organisé·es en sections — envahirent les Tuileries. Le roi et sa famille se réfugièrent à l'Assemblée. La monarchie tomba.
 
-## La République en guerre (1792–1794)
+## La République en guerre (1792–1794) {#republique-guerre}
 
 Le 21 septembre 1792, la Convention nationale — élue au suffrage universel masculin — proclama la République. Quelques jours plus tard, les armées françaises repoussèrent une intervention prussienne à Valmy.
 
@@ -72,7 +97,7 @@ Le procès de Louis XVI commença en décembre 1792 devant la Convention nationa
 
 Le 21 janvier 1793, il monta sur l'échafaud place de la Révolution (aujourd'hui place de la Concorde). Ses derniers mots, prononcés d'une voix forte, furent : « Je meurs innocent de tous les crimes dont on m'accuse. Je pardonne à ceux qui ont causé ma mort. Je prie Dieu que le sang que vous allez répandre ne retombe jamais sur la France. »<!-- meilleure source souhaitée: témoignage contemporain --> [source:britannica-french-revolution] La lame commençait à descendre. Dans la foule, certains pleuraient ; mais la majorité cria « Vive la République ! Vive la Nation ! » et agita ses chapeaux. La tête du roi tomba, la monarchie millénaire avec elle [source:britannica-french-revolution].
 
-### La Terreur (1793–1794)
+### La Terreur (1793–1794) {#terreur}
 
 L'exécution du roi déclencha une coalition de toutes les monarchies européennes contre la France. Pour les rois d'Europe, l'exécution d'un souverain par son peuple était un crime contre l'ordre divin : ils craignaient que la contagion révolutionnaire ne gagne leurs propres sujets. L'Angleterre, l'Espagne, les Provinces-Unies, le Piémont et la Russie rejoignirent l'Autriche et la Prusse. À l'intérieur, la Vendée se souleva pour le roi et l'Église (mars 1793). Lyon, Bordeaux, Marseille se révoltèrent contre la centralisation parisienne. La République tomba dans un chaos profond [source:britannica-french-revolution].
 
@@ -90,7 +115,7 @@ Leur programme était simple : le pain à prix fixe, la taxation des riches, la 
 
 Trois dates scandent leur action. Le **14 juillet 1789** : la prise de la Bastille, où tout avait commencé. Le **10 août 1792** : l'invasion des Tuileries, mettant fin à la monarchie. Le **31 mai 1793** : l'arrestation des député·es girondin·es, la faction modérée, ouvrant la voie à la Terreur.  Ces grands jours révolutionnaires furent portés par ces hommes et ces femmes qui n'avaient que leurs bras et leur détermination.
 
-## La réaction et le Directoire (1794–1799)
+## La réaction et le Directoire (1794–1799) {#directoire}
 
 Le 27 juillet 1794 (9 thermidor an II), Robespierre fut renversé en un jour par ses collègues de la Convention. La veille, il avait prononcé un discours menaçant, dénonçant des conspirateurs sans les nommer — ce qui terrifia les députés, craignant une nouvelle purge. Le 9 thermidor, Tallien et d'autres retournèrent la Convention contre lui : l'assemblée vota son arrestation et celle de Saint-Just, Couthon et son frère Augustin. La Commune de Paris les libéra et les accueillit à l'Hôtel de Ville, mais les troupes fidèles à la Convention, menées par Barras, encerclèrent le bâtiment. Robespierre tenta de se suicider d'un coup de pistolet et se brisa la mâchoire. Le lendemain, il fut guillotiné sans procès, avec 21 de ses partisans [source:britannica-french-revolution].
 

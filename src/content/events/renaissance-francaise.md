@@ -4,6 +4,23 @@ start: 1453
 end: 1610
 title: "La Renaissance française"
 description: "Des guerres d'Italie aux châteaux de la Loire, de l'imprimerie aux guerres de Religion : au XVIe siècle, la France se réinvente dans le savoir, la pierre et le sang."
+timeline:
+  - id: guerres-italie
+    title: Les guerres d'Italie
+    start: 1494
+    end: 1559
+  - id: fracture-religieuse
+    title: La fracture religieuse
+    start: 1517
+    end: 1598
+  - id: guerres-religion
+    title: Guerres de Religion
+    start: 1562
+    end: 1598
+  - id: henri-iv-reconstruction
+    title: Henri IV et la reconstruction
+    start: 1589
+    end: 1610
 ---
 
 ## Prologue
@@ -16,7 +33,7 @@ En 1470, six ans plus tôt, trois imprimeurs allemands — Gering, Friburger et 
 
 Ce qu'Antoine ne peut pas savoir — pas encore — c'est que les caractères de plomb qu'il assemble chaque jour vont bouleverser la France plus profondément que n'importe quelle armée. L'imprimerie et le bouillonnement italien arrivent ensemble : les idées de la Renaissance, reproduites par centaines de presses, se répandent dans tout le royaume avec une vitesse inédite.
 
-## Les guerres d'Italie : une découverte éventuelle(1494–1559)
+## Les guerres d'Italie : une découverte éventuelle(1494–1559) {#guerres-italie}
 
 En 1494, le jeune roi Charles VIII, vingt-quatre ans, descend en Italie avec une armée de 30 000 hommes pour revendiquer le royaume de Naples. Militairement, l'expédition fut un demi-succès : Charles entra dans Naples presque sans combat, mais une coalition le força à battre en retraite dès l'année suivante. Cependant, son expédition fut un séisme inattendu : non pas parce qu'il avait brièvement occupé Naples [source:britannica-renaissance-france], mais parce qu'il avait involontairement exposé la France à un très grand mouvement qui était en plein essor en Italie.
 
@@ -113,7 +130,7 @@ Le sort des femmes au XVI<sup>e</sup> siècle français dépendait cruellement d
 
 Dans les campagnes, en revanche, le XVI<sup>e</sup> siècle fut une catastrophe pour les femmes. Les **procès en sorcellerie**, qui restèrent rares au Moyen Âge, explosèrent après 1550. Les historien·nes estiment que la France compta environ 3 000 exécutions pour sorcellerie entre 1550 et 1650. Les accusées étaient presque toujours des femmes — des paysannes pauvres, souvent âgées — que la justice locale désignait comme responsables des mauvaises récoltes, des maladies du bétail, des morts d'enfants [source:britannica-renaissance-france].
 
-## La fracture religieuse (1517–1598)
+## La fracture religieuse (1517–1598) {#fracture-religieuse}
 
 ### La Réforme s'installe en France
 
@@ -127,7 +144,7 @@ Le calvinisme séduisit d'abord les élites : des nobles, des avocat·es, des im
 
 Ce qui rendit le conflit si meurtrier, ce ne fut pas seulement la différence théologique — la messe en latin contre le prêche en français, la transsubstantiation contre la Cène symbolique, les saints et la Vierge contre la Bible seule. Ce fut aussi la structure sociale : le roi de France était sacré « Très Chrétien », lié à Rome par un pacte séculaire. Tolérer le protestantisme, c'était attaquer les fondements même de la monarchie. De leur côté, les huguenot·es, convaincu·es de détenir la vérité du salut, considéraient la messe catholique comme une idolâtrie. Chaque camp voyait dans l'autre non pas un adversaire politique, mais un péril pour l'âme éternelle. Dans un monde où la religion imprégnait chaque instant de la vie quotidienne, cette fracture ne pouvait être domestiquée par la simple discussion.
 
-### Trente-six ans de guerres de Religion (1562–1598)
+### Trente-six ans de guerres de Religion (1562–1598) {#guerres-religion}
 
 La réponse catholique fut violente. Le **massacre de Wassy** (1<sup>er</sup> mars 1562), où le duc de Guise fit tuer des dizaines de protestant·es réuni·es pour un culte dans une grange, déclencha la première guerre de Religion.
 
@@ -143,7 +160,7 @@ Les guerres de Religion furent une catastrophe démographique et économique. Le
 
 Dans ce chaos, une voix s'éleva pour plaider la tolérance — celle de Montaigne, qui écrivait paisiblement dans sa tour périgourdine. Mais aussi celle d'un autre penseur, le juriste Jean Bodin, qui dans les *Six livres de la République* (1576) défendit l'idée que le souverain devait imposer la paix par sa force plutôt que de chercher la vérité religieuse par la guerre.
 
-## Henri IV et la reconstruction (1589–1610)
+## Henri IV et la reconstruction (1589–1610) {#henri-iv-reconstruction}
 
 Le dernier épisode des guerres de Religion fut aussi le plus étrange. Henri III, le dernier des Valois, fut assassiné par un moine fanatique en 1589. Le trône revint à **Henri de Navarre**, chef des protestant·es — un roi protestant pour une France très majoritairement catholique.
 

@@ -4,6 +4,23 @@ start: -52
 end: 476
 title: "L'occupation romaine"
 description: "En cinq siècles de présence romaine, le territoire qui devient beaucoup plus tard la France a changé de langue, de dieux et de paysage. Pourtant, les racines celtes n'ont jamais tout à fait disparu."
+timeline:
+  - id: conquete-resistance
+    title: La conquête et la résistance
+    start: -58
+    end: -51
+  - id: empire-gaulois
+    title: L'Empire gaulois
+    start: 260
+    end: 274
+  - id: arrivee-christianisme
+    title: L'arrivée du christianisme
+    start: 100
+    end: 400
+  - id: fin-gaule-romaine
+    title: La fin de la Gaule romaine
+    start: 400
+    end: 476
 ---
 
 ## La dernière bataille
@@ -40,7 +57,7 @@ César intervint, battit les Helvètes près de Bibracte, puis se tourna contre 
 
 Ainsi commencèrent huit années de guerre qui allaient changer pour toujours le destin du territoire français [source:worldhistory-roman-gaul].
 
-## La conquête et la résistance
+## La conquête et la résistance {#conquete-resistance}
 
 Bien que les légions romaines de César fussent nettement supérieures par leur discipline, leur entraînement et leur art du siège, la conquête se heurta à de fortes résistances à plusieurs reprises [source:worldhistory-roman-gaul] :
 
@@ -129,7 +146,7 @@ En 69-70 EC, les Bataves se révoltèrent sous Julius Civilis — un chef germai
 
 À ces révoltes menées par des chefs de tribus s'ajoutèrent des soulèvements plus spontanés des plus opprimé·es, du III<sup>e</sup> au V<sup>e</sup> siècle EC : des bandes de paysan·nes et d'esclaves en fuite, de déserteur·ses et de berger·ères qui, pendant des générations, tinrent tête à l'armée romaine dans les campagnes de Gaule centrale. E·ils n'avaient pas d'armées organisées, pas de chef·fes charismatiques — seulement la volonté de ne pas mourir de faim sous le poids des impôts et du travail forcé. On les appelle aujourd'hui les **Bagaudes** — un nom qui vient probablement du gaulois *baga*, qui signifie « combat » ou « lutte » [source:worldhistory-roman-gaul]. E·ils furent finalement écrasé·es, mais leur existence montre que la « paix romaine » n'était pas la même pour tout le monde.
 
-## L'Empire gaulois (260–274 EC)
+## L'Empire gaulois (260–274 EC) {#empire-gaulois}
 
 Au III<sup>e</sup> siècle EC, l'Empire romain traversa une crise profonde. Les empereurs se succédaient par l'assassinat, les frontières craquaient de toutes parts. En 260 EC, le général **Postumus**, d'origine gauloise, proclama l'indépendance de la Gaule, de la Bretagne et de l'Hispanie, créant l'**Empire gaulois**.
 
@@ -137,7 +154,7 @@ Pendant quatorze ans, la Gaule eut son propre empereur, sa propre administration
 
 L'empereur Aurélien reconquit la Gaule en 274 EC, mais l'épisode révéla une fragilité profonde : Rome ne pouvait plus protéger ses frontières aussi efficacement qu'avant.
 
-## L'arrivée du christianisme
+## L'arrivée du christianisme {#arrivee-christianisme}
 
 Le christianisme fit son apparition en Gaule dès le II<sup>e</sup> siècle EC, apporté par des marchand·es et des soldat·es venu·es d'Orient. Les premières communautés chrétiennes étaient urbaines, modestes, souvent hellénophones.
 
@@ -153,7 +170,7 @@ En 406 EC, le passage du Rhin gelé par les Vandales, les Suèves et les Alains 
 
 En 418 EC, l'empereur Honorius installa les Wisigoths en Aquitaine — un traité qui reconnaissait leur droit à s'établir sur le sol gaulois en échange d'une alliance militaire [source:visigoths-aquitaine]. Les Burgondes s'installèrent dans la vallée du Rhône, les Francs dans le nord [source:britannica-gaul].
 
-## La fin de la Gaule romaine (476 EC)
+## La fin de la Gaule romaine (476 EC) {#fin-gaule-romaine}
 
 Bien que la Gaule romaine fût parmi les territoires les plus prospères de l'Empire, elle resta un territoire frontalier. Concrètement, le contrôle de Rome sur la Gaule fut presque toujours indirect, passant par l'intermédiaire des élites locales. Alors que l'Empire romain s'affaiblissait, ce contrôle devint plus que nominal. Même les légions romaines en Gaule, instrument essentiel du pouvoir romain et toujours nombreuses, se composaient de plus en plus de soldats germaniques, loyaux à leurs chefs plutôt qu'à Rome. Le système économique romain, fondé sur le grand domaine esclavagiste, se fissurait sous les révoltes et les invasions. La Gaule passa progressivement, pour l'essentiel, sous le contrôle des royaumes wisigoth, burgonde et franc, bien avant que la chute du dernier empereur romain d'Occident, Romulus Augustule, déposé par le chef germain Odoacre en 476 EC, ne marque la fin officielle des provinces gauloises [source:britannica-gaul].
 

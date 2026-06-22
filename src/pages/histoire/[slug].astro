@@ -4,6 +4,7 @@ import { getCollection } from 'astro:content';
 import { getSource, formatSourceLabel } from '../../data/sources';
 import { getMedia } from '../../data/media';
 import MediaFigure from '../../components/MediaFigure.astro';
+import EventMiniTimeline from '../../components/EventMiniTimeline.astro';
 
 export async function getStaticPaths() {
   const events = await getCollection('events');
@@ -55,6 +56,14 @@ const galleryMedia = (await Promise.all(
           <MediaFigure entry={m} variant="inline" />
         ))}
       </div>
+    )}
+
+    {event.timeline && event.timeline.length > 0 && (
+      <EventMiniTimeline
+        entries={event.timeline}
+        eventStart={event.start}
+        eventEnd={event.end}
+      />
     )}
 
     <div class="event-page__body">

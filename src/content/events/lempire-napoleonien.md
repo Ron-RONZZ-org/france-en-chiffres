@@ -4,6 +4,23 @@ start: 1799
 end: 1815
 title: "L'Empire napoléonien"
 description: "Un jeune Corse devient général à vingt-quatre ans, Premier consul à trente, empereur à trente-cinq : En quinze ans de pouvoir, Napoléon Bonaparte a conquis l'Europe, réformé la France en profondeur — et laissé un héritage ambivalent que le pays porte encore aujourd'hui."
+timeline:
+  - id: grande-armee
+    title: La Grande Armée
+    start: 1804
+    end: 1815
+  - id: campagne-russie
+    title: La campagne de Russie
+    start: 1812
+    end: 1812
+  - id: campagne-france
+    title: La campagne de France
+    start: 1814
+    end: 1814
+  - id: cent-jours
+    title: Les Cent-Jours
+    start: 1815
+    end: 1815
 ---
 
 ## Prologue
@@ -56,7 +73,7 @@ L'administration du pays fut centralisée comme jamais auparavant : la **Banque 
 
 Bonaparte demanda à plusieurs reprises au peuple français d'approuver ses actes par **plébiscite** : une question unique, oui ou non, sans débat ni discussion. Le oui l'emporta toujours à plus de 99 % — 3 011 007 voix pour, 1 562 contre lors du plébiscite de 1800. Ces scores, qui étonnent aujourd'hui, s'expliquent par un mélange de popularité réelle et de manipulation : le vote était public (pas d'isoloir ni de bulletins secrets), les abstentionnistes étaient souvent comptés comme des approbateurs, l'administration faisait pression pour obtenir des bulletins favorables, et l'armée votait en bloc sous les ordres de ses chefs. En 1802, le plébiscite le fit **consul à vie** ; en 1804, **empereur héréditaire**. Le 2 décembre 1804, dans la cathédrale Notre-Dame de Paris, en présence du pape, Napoléon prit la couronne des mains du pontife et se couronna lui-même. Le message était clair : l'Empereur ne devait son pouvoir ni à Dieu ni au pape, mais à la nation — et à lui-même [source:britannica-napoleon].
 
-## La Grande Armée
+## La Grande Armée {#grande-armee}
 
 L'armée française sous Napoléon était l'armée la plus redoutable d'Europe. Non parce qu'elle était mieux équipée, mais parce qu'elle était organisée en **corps d'armée** autonomes — des mini-armées de 20 000 à 30 000 hommes qui pouvaient combattre seules, se déplacer vite, converger au moment décidé. Le génie militaire de Napoléon tenait à cette vitesse, à cette mobilité, à cette capacité de frapper l'ennemi là où il ne l'attendait pas, avec des forces supérieures au point d'impact [source:britannica-napoleon].
 
@@ -98,7 +115,7 @@ Les colonies rapportaient toujours : sucre, café, indigo, coton. Leurs plantati
 
 ## L'effondrement (1812–1815)
 
-### La campagne de Russie
+### La campagne de Russie {#campagne-russie}
 
 En juin 1812, Napoléon franchit le Niémen à la tête de la **Grande Armée** : 600 000 hommes (dont seulement la moitié de Français·es ; le reste venait des États alliés : Allemands, Polonais, Italiens, Hollandais). Il voulait contraindre le tsar Alexandre I<sup>er</sup> à respecter le Blocus continental contre l'Angleterre [source:britannica-napoleon].
 
@@ -106,13 +123,13 @@ Les Russes refusèrent la bataille décisive. L'armée française s'enfonça dan
 
 La retraite commença le 19 octobre. L'hiver russe — moins 30 degrés, la neige à perte de vue — anéantit l'armée. Les chevaux mouraient, les canons étaient abandonnés, les soldats épuisés tombaient et ne se relevaient pas. Sur 600 000 hommes partis, moins de 40 000 revinrent en France. Étienne, le paysan du Morvan, gisait quelque part entre Smolensk et Vilnius, dans une fosse commune sans nom [source:britannica-napoleon].
 
-### La campagne de France
+### La campagne de France {#campagne-france}
 
 En 1813, l'Europe entière se retourna contre Napoléon. Plusieurs raisons expliquaient ce revirement. Le Blocus continental contre l'Angleterre ruinait les économies européennes ; la guerre d'Espagne (1808-1814) enlisait l'armée française dans un conflit sans fin ; la campagne de Russie avait anéanti la légende d'invincibilité napoléonienne ; la Prusse, humiliée à Iéna en 1806, avait réformé son armée dans l'ombre et attendait sa revanche. Surtout, Napoléon avait refusé les offres de paix de Metternich à l'automne 1813, préférant la guerre à un compromis qui aurait préservé les frontières naturelles de la France. La Prusse, la Russie, l'Autriche et la Suède formèrent la Sixième Coalition [source:britannica-napoleon]. La bataille de **Leipzig** (16-19 octobre 1813), la « Bataille des Nations », mit en présence 500 000 soldats. Napoléon, vaincu, dut rentrer en France.
 
 La campagne de France (février-mars 1814) fut un dernier chef-d'œuvre militaire : avec 70 000 hommes, Napoléon battit plusieurs armées alliées, remportant six victoires en deux semaines — Champaubert, Montmirail, Château-Thierry, Vauchamps, Mormant et Montereau, autant de batailles distinctes qui ralentissaient la progression alliée. Mais ces succès tactiques ne pouvaient masquer l'écrasante supériorité numérique des coalisés : les armées alliées comptaient plus de 300 000 hommes, et tandis que Napoléon en battait une, les autres continuaient de converger vers Paris par des routes différentes. Le 31 mars 1814, Paris capitula. Le 6 avril, Napoléon abdiqua. Les Alliés lui donnèrent la souveraineté de l'île d'Elbe ; la monarchie des Bourbons fut restaurée par la couronation de Louis XVIII [source:britannica-napoleon].
 
-### Les Cent-Jours (1815)
+### Les Cent-Jours (1815) {#cent-jours}
 
 La Restauration des Bourbons déçut rapidement l'opinion. Louis XVIII, ramené par les armées étrangères, devait composer avec des émigrés revenus d'exil qui réclamaient vengeance et la restitution de leurs biens. L'armée était mise à l'écart, les paysans craignaient le retour des droits seigneuriaux, et l'Église regagnait une influence qui inquiétait les héritiers des Lumières. Le mécontentement grandit [source:britannica-napoleon].
 

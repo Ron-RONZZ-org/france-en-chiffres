@@ -4,6 +4,27 @@ start: 1610
 end: 1715
 title: "Le Grand Siècle"
 description: "De Richelieu à Louis XIV, de la Fronde à Versailles, du classicisme à la Révocation : la France du XVIIe siècle invente l'absolutisme, rayonne sur l'Europe et se déchire entre gloire et misère."
+timeline:
+  - id: regence-trouble
+    title: La Régence trouble
+    start: 1610
+    end: 1624
+  - id: fronde
+    title: La Fronde
+    start: 1648
+    end: 1653
+  - id: louis-xiv-regne
+    title: Louis XIV, le métier de roi
+    start: 1661
+    end: 1715
+  - id: revocation-nantes
+    title: Révocation de l'Édit de Nantes
+    start: 1685
+    end: 1685
+  - id: fin-roi-soleil
+    title: La fin du Roi-Soleil
+    start: 1715
+    end: 1715
 ---
 
 ## Prologue
@@ -18,7 +39,7 @@ Catherine ne le savait pas encore, mais elle passerait vingt-cinq ans à Versail
 
 Notre Catherine était un caractère fictif. Cependant, elle incarnait des centaines de femmes et d'hommes comme elle — nobles de province, fils et filles de la robe — venu·es à Versailles pour y faire leur vie. On parlait alors du « **Grand Siècle** » : celui d'un royaume qui se réinventait autour d'un seul homme.
 
-## La Régence trouble (1610–1624)
+## La Régence trouble (1610–1624) {#regence-trouble}
 
 Le 14 mai 1610, un catholique fanatique nommé François Ravaillac, mécontent de la politique de tolérance qu'Henri IV avait manifestée envers les protestant·es, assassina le roi d'un coup de couteau dans la rue à Paris. Le roi, qui avait pacifié le royaume après trente-six ans de guerres de Religion, tomba ; et la France se retrouva avec son fils de neuf ans sur le trône : **Louis XIII**. La régence revint à sa mère : **Marie de Médicis**, Florentine, catholique intransigeante, entourée de conseillers italiens. Elle avait épousé Henri IV dix ans auparavant pour la paix franco-espagnole.
 
@@ -48,7 +69,7 @@ Son calcul était pratique : les Habsbourg encerclaient la France (Espagne au su
 
 La guerre fut atroce. Les armées françaises combattirent en Allemagne, en Lorraine, en Alsace, en Italie, en Catalogne. Les impôts explosèrent. Les campagnes françaises, mises à contribution pour financer la guerre, subirent une pression sans précédent [source:britannica-richelieu].
 
-## La Fronde (1648–1653) : la monarchie vacille
+## La Fronde (1648–1653) : la monarchie vacille {#fronde}
 
 Alors que Louis XIII mourut, son fils **Louis XIV** n'avait que cinq ans. La régence revint à **Anne d'Autriche**, qui nomma son ministre favori, l'Italien **Mazarin**, comme principal ministre. Mazarin hérita de la politique de Richelieu, mais sans en avoir l'autorité naturelle. 
 
@@ -66,7 +87,7 @@ La Fronde s'acheva en 1653, quand l'armée royale, commandée par Turenne, dispe
 
 Dès qu'il le pourrait, Louis XIV quitterait Paris et construirait ailleurs un palais où il contrôlerait tout [source:britannica-louis-xiv][source:britannica-fronde].
 
-## Louis XIV : le métier de roi (1661–1715)
+## Louis XIV : le métier de roi (1661–1715) {#louis-xiv-regne}
 
 Le 9 mars 1661, Mazarin mourut. Le lendemain, Louis XIV convoqua ses ministres et leur annonça une décision stupéfiante : **il n'aurait plus de Premier ministre**. Il gouvernerait seul.
 
@@ -136,7 +157,7 @@ Deux grands peintres français du XVIIe siècle sont très connus aujourd'hui : 
 
 La musique, également, connut un essor prodigieux. **Jean-Baptiste Lully** (1632–1687), Florentin, devint surintendant de la musique royale. Il créa l'opéra français, composa des ballets où dansait le Roi lui-même, et dirigea d'une main de fer la vie musicale de la Cour. À sa mort, **Marc-Antoine Charpentier** (1643–1704) et **François Couperin** (1668–1733) prirent le relais.
 
-## La fin de la tolérance religieuse : Révocation de l'Édit de Nantes
+## La fin de la tolérance religieuse : Révocation de l'Édit de Nantes {#revocation-nantes}
 
 En 1685, Louis XIV signa l'**édit de Fontainebleau**, qui révoquait sans pitié l'édit de Nantes. L'édit ordonnait la destruction des temples protestants, l'interdiction du culte réformé, la conversion forcée des enfants et l'exil des pasteurs. Les protestant·es qui refusaient de se convertir devaient quitter le royaume — mais il leur était interdit d'emporter leurs biens [source:britannica-revocation-nantes].
 
@@ -192,7 +213,7 @@ Selon les estimations des historien·nes, entre 1,3 et 1,5 million de personnes 
 
 Ces famines n'étaient pas que des catastrophes naturelles : elles révélaient les faiblesses structurelles de la monarchie — une fiscalité écrasante, des réserves insuffisantes, une administration incapable de distribuer les grains, une économie trop dépendante du blé.
 
-## La fin du Roi-Soleil (1715)
+## La fin du Roi-Soleil (1715) {#fin-roi-soleil}
 
 Le 1<sup>er</sup> septembre 1715, Louis XIV mourut à soixante-dix-sept ans. Il avait régné au total soixante-douze ans sur la France — le plus long règne de l'histoire européenne. Vers la fin de sa vie, la gangrène lui avait emporté la jambe, et il souffrit atrocement, mais il conserva sa dignité jusqu'au bout. Le 26 août, il fit venir son arrière-petit-fils, le futur Louis XV, âgé de cinq ans, et lui dit : « Vous allez être un grand roi… n'imitez pas mon goût pour les bâtiments et pour la guerre [source:britannica-louis-xiv]. »
 
