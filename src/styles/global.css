@@ -255,7 +255,7 @@ img {
   color: #1e293b;
 }
 
-/* ── Figure caption / scientific legend styling ── */
+/* ── Figure caption / academic legend styling ── */
 .figure__caption-text {
   font-family: var(--font-serif, 'Georgia', serif);
   font-size: 0.85rem;
@@ -266,21 +266,23 @@ img {
 }
 
 .figure__meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--gap-sm);
+  display: inline;        /* flow inline like academic paper */
   list-style: none;
-  margin: 4px 0 0 0;
+  margin: 0;
   padding: 0;
   font-size: 0.72rem;
   color: var(--color-text-muted);
   font-family: var(--font-sans, system-ui, sans-serif);
 }
 
+.figure__meta > li {
+  display: inline;        /* all on one line */
+}
+
 .figure__meta > li::after {
-  content: "·";
-  margin-left: var(--gap-sm);
-  opacity: 0.4;
+  content: " · ";
+  opacity: 0.5;
+  white-space: pre;
 }
 
 .figure__meta > li:last-child::after { content: none; }

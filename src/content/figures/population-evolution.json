@@ -3,7 +3,6 @@
   "type": "line",
   "title": "Évolution de la population française (1700–2024)",
   "caption": "Population de la France métropolitaine en millions d'habitants, 1700–2024",
-  "credit": "France en Chiffres d'après INSEE",
   "license": "CC BY-SA 4.0",
   "sourceIds": ["insee-2024"],
   "width": 720,

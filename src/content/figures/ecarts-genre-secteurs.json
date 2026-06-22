@@ -3,7 +3,6 @@
   "type": "bar",
   "title": "Part des femmes et écart salarial par secteur (1975)",
   "caption": "Part des femmes dans chaque secteur et écart de salaire médian femmes/hommes, France, 1975",
-  "credit": "France en Chiffres d'après INSEE",
   "license": "CC BY-SA 4.0",
   "sourceIds": ["insee-2024"],
   "width": 720,
