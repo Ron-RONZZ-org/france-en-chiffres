@@ -2,7 +2,7 @@
  * render-svg.js — Build-time chart SVG renderer.
  *
  * Converts ChartFigure data into inline SVG strings using DOM-free D3 modules.
- * Called at Astro build time from ChartFigure.astro or MediaAwareImage.astro.
+ * Called at Astro build time from remark-figure-embed.js.
  *
  * Only imports D3 modules that don't require a DOM:
  *   - d3-scale (scaleLinear, scalePoint, scaleBand, scaleOrdinal)
@@ -66,9 +66,11 @@ function renderLineChart(figure) {
   const { data, config = {}, palette, width = 720, height = 400 } = figure;
   const colors = palette ?? DEFAULT_PALETTE;
 
+  const hasLegend = config.showLegend !== false && data.series.length > 1;
+  const legendHeight = hasLegend ? 30 : 0;
   const margin = { top: 30, right: 30, bottom: 50, left: 60 };
   const innerW = width - margin.left - margin.right;
-  const innerH = height - margin.top - margin.bottom;
+  const innerH = height - margin.top - margin.bottom - legendHeight;
 
   // Collect all x,y values
   const allX = data.series.flatMap((s) => s.values.map((v) => v.x));
@@ -77,7 +79,7 @@ function renderLineChart(figure) {
   const [xMin, xMax] = extent(allX);
   const [yMin, yMax] = extent(allY);
   const yAxisMin = config.yAxis?.min ?? Math.min(0, yMin);
-  const yAxisMax = config.yAxis?.max ?? (yMax * 1.1);
+  const yAxisMax = config.yAxis?.max ?? (yMax * 1.15);
 
   // Determine if x is numeric (year) or categorical
   const isNumericX = typeof allX[0] === 'number';
@@ -125,7 +127,7 @@ function renderLineChart(figure) {
 
   // Axis labels
   if (config.xAxis?.label) {
-    parts.push(textEl(innerW / 2, height - 5, config.xAxis.label, {
+    parts.push(textEl(innerW / 2, height - 5 - legendHeight, config.xAxis.label, {
       fill: '#94a3b8', 'font-size': '12', 'text-anchor': 'middle',
     }));
   }
@@ -136,7 +138,7 @@ function renderLineChart(figure) {
     }));
   }
 
-  // Series lines
+  // Series lines + data points
   const lineGen = line()
     .x((d) => isNumericX ? xScale(d.x) : xScale(String(d.x)))
     .y((d) => yScale(d.y))
@@ -148,7 +150,56 @@ function renderLineChart(figure) {
     if (d) {
       parts.push(`<path d="${d}" fill="none" stroke="${color}" stroke-width="2.5" stroke-linejoin="round"/>`);
     }
+
+    // Data point circles with tooltip data
+    series.values.forEach((point, pi) => {
+      const cx = isNumericX ? xScale(point.x) : xScale(String(point.x));
+      const cy = yScale(point.y);
+
+      // Compute rate of change from previous point
+      const prev = pi > 0 ? series.values[pi - 1] : null;
+      const yPrev = prev ? prev.y : null;
+      const xPrev = prev ? prev.x : null;
+      let changeStr = '';
+      if (prev && yPrev !== null && yPrev !== 0 && xPrev !== null) {
+        const years = point.x - xPrev;
+        if (years > 0) {
+          const totalChange = ((point.y - yPrev) / yPrev) * 100;
+          const annualRate = totalChange / years;
+          changeStr = (annualRate >= 0 ? '+' : '') + annualRate.toFixed(1) + '%/an';
+        }
+      }
+
+      parts.push(`<circle cx="${cx}" cy="${cy}" r="4" fill="${color}" stroke="#1a1a2e" stroke-width="1.5"
+        data-series="${escapeXml(series.name)}"
+        data-x="${point.x}"
+        data-y="${point.y}"
+        data-change="${escapeXml(changeStr)}"
+        class="chart-datapoint"/>`);
+    });
   });
+
+  // Legend
+  if (hasLegend) {
+    const legendY = innerH + 40;
+    // Calculate total legend width to center it
+    let totalWidth = 0;
+    const legendItems = data.series.map((s, i) => ({
+      name: s.name,
+      color: colors[i % colors.length],
+      width: s.name.length * 8 + 24, // rough estimate
+    }));
+    totalWidth = legendItems.reduce((sum, item) => sum + item.width + 12, 0) - 12;
+    let legendX = innerW / 2 - totalWidth / 2;
+
+    legendItems.forEach((item) => {
+      parts.push(`<rect x="${legendX}" y="${legendY - 8}" width="12" height="12" fill="${item.color}" rx="2"/>`);
+      parts.push(textEl(legendX + 18, legendY + 2, item.name, {
+        fill: '#cbd5e1', 'font-size': '11',
+      }));
+      legendX += item.width + 12;
+    });
+  }
 
   return wrapSvg(parts.join('\n'), width, height, figure);
 }
@@ -199,7 +250,7 @@ function renderBarChart(figure) {
     }));
   }
 
-  // Bars
+  // Bars with tooltip data
   data.values.forEach((cat) => {
     const catX = xScale(cat.category) ?? 0;
     cat.groups.forEach((g, gi) => {
@@ -209,7 +260,11 @@ function renderBarChart(figure) {
       const barH = innerH - yScale(g.value);
       const barY = yScale(g.value);
 
-      parts.push(`<rect x="${barX}" y="${barY}" width="${barW * 0.85}" height="${barH}" fill="${color}" rx="2"/>`);
+      parts.push(`<rect x="${barX}" y="${barY}" width="${barW * 0.85}" height="${barH}" fill="${color}" rx="2"
+        data-series="${escapeXml(g.name)}"
+        data-category="${escapeXml(cat.category)}"
+        data-value="${g.value}"
+        class="chart-datapoint"/>`);
     });
   });
 
