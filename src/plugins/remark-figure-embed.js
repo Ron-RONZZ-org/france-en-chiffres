@@ -89,6 +89,25 @@ function buildMediaFigure(id) {
   return parts.join('\n');
 }
 
+function formatSourceLabel(sid) {
+  const srcFile = resolve(PROJECT_ROOT, 'src/content/sources', `${sid}.json`);
+  if (!existsSync(srcFile)) return sid;
+  try {
+    const src = JSON.parse(readFileSync(srcFile, 'utf-8'));
+    if (src.publisher) {
+      const year = src.issued?.['date-parts']?.[0]?.[0];
+      return year ? `${src.publisher}, ${year}` : src.publisher;
+    }
+    if (src.author?.length) {
+      const name = src.author[0]?.literal ?? src.author[0]?.family ?? '';
+      if (name) return name;
+    }
+    return src.title ?? sid;
+  } catch {
+    return sid;
+  }
+}
+
 function buildChartFigure(id) {
   const figFile = resolve(FIGURES_DIR, `${id}.json`);
   if (!existsSync(figFile)) return `<p class="figure-warning">Graphique introuvable : ${id}</p>`;
@@ -125,7 +144,8 @@ function buildChartFigure(id) {
     }
     if (figure.sourceIds) {
       for (const sid of figure.sourceIds) {
-        items.push(`<li><a href="/bibliographie/${sid}" class="figure__source">${esc(sid)}</a></li>`);
+        const label = formatSourceLabel(sid);
+        items.push(`<li><a href="/bibliographie/${sid}" class="figure__source">${esc(label)}</a></li>`);
       }
     }
     if (items.length) parts.push(`<ul class="figure__meta">${items.join('')}</ul>`);

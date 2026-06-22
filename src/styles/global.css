@@ -197,7 +197,114 @@ img {
   border-color: var(--color-french-white);
 }
 
-/* --- French flag gradient separator --- */
+/* ── Chart tooltip styles ── */
+.chart-tt {
+  font-family: system-ui, sans-serif;
+  line-height: 1.5;
+  text-align: left;
+  min-width: 80px;
+}
+
+.chart-tt strong {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #e2e8f0;
+}
+
+.chart-tt__cat,
+.chart-tt__year {
+  display: block;
+  font-size: 0.7rem;
+  color: #94a3b8;
+}
+
+.chart-tt__value {
+  display: block;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #f1f5f9;
+  margin-top: 2px;
+}
+
+.chart-tt__change {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-top: 1px;
+}
+
+.chart-tt__change--pos { color: #4ade80; }
+.chart-tt__change--neg { color: #f87171; }
+
+.chart-datapoint { cursor: pointer; }
+
+/* Tippy overrides for chart tooltips */
+.tippy-box[data-theme~="dark"][data-tippy-root] {
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.tippy-box[data-theme~="dark"] .tippy-content {
+  padding: 8px 12px;
+}
+
+.tippy-box[data-theme~="dark"] .tippy-arrow {
+  color: #1e293b;
+}
+
+/* ── Figure caption / scientific legend styling ── */
+.figure__caption-text {
+  font-family: var(--font-serif, 'Georgia', serif);
+  font-size: 0.85rem;
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--color-text-light);
+  margin: 0;
+}
+
+.figure__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap-sm);
+  list-style: none;
+  margin: 4px 0 0 0;
+  padding: 0;
+  font-size: 0.72rem;
+  color: var(--color-text-muted);
+  font-family: var(--font-sans, system-ui, sans-serif);
+}
+
+.figure__meta > li::after {
+  content: "·";
+  margin-left: var(--gap-sm);
+  opacity: 0.4;
+}
+
+.figure__meta > li:last-child::after { content: none; }
+
+.figure__credit { font-style: italic; }
+
+.figure__source {
+  color: var(--color-link-on-dark);
+  text-decoration: none;
+  transition: opacity var(--transition-fast);
+}
+
+.figure__source:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}
+
+.figure__source:focus-visible {
+  outline: 2px solid var(--color-link-on-dark);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* ── French flag gradient separator ── */
 .french-separator {
   height: 3px;
   background: linear-gradient(

@@ -120,49 +120,6 @@ const hasAttribution = !!(caption || credit || license || resolvedSources.length
     border-top: 1px solid var(--color-border);
   }
 
-  .figure__caption-text {
-    line-height: 1.5;
-    color: var(--color-text-light);
-    margin: 0;
-  }
-
-  .figure__meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--gap-sm);
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    font-size: 0.75rem;
-  }
-
-  .figure__meta > li::after {
-    content: "·";
-    margin-left: var(--gap-sm);
-    opacity: 0.4;
-  }
-
-  .figure__meta > li:last-child::after {
-    content: none;
-  }
-
-  .figure__source {
-    color: var(--color-link-on-dark);
-    text-decoration: none;
-    transition: opacity var(--transition-fast);
-  }
-
-  .figure__source:hover {
-    opacity: 0.8;
-    text-decoration: underline;
-  }
-
-  .figure__source:focus-visible {
-    outline: 2px solid var(--color-link-on-dark);
-    outline-offset: 2px;
-    border-radius: 2px;
-  }
-
   @media (max-width: 768px) {
     .figure--hero {
       margin: var(--gap-lg) calc(-1 * var(--gap-md));
