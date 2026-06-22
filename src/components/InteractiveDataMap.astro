@@ -64,6 +64,14 @@
       preferCanvas: true,
     });
 
+    // ── Custom panes for z-ordering ──
+    // polygon-pane (z-index 300): density, communes — renders BELOW line features
+    // line-pane (z-index 400): waterways, roads — renders ABOVE polygons
+    map.createPane('polygon-pane');
+    map.getPane('polygon-pane').style.zIndex = 300;
+    map.createPane('line-pane');
+    map.getPane('line-pane').style.zIndex = 400;
+
     // ── Base tile layer (OSM) ──
     const osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
@@ -232,6 +240,7 @@
         if (!checkbox.checked) return;
 
         densityLayer = L.geoJSON(data, {
+          pane: 'polygon-pane',
           style: (feature) => {
             const density = feature.properties.density || 0;
             return {
@@ -326,6 +335,7 @@
         });
 
         roadsLayer = L.geoJSON(data, {
+          pane: 'line-pane',
           minZoom: 7,
           style: roadStyle,
           onEachFeature: (feature, layer) => {
@@ -444,6 +454,7 @@
       };
 
       waterwaysLayer = L.geoJSON(filteredData, {
+        pane: 'line-pane',
         style: waterwayStyle,
         onEachFeature: (feature, layer) => {
           const name = feature.properties.name || '';
@@ -547,6 +558,7 @@
         communesFetched = true;
 
         communesLayer = L.geoJSON(data, {
+          pane: 'polygon-pane',
           minZoom: 9,
           style: {
             color: '#6366f1',
@@ -625,6 +637,18 @@
               break;
             case 'communes':
               toggleCommunes(e.target.checked);
+              // Show/hide density suboption
+              const densityRow = document.querySelector('.layer-controls__suboption');
+              const densityCheck = document.getElementById('toggle-density');
+              if (e.target.checked) {
+                if (densityRow) densityRow.classList.remove('layer-controls__suboption--hidden');
+              } else {
+                if (densityRow) densityRow.classList.add('layer-controls__suboption--hidden');
+                if (densityCheck && densityCheck.checked) {
+                  densityCheck.checked = false;
+                  clearDensityLayer();
+                }
+              }
               break;
           }
         });
@@ -644,6 +668,7 @@
       btn.style.cssText = `
         font-size: 18px; line-height: 30px; text-align: center;
         cursor: pointer; width: 30px; height: 30px;
+        background: #1e293b; border: 1px solid #334155; border-radius: 4px;
       `;
 
       btn.addEventListener('click', () => {
@@ -970,13 +995,15 @@
     background: #1e293b;
   }
 
-  :global(.leaflet-control-zoom a) {
+  :global(.leaflet-control-zoom a),
+  :global(.leaflet-control-fullscreen) {
     background: #1e293b;
     color: #e2e8f0;
     border-color: #334155;
   }
 
-  :global(.leaflet-control-zoom a:hover) {
+  :global(.leaflet-control-zoom a:hover),
+  :global(.leaflet-control-fullscreen:hover) {
     background: #334155;
     color: #d4a843;
   }

@@ -36,19 +36,6 @@ const sources = (await Promise.all(
       <div class="layer-controls" role="group" aria-label="Couches thématiques">
         <label
           class="layer-controls__item"
-          data-map-toggle="density"
-          data-description="Habitants par km² par commune — 35&nbsp;228 communes. <sup class=&quot;citation&quot;><a href=&quot;/bibliographie/insee-2024&quot; data-source-id=&quot;insee-2024&quot; title=&quot;Source&nbsp;: insee-2024&quot;>[1]</a></sup>"
-          for="toggle-density"
-        >
-          <input type="checkbox" id="toggle-density" data-map-toggle="density" class="layer-controls__checkbox">
-          <span class="layer-controls__swatch layer-controls__swatch--density"></span>
-          <span class="layer-controls__label">
-            <strong>Densité de population</strong>
-          </span>
-        </label>
-
-        <label
-          class="layer-controls__item"
           data-map-toggle="elevation"
           data-description="Carte topographique avec courbes de niveau et ombrage du relief. <sup class=&quot;citation&quot;><a href=&quot;/bibliographie/opentopomap&quot; data-source-id=&quot;opentopomap&quot; title=&quot;Source&nbsp;: opentopomap&quot;>[4]</a></sup>"
           for="toggle-elevation"
@@ -99,18 +86,34 @@ const sources = (await Promise.all(
           </span>
         </label>
 
-        <label
-          class="layer-controls__item"
-          data-map-toggle="communes"
-          data-description="Limites des 35&nbsp;228 communes de France. <sup class=&quot;citation&quot;><a href=&quot;/bibliographie/france-geojson&quot; data-source-id=&quot;france-geojson&quot; title=&quot;Source&nbsp;: france-geojson&quot;>[6]</a></sup>"
-          for="toggle-communes"
-        >
-          <input type="checkbox" id="toggle-communes" data-map-toggle="communes" class="layer-controls__checkbox">
-          <span class="layer-controls__swatch layer-controls__swatch--communes"></span>
-          <span class="layer-controls__label">
-            <strong>Communes</strong>
-          </span>
-        </label>
+        <!-- Communes group: communes + density suboption in one grid cell -->
+        <div class="layer-controls__group">
+          <label
+            class="layer-controls__item"
+            data-map-toggle="communes"
+            data-description="Limites des 35&nbsp;228 communes de France. <sup class=&quot;citation&quot;><a href=&quot;/bibliographie/france-geojson&quot; data-source-id=&quot;france-geojson&quot; title=&quot;Source&nbsp;: france-geojson&quot;>[6]</a></sup>"
+            for="toggle-communes"
+          >
+            <input type="checkbox" id="toggle-communes" data-map-toggle="communes" class="layer-controls__checkbox">
+            <span class="layer-controls__swatch layer-controls__swatch--communes"></span>
+            <span class="layer-controls__label">
+              <strong>Communes</strong>
+            </span>
+          </label>
+
+          <label
+            class="layer-controls__item layer-controls__suboption layer-controls__suboption--hidden"
+            data-map-toggle="density"
+            data-description="Habitants par km² par commune — 35&nbsp;228 communes. <sup class=&quot;citation&quot;><a href=&quot;/bibliographie/insee-2024&quot; data-source-id=&quot;insee-2024&quot; title=&quot;Source&nbsp;: insee-2024&quot;>[1]</a></sup>"
+            for="toggle-density"
+          >
+            <input type="checkbox" id="toggle-density" data-map-toggle="density" class="layer-controls__checkbox">
+            <span class="layer-controls__swatch layer-controls__swatch--density"></span>
+            <span class="layer-controls__label">
+              <strong>Densité de population</strong>
+            </span>
+          </label>
+        </div>
       </div>
 
       <!-- Collapse button (sibling of .layer-controls — avoids CSS transform parent trap) -->
@@ -213,12 +216,36 @@ const sources = (await Promise.all(
     background: rgba(59, 130, 246, 0.05);
   }
 
-  .layer-controls__item--disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
+  /* ── Group: communes + density suboption in one grid cell ── */
+  .layer-controls__group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-xs);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 0.4rem;
   }
 
-  .layer-controls__item--disabled:hover {
+  .layer-controls__group > .layer-controls__item {
+    border: none;
+    padding: 0.3rem 0.4rem;
+  }
+
+  .layer-controls__group > .layer-controls__item:hover {
+    background: rgba(59, 130, 246, 0.08);
+    border-radius: var(--radius-sm);
+  }
+
+  /* Suboption: indented, hidden by default */
+  .layer-controls__suboption {
+    padding-left: 1.8rem !important;
+  }
+
+  .layer-controls__suboption--hidden {
+    display: none;
+  }
+
+  .layer-controls__item--disabled {
     border-color: var(--color-border);
     background: transparent;
   }
@@ -478,8 +505,24 @@ const sources = (await Promise.all(
     transform: translateX(-100%);
   }
 
-  .layer-controls--fullscreen.layer-controls--collapsed .layer-controls__item {
+  .layer-controls--fullscreen.layer-controls--collapsed .layer-controls__item,
+  .layer-controls--fullscreen.layer-controls--collapsed .layer-controls__group {
     pointer-events: none;
+  }
+
+  /* Fullscreen sidebar: group + suboption styling */
+  .layer-controls--fullscreen .layer-controls__group {
+    border: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .layer-controls--fullscreen .layer-controls__group .layer-controls__item {
+    font-size: 0.8rem;
+  }
+
+  .layer-controls--fullscreen .layer-controls__suboption {
+    padding-left: 1.5rem !important;
   }
 
   /* When collapsed the button floats at left edge (the default position above) */
