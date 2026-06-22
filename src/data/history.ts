@@ -45,7 +45,7 @@ export async function getHistoryData(): Promise<HistoryData> {
     page: {
       title: 'Histoire en chiffres',
       subtitle:
-        'De la Gaule à la Ve République — chaque époque racontée par ses dates et ses statistiques.',
+        "De l'arrivée des premiers humains en France à la Ve République — une grande Histoire de la France, chiffrée et animée.",
     },
     eras: eras.map((era) => ({
       ...era,

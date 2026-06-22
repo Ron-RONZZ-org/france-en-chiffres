@@ -1,0 +1,49 @@
+{
+  "id": "secteurs-activite-1945-1975",
+  "type": "line",
+  "title": "Répartition de la population active par secteur (1945–1975)",
+  "caption": "Part de la population active française dans l'agriculture, l'industrie et les services, 1945–1975",
+  "credit": "France en Chiffres d'après INSEE",
+  "license": "CC BY-SA 4.0",
+  "sourceIds": ["insee-2024"],
+  "width": 720,
+  "height": 400,
+  "palette": ["#1e8449", "#1a5276", "#922b21"],
+  "config": {
+    "xAxis": { "label": "Année" },
+    "yAxis": { "label": "Part de la population active (%)", "min": 0, "max": 60 },
+    "interpolation": "monotone",
+    "showLegend": true
+  },
+  "data": {
+    "series": [
+      {
+        "name": "Agriculture",
+        "values": [
+          { "x": 1945, "y": 40 },
+          { "x": 1955, "y": 27 },
+          { "x": 1965, "y": 18 },
+          { "x": 1975, "y": 10 }
+        ]
+      },
+      {
+        "name": "Industrie",
+        "values": [
+          { "x": 1945, "y": 28 },
+          { "x": 1955, "y": 35 },
+          { "x": 1965, "y": 38 },
+          { "x": 1975, "y": 36 }
+        ]
+      },
+      {
+        "name": "Services",
+        "values": [
+          { "x": 1945, "y": 32 },
+          { "x": 1955, "y": 38 },
+          { "x": 1965, "y": 44 },
+          { "x": 1975, "y": 54 }
+        ]
+      }
+    ]
+  }
+}

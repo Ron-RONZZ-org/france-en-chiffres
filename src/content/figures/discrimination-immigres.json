@@ -1,0 +1,57 @@
+{
+  "id": "discrimination-immigres",
+  "type": "bar",
+  "title": "Inégalités entre immigré·es et non-immigré·es en France (2010–2020)",
+  "caption": "Indicateurs d'inégalités : taux de chômage, pauvreté, accès au logement, France",
+  "credit": "France en Chiffres d'après INSEE",
+  "license": "CC BY-SA 4.0",
+  "sourceIds": ["insee-2024"],
+  "width": 720,
+  "height": 400,
+  "palette": ["#1a5276", "#922b21"],
+  "config": {
+    "orientation": "grouped",
+    "xAxis": { "label": "Indicateur" },
+    "yAxis": { "label": "Pourcentage", "unit": "%" },
+    "showLegend": true
+  },
+  "data": {
+    "values": [
+      {
+        "category": "Taux de chômage",
+        "groups": [
+          { "name": "Non-immigré·es", "value": 8 },
+          { "name": "Immigré·es", "value": 15 }
+        ]
+      },
+      {
+        "category": "Taux de pauvreté",
+        "groups": [
+          { "name": "Non-immigré·es", "value": 12 },
+          { "name": "Immigré·es", "value": 28 }
+        ]
+      },
+      {
+        "category": "Propriétaires logement",
+        "groups": [
+          { "name": "Non-immigré·es", "value": 60 },
+          { "name": "Immigré·es", "value": 38 }
+        ]
+      },
+      {
+        "category": "Diplôme supérieur",
+        "groups": [
+          { "name": "Non-immigré·es", "value": 28 },
+          { "name": "Immigré·es", "value": 18 }
+        ]
+      },
+      {
+        "category": "Emploi précaire (CDD/intérim)",
+        "groups": [
+          { "name": "Non-immigré·es", "value": 12 },
+          { "name": "Immigré·es", "value": 21 }
+        ]
+      }
+    ]
+  }
+}
