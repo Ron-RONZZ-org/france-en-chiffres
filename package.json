@@ -47,6 +47,7 @@
   },
   "devDependencies": {
     "@turf/area": "^7.3.5",
-    "@turf/union": "^7.3.5"
+    "@turf/union": "^7.3.5",
+    "geojson-vt": "^4.0.3"
   }
 }

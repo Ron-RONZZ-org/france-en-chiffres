@@ -28,6 +28,7 @@
   import tippy from 'tippy.js';
   import 'tippy.js/dist/tippy.css';
   import 'tippy.js/animations/shift-away.css';
+  import geojsonvt from 'geojson-vt';
 
   (() => {
     // ── Constants ──
@@ -91,7 +92,8 @@
 
     // ── State ──
     let deptLayer = null;
-    let densityLayer = null;
+    let densityLayer = null;         // GridLayer (vector tile layer)
+    let densityTileIndex = null;     // geojson-vt index for hit-testing
     let densityAttributionAdded = false;
     let densityLoading = false;      // true while async fetch in progress
     let densityCancel = false;       // set true to cancel pending load
@@ -132,6 +134,103 @@
     function getDensityLabel(density) {
       if (density === null || density === undefined) return 'N/A';
       return density.toLocaleString('fr-FR') + ' hab/km²';
+    }
+
+    // ── Vector Tile helpers (geojson-vt viewport culling) ──
+    const VT_EXTENT = 4096;    // must match geojson-vt extent option
+    const VT_TILE_SIZE = 256;  // Leaflet default tile size
+
+    /** Draw a polygon/multipolygon tile feature on a canvas context */
+    function drawTileFeature(ctx, geometry, type, extent, tileSize, dpr, fillColor, strokeColor, lineWidth) {
+      const scale = (tileSize / extent) * dpr;
+      ctx.save();
+      ctx.scale(scale, scale);
+      ctx.fillStyle = fillColor;
+      ctx.strokeStyle = strokeColor;
+      ctx.lineWidth = lineWidth / (scale * dpr);
+
+      const rings = type === 6 ? geometry : [geometry];
+      for (const ring of rings) {
+        if (!ring || ring.length < 3) continue;
+        ctx.beginPath();
+        ctx.moveTo(ring[0][0], ring[0][1]);
+        for (let i = 1; i < ring.length; i++) {
+          ctx.lineTo(ring[i][0], ring[i][1]);
+        }
+        ctx.closePath();
+      }
+      ctx.fill('evenodd');
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    /** Convert mouse latlng to tile-local coordinates for geojson-vt hit-testing */
+    function mouseToTileCoords(latlng, zoom) {
+      const n = Math.pow(2, zoom);
+      const tileX = (latlng.lng + 180) / 360 * n;
+      const tileY = (1 - Math.log(Math.tan(latlng.lat * Math.PI / 180) + 1 / Math.cos(latlng.lat * Math.PI / 180)) / Math.PI) / 2 * n;
+      return {
+        x: Math.round((tileX - Math.floor(tileX)) * VT_EXTENT),
+        y: Math.round((tileY - Math.floor(tileY)) * VT_EXTENT),
+        tileX: Math.floor(tileX),
+        tileY: Math.floor(tileY),
+      };
+    }
+
+    /** Ray-casting point-in-polygon test on tile-local coordinates */
+    function pointInTilePolygon(px, py, ringCoords) {
+      // ringCoords: [[x, y], ...] in tile coordinates [0, extent)
+      let inside = false;
+      for (let i = 0, j = ringCoords.length - 1; i < ringCoords.length; j = i++) {
+        const xi = ringCoords[i][0], yi = ringCoords[i][1];
+        const xj = ringCoords[j][0], yj = ringCoords[j][1];
+        if ((yi > py) !== (yj > py) &&
+            px < (xj - xi) * (py - yi) / (yj - yi) + xi) {
+          inside = !inside;
+        }
+      }
+      return inside;
+    }
+
+    /** Build a vector tile GridLayer from a GeoJSON FeatureCollection */
+    function createDensityTileLayer(data, colorFn, extent, tileSize) {
+      const tileIndex = geojsonvt(data, {
+        maxZoom: 14,
+        buffer: 64,
+        tolerance: 3,
+        extent: extent,
+        lineMetrics: false,
+        promoteId: 'code',
+      });
+
+      const VectorDensityLayer = L.GridLayer.extend({
+        createTile: function (coords) {
+          const canvas = L.DomUtil.create('canvas', 'leaflet-tile');
+          const size = this.getTileSize();
+          const dpr = window.devicePixelRatio || 1;
+          canvas.width = size.x * dpr;
+          canvas.height = size.y * dpr;
+          canvas.style.width = size.x + 'px';
+          canvas.style.height = size.y + 'px';
+
+          const tile = tileIndex.getTile(coords.z, coords.x, coords.y);
+          if (tile && tile.features) {
+            const ctx = canvas.getContext('2d');
+            for (const feature of tile.features) {
+              const density = feature.tags.density || 0;
+              const lodLevel = feature.tags.level;
+              const borderW = lodLevel === 'region' ? 1.5 : lodLevel === 'department' ? 1.0 : 0.3;
+              drawTileFeature(ctx, feature.geometry, feature.type,
+                extent, size.x, dpr,
+                colorFn(density), '#475569', borderW);
+            }
+          }
+
+          return canvas;
+        },
+      });
+
+      return { layer: new VectorDensityLayer({ pane: 'overlayPane' }), tileIndex };
     }
 
     // ── Tippy: layer controls with HTML descriptions ──
@@ -221,7 +320,9 @@
         map.removeLayer(densityLayer);
         densityLayer = null;
       }
+      densityTileIndex = null;
       currentDensityLevel = null;
+      closeDensityTooltip();
       clearLegend();
     }
 
@@ -242,6 +343,75 @@
 
     function setLoading(labelEl, loading) {
       if (labelEl) labelEl.toggleAttribute('data-loading', loading);
+    }
+
+    // ── Density tooltip (vector tiles — use map-level mousemove) ──
+    let densityTooltipEl = null; // L.Tooltip instance
+
+    function showDensityTooltip(latlng, tags) {
+      if (!densityTooltipEl) {
+        densityTooltipEl = L.tooltip({
+          sticky: true,
+          className: 'dept-tooltip dept-tooltip--density',
+        });
+      }
+      const name = tags.nom || '';
+      const code = tags.code || '';
+      const density = tags.density || 0;
+      const pop = tags.population || 0;
+      const count = tags.commune_count;
+      let extra = '';
+      if (count) {
+        extra = `<br><span class="dept-tooltip__meta">${count.toLocaleString('fr-FR')} communes</span>`;
+      }
+      densityTooltipEl.setContent(
+        `<strong>${escapeHtml(name)}</strong> (${escapeHtml(code)})<br>` +
+        `<strong>${getDensityLabel(density)}</strong><br>` +
+        `Population: ${pop.toLocaleString('fr-FR')}${extra}`
+      );
+      densityTooltipEl.setLatLng(latlng);
+      if (!densityTooltipEl._map) map.openTooltip(densityTooltipEl);
+    }
+
+    function closeDensityTooltip() {
+      if (densityTooltipEl) {
+        map.closeTooltip(densityTooltipEl);
+      }
+    }
+
+    /** Hit-test visible density tiles at the given mouse latlng */
+    function hitTestDensity(latlng) {
+      if (!densityTileIndex) return null;
+      const zoom = map.getZoom();
+      const tc = mouseToTileCoords(latlng, zoom);
+      const tile = densityTileIndex.getTile(zoom, tc.tileX, tc.tileY);
+      if (!tile || !tile.features) return null;
+
+      // Check features in this visible tile — typically 5–50
+      for (const feature of tile.features) {
+        const rings = feature.type === 6 ? feature.geometry : [feature.geometry];
+        for (const ring of rings) {
+          if (!ring || ring.length < 3) continue;
+          if (pointInTilePolygon(tc.x, tc.y, ring)) {
+            return feature.tags;
+          }
+        }
+      }
+      return null;
+    }
+
+    /** Wire up density hover — consumes mousemove to show tooltip */
+    function setupDensityHover() {
+      map.on('mousemove', (e) => {
+        if (densityTileIndex) {
+          const tags = hitTestDensity(e.latlng);
+          if (tags) {
+            showDensityTooltip(e.latlng, tags);
+            return;
+          }
+        }
+        closeDensityTooltip();
+      });
     }
 
     async function applyCommuneDensity() {
@@ -284,43 +454,15 @@
           : currentLod.densityLevel === 'department' ? 'par département'
           : 'par commune';
 
-        densityLayer = L.geoJSON(data, {
-          style: (feature) => {
-            const density = feature.properties.density || 0;
-            return {
-              color: '#475569',
-              weight: currentLod.densityLevel === 'region' ? 1.5
-                : currentLod.densityLevel === 'department' ? 1
-                : 0.3,
-              fillColor: getDensityColor(density),
-              fillOpacity: 0.7,
-            };
-          },
-          onEachFeature: (feature, layer) => {
-            const name = feature.properties.nom || '';
-            const code = feature.properties.code || '';
-            const density = feature.properties.density || 0;
-            const pop = feature.properties.population || 0;
-            const count = feature.properties.commune_count;
-            let extra = '';
-            if (count) {
-              extra = `<br><span class="dept-tooltip__meta">${count.toLocaleString('fr-FR')} communes</span>`;
-            }
-            const tooltipHtml = `
-              <strong>${escapeHtml(name)}</strong> (${escapeHtml(code)})<br>
-              <strong>${getDensityLabel(density)}</strong><br>
-              Population: ${pop.toLocaleString('fr-FR')}${extra}
-            `;
-            layer.bindTooltip(tooltipHtml, {
-              sticky: true,
-              className: 'dept-tooltip dept-tooltip--density',
-            });
-          },
-        });
+        // Build a vector tile layer with viewport culling
+        const vt = createDensityTileLayer(data, getDensityColor, VT_EXTENT, VT_TILE_SIZE);
+        densityTileIndex = vt.tileIndex;
+        densityLayer = vt.layer;
 
         // Guard after layer creation
         if (densityCancel || !checkbox.checked) {
-          densityLayer = null;  // discard unneeded layer
+          densityLayer = null;
+          densityTileIndex = null;
           return;
         }
 
@@ -857,6 +999,7 @@
       });
       // Remove any existing layers
       if (densityLayer) { map.removeLayer(densityLayer); densityLayer = null; }
+      densityTileIndex = null;
       currentDensityLevel = null;
       if (elevationLayer) { map.removeLayer(elevationLayer); elevationLayer = null; }
       if (roadsLayer) { map.removeLayer(roadsLayer); roadsLayer = null; roadsFetched = false; }
@@ -871,6 +1014,7 @@
     loadDepartments();
     setupToggles();
     setupTippy();
+    setupDensityHover();
     setupFullscreenCollapse();
     setupInfoPanelToggle();
 
