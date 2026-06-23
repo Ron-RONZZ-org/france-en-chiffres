@@ -1,8 +1,11 @@
 ---
 import Base from '../layouts/Base.astro';
+import sections from '../data/sections';
+
+const { metaDesc } = sections.find((s) => s.id === 'geographie')!;
 ---
 
-<Base title="Géographie — France en Chiffres" description="La géographie de la France en données — régions, climats, territoires">
+<Base title="Géographie — France en Chiffres" description={metaDesc}>
   <section class="geography-section">
     <div class="container">
       <h1 class="geography-section__title">Géographie en chiffres</h1>

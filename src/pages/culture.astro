@@ -1,8 +1,11 @@
 ---
 import Base from '../layouts/Base.astro';
+import sections from '../data/sections';
+
+const { metaDesc } = sections.find((s) => s.id === 'culture')!;
 ---
 
-<Base title="Culture — France en Chiffres" description="La culture française en données — art, gastronomie, cinéma, tourisme">
+<Base title="Culture — France en Chiffres" description={metaDesc}>
   <section class="section">
     <div class="container">
       <h1 class="section__title">Culture en chiffres</h1>
