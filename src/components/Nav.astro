@@ -40,6 +40,8 @@ const { pathname } = Astro.url;
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--color-border);
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
   }
 
   .nav__inner {

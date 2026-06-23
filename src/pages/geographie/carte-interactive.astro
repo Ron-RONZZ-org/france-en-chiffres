@@ -445,6 +445,8 @@ const sources = (await Promise.all(
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
     transition: left var(--transition-normal);
+    touch-action: manipulation;  /* eliminate 300ms touch delay on mobile */
+    -webkit-tap-highlight-color: transparent;  /* remove tap highlight */
   }
 
   .layer-controls__collapse:hover {
@@ -459,6 +461,21 @@ const sources = (await Promise.all(
   /* When panel is open: button hugs the panel right edge */
   #map-page-wrapper.is-fullscreen .layer-controls:not(.layer-controls--collapsed) ~ .layer-controls__collapse {
     left: 240px;  /* matches panel width */
+  }
+
+  /* On mobile: show collapse button even without fullscreen, larger touch target */
+  @media (max-width: 600px) {
+    .layer-controls__collapse {
+      display: flex;
+      width: 44px;
+      height: 44px;
+      font-size: 1.1rem;
+    }
+
+    /* Collapsed state (non-fullscreen): hide controls entirely */
+    .layer-controls:not(.layer-controls--fullscreen).layer-controls--collapsed {
+      display: none !important;
+    }
   }
 
   /* ── Fullscreen layout ── */
@@ -587,6 +604,8 @@ const sources = (await Promise.all(
     cursor: pointer;
     flex-shrink: 0;
     min-height: 36px;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
   }
 
   .interactive-page__info-panel-title {
@@ -608,6 +627,15 @@ const sources = (await Promise.all(
     justify-content: center;
     font-size: 0.7rem;
     transition: transform var(--transition-fast);
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  @media (max-width: 600px) {
+    .interactive-page__info-panel-toggle {
+      width: 36px;
+      height: 36px;
+    }
   }
 
   .interactive-page__info-panel--collapsed .interactive-page__info-panel-toggle {

@@ -36,7 +36,7 @@ const sections: SectionMeta[] = [
     tileDesc:
       'Régions, populations, routes, chemins ferroviaires, voie navigables, climats... — la diversité française visualisée',
     metaDesc:
-      'La géographie de la France à travers des cartes et données interactives,
+      'La géographie de la France à travers des cartes et données interactives',
   },
   {
     id: 'actualites',
