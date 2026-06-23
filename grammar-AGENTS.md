@@ -42,8 +42,8 @@ For specific formatting conventions for the france-en-chiffres project, see [AGE
 - `Août, 1914.` is better than `Août 1914`, the latter of which compresses two pieces of information together.
 - do not pack independent events into same paragraph to achieve a "correct length",
   - `Le 11 novembre 1918, l'armistice fut signé dans un wagon à Rethondes. \n La guerre était finie, avec un bilan désastreux pour la France :...` delivers a stronger message than packing those two sentences introducing two ideas into the same paragraph
-- use brackets SPARINGLY
-  - they interrupt the natural sentence flows
+- IMPORTANT: use brackets SPARINGLY
+  - they interrupt the natural flow of sentences
   - `Dans les années 1950 et 1960, la France découvrirent le confort moderne : le réfrigérateur, adopté par seulement 10 % des foyers en 1954, fut adopté par trois-quartes des familles françaises en 1970...` is much smoother than `Dans les années 1950 et 1960, la France découvrirent le confort moderne : le réfrigérateur (10 % des foyers en 1954, 75 % en 1970)...`
 
 ## cite to convince

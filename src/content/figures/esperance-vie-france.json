@@ -1,0 +1,46 @@
+{
+  "id": "esperance-vie-france",
+  "type": "line",
+  "title": "Espérance de vie à la naissance en France (1970–2024)",
+  "caption": "Espérance de vie à la naissance, population totale, France métropolitaine, 1970–2024",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+  "sourceIds": ["insee-2024"],
+  "width": 720,
+  "height": 400,
+  "palette": ["#1a5276", "#922b21"],
+  "config": {
+    "xAxis": { "label": "Année" },
+    "yAxis": { "label": "Espérance de vie (années)", "min": 70, "max": 88 },
+    "interpolation": "monotone",
+    "showLegend": true
+  },
+  "data": {
+    "series": [
+      {
+        "name": "Femmes",
+        "values": [
+          { "x": 1970, "y": 75.9 },
+          { "x": 1980, "y": 78.4 },
+          { "x": 1990, "y": 80.9 },
+          { "x": 2000, "y": 82.8 },
+          { "x": 2010, "y": 84.7 },
+          { "x": 2020, "y": 85.2 },
+          { "x": 2024, "y": 85.6 }
+        ]
+      },
+      {
+        "name": "Hommes",
+        "values": [
+          { "x": 1970, "y": 68.4 },
+          { "x": 1980, "y": 70.2 },
+          { "x": 1990, "y": 73.6 },
+          { "x": 2000, "y": 75.3 },
+          { "x": 2010, "y": 78.2 },
+          { "x": 2020, "y": 79.2 },
+          { "x": 2024, "y": 80.0 }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "id": "arcep-2024",
+  "type": "dataset",
+  "title": "Observatoire des marchés numériques 2024",
+  "publisher": "Autorité de Régulation des Communications Électroniques, des Postes et de la Distribution de la Presse (ARCEP)",
+  "publisher-place": "Paris",
+  "issued": { "date-parts": [[2024]] },
+  "URL": "https://www.arcep.fr/cartes-et-donnees.html",
+  "genre": "Statistical report"
+}

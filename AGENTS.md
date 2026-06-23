@@ -176,17 +176,28 @@ The script:
 
 ### Inline Media and Charts
 
-Embed media and charts inline in event Markdown body text:
+Embed media and charts in event Markdown body text:
 
-```markdown
-Texte avant [media:versailles-chateau] texte après.
+```md
+{Texte avant}
 
-Texte avec graphique [chart:population-evolution] suite du texte.
+[media:versailles-chateau]
+
+{Texte après}
 ```
+
+```md
+{Texte avant}
+
+[chart:population-evolution]
+
+{Texte après}
+```
+
+As seen, `chart` and `media` should be their own paragraphs.
 
 - `[media:id]` — embeds a registered media asset (image) with full caption/credit/license. Use `npm run new:media` to register first.
 - `[chart:id]` — embeds a data-driven chart (prerendered to inline SVG). Chart definitions live in `src/content/figures/<id>.json`. Use `npm run new:figure` to create.
-- Leave a space before the bracket (same rule as citations).
 - All figures are rendered server-side at build time — zero client JS required.
 
 ### Creating Chart Figures

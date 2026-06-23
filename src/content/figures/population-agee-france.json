@@ -1,0 +1,33 @@
+{
+  "id": "population-agee-france",
+  "type": "line",
+  "title": "Part des 65 ans et plus dans la population française (1970–2024)",
+  "caption": "Proportion de la population française âgée de 65 ans ou plus, en pourcentage, 1970–2024",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+  "sourceIds": ["insee-2024"],
+  "width": 720,
+  "height": 400,
+  "palette": ["#922b21"],
+  "config": {
+    "xAxis": { "label": "Année" },
+    "yAxis": { "label": "Population de 65 ans et plus (%)", "min": 10, "max": 25 },
+    "interpolation": "monotone"
+  },
+  "data": {
+    "series": [
+      {
+        "name": "65 ans et plus",
+        "values": [
+          { "x": 1970, "y": 12.0 },
+          { "x": 1980, "y": 14.0 },
+          { "x": 1990, "y": 14.5 },
+          { "x": 2000, "y": 16.0 },
+          { "x": 2010, "y": 17.2 },
+          { "x": 2020, "y": 20.5 },
+          { "x": 2024, "y": 21.5 }
+        ]
+      }
+    ]
+  }
+}
