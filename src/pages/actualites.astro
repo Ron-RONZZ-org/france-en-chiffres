@@ -1,8 +1,11 @@
 ---
 import Base from '../layouts/Base.astro';
+import sections from '../data/sections';
+
+const { metaDesc } = sections.find((s) => s.id === 'actualites')!;
 ---
 
-<Base title="Actualité — France en Chiffres" description="La France contemporaine en données — économie, société, environnement">
+<Base title="Actualité — France en Chiffres" description={metaDesc}>
   <section class="section">
     <div class="container">
       <h1 class="section__title">Actualité en chiffres</h1>

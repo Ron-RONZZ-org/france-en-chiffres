@@ -4,6 +4,7 @@ import Counter from '../components/Counter.astro';
 import InteractiveFranceMap from '../components/InteractiveFranceMap.astro';
 import stats from '../data/france.json';
 import { getSource, formatSourceLabel, sourceUrl } from '../data/sources';
+import sections from '../data/sections';
 
 const { hero, keyStats } = stats;
 
@@ -94,41 +95,14 @@ for (const stat of keyStats) {
       </p>
 
       <div class="previews__grid">
-        <a href="/histoire" class="preview-card fade-in" style="--i: 0">
-          <span class="preview-card__icon">📜</span>
-          <h3 class="preview-card__title">Histoire</h3>
-          <p class="preview-card__desc">
-            De la Gaule à aujourd'hui — une chronologie en chiffres
-          </p>
-          <span class="preview-card__arrow">→</span>
-        </a>
-
-        <a href="/culture" class="preview-card fade-in" style="--i: 1">
-          <span class="preview-card__icon">🎭</span>
-          <h3 class="preview-card__title">Culture</h3>
-          <p class="preview-card__desc">
-            Art, gastronomie, cinéma — la France culturelle en données
-          </p>
-          <span class="preview-card__arrow">→</span>
-        </a>
-
-        <a href="/geographie" class="preview-card fade-in" style="--i: 2">
-          <span class="preview-card__icon">🗺️</span>
-          <h3 class="preview-card__title">Géographie</h3>
-          <p class="preview-card__desc">
-            Régions, climats, territoires — la diversité française
-          </p>
-          <span class="preview-card__arrow">→</span>
-        </a>
-
-        <a href="/actualites" class="preview-card fade-in" style="--i: 3">
-          <span class="preview-card__icon">📊</span>
-          <h3 class="preview-card__title">Actualité</h3>
-          <p class="preview-card__desc">
-            Économie, société, environnement — la France contemporaine
-          </p>
-          <span class="preview-card__arrow">→</span>
-        </a>
+        {sections.map((s, i) => (
+          <a href={s.href} class="preview-card fade-in" style={`--i: ${i}`}>
+            <span class="preview-card__icon">{s.icon}</span>
+            <h3 class="preview-card__title">{s.title}</h3>
+            <p class="preview-card__desc">{s.tileDesc}</p>
+            <span class="preview-card__arrow">→</span>
+          </a>
+        ))}
       </div>
     </div>
   </section>
