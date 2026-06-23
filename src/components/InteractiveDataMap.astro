@@ -20,6 +20,12 @@
       <p class="data-map__legend-placeholder">Sélectionnez une couche pour voir la légende.</p>
     </div>
   </div>
+
+  <!-- Loading overlay — visible during heavy data loads -->
+  <div id="map-loading" class="data-map__loading" aria-hidden="true">
+    <div class="data-map__loading-spinner"></div>
+    <span class="data-map__loading-text">Chargement des données…</span>
+  </div>
 </section>
 
 <script>
@@ -359,6 +365,12 @@
       if (labelEl) labelEl.toggleAttribute('data-loading', loading);
     }
 
+    // ── Map-level loading overlay (spinner visible to user) ──
+    function showMapLoading(visible) {
+      const el = document.getElementById('map-loading');
+      if (el) el.classList.toggle('data-map__loading--visible', visible);
+    }
+
     // ── Density tooltip (vector tiles — use map-level mousemove) ──
     let densityTooltipEl = null; // L.Tooltip instance
 
@@ -443,6 +455,7 @@
 
       const labelEl = checkbox.closest('.layer-controls__item');
       setLoading(labelEl, true);
+      showMapLoading(true);
       densityLoading = true;
       densityCancel = false;
 
@@ -507,6 +520,7 @@
         console.error('Failed to load commune density:', err);
       } finally {
         setLoading(labelEl, false);
+        showMapLoading(false);
         densityLoading = false;
       }
     }
@@ -788,11 +802,23 @@
       if (communesFetched) return;
       const communesLabel = document.querySelector('[data-map-toggle="communes"]');
       setLoading(communesLabel, true);
+      showMapLoading(true);
       try {
-        const resp = await fetch('/data/communes-density.geojson');
+        // LOD: use simplified file at z9–11, full detail at z12+
+        const zoom = map.getZoom();
+        const useSimple = zoom < 12;
+        const url = useSimple ? '/data/density-simple.geojson' : '/data/communes-density.geojson';
+
+        const resp = await fetch(url);
         if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
         const data = await resp.json();
         communesFetched = true;
+
+        // Cache hint: preload the full dataset in background if we only loaded the simple one
+        if (useSimple && !window._communeFullPreloaded) {
+          window._communeFullPreloaded = true;
+          fetch('/data/communes-density.geojson').catch(() => {});
+        }
 
         communesLayer = L.geoJSON(data, {
           minZoom: 9,
@@ -823,14 +849,18 @@
 
         map.addLayer(communesLayer);
 
+        const levelHint = useSimple
+          ? `<span class="data-map__legend-hint">Version simplifiée (zoom ${zoom}) — données détaillées chargées en arrière-plan</span>`
+          : '';
         setLegendContent(`
           <p class="data-map__legend-subtitle">Communes</p>
           <p class="data-map__legend-hint">Visible à partir du zoom 9.</p>
-          <p>Limites des ${data.features.length} communes de France.</p>
+          ${levelHint}
+          <p>${data.features.length.toLocaleString('fr-FR')} communes.</p>
           <p class="data-map__legend-source"><sup class="citation"><a href="/bibliographie/france-geojson" data-source-id="france-geojson" title="Source : france-geojson">[6]</a></sup></p>
         `);
         map.attributionControl.addAttribution('Limites communales : <a href="https://github.com/gregoiredavid/france-geojson">france-geojson</a>');
-        console.log('✓ Communes layer loaded');
+        console.log(`✓ Communes layer loaded (${url.split('/').pop()}, ${data.features.length} features)`);
       } catch (err) {
         console.error('Failed to load communes:', err);
         setLegendContent(`
@@ -839,6 +869,7 @@
         `);
       } finally {
         setLoading(communesLabel, false);
+        showMapLoading(false);
       }
     }
 
@@ -1039,6 +1070,12 @@
     // Invalidate map size when container becomes visible (Astro navigation)
     setTimeout(() => map.invalidateSize(), 200);
 
+    // Preload commune data in background after a brief delay
+    // so it's cached when the user toggles the layer on.
+    setTimeout(() => {
+      fetch('/data/density-simple.geojson', { priority: 'low' }).catch(() => {});
+    }, 3000);
+
     // Handle Astro View Transitions
     document.addEventListener('astro:after-swap', () => {
       resetToggles();
@@ -1053,6 +1090,7 @@
     max-width: 1100px;
     margin: 0 auto;
     padding: 0 var(--gap-lg);
+    position: relative;  /* anchor for loading overlay */
   }
 
   .data-map {
@@ -1073,6 +1111,49 @@
     font-size: 1rem;
     padding: var(--gap-lg);
     text-align: center;
+  }
+
+  /* ── Loading overlay (visible during heavy data fetches) ── */
+  .data-map__loading {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.75rem 1.25rem;
+    background: rgba(11, 17, 32, 0.92);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: var(--color-text-light);
+    font-size: 0.9rem;
+    pointer-events: none;
+  }
+
+  .data-map__loading--visible {
+    display: flex;
+  }
+
+  .data-map__loading-spinner {
+    width: 20px;
+    height: 20px;
+    border: 2.5px solid var(--color-border);
+    border-top-color: var(--color-accent-gold, #d4a843);
+    border-radius: 50%;
+    animation: data-map-spin 0.7s linear infinite;
+    flex-shrink: 0;
+  }
+
+  .data-map__loading-text {
+    white-space: nowrap;
+  }
+
+  @keyframes data-map-spin {
+    to { transform: rotate(360deg); }
   }
 
   /* ── Legend ── */
