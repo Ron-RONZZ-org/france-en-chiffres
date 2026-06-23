@@ -53,13 +53,15 @@
     const DEPT_STYLE = {
       color: '#475569',
       weight: 1.2,
+      fill: true,            // keep fill for SVG hit-testing; opacity nearly 0 so density shows through
       fillColor: '#1e293b',
-      fillOpacity: 0.15,
+      fillOpacity: 0.01,
     };
 
     const DEPT_HIGHLIGHT = {
       color: '#d4a843',
       weight: 2.5,
+      fill: true,
       fillColor: '#d4a843',
       fillOpacity: 0.2,
     };
@@ -75,12 +77,17 @@
       maxZoom: MAX_ZOOM,
       zoomControl: true,
       attributionControl: true,
-      preferCanvas: true,
+      // preferCanvas disabled: SVG renderer correctly handles fill:false for density layer
+      // Canvas renderer ignored fillOpacity=0 and filled all features at stroke opacity
     });
 
+    // ── Custom pane for density fills (renders BELOW overlay SVG paths) ──
+    // Density fills go on their own pane below the overlay pane so SVG department/commune
+    // outlines (z-index 400) render on top of density polygons.
+    map.createPane('density-pane');
+    map.getPane('density-pane').style.zIndex = 350;
+
     // ── Custom pane for line features (renders ABOVE polygon layers) ──
-    // Polygon layers (density, communes) stay on the default overlay pane (z-index 400).
-    // Line features need a higher pane to render above polygon fills.
     map.createPane('line-pane');
     map.getPane('line-pane').style.zIndex = 400;
 
@@ -236,7 +243,7 @@
         },
       });
 
-      return { layer: new VectorDensityLayer({ pane: 'overlayPane' }), tileIndex };
+      return { layer: new VectorDensityLayer({ pane: 'density-pane' }), tileIndex };
     }
 
     // ── Tippy: layer controls with HTML descriptions ──
@@ -791,7 +798,8 @@
           style: {
             color: '#6366f1',
             weight: 0.4,
-            fillOpacity: 0,
+            fillColor: '#6366f1',
+            fillOpacity: 0.01,  // near-zero opacity for SVG hit-testing; density shows through
           },
           onEachFeature: (feature, layer) => {
             const name = feature.properties.nom || '';

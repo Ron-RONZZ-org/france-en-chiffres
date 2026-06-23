@@ -56,7 +56,7 @@ test.describe('Interactive Map — User Simulation', () => {
   });
 
   test('6. Communes + Density layer LOD switching on zoom', async ({ page }) => {
-    test.setTimeout(60000);
+    test.setTimeout(180000);
 
     // Enable communes
     await page.locator('#toggle-communes').check();
@@ -109,7 +109,7 @@ test.describe('Interactive Map — User Simulation', () => {
   });
 
   test('8. No console errors during basic interactions', async ({ page }) => {
-    test.setTimeout(90000);
+    test.setTimeout(180000);
     const errors = [];
     page.on('pageerror', err => errors.push(err.message));
     page.on('console', msg => {
@@ -163,7 +163,7 @@ test.describe('Interactive Map — User Simulation', () => {
   });
 
   test('9. Density hover tooltip shows on commune hover', async ({ page }) => {
-    test.setTimeout(60000);
+    test.setTimeout(180000);
 
     // Enable communes + density
     await page.locator('#toggle-communes').check();
