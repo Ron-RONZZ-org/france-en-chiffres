@@ -58,6 +58,13 @@
       return LOD_LEVELS.find(l => zoom <= l.maxZoom) || LOD_LEVELS[LOD_LEVELS.length - 1];
     }
 
+    /** When precise mode is on, skip hex levels and use commune-level data directly. */
+    const LOD_LEVELS_PRECISE = LOD_LEVELS.filter(l => !l.densityLevel.startsWith('hex-'));
+    function getEffectiveLodLevel(zoom) {
+      const levels = densityPreciseMode ? LOD_LEVELS_PRECISE : LOD_LEVELS;
+      return levels.find(l => zoom <= l.maxZoom) || levels[levels.length - 1];
+    }
+
     const DEPT_STYLE = {
       color: '#475569',
       weight: 1.2,
@@ -112,6 +119,7 @@
     let densityAttributionAdded = false;
     let densityLoading = false;      // true while async fetch in progress
     let densityCancel = false;       // set true to cancel pending load
+    let densityPreciseMode = false;  // true: skip hex LOD, use commune boundaries
     let elevationLayer = null;
     let roadsLayer = null;
     let railwaysLayer = null;
@@ -352,6 +360,21 @@
         map.removeLayer(densityLayer);
         densityLayer = null;
       }
+      // Defensive: remove any leftover density/hex paths from the overlay pane.
+      // L.GeoJSON (hex grids) can leave stale paths after removeLayer in some
+      // Leaflet versions when racing with async applyCommuneDensity calls.
+      const overlaySvg = document.querySelector('.leaflet-overlay-pane svg');
+      if (overlaySvg) {
+        const paths = overlaySvg.querySelectorAll('path');
+        for (const p of paths) {
+          const fill = p.getAttribute('fill');
+          // Hex grid fill colors are in the green-blue-purple range;
+          // department (#1e293b, #475569) and commune (#6366f1) strokes are excluded
+          if (fill && !['#1e293b', '#475569', '#6366f1', 'none'].includes(fill)) {
+            p.remove();
+          }
+        }
+      }
       densityTileIndex = null;
       currentDensityLevel = null;
       closeDensityTooltip();
@@ -506,7 +529,7 @@
 
       // Determine LOD level based on current zoom
       const zoom = map.getZoom();
-      const lod = getLodLevel(zoom);
+      const lod = getEffectiveLodLevel(zoom);
       currentDensityLevel = lod.densityLevel;
 
       setLegendContent(
@@ -522,7 +545,7 @@
 
         // Recompute lod in case zoom changed during fetch
         const currentZoom = map.getZoom();
-        const currentLod = getLodLevel(currentZoom);
+        const currentLod = getEffectiveLodLevel(currentZoom);
         currentDensityLevel = currentLod.densityLevel;
 
         const isHex = currentLod.densityLevel.startsWith('hex-');
@@ -832,7 +855,7 @@
 
       // Density layer LOD: re-evaluate source when crossing thresholds
       if (densityLayer) {
-        const newLod = getLodLevel(zoom);
+        const newLod = getEffectiveLodLevel(zoom);
         if (newLod.densityLevel !== currentDensityLevel) {
           applyCommuneDensity();
         }
@@ -966,10 +989,23 @@
 
           switch (layer) {
             case 'density':
+              // Show/hide precise-mode suboption
+              const preciseRow = document.querySelector('.layer-controls__suboption2');
               if (e.target.checked) {
+                if (preciseRow) preciseRow.classList.remove('layer-controls__suboption2--hidden');
                 await applyCommuneDensity();
               } else {
+                if (preciseRow) preciseRow.classList.add('layer-controls__suboption2--hidden');
                 clearDensityLayer();
+                densityPreciseMode = false;
+                const preciseCheck = document.getElementById('toggle-density-precise');
+                if (preciseCheck) preciseCheck.checked = false;
+              }
+              break;
+            case 'density-precise':
+              densityPreciseMode = e.target.checked;
+              if (document.getElementById('toggle-density')?.checked) {
+                await applyCommuneDensity();
               }
               break;
             case 'elevation':
@@ -993,9 +1029,15 @@
                 if (densityRow) densityRow.classList.remove('layer-controls__suboption--hidden');
               } else {
                 if (densityRow) densityRow.classList.add('layer-controls__suboption--hidden');
+                // Also hide precise-mode suboption
+                const preciseRow = document.querySelector('.layer-controls__suboption2');
+                if (preciseRow) preciseRow.classList.add('layer-controls__suboption2--hidden');
                 if (densityCheck && densityCheck.checked) {
                   densityCheck.checked = false;
                   clearDensityLayer();
+                  densityPreciseMode = false;
+                  const preciseCheck = document.getElementById('toggle-density-precise');
+                  if (preciseCheck) preciseCheck.checked = false;
                 }
               }
               break;
