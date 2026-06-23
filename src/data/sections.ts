@@ -14,9 +14,9 @@ const sections: SectionMeta[] = [
     title: 'Histoire',
     icon: '📜',
     tileDesc:
-      "De la Gaule à aujourd'hui — une chronologie en chiffres",
+      "De l'arrivée des premiers humains en France à la Ve République — une grande Histoire de la France, chiffrée et animée.",
     metaDesc:
-      "L'histoire de France racontée par les nombres — des premiers humains en France à aujourd'hui",
+      "Une grande Histoire de la France racontée par les histoires et les nombres — des premiers humains en France à aujourd'hui",
   },
   {
     id: 'culture',
@@ -26,7 +26,7 @@ const sections: SectionMeta[] = [
     tileDesc:
       'Art, gastronomie, cinéma — la France culturelle en données',
     metaDesc:
-      'La culture française en données — art, gastronomie, cinéma, tourisme',
+      'La culture française racontée par les histoires mais aussi des nombres — art, gastronomie, cinéma, tourisme',
   },
   {
     id: 'geographie',
@@ -34,9 +34,9 @@ const sections: SectionMeta[] = [
     title: 'Géographie',
     icon: '🗺️',
     tileDesc:
-      'Régions, climats, territoires — la diversité française',
+      'Régions, populations, routes, chemins ferroviaires, voie navigables, climats... — la diversité française visualisée',
     metaDesc:
-      'La géographie de la France en données — régions, climats, territoires',
+      'La géographie de la France à travers des cartes et données interactives,
   },
   {
     id: 'actualites',
