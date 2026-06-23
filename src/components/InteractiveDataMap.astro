@@ -49,7 +49,7 @@
     const LOD_LEVELS = [
       { maxZoom: 5,  densitySrc: '/data/density-hex-15km.geojson', densityLevel: 'hex-15km' },
       { maxZoom: 7,  densitySrc: '/data/density-hex-10km.geojson', densityLevel: 'hex-10km' },
-      { maxZoom: 9,  densitySrc: '/data/density-hex-5km.geojson',  densityLevel: 'hex-5km' },
+      { maxZoom: 8,  densitySrc: '/data/density-hex-5km.geojson',  densityLevel: 'hex-5km' },
       { maxZoom: 11, densitySrc: '/data/density-simple.geojson',   densityLevel: 'commune-simple' },
       { maxZoom: 99, densitySrc: '/data/communes-density.geojson',  densityLevel: 'commune-full' },
     ];
@@ -466,7 +466,12 @@
     /** Wire up density hover — consumes mousemove to show tooltip */
     function setupDensityHover() {
       map.on('mousemove', (e) => {
-        if (densityTileIndex) {
+        // When communes are visible (zoom >= 9 and toggle on), skip density
+        // tooltip entirely — the commune layer's bindTooltip already includes
+        // density info. Showing both creates overlapping popups.
+        const communesCheck = document.getElementById('toggle-communes');
+        const communesVisible = communesCheck && communesCheck.checked && map.getZoom() >= 9;
+        if (!communesVisible && densityTileIndex) {
           const tags = hitTestDensity(e.latlng);
           if (tags) {
             showDensityTooltip(e.latlng, tags);
