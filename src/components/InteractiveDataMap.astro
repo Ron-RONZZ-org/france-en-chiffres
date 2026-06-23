@@ -484,10 +484,44 @@
           : currentLod.densityLevel === 'department' ? 'par département'
           : 'par commune';
 
-        // Build a vector tile layer with viewport culling
-        const vt = createDensityTileLayer(data, getDensityColor, VT_EXTENT, VT_TILE_SIZE);
-        densityTileIndex = vt.tileIndex;
-        densityLayer = vt.layer;
+        // Use L.geoJSON for region/department (few features, solid fills),
+        // and geojson-vt vector tiles for commune levels (viewport culling).
+        if (currentLod.densityLevel === 'region' || currentLod.densityLevel === 'department') {
+          // L.geoJSON — simple, proven rendering with SVG
+          densityTileIndex = null;
+          densityLayer = L.geoJSON(data, {
+            style: (feature) => {
+              const density = feature.properties.density || 0;
+              return {
+                color: '#475569',
+                weight: currentLod.densityLevel === 'region' ? 1.5 : 1.0,
+                fillColor: getDensityColor(density),
+                fillOpacity: 0.85,
+              };
+            },
+            onEachFeature: (feature, layer) => {
+              const name = feature.properties.nom || '';
+              const code = feature.properties.code || '';
+              const density = feature.properties.density || 0;
+              const pop = feature.properties.population || 0;
+              const count = feature.properties.commune_count;
+              let extra = '';
+              if (count) {
+                extra = `<br><span class="dept-tooltip__meta">${count.toLocaleString('fr-FR')} communes</span>`;
+              }
+              layer.bindTooltip(`
+                <strong>${escapeHtml(name)}</strong> (${escapeHtml(code)})<br>
+                <strong>${getDensityLabel(density)}</strong><br>
+                Population: ${pop.toLocaleString('fr-FR')}${extra}
+              `, { sticky: true, className: 'dept-tooltip dept-tooltip--density' });
+            },
+          });
+        } else {
+          // geojson-vt vector tiles — viewport culling for 35K features
+          const vt = createDensityTileLayer(data, getDensityColor, VT_EXTENT, VT_TILE_SIZE);
+          densityTileIndex = vt.tileIndex;
+          densityLayer = vt.layer;
+        }
 
         // Guard after layer creation
         if (densityCancel || !checkbox.checked) {
