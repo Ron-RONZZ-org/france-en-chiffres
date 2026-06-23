@@ -44,11 +44,14 @@
     const MAX_ZOOM = 12;
 
     // ── Level-of-Detail config for density layer ──
-    // Commune-level data at all zooms for accurate density representation.
-    // geojson-vt handles automatic per-zoom simplification of 35K features.
+    // Hex grids at low zoom (fast SVG rendering on overlay pane), commune-level
+    // geojson-vt canvas tiles at high zoom (full detail).
     const LOD_LEVELS = [
-      { maxZoom: 11, densitySrc: '/data/density-simple.geojson',    densityLevel: 'commune-simple' },
-      { maxZoom: 99, densitySrc: '/data/communes-density.geojson',   densityLevel: 'commune-full' },
+      { maxZoom: 5,  densitySrc: '/data/density-hex-15km.geojson', densityLevel: 'hex-15km' },
+      { maxZoom: 7,  densitySrc: '/data/density-hex-10km.geojson', densityLevel: 'hex-10km' },
+      { maxZoom: 9,  densitySrc: '/data/density-hex-5km.geojson',  densityLevel: 'hex-5km' },
+      { maxZoom: 11, densitySrc: '/data/density-simple.geojson',   densityLevel: 'commune-simple' },
+      { maxZoom: 99, densitySrc: '/data/communes-density.geojson',  densityLevel: 'commune-full' },
     ];
 
     function getLodLevel(zoom) {
@@ -135,17 +138,18 @@
       // Modified sequential palette — optimized for visibility against OSM basemap.
       // Avoids light-start colors (#ffffcc, #c7e9b4) that are invisible against
       // OSM's warm beige/cream landcover at low zoom (60% of communes <60 hab/km²).
-      const breaks = [0, 30, 60, 100, 150, 300, 500, 1000, 5000];
+      // NOTE: first breakpoint is 30 (not 0) — densities 0–30 all map to colors[0].
+      const breaks = [30, 60, 100, 150, 300, 500, 1000, 5000];
       const colors = [
-        '#c2e699',  // 0-30:    visible yellow-green
-        '#78c679',  // 30-60:   green
-        '#41b6c4',  // 60-100:  teal
-        '#1d91c0',  // 100-150: sky blue
-        '#225ea8',  // 150-300: blue
-        '#253494',  // 300-500: dark blue
-        '#081d58',  // 500-1000: very dark blue
-        '#031a4a',  // 1000-5000: deep navy
-        '#010b26',  // 5000+:   near-black
+        '#c2e699',  // ≤30:     visible yellow-green
+        '#78c679',  // 31–60:   green
+        '#41b6c4',  // 61–100:  teal
+        '#1d91c0',  // 101–150: sky blue
+        '#225ea8',  // 151–300: blue
+        '#253494',  // 301–500: dark blue
+        '#081d58',  // 501–1000: very dark blue
+        '#031a4a',  // 1001–5000: deep navy
+        '#010b26',  // 5001+:   near-black
       ];
       for (let i = 0; i < breaks.length; i++) {
         if (density <= breaks[i]) return colors[i];
@@ -446,8 +450,42 @@
             return;
           }
         }
+        // Don't close if densityLayer is an L.geoJSON (hex grid) —
+        // Leaflet's built-in onEachFeature/bindTooltip handles tooltips.
+        if (densityLayer && typeof densityLayer.getLayers === 'function') return;
         closeDensityTooltip();
       });
+    }
+
+    function setDensityLayerFromData(data, currentLod, currentZoom) {
+      const isHex = currentLod.densityLevel.startsWith('hex-');
+
+      if (isHex) {
+        // Hex grid: L.geoJSON SVG on overlay pane (z=400, above basemap, below outlines)
+        densityTileIndex = null;
+        densityLayer = L.geoJSON(data, {
+          style: (feature) => {
+            const fill = feature.properties.fillColor || getDensityColor(feature.properties.density || 0);
+            return {
+              fillColor: fill,
+              fillOpacity: 0.85,
+              weight: 0,
+              color: 'transparent',
+            };
+          },
+          onEachFeature: (feature, layer) => {
+            const density = feature.properties.density || 0;
+            layer.bindTooltip(`<strong>${getDensityLabel(density)}</strong>`, {
+              sticky: true, className: 'dept-tooltip dept-tooltip--density',
+            });
+          },
+        });
+      } else {
+        // Commune-level: geojson-vt vector tiles (canvas) on density-pane (z=350)
+        const vt = createDensityTileLayer(data, getDensityColor, VT_EXTENT, VT_TILE_SIZE);
+        densityTileIndex = vt.tileIndex;
+        densityLayer = vt.layer;
+      }
     }
 
     async function applyCommuneDensity() {
@@ -487,14 +525,13 @@
         const currentLod = getLodLevel(currentZoom);
         currentDensityLevel = currentLod.densityLevel;
 
-        const levelLabel = 'par commune (données simplifiées)';
+        const isHex = currentLod.densityLevel.startsWith('hex-');
+        const hexSize = isHex ? currentLod.densityLevel.split('-')[1] : null;
+        const levelLabel = isHex
+          ? `maillage hexagonal ${hexSize} (${data.features.length.toLocaleString('fr-FR')} cellules, zoom ${currentZoom})`
+          : 'par commune (données simplifiées)';
 
-        // Use geojson-vt vector tiles at ALL zoom levels.
-        // 35K simplified communes render via viewport culling — geojson-vt
-        // automatically simplifies geometry per zoom level for performance.
-        const vt = createDensityTileLayer(data, getDensityColor, VT_EXTENT, VT_TILE_SIZE);
-        densityTileIndex = vt.tileIndex;
-        densityLayer = vt.layer;
+        setDensityLayerFromData(data, currentLod, currentZoom);
 
         // Guard after layer creation
         if (densityCancel || !checkbox.checked) {
@@ -510,7 +547,7 @@
         const featureCount = data.features.length;
         const legendHtml = `
           <p class="data-map__legend-subtitle">Densité de population</p>
-          <p class="data-map__legend-hint">Niveau : ${levelLabel} (${featureCount.toLocaleString('fr-FR')} entités, zoom ${currentZoom})</p>
+          <p class="data-map__legend-hint">Niveau : ${levelLabel}</p>
           <p>Maximale : ${maxDen} hab/km².</p>
           <div class="density-legend">
             ${makeDensityLegend()}

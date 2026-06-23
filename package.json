@@ -24,6 +24,7 @@
     "test:map:e2e": "npx playwright test src/tests/interactive-map-e2e.spec.mjs --reporter=list --timeout=30000",
     "fetch:geo": "bash scripts/fetch-geo-data.sh",
     "build:density": "node scripts/build-density-grid.js",
+    "build:density-hex": "node scripts/build-density-hex.js",
     "build:lod": "node scripts/build-commune-lod.js",
     "fetch:roads": "node scripts/fetch-roads.js",
     "fetch:communes": "node scripts/fetch-communes.js",
