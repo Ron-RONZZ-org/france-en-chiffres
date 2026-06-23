@@ -21,6 +21,7 @@
     "test:media": "node src/tests/media.test.cjs",
     "test:agents": "node src/tests/agents.test.cjs",
     "test:map": "node src/tests/interactive-map.test.cjs",
+    "test:map:e2e": "npx playwright test src/tests/interactive-map-e2e.spec.mjs --reporter=list --timeout=30000",
     "fetch:geo": "bash scripts/fetch-geo-data.sh",
     "build:density": "node scripts/build-density-grid.js",
     "build:lod": "node scripts/build-commune-lod.js",
@@ -46,6 +47,7 @@
     "tippy.js": "^6.3.7"
   },
   "devDependencies": {
+    "@playwright/test": "^1.61.0",
     "@turf/area": "^7.3.5",
     "@turf/union": "^7.3.5",
     "geojson-vt": "^4.0.3"
