@@ -132,11 +132,20 @@
 
     function getDensityColor(density) {
       if (density === null || density === undefined) return '#1e293b';
-      // YlGnBu 9-class — more saturated, visible against OSM base map
+      // Modified sequential palette — optimized for visibility against OSM basemap.
+      // Avoids light-start colors (#ffffcc, #c7e9b4) that are invisible against
+      // OSM's warm beige/cream landcover at low zoom (60% of communes <60 hab/km²).
       const breaks = [0, 30, 60, 100, 150, 300, 500, 1000, 5000];
       const colors = [
-        '#ffffcc', '#c7e9b4', '#7fcdbb', '#41b6c4',
-        '#1d91c0', '#225ea8', '#253494', '#081d58', '#020024',
+        '#c2e699',  // 0-30:    visible yellow-green
+        '#78c679',  // 30-60:   green
+        '#41b6c4',  // 60-100:  teal
+        '#1d91c0',  // 100-150: sky blue
+        '#225ea8',  // 150-300: blue
+        '#253494',  // 300-500: dark blue
+        '#081d58',  // 500-1000: very dark blue
+        '#031a4a',  // 1000-5000: deep navy
+        '#010b26',  // 5000+:   near-black
       ];
       for (let i = 0; i < breaks.length; i++) {
         if (density <= breaks[i]) return colors[i];
@@ -346,10 +355,9 @@
     }
 
     function makeDensityLegend() {
-      const breaks = [0, 30, 60, 100, 150, 300, 500, 1000, 5000];
       const colors = [
-        '#ffffcc', '#c7e9b4', '#7fcdbb', '#41b6c4',
-        '#1d91c0', '#225ea8', '#253494', '#081d58', '#020024',
+        '#c2e699', '#78c679', '#41b6c4', '#1d91c0',
+        '#225ea8', '#253494', '#081d58', '#031a4a', '#010b26',
       ];
       const labels = ['0', '30', '60', '100', '150', '300', '500', '1 000', '5 000+'];
       return labels.map((label, i) => `
@@ -792,6 +800,9 @@
           applyCommuneDensity();
         }
       }
+
+      // Communes: show/hide based on zoom (minZoom workaround)
+      updateCommuneVisibility();
     });
 
     // ── Communes (GeoJSON overlay) ──
@@ -846,14 +857,22 @@
           },
         });
 
-        map.addLayer(communesLayer);
+        // Only add to map if zoom >= minZoom (9) — avoids Leaflet minZoom bug where
+        // SVG paths are created at low zoom despite minZoom, causing visual clutter.
+        const currentZoom = map.getZoom();
+        if (currentZoom >= 9) {
+          map.addLayer(communesLayer);
+        }
 
         const levelHint = useSimple
           ? `<span class="data-map__legend-hint">Version simplifiée (zoom ${zoom}) — données détaillées chargées en arrière-plan</span>`
           : '';
+        const zoomHint = currentZoom < 9
+          ? '<p class="data-map__legend-hint">Zoom avant (niveau 9+) pour voir les limites communales.</p>'
+          : '<p class="data-map__legend-hint">Visible à partir du zoom 9.</p>';
         setLegendContent(`
           <p class="data-map__legend-subtitle">Communes</p>
-          <p class="data-map__legend-hint">Visible à partir du zoom 9.</p>
+          ${zoomHint}
           ${levelHint}
           <p>${data.features.length.toLocaleString('fr-FR')} communes.</p>
           <p class="data-map__legend-source"><sup class="citation"><a href="/bibliographie/france-geojson" data-source-id="france-geojson" title="Source : france-geojson">[6]</a></sup></p>
@@ -880,7 +899,26 @@
           map.removeLayer(communesLayer);
           communesLayer = null;
         }
+        communesFetched = false;  // allow re-fetch on next toggle
         clearLegend();
+      }
+    }
+
+    function updateCommuneVisibility() {
+      const zoom = map.getZoom();
+      const communesCheck = document.getElementById('toggle-communes');
+      if (!communesCheck || !communesCheck.checked) return;
+
+      if (zoom >= 9) {
+        // Add communes layer to map if currently detached
+        if (communesLayer && !map.hasLayer(communesLayer)) {
+          map.addLayer(communesLayer);
+        }
+      } else {
+        // Remove communes layer from map but keep the data for when user zooms in
+        if (communesLayer && map.hasLayer(communesLayer)) {
+          map.removeLayer(communesLayer);
+        }
       }
     }
 
