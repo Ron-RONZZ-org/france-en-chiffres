@@ -127,10 +127,11 @@
 
     function getDensityColor(density) {
       if (density === null || density === undefined) return '#1e293b';
+      // YlGnBu 9-class — more saturated, visible against OSM base map
       const breaks = [0, 30, 60, 100, 150, 300, 500, 1000, 5000];
       const colors = [
-        '#f7fcf0', '#e0f3db', '#ccebc5', '#a8ddb5',
-        '#7bccc4', '#4eb3d3', '#2b8cbe', '#0868ac', '#084081',
+        '#ffffcc', '#c7e9b4', '#7fcdbb', '#41b6c4',
+        '#1d91c0', '#225ea8', '#253494', '#081d58', '#020024',
       ];
       for (let i = 0; i < breaks.length; i++) {
         if (density <= breaks[i]) return colors[i];
@@ -342,8 +343,8 @@
     function makeDensityLegend() {
       const breaks = [0, 30, 60, 100, 150, 300, 500, 1000, 5000];
       const colors = [
-        '#f7fcf0', '#e0f3db', '#ccebc5', '#a8ddb5',
-        '#7bccc4', '#4eb3d3', '#2b8cbe', '#0868ac', '#084081',
+        '#ffffcc', '#c7e9b4', '#7fcdbb', '#41b6c4',
+        '#1d91c0', '#225ea8', '#253494', '#081d58', '#020024',
       ];
       const labels = ['0', '30', '60', '100', '150', '300', '500', '1 000', '5 000+'];
       return labels.map((label, i) => `
