@@ -880,11 +880,9 @@
             const code = feature.properties.code || '';
             const pop = feature.properties.population || 0;
             const density = feature.properties.density;
-            const densityCheck = document.getElementById('toggle-density');
-            const densityActive = densityCheck && densityCheck.checked && density > 0;
             if (name) {
               let tip = `${escapeHtml(name)} (${escapeHtml(code)})<br>Population: ${pop.toLocaleString('fr-FR')}`;
-              if (densityActive) {
+              if (density > 0) {
                 tip += `<br><strong>${getDensityLabel(density)}</strong>`;
               }
               layer.bindTooltip(tip, {

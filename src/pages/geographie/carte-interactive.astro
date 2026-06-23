@@ -574,6 +574,11 @@ const sources = (await Promise.all(
     border: none;
   }
 
+  /* Push zoom controls down to clear the collapsed layer panel button */
+  #map-page-wrapper.is-fullscreen :global(.leaflet-control-zoom) {
+    margin-top: 52px;
+  }
+
   /* ── Info panel (legend + sources) in fullscreen: collapsible bottom bar ── */
   #map-page-wrapper.is-fullscreen .interactive-page__info-panel {
     position: fixed;
