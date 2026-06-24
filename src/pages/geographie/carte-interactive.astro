@@ -114,20 +114,6 @@ const sources = (await Promise.all(
             </span>
           </label>
 
-          <label
-            class="layer-controls__item layer-controls__suboption2 layer-controls__suboption2--hidden"
-            data-map-toggle="density-precise"
-            data-description="Rendu communal précis — plus lent, mais affiche les limites réelles de chaque commune. <sup class=&quot;citation&quot;><a href=&quot;/bibliographie/insee-2024&quot; data-source-id=&quot;insee-2024&quot; title=&quot;Source&nbsp;: insee-2024&quot;>[1]</a></sup>"
-            for="toggle-density-precise"
-          >
-            <input type="checkbox" id="toggle-density-precise" data-map-toggle="density-precise" class="layer-controls__checkbox">
-            <span class="layer-controls__swatch layer-controls__swatch--precise"></span>
-            <span class="layer-controls__label">
-              <strong>Rendu précis</strong>
-              <span style="font-size:0.75rem; opacity:0.7">limites communales</span>
-              <span style="font-size:0.65rem; opacity:0.5; font-style:italic">(chargement plus long)</span>
-            </span>
-          </label>
         </div>
       </div>
 
@@ -260,14 +246,7 @@ const sources = (await Promise.all(
     display: none;
   }
 
-  .layer-controls__suboption2 {
-    padding-left: 2.8rem !important;
-    font-size: 0.8rem;
-  }
 
-  .layer-controls__suboption2--hidden {
-    display: none;
-  }
 
   /* ── Loading indicator on toggle labels ── */
   .layer-controls__item[data-loading] .layer-controls__label::after {
@@ -356,10 +335,7 @@ const sources = (await Promise.all(
     background: #6366f1;
   }
 
-  .layer-controls__swatch--precise {
-    background: linear-gradient(135deg, #1e293b, #475569);
-    border: 1px solid #6366f1;
-  }
+
 
   .layer-controls__label {
     display: flex;
@@ -583,11 +559,6 @@ const sources = (await Promise.all(
 
   .layer-controls--fullscreen .layer-controls__suboption {
     padding-left: 1.5rem !important;
-  }
-
-  .layer-controls--fullscreen .layer-controls__suboption2 {
-    padding-left: 2.3rem !important;
-    font-size: 0.75rem;
   }
 
   /* When collapsed the button floats at left edge (the default position above) */

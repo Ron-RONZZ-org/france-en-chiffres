@@ -1,5 +1,6 @@
 node_modules/
 dist/
+public/data/tiles/
 .astro/
 .DS_Store
 *.local

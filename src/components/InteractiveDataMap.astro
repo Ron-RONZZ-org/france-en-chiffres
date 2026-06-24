@@ -34,7 +34,7 @@
   import tippy from 'tippy.js';
   import 'tippy.js/dist/tippy.css';
   import 'tippy.js/animations/shift-away.css';
-  import geojsonvt from 'geojson-vt';
+
 
   (() => {
     // ── Constants ──
@@ -43,27 +43,7 @@
     const MIN_ZOOM = 5;
     const MAX_ZOOM = 12;
 
-    // ── Level-of-Detail config for density layer ──
-    // Hex grids at low zoom (fast SVG rendering on overlay pane), commune-level
-    // geojson-vt canvas tiles at high zoom (full detail).
-    const LOD_LEVELS = [
-      { maxZoom: 5,  densitySrc: '/data/density-hex-15km.geojson', densityLevel: 'hex-15km' },
-      { maxZoom: 7,  densitySrc: '/data/density-hex-10km.geojson', densityLevel: 'hex-10km' },
-      { maxZoom: 8,  densitySrc: '/data/density-hex-5km.geojson',  densityLevel: 'hex-5km' },
-      { maxZoom: 11, densitySrc: '/data/density-simple.geojson',   densityLevel: 'commune-simple' },
-      { maxZoom: 99, densitySrc: '/data/communes-density.geojson',  densityLevel: 'commune-full' },
-    ];
 
-    function getLodLevel(zoom) {
-      return LOD_LEVELS.find(l => zoom <= l.maxZoom) || LOD_LEVELS[LOD_LEVELS.length - 1];
-    }
-
-    /** When precise mode is on, skip hex levels and use commune-level data directly. */
-    const LOD_LEVELS_PRECISE = LOD_LEVELS.filter(l => !l.densityLevel.startsWith('hex-'));
-    function getEffectiveLodLevel(zoom) {
-      const levels = densityPreciseMode ? LOD_LEVELS_PRECISE : LOD_LEVELS;
-      return levels.find(l => zoom <= l.maxZoom) || levels[levels.length - 1];
-    }
 
     const DEPT_STYLE = {
       color: '#475569',
@@ -96,12 +76,6 @@
       // Canvas renderer ignored fillOpacity=0 and filled all features at stroke opacity
     });
 
-    // ── Custom pane for density fills (renders BELOW overlay SVG paths) ──
-    // Density fills go on their own pane below the overlay pane so SVG department/commune
-    // outlines (z-index 400) render on top of density polygons.
-    map.createPane('density-pane');
-    map.getPane('density-pane').style.zIndex = 350;
-
     // ── Custom pane for line features (renders ABOVE polygon layers) ──
     map.createPane('line-pane');
     map.getPane('line-pane').style.zIndex = 400;
@@ -114,18 +88,14 @@
 
     // ── State ──
     let deptLayer = null;
-    let densityLayer = null;         // GridLayer (vector tile layer)
-    let densityTileIndex = null;     // geojson-vt index for hit-testing
+    let densityLayer = null;         // GridLayer (pre-sliced vector tile canvas)
     let densityAttributionAdded = false;
     let densityLoading = false;      // true while async fetch in progress
-    let densityCancel = false;       // set true to cancel pending load
-    let densityPreciseMode = false;  // true: skip hex LOD, use commune boundaries
     let elevationLayer = null;
     let roadsLayer = null;
     let railwaysLayer = null;
     let waterwaysLayer = null;
     let communesLayer = null;
-    let currentDensityLevel = null;  // LOD level name of current density layer
     let currentHighlight = null;
 
     // ── Helpers ──
@@ -170,10 +140,6 @@
       return density.toLocaleString('fr-FR') + ' hab/km²';
     }
 
-    // ── Vector Tile helpers (geojson-vt viewport culling) ──
-    const VT_EXTENT = 4096;    // must match geojson-vt extent option
-    const VT_TILE_SIZE = 256;  // Leaflet default tile size
-
     /** Draw a polygon/multipolygon tile feature on a canvas context */
     function drawTileFeature(ctx, geometry, type, extent, tileSize, dpr, fillColor, strokeColor, lineWidth) {
       const scale = (tileSize / extent) * dpr;
@@ -204,46 +170,11 @@
       ctx.restore();
     }
 
-    /** Convert mouse latlng to tile-local coordinates for geojson-vt hit-testing */
-    function mouseToTileCoords(latlng, zoom) {
-      const n = Math.pow(2, zoom);
-      const tileX = (latlng.lng + 180) / 360 * n;
-      const tileY = (1 - Math.log(Math.tan(latlng.lat * Math.PI / 180) + 1 / Math.cos(latlng.lat * Math.PI / 180)) / Math.PI) / 2 * n;
-      return {
-        x: Math.round((tileX - Math.floor(tileX)) * VT_EXTENT),
-        y: Math.round((tileY - Math.floor(tileY)) * VT_EXTENT),
-        tileX: Math.floor(tileX),
-        tileY: Math.floor(tileY),
-      };
-    }
-
-    /** Ray-casting point-in-polygon test on tile-local coordinates */
-    function pointInTilePolygon(px, py, ringCoords) {
-      // ringCoords: [[x, y], ...] in tile coordinates [0, extent)
-      let inside = false;
-      for (let i = 0, j = ringCoords.length - 1; i < ringCoords.length; j = i++) {
-        const xi = ringCoords[i][0], yi = ringCoords[i][1];
-        const xj = ringCoords[j][0], yj = ringCoords[j][1];
-        if ((yi > py) !== (yj > py) &&
-            px < (xj - xi) * (py - yi) / (yj - yi) + xi) {
-          inside = !inside;
-        }
-      }
-      return inside;
-    }
-
-    /** Build a vector tile GridLayer from a GeoJSON FeatureCollection */
-    function createDensityTileLayer(data, colorFn, extent, tileSize) {
-      const tileIndex = geojsonvt(data, {
-        maxZoom: 14,
-        buffer: 64,
-        tolerance: 3,
-        extent: extent,
-        lineMetrics: false,
-        promoteId: 'code',
-      });
-
-      const VectorDensityLayer = L.GridLayer.extend({
+    /** Build a vector tile GridLayer from pre-sliced JSON tiles.
+     *  Tiles are generated at build time by scripts/build-density-tiles.js.
+     *  No runtime geojson-vt indexing needed — just fetch + render. */
+    function createPreSlicedTileLayer() {
+      const PreSlicedLayer = L.GridLayer.extend({
         createTile: function (coords) {
           const canvas = L.DomUtil.create('canvas', 'leaflet-tile');
           const size = this.getTileSize();
@@ -253,24 +184,28 @@
           canvas.style.width = size.x + 'px';
           canvas.style.height = size.y + 'px';
 
-          const tile = tileIndex.getTile(coords.z, coords.x, coords.y);
-          if (tile && tile.features) {
-            const ctx = canvas.getContext('2d');
-            for (const feature of tile.features) {
-              const density = feature.tags.density || 0;
-              const lodLevel = feature.tags.level;
-              const borderW = lodLevel === 'region' ? 1.5 : lodLevel === 'department' ? 1.0 : 0.3;
-              drawTileFeature(ctx, feature.geometry, feature.type,
-                extent, size.x, dpr,
-                colorFn(density), '#475569', borderW);
-            }
-          }
+          const url = `/data/tiles/${coords.z}/${coords.x}/${coords.y}.json`;
+          const ctx = canvas.getContext('2d');
+
+          fetch(url)
+            .then(r => r.ok ? r.json() : Promise.reject())
+            .then(data => {
+              for (const feature of data.features) {
+                const density = feature.tags.density || 0;
+                drawTileFeature(ctx, feature.geometry, feature.type,
+                  4096, size.x, dpr,
+                  getDensityColor(density), '#475569', 0.3);
+              }
+            })
+            .catch(() => {
+              // Tile not available (water / outside France) — leave transparent
+            });
 
           return canvas;
         },
       });
 
-      return { layer: new VectorDensityLayer({ pane: 'density-pane' }), tileIndex };
+      return new PreSlicedLayer();
     }
 
     // ── Tippy: layer controls with HTML descriptions ──
@@ -352,32 +287,11 @@
     }
 
     function clearDensityLayer() {
-      // Cancel any in-flight load
-      if (densityLoading) densityCancel = true;
-      densityLoading = false;
-      // Remove existing layer if present
+      if (densityLoading) { densityLoading = false; }
       if (densityLayer) {
         map.removeLayer(densityLayer);
         densityLayer = null;
       }
-      // Defensive: remove any leftover density/hex paths from the overlay pane.
-      // L.GeoJSON (hex grids) can leave stale paths after removeLayer in some
-      // Leaflet versions when racing with async applyCommuneDensity calls.
-      const overlaySvg = document.querySelector('.leaflet-overlay-pane svg');
-      if (overlaySvg) {
-        const paths = overlaySvg.querySelectorAll('path');
-        for (const p of paths) {
-          const fill = p.getAttribute('fill');
-          // Hex grid fill colors are in the green-blue-purple range;
-          // department (#1e293b, #475569) and commune (#6366f1) strokes are excluded
-          if (fill && !['#1e293b', '#475569', '#6366f1', 'none'].includes(fill)) {
-            p.remove();
-          }
-        }
-      }
-      densityTileIndex = null;
-      currentDensityLevel = null;
-      closeDensityTooltip();
       clearLegend();
     }
 
@@ -405,121 +319,7 @@
       if (el) el.classList.toggle('data-map__loading--visible', visible);
     }
 
-    // ── Density tooltip (vector tiles — use map-level mousemove) ──
-    let densityTooltipEl = null; // L.Tooltip instance
-
-    function showDensityTooltip(latlng, tags) {
-      if (!densityTooltipEl) {
-        densityTooltipEl = L.tooltip({
-          sticky: true,
-          className: 'dept-tooltip dept-tooltip--density',
-        });
-      }
-      const name = tags.nom || '';
-      const code = tags.code || '';
-      const density = tags.density || 0;
-      const pop = tags.population || 0;
-      const count = tags.commune_count;
-      let extra = '';
-      if (count) {
-        extra = `<br><span class="dept-tooltip__meta">${count.toLocaleString('fr-FR')} communes</span>`;
-      }
-      densityTooltipEl.setContent(
-        `<strong>${escapeHtml(name)}</strong> (${escapeHtml(code)})<br>` +
-        `<strong>${getDensityLabel(density)}</strong><br>` +
-        `Population: ${pop.toLocaleString('fr-FR')}${extra}`
-      );
-      densityTooltipEl.setLatLng(latlng);
-      if (!densityTooltipEl._map) map.openTooltip(densityTooltipEl);
-    }
-
-    function closeDensityTooltip() {
-      if (densityTooltipEl) {
-        map.closeTooltip(densityTooltipEl);
-      }
-    }
-
-    /** Hit-test visible density tiles at the given mouse latlng */
-    function hitTestDensity(latlng) {
-      if (!densityTileIndex) return null;
-      const zoom = map.getZoom();
-      const tc = mouseToTileCoords(latlng, zoom);
-      const tile = densityTileIndex.getTile(zoom, tc.tileX, tc.tileY);
-      if (!tile || !tile.features) return null;
-
-      // Check features in this visible tile — typically 5–50
-      for (const feature of tile.features) {
-        // geojson-vt: type 3=Polygon(geometry=[ring,ring]), type 6=MultiPolygon(geometry=[[ring],[ring]])
-        const polygons = feature.type === 6 ? feature.geometry : [feature.geometry];
-        for (const polygon of polygons) {
-          // polygon = [outerRing, holeRing, ...] — check first ring (outer boundary)
-          const outerRing = polygon[0];
-          if (!outerRing || outerRing.length < 3) continue;
-          if (pointInTilePolygon(tc.x, tc.y, outerRing)) {
-            return feature.tags;
-          }
-        }
-      }
-      return null;
-    }
-
-    /** Wire up density hover — consumes mousemove to show tooltip */
-    function setupDensityHover() {
-      map.on('mousemove', (e) => {
-        // When communes are visible (zoom >= 9 and toggle on), skip density
-        // tooltip entirely — the commune layer's bindTooltip already includes
-        // density info. Showing both creates overlapping popups.
-        const communesCheck = document.getElementById('toggle-communes');
-        const communesVisible = communesCheck && communesCheck.checked && map.getZoom() >= 9;
-        if (!communesVisible && densityTileIndex) {
-          const tags = hitTestDensity(e.latlng);
-          if (tags) {
-            showDensityTooltip(e.latlng, tags);
-            return;
-          }
-        }
-        // Don't close if densityLayer is an L.geoJSON (hex grid) —
-        // Leaflet's built-in onEachFeature/bindTooltip handles tooltips.
-        if (densityLayer && typeof densityLayer.getLayers === 'function') return;
-        closeDensityTooltip();
-      });
-    }
-
-    function setDensityLayerFromData(data, currentLod, currentZoom) {
-      const isHex = currentLod.densityLevel.startsWith('hex-');
-
-      if (isHex) {
-        // Hex grid: L.geoJSON SVG on overlay pane (z=400, above basemap, below outlines)
-        densityTileIndex = null;
-        densityLayer = L.geoJSON(data, {
-          style: (feature) => {
-            const fill = feature.properties.fillColor || getDensityColor(feature.properties.density || 0);
-            return {
-              fillColor: fill,
-              fillOpacity: 0.85,
-              weight: 0,
-              color: 'transparent',
-            };
-          },
-          onEachFeature: (feature, layer) => {
-            const density = feature.properties.density || 0;
-            layer.bindTooltip(`<strong>${getDensityLabel(density)}</strong>`, {
-              sticky: true, className: 'dept-tooltip dept-tooltip--density',
-            });
-          },
-        });
-      } else {
-        // Commune-level: geojson-vt vector tiles (canvas) on density-pane (z=350)
-        const vt = createDensityTileLayer(data, getDensityColor, VT_EXTENT, VT_TILE_SIZE);
-        densityTileIndex = vt.tileIndex;
-        densityLayer = vt.layer;
-      }
-    }
-
-    async function applyCommuneDensity() {
-      // Cancel any previous loading
-      if (densityLoading) densityCancel = true;
-
+    async function applyDensity() {
       clearDensityLayer();
       if (!deptLayer) return;
 
@@ -530,66 +330,34 @@
       setLoading(labelEl, true);
       showMapLoading(true);
       densityLoading = true;
-      densityCancel = false;
-
-      // Determine LOD level based on current zoom
-      const zoom = map.getZoom();
-      const lod = getEffectiveLodLevel(zoom);
-      currentDensityLevel = lod.densityLevel;
 
       setLegendContent(
         '<p class="data-map__legend-subtitle">Densit\u00e9 de population</p><p class="data-map__legend-loading">Chargement des donn\u00e9es...</p>');
 
       try {
-        const resp = await fetch(lod.densitySrc);
-        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-        const data = await resp.json();
-
-        // Guard: cancelled or user unchecked while loading
-        if (densityCancel || !checkbox.checked) return;
-
-        // Recompute lod in case zoom changed during fetch
-        const currentZoom = map.getZoom();
-        const currentLod = getEffectiveLodLevel(currentZoom);
-        currentDensityLevel = currentLod.densityLevel;
-
-        const isHex = currentLod.densityLevel.startsWith('hex-');
-        const hexSize = isHex ? currentLod.densityLevel.split('-')[1] : null;
-        const levelLabel = isHex
-          ? `maillage hexagonal ${hexSize} (${data.features.length.toLocaleString('fr-FR')} cellules, zoom ${currentZoom})`
-          : 'par commune (données simplifiées)';
-
-        setDensityLayerFromData(data, currentLod, currentZoom);
-
-        // Guard after layer creation
-        if (densityCancel || !checkbox.checked) {
-          densityLayer = null;
-          densityTileIndex = null;
-          return;
-        }
-
+        // Pre-sliced vector tiles — generated at build time.
+        // Each tile is a JSON file containing commune-density features in
+        // tile-space coordinates [0, 4096). The GridLayer fetches them
+        // on demand — no runtime geojson-vt indexing, no 9.4MB download.
+        densityLayer = createPreSlicedTileLayer();
         densityLayer.addTo(map);
 
-        const densities = data.features.map(f => f.properties.density || 0);
-        const maxDen = Math.max(...densities).toLocaleString('fr-FR');
-        const featureCount = data.features.length;
-        const legendHtml = `
+        const zoom = map.getZoom();
+        setLegendContent(`
           <p class="data-map__legend-subtitle">Densité de population</p>
-          <p class="data-map__legend-hint">Niveau : ${levelLabel}</p>
-          <p>Maximale : ${maxDen} hab/km².</p>
+          <p class="data-map__legend-hint">Communes (tuiles vectorielles pré-découpées, zoom ${zoom})</p>
           <div class="density-legend">
             ${makeDensityLegend()}
           </div>
           <p class="data-map__legend-source"><sup class="citation"><a href="/bibliographie/insee-2024" data-source-id="insee-2024" title="Source : insee-2024">[1]</a></sup></p>
-        `;
-        setLegendContent(legendHtml);
+        `);
         if (!densityAttributionAdded) {
           map.attributionControl.addAttribution('Données population : <a href="https://geo.api.gouv.fr/">INSEE — api.gouv.fr</a>');
           densityAttributionAdded = true;
         }
-        console.log(`✓ Density loaded: ${currentLod.densitySrc} (${featureCount} features, level=${currentLod.densityLevel})`);
+        console.log(`✓ Density layer added (pre-sliced tiles, zoom ${zoom})`);
       } catch (err) {
-        console.error('Failed to load commune density:', err);
+        console.error('Failed to create density layer:', err);
       } finally {
         setLoading(labelEl, false);
         showMapLoading(false);
@@ -858,13 +626,6 @@
         }
       }
 
-      // Density layer LOD: re-evaluate source when crossing thresholds
-      if (densityLayer) {
-        const newLod = getEffectiveLodLevel(zoom);
-        if (newLod.densityLevel !== currentDensityLevel) {
-          applyCommuneDensity();
-        }
-      }
 
       // Communes: show/hide based on zoom (minZoom workaround)
       updateCommuneVisibility();
@@ -994,23 +755,10 @@
 
           switch (layer) {
             case 'density':
-              // Show/hide precise-mode suboption
-              const preciseRow = document.querySelector('.layer-controls__suboption2');
               if (e.target.checked) {
-                if (preciseRow) preciseRow.classList.remove('layer-controls__suboption2--hidden');
-                await applyCommuneDensity();
+                await applyDensity();
               } else {
-                if (preciseRow) preciseRow.classList.add('layer-controls__suboption2--hidden');
                 clearDensityLayer();
-                densityPreciseMode = false;
-                const preciseCheck = document.getElementById('toggle-density-precise');
-                if (preciseCheck) preciseCheck.checked = false;
-              }
-              break;
-            case 'density-precise':
-              densityPreciseMode = e.target.checked;
-              if (document.getElementById('toggle-density')?.checked) {
-                await applyCommuneDensity();
               }
               break;
             case 'elevation':
@@ -1034,15 +782,9 @@
                 if (densityRow) densityRow.classList.remove('layer-controls__suboption--hidden');
               } else {
                 if (densityRow) densityRow.classList.add('layer-controls__suboption--hidden');
-                // Also hide precise-mode suboption
-                const preciseRow = document.querySelector('.layer-controls__suboption2');
-                if (preciseRow) preciseRow.classList.add('layer-controls__suboption2--hidden');
                 if (densityCheck && densityCheck.checked) {
                   densityCheck.checked = false;
                   clearDensityLayer();
-                  densityPreciseMode = false;
-                  const preciseCheck = document.getElementById('toggle-density-precise');
-                  if (preciseCheck) preciseCheck.checked = false;
                 }
               }
               break;
@@ -1167,8 +909,6 @@
       });
       // Remove any existing layers
       if (densityLayer) { map.removeLayer(densityLayer); densityLayer = null; }
-      densityTileIndex = null;
-      currentDensityLevel = null;
       if (elevationLayer) { map.removeLayer(elevationLayer); elevationLayer = null; }
       if (roadsLayer) { map.removeLayer(roadsLayer); roadsLayer = null; roadsFetched = false; }
       if (railwaysLayer) { map.removeLayer(railwaysLayer); railwaysLayer = null; }
@@ -1182,7 +922,6 @@
     loadDepartments();
     setupToggles();
     setupTippy();
-    setupDensityHover();
     setupFullscreenCollapse();
     setupInfoPanelToggle();
 
