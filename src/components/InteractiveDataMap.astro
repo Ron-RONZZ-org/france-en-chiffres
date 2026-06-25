@@ -789,31 +789,73 @@
       if (!window._communeTip._map) map.openTooltip(window._communeTip);
     }
 
+    /** Hit-test with on-demand tile fetch fallback. If the tile isn't cached
+     *  yet (still loading from the GridLayer), fetch it directly so the hover
+     *  tooltip works on the first mousemove even before tiles finish loading. */
+    function hitTestWithFallback(latlng, zoom, cache, extent) {
+      const tc = mouseToTileCoords(latlng, zoom, extent);
+      const key = `${zoom}/${tc.tileX}/${tc.tileY}`;
+      let features = cache.get(key);
+      if (!features) {
+        // Tile not cached yet — try a direct fetch
+        try {
+          const xhr = new XMLHttpRequest();
+          xhr.open('GET', `/data/tiles/${key}.json`, false); // synchronous
+          xhr.send();
+          if (xhr.status === 200) {
+            const data = JSON.parse(xhr.responseText);
+            features = data.features || null;
+            if (features) cache.set(key, features);
+          }
+        } catch(e) { /* tile not available */ }
+        if (!features) return null;
+      }
+
+      for (const feature of features) {
+        const polygons = feature.type === 6 ? feature.geometry : [feature.geometry];
+        for (const polygon of polygons) {
+          const outerRing = polygon[0];
+          if (!outerRing || outerRing.length < 3) continue;
+          if (pointInTilePolygon(tc.x, tc.y, outerRing)) {
+            return feature.tags;
+          }
+        }
+      }
+      return null;
+    }
+
     /** Hover handler for density layer — shows commune info via tile hit-test. */
+    let _densityHoverHandler = null;
     function setupDensityHover(cache) {
-      map.on('mousemove', (e) => {
+      // Remove previous handler to avoid duplicates
+      if (_densityHoverHandler) map.off('mousemove', _densityHoverHandler);
+      _densityHoverHandler = (e) => {
         const densityCheck = document.getElementById('toggle-density');
         if (!densityCheck || !densityCheck.checked) return;
-        const tags = hitTestCommuneTiles(e.latlng, map.getZoom(), cache, 4096);
+        const tags = hitTestWithFallback(e.latlng, map.getZoom(), cache, 4096);
         if (tags) { showCommuneTooltip(tags, e.latlng); return; }
         if (window._communeTip && window._communeTip._map) map.closeTooltip(window._communeTip);
-      });
+      };
+      map.on('mousemove', _densityHoverHandler);
     }
 
     /** Hover handler for commune layer (stroke-only, zoom 9+). */
+    let _communeHoverHandler = null;
     function setupCommuneHover(cache) {
-      map.on('mousemove', (e) => {
+      // Remove previous handler to avoid duplicates
+      if (_communeHoverHandler) map.off('mousemove', _communeHoverHandler);
+      _communeHoverHandler = (e) => {
         const communesCheck = document.getElementById('toggle-communes');
         if (!communesCheck || !communesCheck.checked) return;
         const densityCheck = document.getElementById('toggle-density');
         if (densityCheck && densityCheck.checked) return;
         const zoom = map.getZoom();
         if (zoom < 9) return;
-
-        const tags = hitTestCommuneTiles(e.latlng, zoom, cache, 4096);
+        const tags = hitTestWithFallback(e.latlng, zoom, cache, 4096);
         if (tags) { showCommuneTooltip(tags, e.latlng); return; }
         if (window._communeTip && window._communeTip._map) map.closeTooltip(window._communeTip);
-      });
+      };
+      map.on('mousemove', _communeHoverHandler);
     }
 
     async function fetchCommunes() {
