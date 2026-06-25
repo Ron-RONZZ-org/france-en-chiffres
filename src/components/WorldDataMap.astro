@@ -138,6 +138,7 @@
 
     function getDensityLabel(value) {
       if (value === null || value === undefined) return 'N/A';
+      if (value < 1) return '< 1 hab/km²';
       return value.toLocaleString('fr-FR') + ' hab/km²';
     }
 
@@ -234,6 +235,10 @@
         onEachFeature: (feature, layer) => {
           const props = feature.properties || {};
 
+          // Each layer stores its own base style so hover highlight can
+          // restore the correct colors when a thematic layer is active.
+          layer._baseStyle = COUNTRY_STYLE;
+
           // Bind tooltip
           const tip = formatTooltip(props);
           layer.bindTooltip(tip, {
@@ -243,10 +248,11 @@
             className: 'world-tooltip-leaflet',
           });
 
-          // Highlight on hover
+          // Highlight on hover — restore _baseStyle, not COUNTRY_STYLE,
+          // so choropleth coloring is kept after mouse leaves the feature.
           layer.on('mouseover', () => {
             if (currentHighlight) {
-              currentHighlight.setStyle(COUNTRY_STYLE);
+              currentHighlight.setStyle(currentHighlight._baseStyle);
             }
             layer.setStyle(COUNTRY_HIGHLIGHT);
             currentHighlight = layer;
@@ -254,7 +260,7 @@
 
           layer.on('mouseout', () => {
             if (currentHighlight) {
-              currentHighlight.setStyle(COUNTRY_STYLE);
+              currentHighlight.setStyle(currentHighlight._baseStyle);
               currentHighlight = null;
             }
           });
@@ -279,14 +285,15 @@
 
         countryLayer.eachLayer((layer) => {
           const props = layer.feature.properties;
-          const val = props.ihdi || props.hdi;
           const color = props.ihdi !== undefined ? getIHDIColor(props.ihdi) : (props.hdi !== undefined ? getHDIColor(props.hdi) : '#1e293b');
-          layer.setStyle({
+          const style = {
             fillColor: color,
             fillOpacity: 0.7,
             weight: 1.0,
             color: '#334155',
-          });
+          };
+          layer._baseStyle = style;
+          layer.setStyle(style);
         });
 
         setLegendContent(`
@@ -301,6 +308,7 @@
         // Reset to default
         if (countryLayer) {
           countryLayer.eachLayer((layer) => {
+            layer._baseStyle = COUNTRY_STYLE;
             layer.setStyle(COUNTRY_STYLE);
           });
         }
@@ -334,12 +342,14 @@
         countryLayer.eachLayer((layer) => {
           const props = layer.feature.properties;
           const density = props.density;
-          layer.setStyle({
+          const style = {
             fillColor: getDensityColor(density),
             fillOpacity: 0.7,
             weight: 1.0,
             color: '#334155',
-          });
+          };
+          layer._baseStyle = style;
+          layer.setStyle(style);
         });
 
         setLegendContent(`
@@ -354,6 +364,7 @@
         // Reset to default
         if (countryLayer) {
           countryLayer.eachLayer((layer) => {
+            layer._baseStyle = COUNTRY_STYLE;
             layer.setStyle(COUNTRY_STYLE);
           });
         }

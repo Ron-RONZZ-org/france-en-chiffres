@@ -138,6 +138,7 @@
 
     function getDensityLabel(density) {
       if (density === null || density === undefined) return 'N/A';
+      if (density < 1) return '< 1 hab/km²';
       return density.toLocaleString('fr-FR') + ' hab/km²';
     }
 
