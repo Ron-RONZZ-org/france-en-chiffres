@@ -96,6 +96,7 @@
     let railwaysLayer = null;
     let waterwaysLayer = null;
     let communesLayer = null;
+    let communeTileCache = null;     // Map for commune tile hit-testing
     let currentHighlight = null;
 
     // ── Helpers ──
@@ -212,6 +213,117 @@
       });
 
       return new PreSlicedLayer();
+    }
+
+    /** Draw commune boundary strokes on canvas (no fill — just purple outlines). */
+    function drawCommuneStroke(ctx, geometry, type, extent, tileSize, dpr) {
+      const scale = (tileSize / extent) * dpr;
+      ctx.save();
+      ctx.scale(scale, scale);
+      ctx.strokeStyle = '#6366f1';
+      ctx.lineWidth = 0.4 / (scale * dpr);
+
+      const polygons = type === 6 ? geometry : [geometry];
+      for (const polygon of polygons) {
+        for (const ring of polygon) {
+          if (!ring || ring.length < 3) continue;
+          ctx.beginPath();
+          ctx.moveTo(ring[0][0], ring[0][1]);
+          for (let i = 1; i < ring.length; i++) {
+            ctx.lineTo(ring[i][0], ring[i][1]);
+          }
+          ctx.closePath();
+          ctx.stroke();
+        }
+      }
+      ctx.restore();
+    }
+
+    /** Convert mouse latlng to tile-local coordinates for hit-testing. */
+    function mouseToTileCoords(latlng, zoom, extent) {
+      const n = Math.pow(2, zoom);
+      const tileX = (latlng.lng + 180) / 360 * n;
+      const mercY = Math.log(Math.tan(latlng.lat * Math.PI / 360 + Math.PI / 4));
+      const tileY = (1 - mercY / Math.PI) / 2 * n;
+      return {
+        x: Math.round((tileX - Math.floor(tileX)) * extent),
+        y: Math.round((tileY - Math.floor(tileY)) * extent),
+        tileX: Math.floor(tileX),
+        tileY: Math.floor(tileY),
+      };
+    }
+
+    /** Ray-casting point-in-polygon test on tile-local coordinates. */
+    function pointInTilePolygon(px, py, ringCoords) {
+      let inside = false;
+      for (let i = 0, j = ringCoords.length - 1; i < ringCoords.length; j = i++) {
+        const xi = ringCoords[i][0], yi = ringCoords[i][1];
+        const xj = ringCoords[j][0], yj = ringCoords[j][1];
+        if ((yi > py) !== (yj > py) &&
+            px < (xj - xi) * (py - yi) / (yj - yi) + xi) {
+          inside = !inside;
+        }
+      }
+      return inside;
+    }
+
+    /** Build a stroke-only vector tile GridLayer for commune boundaries.
+     *  Shares the same pre-sliced tiles as density, but renders only
+     *  purple outlines (no fill). Tiles are cached for tooltip hit-testing. */
+    function createCommuneTileLayer() {
+      const tileCache = new Map();
+
+      const CommuneLayer = L.GridLayer.extend({
+        createTile: function (coords) {
+          const canvas = L.DomUtil.create('canvas', 'leaflet-tile');
+          const size = this.getTileSize();
+          const dpr = window.devicePixelRatio || 1;
+          canvas.width = size.x * dpr;
+          canvas.height = size.y * dpr;
+          canvas.style.width = size.x + 'px';
+          canvas.style.height = size.y + 'px';
+
+          const url = `/data/tiles/${coords.z}/${coords.x}/${coords.y}.json`;
+          const ctx = canvas.getContext('2d');
+
+          fetch(url)
+            .then(r => r.ok ? r.json() : Promise.reject())
+            .then(data => {
+              if (!canvas.isConnected) return;
+              const key = `${coords.z}/${coords.x}/${coords.y}`;
+              tileCache.set(key, data.features);
+              for (const feature of data.features) {
+                drawCommuneStroke(ctx, feature.geometry, feature.type,
+                  4096, size.x, dpr);
+              }
+            })
+            .catch(() => {});
+
+          return canvas;
+        },
+      });
+
+      return { layer: new CommuneLayer({ minZoom: 9 }), tileCache };
+    }
+
+    /** Hit-test visible commune tiles at the given mouse latlng. */
+    function hitTestCommuneTiles(latlng, zoom, tileCache, extent) {
+      const tc = mouseToTileCoords(latlng, zoom, extent);
+      const key = `${zoom}/${tc.tileX}/${tc.tileY}`;
+      const features = tileCache.get(key);
+      if (!features) return null;
+
+      for (const feature of features) {
+        const polygons = feature.type === 6 ? feature.geometry : [feature.geometry];
+        for (const polygon of polygons) {
+          const outerRing = polygon[0];
+          if (!outerRing || outerRing.length < 3) continue;
+          if (pointInTilePolygon(tc.x, tc.y, outerRing)) {
+            return feature.tags;
+          }
+        }
+      }
+      return null;
     }
 
     // ── Tippy: layer controls with HTML descriptions ──
@@ -638,6 +750,14 @@
         densityHint.textContent = `Par commune (zoom ${zoom})`;
       }
 
+      // Communes: update legend text based on zoom
+      const communeHint = document.querySelector('[data-legend="communes"]');
+      if (communeHint) {
+        communeHint.textContent = zoom >= 9
+          ? `Visible à partir du zoom 9 (zoom actuel : ${zoom}).`
+          : `Zoom avant (niveau 9+) pour voir les limites communales.`;
+      }
+
       // Communes: show/hide based on zoom (minZoom workaround)
       updateCommuneVisibility();
     });
@@ -645,80 +765,77 @@
     // ── Communes (GeoJSON overlay) ──
     let communesFetched = false;
 
+    /** Set up commune hover tooltip via canvas tile hit-testing. */
+    function setupCommuneHover(cache) {
+      map.on('mousemove', (e) => {
+        const communesCheck = document.getElementById('toggle-communes');
+        if (!communesCheck || !communesCheck.checked) return;
+        // Skip if density is active (density canvas already shows boundaries)
+        const densityCheck = document.getElementById('toggle-density');
+        if (densityCheck && densityCheck.checked) return;
+        // Commune layer only visible at zoom 9+
+        const zoom = map.getZoom();
+        if (zoom < 9) return;
+
+        const tags = hitTestCommuneTiles(e.latlng, zoom, cache, 4096);
+        // Use the same tooltip as before: name, code, population, density
+        if (tags) {
+          const name = tags.nom || '';
+          const code = tags.code || '';
+          const pop = tags.population || 0;
+          const density = tags.density || 0;
+          let tip = `${escapeHtml(name)} (${escapeHtml(code)})<br>Population: ${pop.toLocaleString('fr-FR')}`;
+          if (density > 0) {
+            tip += `<br><strong>${getDensityLabel(density)}</strong>`;
+          }
+          if (!window._communeTip) {
+            window._communeTip = L.tooltip({ sticky: true, className: 'dept-tooltip' });
+          }
+          window._communeTip.setContent(tip).setLatLng(e.latlng);
+          if (!window._communeTip._map) map.openTooltip(window._communeTip);
+        } else if (window._communeTip && window._communeTip._map) {
+          map.closeTooltip(window._communeTip);
+        }
+      });
+    }
+
     async function fetchCommunes() {
       if (communesFetched) return;
       const communesLabel = document.querySelector('[data-map-toggle="communes"]');
       setLoading(communesLabel, true);
       showMapLoading(true);
       try {
-        // LOD: use simplified file at z9–11, full detail at z12+
-        const zoom = map.getZoom();
-        const useSimple = zoom < 12;
-        const url = useSimple ? '/data/density-simple.geojson' : '/data/communes-density.geojson';
-
-        const resp = await fetch(url);
-        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-        const data = await resp.json();
+        // Pre-sliced vector tiles — fast per-tile loading instead of 9.3MB GeoJSON.
+        // The GridLayer fetches tiles from /data/tiles/{z}/{x}/{y}.json on demand.
+        const { layer, tileCache } = createCommuneTileLayer();
+        communesLayer = layer;
+        communeTileCache = tileCache;
         communesFetched = true;
 
-        // Cache hint: preload the full dataset in background if we only loaded the simple one
-        if (useSimple && !window._communeFullPreloaded) {
-          window._communeFullPreloaded = true;
-          fetch('/data/communes-density.geojson').catch(() => {});
-        }
-
-        communesLayer = L.geoJSON(data, {
-          minZoom: 9,
-          style: {
-            color: '#6366f1',
-            weight: 0.4,
-            fillColor: '#6366f1',
-            fillOpacity: 0.01,  // near-zero opacity for SVG hit-testing; density shows through
-          },
-          onEachFeature: (feature, layer) => {
-            const name = feature.properties.nom || '';
-            const code = feature.properties.code || '';
-            const pop = feature.properties.population || 0;
-            const density = feature.properties.density;
-            if (name) {
-              let tip = `${escapeHtml(name)} (${escapeHtml(code)})<br>Population: ${pop.toLocaleString('fr-FR')}`;
-              if (density > 0) {
-                tip += `<br><strong>${getDensityLabel(density)}</strong>`;
-              }
-              layer.bindTooltip(tip, {
-                sticky: true, className: 'dept-tooltip',
-              });
-            }
-          },
-        });
-
-        // Only add to map if zoom >= minZoom (9) — avoids Leaflet minZoom bug where
-        // SVG paths are created at low zoom despite minZoom, causing visual clutter.
+        // Add to map only at zoom 9+ (minZoom handled by GridLayer option)
         const currentZoom = map.getZoom();
         if (currentZoom >= 9) {
           map.addLayer(communesLayer);
         }
 
-        const levelHint = useSimple
-          ? `<span class="data-map__legend-hint">Version simplifiée (zoom ${zoom}) — données détaillées chargées en arrière-plan</span>`
-          : '';
+        setupCommuneHover(tileCache);
+
         const zoomHint = currentZoom < 9
-          ? '<p class="data-map__legend-hint">Zoom avant (niveau 9+) pour voir les limites communales.</p>'
-          : '<p class="data-map__legend-hint">Visible à partir du zoom 9.</p>';
+          ? '<p class="data-map__legend-hint" data-legend="communes">Zoom avant (niveau 9+) pour voir les limites communales.</p>'
+          : '<p class="data-map__legend-hint" data-legend="communes">Visible à partir du zoom 9.</p>';
         setLegendContent(`
           <p class="data-map__legend-subtitle">Communes</p>
           ${zoomHint}
-          ${levelHint}
-          <p>${data.features.length.toLocaleString('fr-FR')} communes.</p>
+          <p>35 228 communes.</p>
           <p class="data-map__legend-source"><sup class="citation"><a href="/bibliographie/france-geojson" data-source-id="france-geojson" title="Source : france-geojson">[6]</a></sup></p>
         `);
         map.attributionControl.addAttribution('Limites communales : <a href="https://github.com/gregoiredavid/france-geojson">france-geojson</a>');
-        console.log(`✓ Communes layer loaded (${url.split('/').pop()}, ${data.features.length} features)`);
+        console.log(`✓ Communes layer added (pre-sliced tiles, zoom ${currentZoom})`);
       } catch (err) {
-        console.error('Failed to load communes:', err);
+        console.error('Failed to create commune tile layer:', err);
         setLegendContent(`
           <p class="data-map__legend-subtitle">Communes</p>
-          <p>Données non disponibles. Générez avec : <code>node scripts/build-density-grid.js</code></p>
+          <p>Données non disponibles.</p>
         `);
       } finally {
         setLoading(communesLabel, false);
@@ -734,6 +851,7 @@
           map.removeLayer(communesLayer);
           communesLayer = null;
         }
+        communeTileCache = null;
         communesFetched = false;  // allow re-fetch on next toggle
         clearLegend();
       }
@@ -938,7 +1056,7 @@
       if (roadsLayer) { map.removeLayer(roadsLayer); roadsLayer = null; roadsFetched = false; }
       if (railwaysLayer) { map.removeLayer(railwaysLayer); railwaysLayer = null; }
       if (waterwaysLayer) { map.removeLayer(waterwaysLayer); waterwaysLayer = null; waterwaysVisible = false; }
-      if (communesLayer) { map.removeLayer(communesLayer); communesLayer = null; communesFetched = false; }
+      if (communesLayer) { map.removeLayer(communesLayer); communesLayer = null; communesFetched = false; communeTileCache = null; }
       clearLegend();
     }
 
