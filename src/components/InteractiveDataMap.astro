@@ -207,7 +207,7 @@
               // Hide loading overlay once first tile with data is rendered
               if (!firstTileDrawn && data.features.length > 0) {
                 firstTileDrawn = true;
-                const labelEl = document.getElementById('toggle-density')?.closest('.layer-controls__item');
+                const labelEl = document.getElementById('toggle-density')?.closest('.map-layer-controls__item');
                 if (labelEl) setLoading(labelEl, false);
                 showMapLoading(false);
               }
@@ -332,7 +332,7 @@
 
     // ── Tippy: layer controls with HTML descriptions ──
     function setupTippy() {
-      const items = document.querySelectorAll('.layer-controls__item[data-description]');
+      const items = document.querySelectorAll('.map-layer-controls__item[data-description]');
       items.forEach((el) => {
         const html = el.getAttribute('data-description');
         if (!html) return;
@@ -447,7 +447,7 @@
       const checkbox = document.getElementById('toggle-density');
       if (!checkbox || !checkbox.checked) return;
 
-      const labelEl = checkbox.closest('.layer-controls__item');
+      const labelEl = checkbox.closest('.map-layer-controls__item');
       setLoading(labelEl, true);
       showMapLoading(true);
       densityLoading = true;
@@ -989,12 +989,12 @@
             case 'communes':
               toggleCommunes(e.target.checked);
               // Show/hide density suboption
-              const densityRow = document.querySelector('.layer-controls__suboption');
+              const densityRow = document.querySelector('.map-layer-controls__suboption');
               const densityCheck = document.getElementById('toggle-density');
               if (e.target.checked) {
-                if (densityRow) densityRow.classList.remove('layer-controls__suboption--hidden');
+                if (densityRow) densityRow.classList.remove('map-layer-controls__suboption--hidden');
               } else {
-                if (densityRow) densityRow.classList.add('layer-controls__suboption--hidden');
+                if (densityRow) densityRow.classList.add('map-layer-controls__suboption--hidden');
                 if (densityCheck && densityCheck.checked) {
                   densityCheck.checked = false;
                   clearDensityLayer();
@@ -1047,10 +1047,10 @@
       if (wrapper) {
         wrapper.classList.toggle('is-fullscreen', isFullscreen);
       }
-      const controls = document.querySelector('.layer-controls');
+      const controls = document.querySelector('.map-layer-controls');
       if (controls) {
-        controls.classList.toggle('layer-controls--fullscreen', isFullscreen);
-        if (!isFullscreen) controls.classList.remove('layer-controls--collapsed');
+        controls.classList.toggle('map-layer-controls--fullscreen', isFullscreen);
+        if (!isFullscreen) controls.classList.remove('map-layer-controls--collapsed');
       }
       // Move legend content between normal and fullscreen containers
       const legendContent = document.getElementById('map-legend-content');
@@ -1064,11 +1064,8 @@
       }
       // When entering fullscreen, auto-show panels
       if (isFullscreen) {
-        document.body.classList.add('has-fullscreen-map');
         const infoPanel = document.getElementById('map-info-panel');
-        if (infoPanel) infoPanel.classList.remove('interactive-page__info-panel--collapsed');
-      } else {
-        document.body.classList.remove('has-fullscreen-map');
+        if (infoPanel) infoPanel.classList.remove('map-info-panel--collapsed');
       }
       // Update button icon
       const btn = document.querySelector('.leaflet-control-fullscreen');
@@ -1083,12 +1080,12 @@
 
     // ── Fullscreen: layer panel collapse toggle ──
     function setupFullscreenCollapse() {
-      const collapseBtn = document.querySelector('.layer-controls__collapse');
-      const controls = document.querySelector('.layer-controls');
+      const collapseBtn = document.querySelector('.map-layer-controls__collapse');
+      const controls = document.querySelector('.map-layer-controls');
       if (!collapseBtn || !controls) return;
 
       collapseBtn.addEventListener('click', () => {
-        const isCollapsed = controls.classList.toggle('layer-controls--collapsed');
+        const isCollapsed = controls.classList.toggle('map-layer-controls--collapsed');
         collapseBtn.setAttribute('aria-label', isCollapsed ? 'Afficher les couches' : 'Masquer les couches');
         collapseBtn.setAttribute('title', isCollapsed ? 'Afficher les couches' : 'Masquer les couches');
         collapseBtn.innerHTML = isCollapsed ? '<span>☰</span>' : '<span>◀</span>';
@@ -1099,13 +1096,13 @@
 
     // ── Fullscreen: info panel collapse toggle ──
     function setupInfoPanelToggle() {
-      const header = document.querySelector('.interactive-page__info-panel-header');
+      const header = document.querySelector('.map-info-panel__header');
       const panel = document.getElementById('map-info-panel');
       if (!header || !panel) return;
 
       header.addEventListener('click', () => {
-        const isCollapsed = panel.classList.toggle('interactive-page__info-panel--collapsed');
-        const toggleBtn = panel.querySelector('.interactive-page__info-panel-toggle');
+        const isCollapsed = panel.classList.toggle('map-info-panel--collapsed');
+        const toggleBtn = panel.querySelector('.map-info-panel__toggle');
         if (toggleBtn) {
           toggleBtn.setAttribute('aria-label', isCollapsed ? 'Afficher le panneau d\'information' : 'Masquer le panneau d\'information');
           toggleBtn.setAttribute('title', isCollapsed ? 'Afficher le panneau d\'information' : 'Masquer le panneau d\'information');

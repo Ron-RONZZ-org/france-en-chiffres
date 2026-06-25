@@ -16,12 +16,12 @@
 
   <div id="world-map-legend" class="world-map__legend" aria-hidden="true">
     <p class="world-map__legend-title">Légende</p>
-    <div id="world-map-legend-content" class="world-map__legend-content">
+    <div id="map-legend-content" class="world-map__legend-content">
       <p class="world-map__legend-placeholder">Sélectionnez une couche pour voir la légende.</p>
     </div>
   </div>
 
-  <div id="world-map-loading" class="world-map__loading" aria-hidden="true">
+  <div id="map-loading" class="world-map__loading" aria-hidden="true">
     <div class="world-map__loading-spinner"></div>
     <span class="world-map__loading-text">Chargement des données…</span>
   </div>
@@ -182,8 +182,8 @@
 
     // ── Legend helpers ──
     function setLegendContent(html) {
-      const normalEl = document.getElementById('world-map-legend-content');
-      const infoLegend = document.getElementById('world-map-info-legend');
+      const normalEl = document.getElementById('map-legend-content');
+      const infoLegend = document.getElementById('map-info-legend');
       if (normalEl) normalEl.innerHTML = html;
       if (infoLegend) infoLegend.innerHTML = html;
     }
@@ -199,7 +199,7 @@
     }
 
     function showMapLoading(visible) {
-      const el = document.getElementById('world-map-loading');
+      const el = document.getElementById('map-loading');
       if (el) el.classList.toggle('world-map__loading--visible', visible);
     }
 
@@ -423,7 +423,7 @@
 
     // ── Tippy: layer controls ──
     function setupTippy() {
-      const items = document.querySelectorAll('.world-layer-controls__item[data-description]');
+      const items = document.querySelectorAll('.map-layer-controls__item[data-description]');
       items.forEach((el) => {
         const html = el.getAttribute('data-description');
         if (!html) return;
@@ -457,7 +457,7 @@
       `;
 
       btn.addEventListener('click', () => {
-        const wrapper = document.getElementById('world-map-page-wrapper');
+        const wrapper = document.getElementById('map-page-wrapper');
         if (!wrapper) return;
 
         if (!document.fullscreenElement) {
@@ -476,18 +476,18 @@
     document.addEventListener('fullscreenchange', () => {
       isFullscreen = !!document.fullscreenElement;
       map.invalidateSize();
-      const wrapper = document.getElementById('world-map-page-wrapper');
+      const wrapper = document.getElementById('map-page-wrapper');
       if (wrapper) {
         wrapper.classList.toggle('is-fullscreen', isFullscreen);
       }
-      const controls = document.querySelector('.world-layer-controls');
+      const controls = document.querySelector('.map-layer-controls');
       if (controls) {
-        controls.classList.toggle('world-layer-controls--fullscreen', isFullscreen);
-        if (!isFullscreen) controls.classList.remove('world-layer-controls--collapsed');
+        controls.classList.toggle('map-layer-controls--fullscreen', isFullscreen);
+        if (!isFullscreen) controls.classList.remove('map-layer-controls--collapsed');
       }
       // Move legend
-      const legendContent = document.getElementById('world-map-legend-content');
-      const infoLegend = document.getElementById('world-map-info-legend');
+      const legendContent = document.getElementById('map-legend-content');
+      const infoLegend = document.getElementById('map-info-legend');
       if (isFullscreen && legendContent && infoLegend) {
         infoLegend.innerHTML = legendContent.innerHTML;
         legendContent.innerHTML = '';
@@ -496,11 +496,8 @@
         infoLegend.innerHTML = '';
       }
       if (isFullscreen) {
-        document.body.classList.add('has-fullscreen-map');
-        const infoPanel = document.getElementById('world-map-info-panel');
-        if (infoPanel) infoPanel.classList.remove('world-map__info-panel--collapsed');
-      } else {
-        document.body.classList.remove('has-fullscreen-map');
+        const infoPanel = document.getElementById('map-info-panel');
+        if (infoPanel) infoPanel.classList.remove('map-info-panel--collapsed');
       }
       const btn = document.querySelector('.leaflet-control-fullscreen');
       if (btn) {
@@ -514,12 +511,12 @@
 
     // ── Collapse toggles ──
     function setupFullscreenCollapse() {
-      const collapseBtn = document.querySelector('.world-layer-controls__collapse');
-      const controls = document.querySelector('.world-layer-controls');
+      const collapseBtn = document.querySelector('.map-layer-controls__collapse');
+      const controls = document.querySelector('.map-layer-controls');
       if (!collapseBtn || !controls) return;
 
       collapseBtn.addEventListener('click', () => {
-        const isCollapsed = controls.classList.toggle('world-layer-controls--collapsed');
+        const isCollapsed = controls.classList.toggle('map-layer-controls--collapsed');
         collapseBtn.setAttribute('aria-label', isCollapsed ? 'Afficher les couches' : 'Masquer les couches');
         collapseBtn.setAttribute('title', isCollapsed ? 'Afficher les couches' : 'Masquer les couches');
         collapseBtn.innerHTML = isCollapsed ? '<span>☰</span>' : '<span>◀</span>';
@@ -528,13 +525,13 @@
     }
 
     function setupInfoPanelToggle() {
-      const header = document.querySelector('.world-map__info-panel-header');
-      const panel = document.getElementById('world-map-info-panel');
+      const header = document.querySelector('.map-info-panel__header');
+      const panel = document.getElementById('map-info-panel');
       if (!header || !panel) return;
 
       header.addEventListener('click', () => {
-        const isCollapsed = panel.classList.toggle('world-map__info-panel--collapsed');
-        const toggleBtn = panel.querySelector('.world-map__info-panel-toggle');
+        const isCollapsed = panel.classList.toggle('map-info-panel--collapsed');
+        const toggleBtn = panel.querySelector('.map-info-panel__toggle');
         if (toggleBtn) {
           toggleBtn.setAttribute('aria-label', isCollapsed ? 'Afficher le panneau d\'information' : 'Masquer le panneau d\'information');
           toggleBtn.setAttribute('title', isCollapsed ? 'Afficher le panneau d\'information' : 'Masquer le panneau d\'information');
@@ -749,11 +746,6 @@
     font-weight: 400;
   }
 
-  /* ── Info panel (fullscreen) ── */
-  .world-map__info-panel {
-    display: none;
-  }
-
   /* ── Tippy overrides ── */
   :global(.tippy-box[data-theme~="dark"]) {
     background: #111827;
@@ -802,166 +794,14 @@
     color: #94a3b8;
   }
 
-  /* ── Fullscreen layout ── */
-  #world-map-page-wrapper.is-fullscreen {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 9999;
-    background: var(--color-bg-base);
-    display: flex;
-    flex-direction: row;
-    align-items: stretch;
-    padding: 0 !important;
-  }
-
-  #world-map-page-wrapper.is-fullscreen .container {
-    display: flex;
-    flex-direction: row;
-    align-items: stretch;
-    width: 100%;
-    max-width: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  #world-map-page-wrapper.is-fullscreen .world-interactive-page__title,
-  #world-map-page-wrapper.is-fullscreen .world-interactive-page__subtitle,
-  #world-map-page-wrapper.is-fullscreen .french-separator,
-  #world-map-page-wrapper.is-fullscreen .world-interactive-page__related {
-    display: none;
-  }
-
-  #world-map-page-wrapper.is-fullscreen .world-map-section {
-    flex: 1;
-    max-width: none;
-    padding: 0;
-    display: flex;
-    align-items: stretch;
-  }
-
-  #world-map-page-wrapper.is-fullscreen .world-map {
-    height: 100vh;
-    border-radius: 0;
-    border: none;
-  }
-
-  /* Push zoom controls down */
-  #world-map-page-wrapper.is-fullscreen :global(.leaflet-control-zoom) {
-    margin-top: 52px;
-  }
-
-  /* Info panel in fullscreen */
-  #world-map-page-wrapper.is-fullscreen .world-map__info-panel {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1001;
-    background: rgba(15, 23, 42, 0.92);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border-top: 1px solid var(--color-border);
-    transition: transform var(--transition-normal);
-    max-height: 40vh;
-    display: flex;
-    flex-direction: column;
-  }
-
-  #world-map-page-wrapper.is-fullscreen .world-map__info-panel--collapsed {
-    transform: translateY(calc(100% - 36px));
-  }
-
-  .world-map__info-panel-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0.4rem var(--gap-md);
-    border-bottom: 1px solid var(--color-border);
-    cursor: pointer;
-    flex-shrink: 0;
-    min-height: 36px;
-    touch-action: manipulation;
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  .world-map__info-panel-title {
-    font-weight: 600;
-    font-size: 0.8rem;
-    color: var(--color-text-light);
-  }
-
-  .world-map__info-panel-toggle {
-    background: none;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-sm);
-    color: var(--color-text-light);
-    cursor: pointer;
-    width: 24px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.7rem;
-    transition: transform var(--transition-fast);
-    touch-action: manipulation;
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  @media (max-width: 600px) {
-    .world-map__info-panel-toggle {
-      width: 36px;
-      height: 36px;
-    }
-  }
-
-  .world-map__info-panel--collapsed .world-map__info-panel-toggle {
-    transform: rotate(180deg);
-  }
-
-  .world-map__info-panel-body {
-    overflow-y: auto;
-    padding: var(--gap-sm) var(--gap-md);
-    flex: 1;
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--gap-md);
-    align-items: flex-start;
-  }
-
-  /* Hide normal legend in fullscreen */
-  #world-map-page-wrapper.is-fullscreen .world-map__legend {
-    display: none;
-  }
-
-  /* Sources inside info panel */
-  #world-map-page-wrapper.is-fullscreen .world-interactive-page__sources {
-    padding: 0;
-    margin: 0;
-    border: none;
-    flex: 1 1 auto;
-    min-width: 200px;
-  }
-
-  #world-map-page-wrapper.is-fullscreen .world-interactive-page__sources-title {
-    font-size: 0.8rem;
-    margin-bottom: var(--gap-xs);
-  }
-
-  #world-map-page-wrapper.is-fullscreen .world-interactive-page__source-item {
-    font-size: 0.75rem;
-  }
-
   /* Citation superscripts */
-  :global(.world-layer-controls sup.citation) {
+  :global(.map-layer-controls sup.citation) {
     font-size: 0.75em;
     vertical-align: super;
     line-height: 1;
   }
 
-  :global(.world-layer-controls sup.citation a) {
+  :global(.map-layer-controls sup.citation a) {
     color: var(--color-link-on-dark);
     text-decoration: none;
     font-weight: 600;
@@ -976,16 +816,6 @@
   @media (max-width: 400px) {
     .world-map {
       height: 300px;
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .world-layer-controls--fullscreen {
-      transition: none !important;
-    }
-    .world-layer-controls--fullscreen.world-layer-controls--collapsed {
-      transform: none;
-      opacity: 1;
     }
   }
 </style>

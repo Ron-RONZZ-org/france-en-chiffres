@@ -1,7 +1,6 @@
 ---
-import Base from '../../layouts/Base.astro';
+import MapPageLayout from '../../components/MapPageLayout.astro';
 import InteractiveDataMap from '../../components/InteractiveDataMap.astro';
-import { getSource, formatSourceLabel } from '../../data/sources';
 
 // Sources used on this page — resolved at build time
 const sourceIds = [
@@ -12,710 +11,126 @@ const sourceIds = [
   'openrailwaymap',
   'france-geojson',
 ];
-
-const sources = (await Promise.all(
-  sourceIds.map((id) => getSource(id)),
-)).filter(Boolean);
 ---
 
-<Base
-  title="Carte interactive — France en Chiffres"
-  description="Carte interactive de la France avec couches thématiques : densité de population, relief, routes, voies ferrées, voies navigables, communes — données IGN, INSEE et OpenStreetMap"
+<MapPageLayout
+  wrapperId="map-page-wrapper"
+  title="Carte interactive de la France"
+  subtitle="Explorez le territoire français à travers ses données géographiques et statistiques."
+  sourceIds={sourceIds}
 >
-  <section id="map-page-wrapper" class="interactive-page">
-    <div class="container">
-      <h1 class="interactive-page__title">Carte interactive de la France</h1>
-      <p class="interactive-page__subtitle">
-        Explorez le territoire français à travers ses données géographiques et statistiques.
-      </p>
-      <div class="french-separator"></div>
+  <div slot="controls">
+    <label
+      class="map-layer-controls__item"
+      data-map-toggle="elevation"
+      data-description="Carte topographique avec courbes de niveau et ombrage du relief. <sup class=&quot;citation&quot;><a href=&quot;/bibliographie/opentopomap&quot; data-source-id=&quot;opentopomap&quot; title=&quot;Source&nbsp;: opentopomap&quot;>[4]</a></sup>"
+      for="toggle-elevation"
+    >
+      <input type="checkbox" id="toggle-elevation" data-map-toggle="elevation" class="map-layer-controls__checkbox">
+      <span class="map-layer-controls__swatch map-layer-controls__swatch--elevation"></span>
+      <span class="map-layer-controls__label">
+        <strong>Relief</strong>
+      </span>
+    </label>
 
-      <!-- Layer toggles — titles visible, descriptions appear in Tippy hover popups -->
-      <!-- Note: collapse button is a sibling (not child) of .layer-controls to avoid
-           CSS transform creating a new containing block for position:fixed on the button. -->
-      <div class="layer-controls" role="group" aria-label="Couches thématiques">
-        <label
-          class="layer-controls__item"
-          data-map-toggle="elevation"
-          data-description="Carte topographique avec courbes de niveau et ombrage du relief. <sup class=&quot;citation&quot;><a href=&quot;/bibliographie/opentopomap&quot; data-source-id=&quot;opentopomap&quot; title=&quot;Source&nbsp;: opentopomap&quot;>[4]</a></sup>"
-          for="toggle-elevation"
-        >
-          <input type="checkbox" id="toggle-elevation" data-map-toggle="elevation" class="layer-controls__checkbox">
-          <span class="layer-controls__swatch layer-controls__swatch--elevation"></span>
-          <span class="layer-controls__label">
-            <strong>Relief</strong>
-          </span>
-        </label>
+    <label
+      class="map-layer-controls__item"
+      data-map-toggle="roads"
+      data-description="Autoroutes (rouge) et routes nationales (orange). <sup class=&quot;citation&quot;><a href=&quot;/bibliographie/openstreetmap&quot; data-source-id=&quot;openstreetmap&quot; title=&quot;Source&nbsp;: openstreetmap&quot;>[3]</a></sup>"
+      for="toggle-roads"
+    >
+      <input type="checkbox" id="toggle-roads" data-map-toggle="roads" class="map-layer-controls__checkbox">
+      <span class="map-layer-controls__swatch map-layer-controls__swatch--roads"></span>
+      <span class="map-layer-controls__label">
+        <strong>Réseau routier</strong>
+      </span>
+    </label>
 
-        <label
-          class="layer-controls__item"
-          data-map-toggle="roads"
-          data-description="Autoroutes (rouge) et routes nationales (orange). <sup class=&quot;citation&quot;><a href=&quot;/bibliographie/openstreetmap&quot; data-source-id=&quot;openstreetmap&quot; title=&quot;Source&nbsp;: openstreetmap&quot;>[3]</a></sup>"
-          for="toggle-roads"
-        >
-          <input type="checkbox" id="toggle-roads" data-map-toggle="roads" class="layer-controls__checkbox">
-          <span class="layer-controls__swatch layer-controls__swatch--roads"></span>
-          <span class="layer-controls__label">
-            <strong>Réseau routier</strong>
-          </span>
-        </label>
+    <label
+      class="map-layer-controls__item"
+      data-map-toggle="railways"
+      data-description="Réseau ferré français — toutes les lignes (TGV, TER, fret). <sup class=&quot;citation&quot;><a href=&quot;/bibliographie/openrailwaymap&quot; data-source-id=&quot;openrailwaymap&quot; title=&quot;Source&nbsp;: openrailwaymap&quot;>[5]</a></sup>"
+      for="toggle-railways"
+    >
+      <input type="checkbox" id="toggle-railways" data-map-toggle="railways" class="map-layer-controls__checkbox">
+      <span class="map-layer-controls__swatch map-layer-controls__swatch--railways"></span>
+      <span class="map-layer-controls__label">
+        <strong>Réseau ferroviaire</strong>
+      </span>
+    </label>
 
-        <label
-          class="layer-controls__item"
-          data-map-toggle="railways"
-          data-description="Réseau ferré français — toutes les lignes (TGV, TER, fret). <sup class=&quot;citation&quot;><a href=&quot;/bibliographie/openrailwaymap&quot; data-source-id=&quot;openrailwaymap&quot; title=&quot;Source&nbsp;: openrailwaymap&quot;>[5]</a></sup>"
-          for="toggle-railways"
-        >
-          <input type="checkbox" id="toggle-railways" data-map-toggle="railways" class="layer-controls__checkbox">
-          <span class="layer-controls__swatch layer-controls__swatch--railways"></span>
-          <span class="layer-controls__label">
-            <strong>Réseau ferroviaire</strong>
-          </span>
-        </label>
+    <label
+      class="map-layer-controls__item"
+      data-map-toggle="waterways"
+      data-description="Canaux et rivières navigables — voies navigables de France. <sup class=&quot;citation&quot;><a href=&quot;/bibliographie/openstreetmap&quot; data-source-id=&quot;openstreetmap&quot; title=&quot;Source&nbsp;: openstreetmap&quot;>[3]</a></sup>"
+      for="toggle-waterways"
+    >
+      <input type="checkbox" id="toggle-waterways" data-map-toggle="waterways" class="map-layer-controls__checkbox">
+      <span class="map-layer-controls__swatch map-layer-controls__swatch--waterways"></span>
+      <span class="map-layer-controls__label">
+        <strong>Voies navigables</strong>
+      </span>
+    </label>
 
-        <label
-          class="layer-controls__item"
-          data-map-toggle="waterways"
-          data-description="Canaux et rivières navigables — voies navigables de France. <sup class=&quot;citation&quot;><a href=&quot;/bibliographie/openstreetmap&quot; data-source-id=&quot;openstreetmap&quot; title=&quot;Source&nbsp;: openstreetmap&quot;>[3]</a></sup>"
-          for="toggle-waterways"
-        >
-          <input type="checkbox" id="toggle-waterways" data-map-toggle="waterways" class="layer-controls__checkbox">
-          <span class="layer-controls__swatch layer-controls__swatch--waterways"></span>
-          <span class="layer-controls__label">
-            <strong>Voies navigables</strong>
-          </span>
-        </label>
+    <!-- Communes group: communes + density suboption -->
+    <div class="map-layer-controls__group">
+      <label
+        class="map-layer-controls__item"
+        data-map-toggle="communes"
+        data-description="Limites des 35&nbsp;228 communes de France. <sup class=&quot;citation&quot;><a href=&quot;/bibliographie/france-geojson&quot; data-source-id=&quot;france-geojson&quot; title=&quot;Source&nbsp;: france-geojson&quot;>[6]</a></sup>"
+        for="toggle-communes"
+      >
+        <input type="checkbox" id="toggle-communes" data-map-toggle="communes" class="map-layer-controls__checkbox">
+        <span class="map-layer-controls__swatch map-layer-controls__swatch--communes"></span>
+        <span class="map-layer-controls__label">
+          <strong>Communes</strong>
+        </span>
+      </label>
 
-        <!-- Communes group: communes + density suboption in one grid cell -->
-        <div class="layer-controls__group">
-          <label
-            class="layer-controls__item"
-            data-map-toggle="communes"
-            data-description="Limites des 35&nbsp;228 communes de France. <sup class=&quot;citation&quot;><a href=&quot;/bibliographie/france-geojson&quot; data-source-id=&quot;france-geojson&quot; title=&quot;Source&nbsp;: france-geojson&quot;>[6]</a></sup>"
-            for="toggle-communes"
-          >
-            <input type="checkbox" id="toggle-communes" data-map-toggle="communes" class="layer-controls__checkbox">
-            <span class="layer-controls__swatch layer-controls__swatch--communes"></span>
-            <span class="layer-controls__label">
-              <strong>Communes</strong>
-            </span>
-          </label>
-
-          <label
-            class="layer-controls__item layer-controls__suboption layer-controls__suboption--hidden"
-            data-map-toggle="density"
-            data-description="Habitants par km² par commune — 35&nbsp;228 communes. <sup class=&quot;citation&quot;><a href=&quot;/bibliographie/insee-2024&quot; data-source-id=&quot;insee-2024&quot; title=&quot;Source&nbsp;: insee-2024&quot;>[1]</a></sup>"
-            for="toggle-density"
-          >
-            <input type="checkbox" id="toggle-density" data-map-toggle="density" class="layer-controls__checkbox">
-            <span class="layer-controls__swatch layer-controls__swatch--density"></span>
-            <span class="layer-controls__label">
-              <strong>Densité de population</strong>
-            </span>
-          </label>
-
-        </div>
-      </div>
-
-      <!-- Collapse button (sibling of .layer-controls — avoids CSS transform parent trap) -->
-      <button class="layer-controls__collapse" type="button" aria-label="Masquer les couches" title="Masquer les couches">
-        <span>◀</span>
-      </button>
-
-      <!-- The map -->
-      <InteractiveDataMap />
-
-      <!-- "Ça peut vous intéresser aussi" section -->
-      <div class="interactive-page__related">
-        <h2 class="interactive-page__related-title">Ça peut vous intéresser aussi&nbsp;:</h2>
-        <ul class="interactive-page__related-links">
-          <li>
-            <a href="/geographie/departements-francais/">
-              La carte des départements français
-            </a>
-          </li>
-        </ul>
-      </div>
-
-      <!-- Structured sources footer + legend (collapsible info panel in fullscreen) -->
-      <div class="interactive-page__info-panel" id="map-info-panel">
-        <div class="interactive-page__info-panel-header">
-          <span class="interactive-page__info-panel-title">Informations</span>
-          <button class="interactive-page__info-panel-toggle" type="button" aria-label="Masquer le panneau d'information" title="Masquer le panneau d'information">
-            <span>▼</span>
-          </button>
-        </div>
-        <div class="interactive-page__info-panel-body">
-          <!-- Legend appears here in fullscreen (moved by JS) -->
-          <div class="interactive-page__info-legend" id="map-info-legend"></div>
-
-          <footer class="interactive-page__sources">
-            {sources.length > 0 && (
-              <>
-                <p class="interactive-page__sources-title">Sources des données</p>
-                <ol class="interactive-page__sources-list">
-                  {sources.map((s) => (
-                    <li class="interactive-page__source-item">
-                      <a href={`/bibliographie/${s.id}`}>{formatSourceLabel(s)}</a>
-                    </li>
-                  ))}
-                </ol>
-              </>
-            )}
-          </footer>
-        </div>
-      </div>
+      <label
+        class="map-layer-controls__item map-layer-controls__suboption map-layer-controls__suboption--hidden"
+        data-map-toggle="density"
+        data-description="Habitants par km² par commune — 35&nbsp;228 communes. <sup class=&quot;citation&quot;><a href=&quot;/bibliographie/insee-2024&quot; data-source-id=&quot;insee-2024&quot; title=&quot;Source&nbsp;: insee-2024&quot;>[1]</a></sup>"
+        for="toggle-density"
+      >
+        <input type="checkbox" id="toggle-density" data-map-toggle="density" class="map-layer-controls__checkbox">
+        <span class="map-layer-controls__swatch map-layer-controls__swatch--density"></span>
+        <span class="map-layer-controls__label">
+          <strong>Densité de population</strong>
+        </span>
+      </label>
     </div>
-  </section>
-</Base>
+  </div>
+
+  <InteractiveDataMap slot="map" />
+
+  <ul slot="related-links">
+    <li>
+      <a href="/geographie/departements-francais/">
+        La carte des départements français
+      </a>
+    </li>
+  </ul>
+</MapPageLayout>
 
 <style>
-  .interactive-page {
-    padding-top: var(--gap-xl);
-    padding-bottom: var(--gap-2xl);
-  }
-
-  .interactive-page__title {
-    font-family: var(--font-serif);
-    font-size: clamp(1.6rem, 4vw, 2.4rem);
-    font-weight: 800;
-    text-align: center;
-    color: var(--color-text-light);
-    margin-bottom: var(--gap-sm);
-  }
-
-  .interactive-page__subtitle {
-    color: var(--color-text-muted);
-    text-align: center;
-    max-width: 550px;
-    margin: 0 auto var(--gap-lg);
-    font-size: 1rem;
-  }
-
-  /* ── Layer controls ── */
-  .layer-controls {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: var(--gap-sm);
-    margin-bottom: var(--gap-lg);
-  }
-
-  .layer-controls__item {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.6rem 0.75rem;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    cursor: pointer;
-    transition: border-color var(--transition-fast), background var(--transition-fast);
-    user-select: none;
-  }
-
-  .layer-controls__item:hover {
-    border-color: var(--color-french-blue);
-    background: rgba(59, 130, 246, 0.05);
-  }
-
-  /* ── Group: communes + density suboption in one grid cell ── */
-  .layer-controls__group {
-    display: flex;
-    flex-direction: column;
-    gap: var(--gap-xs);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    padding: 0.4rem;
-  }
-
-  .layer-controls__group > .layer-controls__item {
-    border: none;
-    padding: 0.3rem 0.4rem;
-  }
-
-  .layer-controls__group > .layer-controls__item:hover {
-    background: rgba(59, 130, 246, 0.08);
-    border-radius: var(--radius-sm);
-  }
-
-  /* Suboption: indented, hidden by default */
-  .layer-controls__suboption {
-    padding-left: 1.8rem !important;
-  }
-
-  .layer-controls__suboption--hidden {
-    display: none;
-  }
-
-
-
-  /* ── Loading indicator on toggle labels ── */
-  .layer-controls__item[data-loading] .layer-controls__label::after {
-    content: '…';
-    display: inline-block;
-    animation: loading-blink 1.2s steps(1, end) infinite;
-    margin-left: 0.25rem;
-    color: var(--color-accent-gold);
-  }
-
-  @keyframes loading-blink {
-    0%, 100% { opacity: 0; }
-    50% { opacity: 1; }
-  }
-
-  .layer-controls__item--disabled {
-    border-color: var(--color-border);
-    background: transparent;
-  }
-
-  .layer-controls__checkbox {
-    appearance: none;
-    -webkit-appearance: none;
-    width: 18px;
-    height: 18px;
-    border: 2px solid #475569;
-    border-radius: 4px;
-    background: #1e293b;
-    cursor: pointer;
-    flex-shrink: 0;
-    margin-top: 0;
-    transition: border-color var(--transition-fast), background var(--transition-fast);
-    position: relative;
-  }
-
-  .layer-controls__checkbox:checked {
-    border-color: var(--color-french-blue);
-    background: var(--color-french-blue);
-  }
-
-  .layer-controls__checkbox:checked::after {
-    content: '✓';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: #fff;
-    font-size: 12px;
-    font-weight: 700;
-    line-height: 1;
-  }
-
-  .layer-controls__checkbox:focus-visible {
-    outline: 2px solid var(--color-accent-gold);
-    outline-offset: 2px;
-  }
-
-  .layer-controls__swatch {
-    width: 12px;
-    height: 12px;
-    border-radius: 2px;
-    flex-shrink: 0;
-  }
-
-  .layer-controls__swatch--density {
+  /* ── Page-specific swatch colors ── */
+  .map-layer-controls__swatch--density {
     background: linear-gradient(135deg, #f7fcf0, #084081);
   }
-
-  .layer-controls__swatch--elevation {
+  .map-layer-controls__swatch--elevation {
     background: linear-gradient(135deg, #22c55e, #78716c, #f8fafc);
   }
-
-  .layer-controls__swatch--roads {
+  .map-layer-controls__swatch--roads {
     background: #ef4444;
   }
-
-  .layer-controls__swatch--railways {
+  .map-layer-controls__swatch--railways {
     background: #a855f7;
   }
-
-  .layer-controls__swatch--waterways {
+  .map-layer-controls__swatch--waterways {
     background: #06b6d4;
   }
-
-  .layer-controls__swatch--communes {
+  .map-layer-controls__swatch--communes {
     background: #6366f1;
-  }
-
-
-
-  .layer-controls__label {
-    display: flex;
-    flex-direction: column;
-    gap: 0.1rem;
-    font-size: 0.85rem;
-  }
-
-  .layer-controls__label strong {
-    color: var(--color-text-light);
-    font-weight: 600;
-  }
-
-  /* ── Related links ── */
-  .interactive-page__related {
-    margin-top: var(--gap-xl);
-    padding-top: var(--gap-lg);
-    border-top: 1px solid var(--color-border);
-    text-align: center;
-  }
-
-  .interactive-page__related-title {
-    font-family: var(--font-serif);
-    font-size: 1.05rem;
-    font-weight: 700;
-    color: var(--color-text-light);
-    margin-bottom: var(--gap-sm);
-  }
-
-  .interactive-page__related-links {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  .interactive-page__related-links li {
-    margin-bottom: var(--gap-xs);
-  }
-
-  .interactive-page__related-links a {
-    color: var(--color-link-on-dark);
-    text-decoration: none;
-    font-weight: 500;
-    transition: text-decoration var(--transition-fast);
-  }
-
-  .interactive-page__related-links a:hover {
-    text-decoration: underline;
-  }
-
-  /* ── Sources footer (same pattern as histoire/[slug].astro) ── */
-  .interactive-page__sources {
-    margin-top: var(--gap-lg);
-    padding-top: var(--gap-md);
-    border-top: 1px solid var(--color-border);
-    font-size: 0.85rem;
-  }
-
-  .interactive-page__sources-title {
-    font-weight: 700;
-    color: var(--color-text-light);
-    margin-bottom: var(--gap-xs);
-  }
-
-  .interactive-page__sources-list {
-    padding-left: var(--gap-lg);
-    margin: 0;
-    list-style: decimal;
-  }
-
-  .interactive-page__source-item {
-    margin-bottom: var(--gap-xs);
-    line-height: 1.5;
-  }
-
-  .interactive-page__source-item a {
-    color: var(--color-link-on-dark);
-    text-decoration: none;
-  }
-
-  .interactive-page__source-item a:focus-visible {
-    outline: 2px solid var(--color-link-on-dark);
-    outline-offset: 2px;
-    border-radius: 2px;
-  }
-
-  .interactive-page__source-item a:hover {
-    text-decoration: underline;
-  }
-
-  /* ── Layer panel collapse button (floating sibling, visible in fullscreen) ──
-       IMPORTANT: Must be a sibling (not child) of .layer-controls. When a parent has
-       `transform`, it becomes the containing block for `position: fixed` children,
-       making them relative to the offscreen parent instead of the viewport. */
-  .layer-controls__collapse {
-    display: none;
-    position: fixed;
-    top: var(--gap-md);
-    left: var(--gap-md);
-    width: 32px;
-    height: 32px;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    background: rgba(15, 23, 42, 0.9);
-    color: var(--color-text-light);
-    cursor: pointer;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.9rem;
-    line-height: 1;
-    z-index: 1001;
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-    transition: left var(--transition-normal);
-    touch-action: manipulation;  /* eliminate 300ms touch delay on mobile */
-    -webkit-tap-highlight-color: transparent;  /* remove tap highlight */
-  }
-
-  .layer-controls__collapse:hover {
-    background: rgba(30, 41, 59, 0.95);
-  }
-
-  /* In fullscreen: always visible floating button */
-  #map-page-wrapper.is-fullscreen .layer-controls__collapse {
-    display: flex;
-  }
-
-  /* When panel is open: button hugs the panel right edge */
-  #map-page-wrapper.is-fullscreen .layer-controls:not(.layer-controls--collapsed) ~ .layer-controls__collapse {
-    left: 240px;  /* matches panel width */
-  }
-
-  /* On mobile: show collapse button even without fullscreen, larger touch target */
-  @media (max-width: 600px) {
-    .layer-controls__collapse {
-      display: flex;
-      width: 44px;
-      height: 44px;
-      font-size: 1.1rem;
-    }
-
-    /* Collapsed state (non-fullscreen): hide controls entirely */
-    .layer-controls:not(.layer-controls--fullscreen).layer-controls--collapsed {
-      display: none !important;
-    }
-  }
-
-  /* ── Fullscreen layout ── */
-  #map-page-wrapper.is-fullscreen {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 9999;
-    background: var(--color-bg-base);
-    display: flex;
-    flex-direction: row;
-    align-items: stretch;
-    padding: 0 !important;
-  }
-
-  #map-page-wrapper.is-fullscreen .container {
-    display: flex;
-    flex-direction: row;
-    align-items: stretch;
-    width: 100%;
-    max-width: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  #map-page-wrapper.is-fullscreen .interactive-page__title,
-  #map-page-wrapper.is-fullscreen .interactive-page__subtitle,
-  #map-page-wrapper.is-fullscreen .french-separator,
-  #map-page-wrapper.is-fullscreen .interactive-page__related {
-    display: none;
-  }
-
-  /* ── Layer controls in fullscreen: sidebar overlay ── */
-  .layer-controls--fullscreen {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 240px;
-    height: 100%;
-    overflow-y: auto;
-    z-index: 1001;
-    background: rgba(15, 23, 42, 0.92);
-    border-right: 1px solid var(--color-border);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    padding: var(--gap-lg) var(--gap-md);
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--gap-sm);
-    transition: transform var(--transition-normal), opacity var(--transition-normal);
-  }
-
-  /* Collapsed state: panel slides out */
-  .layer-controls--fullscreen.layer-controls--collapsed {
-    transform: translateX(-100%);
-  }
-
-  .layer-controls--fullscreen.layer-controls--collapsed .layer-controls__item,
-  .layer-controls--fullscreen.layer-controls--collapsed .layer-controls__group {
-    pointer-events: none;
-  }
-
-  /* Fullscreen sidebar: group + suboption styling */
-  .layer-controls--fullscreen .layer-controls__group {
-    border: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  .layer-controls--fullscreen .layer-controls__group .layer-controls__item {
-    font-size: 0.8rem;
-  }
-
-  .layer-controls--fullscreen .layer-controls__suboption {
-    padding-left: 1.5rem !important;
-  }
-
-  /* When collapsed the button floats at left edge (the default position above) */
-
-  /* ── Map in fullscreen ── */
-  /* Note: :global() needed for elements from InteractiveDataMap component */
-  #map-page-wrapper.is-fullscreen :global(.data-map-section) {
-    flex: 1;
-    max-width: none;
-    padding: 0;
-    display: flex;
-    align-items: stretch;
-  }
-
-  #map-page-wrapper.is-fullscreen :global(.data-map) {
-    height: 100vh;
-    border-radius: 0;
-    border: none;
-  }
-
-  /* Push zoom controls down to clear the collapsed layer panel button */
-  #map-page-wrapper.is-fullscreen :global(.leaflet-control-zoom) {
-    margin-top: 52px;
-  }
-
-  /* ── Info panel (legend + sources) in fullscreen: collapsible bottom bar ── */
-  #map-page-wrapper.is-fullscreen .interactive-page__info-panel {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1001;
-    background: rgba(15, 23, 42, 0.92);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border-top: 1px solid var(--color-border);
-    transition: transform var(--transition-normal);
-    max-height: 40vh;
-    display: flex;
-    flex-direction: column;
-  }
-
-  #map-page-wrapper.is-fullscreen .interactive-page__info-panel--collapsed {
-    transform: translateY(calc(100% - 36px));  /* show only header */
-  }
-
-  .interactive-page__info-panel-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0.4rem var(--gap-md);
-    border-bottom: 1px solid var(--color-border);
-    cursor: pointer;
-    flex-shrink: 0;
-    min-height: 36px;
-    touch-action: manipulation;
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  .interactive-page__info-panel-title {
-    font-weight: 600;
-    font-size: 0.8rem;
-    color: var(--color-text-light);
-  }
-
-  .interactive-page__info-panel-toggle {
-    background: none;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-sm);
-    color: var(--color-text-light);
-    cursor: pointer;
-    width: 24px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.7rem;
-    transition: transform var(--transition-fast);
-    touch-action: manipulation;
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  @media (max-width: 600px) {
-    .interactive-page__info-panel-toggle {
-      width: 36px;
-      height: 36px;
-    }
-  }
-
-  .interactive-page__info-panel--collapsed .interactive-page__info-panel-toggle {
-    transform: rotate(180deg);
-  }
-
-  .interactive-page__info-panel-body {
-    overflow-y: auto;
-    padding: var(--gap-sm) var(--gap-md);
-    flex: 1;
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--gap-md);
-    align-items: flex-start;
-  }
-
-  /* Hide original legend container in fullscreen — content is shown via info-panel */
-  #map-page-wrapper.is-fullscreen :global(.data-map__legend) {
-    display: none;
-  }
-
-  /* Sources footer inside the info panel */
-  #map-page-wrapper.is-fullscreen .interactive-page__sources {
-    padding: 0;
-    margin: 0;
-    border: none;
-    flex: 1 1 auto;
-    min-width: 200px;
-  }
-
-  #map-page-wrapper.is-fullscreen .interactive-page__sources-title {
-    font-size: 0.8rem;
-    margin-bottom: var(--gap-xs);
-  }
-
-  #map-page-wrapper.is-fullscreen .interactive-page__source-item {
-    font-size: 0.75rem;
-  }
-
-  /* In normal mode: hide the info panel, use original legend + sources */
-  .interactive-page__info-panel {
-    display: none;
-  }
-
-  /* ── Citation superscripts in map page content ── */
-  :global(.layer-controls sup.citation) {
-    font-size: 0.75em;
-    vertical-align: super;
-    line-height: 1;
-  }
-
-  :global(.layer-controls sup.citation a) {
-    color: var(--color-link-on-dark);
-    text-decoration: none;
-    font-weight: 600;
-  }
-
-  @media (max-width: 600px) {
-    .layer-controls {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .layer-controls--fullscreen {
-      transition: none !important;
-    }
-    .layer-controls--fullscreen.layer-controls--collapsed {
-      transform: none;
-      opacity: 1;
-    }
   }
 </style>
