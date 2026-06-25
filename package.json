@@ -5,7 +5,7 @@
   "description": "La France en chiffres — history, culture, geography told through numbers",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "node scripts/build-density-tiles.js && astro build",
     "preview": "astro preview",
     "test": "node src/tests/france-map.test.cjs",
     "test:sources": "node src/tests/sources.test.cjs",
