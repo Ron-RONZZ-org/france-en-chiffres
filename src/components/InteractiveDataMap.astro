@@ -787,13 +787,6 @@
         tip += `<br><strong>${getDensityLabel(density)}</strong>`;
       }
 
-      // Close any existing department/other tooltip to prevent overlap
-      if (deptLayer) {
-        deptLayer.eachLayer((l) => {
-          if (l._tooltip && l._tooltip._map) l._tooltip.close();
-        });
-      }
-
       if (window._communeTip) {
         window._communeTip.setContent(tip).setLatLng(latlng);
         if (!window._communeTip._map) map.openTooltip(window._communeTip);
@@ -801,6 +794,8 @@
       }
       window._communeTip = L.tooltip({
         sticky: true,
+        direction: 'bottom',
+        offset: L.point(0, 8),
         className: 'dept-tooltip dept-tooltip--commune',
       });
       window._communeTip.setContent(tip).setLatLng(latlng);
