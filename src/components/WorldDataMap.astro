@@ -68,6 +68,9 @@
       maxZoom: MAX_ZOOM,
       zoomControl: true,
       attributionControl: true,
+      worldCopyJump: true,   // seamless globe panning — base tiles wrap, and
+                             // the map center auto-jumps to the nearest world copy
+                             // so vector layers stay visible on scroll
     });
 
     // ── Base tile layer (OSM) ──
@@ -373,12 +376,18 @@
       `).join('');
     }
 
-    // ── Layer toggles ──
+    // ── Layer toggles (mutually exclusive: hdi ⇔ density) ──
+    let mutexGuard = false;
     function setupToggles() {
       const toggles = document.querySelectorAll('[data-map-toggle]');
       toggles.forEach((toggle) => {
         toggle.addEventListener('change', async (e) => {
+          // Guard against re-entrant calls from mutual exclusion
+          if (mutexGuard) return;
+          mutexGuard = true;
+
           const layer = e.target.dataset.mapToggle;
+          const checked = e.target.checked;
 
           // Load world data on first toggle
           if (!dataFetched) {
@@ -386,14 +395,28 @@
             await loadWorldData();
           }
 
+          // Mutually exclusive: uncheck the other layer when this one is activated
+          if (checked) {
+            const otherId = layer === 'hdi' ? 'toggle-density' : 'toggle-hdi';
+            const otherCheck = document.getElementById(otherId);
+            if (otherCheck && otherCheck.checked) {
+              otherCheck.checked = false;
+              // Directly clear the other layer's style without dispatching change
+              if (otherId === 'toggle-density') applyDensity(false);
+              else applyHDI(false);
+            }
+          }
+
           switch (layer) {
             case 'hdi':
-              applyHDI(e.target.checked);
+              applyHDI(checked);
               break;
             case 'density':
-              applyDensity(e.target.checked);
+              applyDensity(checked);
               break;
           }
+
+          mutexGuard = false;
         });
       });
     }
