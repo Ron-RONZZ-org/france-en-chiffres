@@ -773,7 +773,10 @@
     let communesFetched = false;
 
     /** Set up commune hover tooltip via canvas tile hit-testing. */
-    /** Shared tooltip instance — used by both density and commune hover. */
+    /** Shared tooltip instance — used by both density and commune hover.
+     *  Closes any previously open tooltips to prevent visual overlap with
+     *  the department tooltip (both sit in the same Leaflet tooltip pane
+     *  at the mouse position). */
     function showCommuneTooltip(tags, latlng) {
       const name = tags.nom || '';
       const code = tags.code || '';
@@ -783,14 +786,20 @@
       if (density > 0) {
         tip += `<br><strong>${getDensityLabel(density)}</strong>`;
       }
-      if (!window._communeTip) {
-        window._communeTip = L.tooltip({
-          sticky: true,
-          className: 'dept-tooltip dept-tooltip--commune',
-        });
+
+      if (window._communeTip) {
+        // Reuse existing tooltip — just update content and position
+        window._communeTip.setContent(tip).setLatLng(latlng);
+        if (!window._communeTip._map) map.openTooltip(window._communeTip);
+        return;
       }
+
+      window._communeTip = L.tooltip({
+        sticky: true,
+        className: 'dept-tooltip dept-tooltip--commune',
+      });
       window._communeTip.setContent(tip).setLatLng(latlng);
-      if (!window._communeTip._map) map.openTooltip(window._communeTip);
+      map.openTooltip(window._communeTip);
     }
 
     /** Hit-test with on-demand tile fetch fallback. If the tile isn't cached
