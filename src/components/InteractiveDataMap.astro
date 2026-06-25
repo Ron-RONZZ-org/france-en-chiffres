@@ -96,7 +96,7 @@
     let railwaysLayer = null;
     let waterwaysLayer = null;
     let communesLayer = null;
-    let communeTileCache = null;     // Map for commune tile hit-testing
+    let tileCache = new Map();       // Shared tile cache for density + commune hit-testing
     let currentHighlight = null;
 
     // ── Helpers ──
@@ -173,8 +173,11 @@
 
     /** Build a vector tile GridLayer from pre-sliced JSON tiles.
      *  Tiles are generated at build time by scripts/build-density-tiles.js.
-     *  No runtime geojson-vt indexing needed — just fetch + render. */
-    function createPreSlicedTileLayer() {
+     *  No runtime geojson-vt indexing needed — just fetch + render.
+     *  @param {Map} [sharedCache] — optional tile cache shared with commune layer */
+    function createPreSlicedTileLayer(sharedCache) {
+      const tileCache = sharedCache || new Map();
+
       const PreSlicedLayer = L.GridLayer.extend({
         createTile: function (coords) {
           const canvas = L.DomUtil.create('canvas', 'leaflet-tile');
@@ -191,28 +194,26 @@
           fetch(url)
             .then(r => r.ok ? r.json() : Promise.reject())
             .then(data => {
-              // Guard: tile was recycled by Leaflet (user panned/zoomed)
               if (!canvas.isConnected) return;
+              // Cache for hover hit-testing (shared with commune layer)
+              const key = `${coords.z}/${coords.x}/${coords.y}`;
+              tileCache.set(key, data.features);
               for (const feature of data.features) {
                 const density = feature.tags.density || 0;
                 drawTileFeature(ctx, feature.geometry, feature.type,
                   4096, size.x, dpr,
                   getDensityColor(density), '#475569', 0.3);
               }
-              // Apply density fill on fully painted tiles
-              // (drawTileFeature already fills paths — this is a visual refresh)
               const labelEl = document.getElementById('toggle-density')?.closest('.layer-controls__item');
               if (labelEl) setLoading(labelEl, false);
             })
-            .catch(() => {
-              // Tile not available (water / outside France) — leave transparent
-            });
+            .catch(() => {});
 
           return canvas;
         },
       });
 
-      return new PreSlicedLayer();
+      return { layer: new PreSlicedLayer(), tileCache };
     }
 
     /** Draw commune boundary strokes on canvas (no fill — just purple outlines). */
@@ -268,11 +269,9 @@
     }
 
     /** Build a stroke-only vector tile GridLayer for commune boundaries.
-     *  Shares the same pre-sliced tiles as density, but renders only
-     *  purple outlines (no fill). Tiles are cached for tooltip hit-testing. */
-    function createCommuneTileLayer() {
-      const tileCache = new Map();
-
+     *  Shares the same pre-sliced tiles + cache as density layer.
+     *  @param {Map} sharedCache — shared tile cache from density layer */
+    function createCommuneTileLayer(sharedCache) {
       const CommuneLayer = L.GridLayer.extend({
         createTile: function (coords) {
           const canvas = L.DomUtil.create('canvas', 'leaflet-tile');
@@ -291,7 +290,7 @@
             .then(data => {
               if (!canvas.isConnected) return;
               const key = `${coords.z}/${coords.x}/${coords.y}`;
-              tileCache.set(key, data.features);
+              sharedCache.set(key, data.features);
               for (const feature of data.features) {
                 drawCommuneStroke(ctx, feature.geometry, feature.type,
                   4096, size.x, dpr);
@@ -303,7 +302,7 @@
         },
       });
 
-      return { layer: new CommuneLayer({ minZoom: 9 }), tileCache };
+      return new CommuneLayer({ minZoom: 9 });
     }
 
     /** Hit-test visible commune tiles at the given mouse latlng. */
@@ -456,8 +455,12 @@
         // Each tile is a JSON file containing commune-density features in
         // tile-space coordinates [0, 4096). The GridLayer fetches them
         // on demand — no runtime geojson-vt indexing, no 9.4MB download.
-        densityLayer = createPreSlicedTileLayer();
+        const { layer, tileCache: dtCache } = createPreSlicedTileLayer(tileCache);
+        densityLayer = layer;
         densityLayer.addTo(map);
+
+        // Wire up hover tooltip (reuses tile cache shared with commune layer)
+        setupDensityHover(dtCache);
 
         const zoom = map.getZoom();
         setLegendContent(`
@@ -766,36 +769,50 @@
     let communesFetched = false;
 
     /** Set up commune hover tooltip via canvas tile hit-testing. */
+    /** Shared tooltip instance — used by both density and commune hover. */
+    function showCommuneTooltip(tags, latlng) {
+      const name = tags.nom || '';
+      const code = tags.code || '';
+      const pop = tags.population || 0;
+      const density = tags.density || 0;
+      let tip = `${escapeHtml(name)} (${escapeHtml(code)})<br>Population: ${pop.toLocaleString('fr-FR')}`;
+      if (density > 0) {
+        tip += `<br><strong>${getDensityLabel(density)}</strong>`;
+      }
+      if (!window._communeTip) {
+        window._communeTip = L.tooltip({
+          sticky: true,
+          className: 'dept-tooltip dept-tooltip--commune',
+        });
+      }
+      window._communeTip.setContent(tip).setLatLng(latlng);
+      if (!window._communeTip._map) map.openTooltip(window._communeTip);
+    }
+
+    /** Hover handler for density layer — shows commune info via tile hit-test. */
+    function setupDensityHover(cache) {
+      map.on('mousemove', (e) => {
+        const densityCheck = document.getElementById('toggle-density');
+        if (!densityCheck || !densityCheck.checked) return;
+        const tags = hitTestCommuneTiles(e.latlng, map.getZoom(), cache, 4096);
+        if (tags) { showCommuneTooltip(tags, e.latlng); return; }
+        if (window._communeTip && window._communeTip._map) map.closeTooltip(window._communeTip);
+      });
+    }
+
+    /** Hover handler for commune layer (stroke-only, zoom 9+). */
     function setupCommuneHover(cache) {
       map.on('mousemove', (e) => {
         const communesCheck = document.getElementById('toggle-communes');
         if (!communesCheck || !communesCheck.checked) return;
-        // Skip if density is active (density canvas already shows boundaries)
         const densityCheck = document.getElementById('toggle-density');
         if (densityCheck && densityCheck.checked) return;
-        // Commune layer only visible at zoom 9+
         const zoom = map.getZoom();
         if (zoom < 9) return;
 
         const tags = hitTestCommuneTiles(e.latlng, zoom, cache, 4096);
-        // Use the same tooltip as before: name, code, population, density
-        if (tags) {
-          const name = tags.nom || '';
-          const code = tags.code || '';
-          const pop = tags.population || 0;
-          const density = tags.density || 0;
-          let tip = `${escapeHtml(name)} (${escapeHtml(code)})<br>Population: ${pop.toLocaleString('fr-FR')}`;
-          if (density > 0) {
-            tip += `<br><strong>${getDensityLabel(density)}</strong>`;
-          }
-          if (!window._communeTip) {
-            window._communeTip = L.tooltip({ sticky: true, className: 'dept-tooltip' });
-          }
-          window._communeTip.setContent(tip).setLatLng(e.latlng);
-          if (!window._communeTip._map) map.openTooltip(window._communeTip);
-        } else if (window._communeTip && window._communeTip._map) {
-          map.closeTooltip(window._communeTip);
-        }
+        if (tags) { showCommuneTooltip(tags, e.latlng); return; }
+        if (window._communeTip && window._communeTip._map) map.closeTooltip(window._communeTip);
       });
     }
 
@@ -807,9 +824,7 @@
       try {
         // Pre-sliced vector tiles — fast per-tile loading instead of 9.3MB GeoJSON.
         // The GridLayer fetches tiles from /data/tiles/{z}/{x}/{y}.json on demand.
-        const { layer, tileCache } = createCommuneTileLayer();
-        communesLayer = layer;
-        communeTileCache = tileCache;
+        communesLayer = createCommuneTileLayer(tileCache);
         communesFetched = true;
 
         // Add to map only at zoom 9+ (minZoom handled by GridLayer option)
@@ -851,7 +866,7 @@
           map.removeLayer(communesLayer);
           communesLayer = null;
         }
-        communeTileCache = null;
+        tileCache = null;
         communesFetched = false;  // allow re-fetch on next toggle
         clearLegend();
       }
@@ -1056,7 +1071,7 @@
       if (roadsLayer) { map.removeLayer(roadsLayer); roadsLayer = null; roadsFetched = false; }
       if (railwaysLayer) { map.removeLayer(railwaysLayer); railwaysLayer = null; }
       if (waterwaysLayer) { map.removeLayer(waterwaysLayer); waterwaysLayer = null; waterwaysVisible = false; }
-      if (communesLayer) { map.removeLayer(communesLayer); communesLayer = null; communesFetched = false; communeTileCache = null; }
+      if (communesLayer) { map.removeLayer(communesLayer); communesLayer = null; communesFetched = false; tileCache = null; }
       clearLegend();
     }
 
@@ -1388,6 +1403,15 @@
   }
 
   :global(.dept-tooltip--density strong) {
+    color: #d4a843;
+  }
+
+  /* Commune/density tooltip renders above department tooltip (same pane, z=650). */
+  :global(.dept-tooltip--commune) {
+    z-index: 1000 !important;
+  }
+
+  :global(.dept-tooltip--commune strong) {
     color: #d4a843;
   }
 
