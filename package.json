@@ -33,7 +33,8 @@
     "fetch:waterways": "node scripts/fetch-waterways.js",
     "cache:waterways": "bash scripts/cache-waterways.sh",
     "build:layers": "node scripts/simplify-line-layers.js",
-    "clip:france": "node scripts/clip-to-france.js"
+    "clip:france": "node scripts/clip-to-france.js",
+"fetch:world": "node scripts/fetch-world-data.js"
   },
   "dependencies": {
     "@astrojs/tailwind": "^6.0.2",

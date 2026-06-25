@@ -1,0 +1,226 @@
+---
+import Base from '../../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+import { getCountry, getAllCountries } from '../../../data/countries';
+
+export async function getStaticPaths() {
+  const countries = await getAllCountries();
+  return countries.map((country) => ({
+    params: { slug: country.slug },
+    props: { country },
+  }));
+}
+
+const { country } = Astro.props;
+const { Content } = await (await getCollection('countries'))
+  .find((e) => e.data.code === country.code)
+  ?.render() ?? {};
+
+// Continent names in French
+const continentNames = {
+  africa: 'Afrique',
+  americas: 'Amériques',
+  asia: 'Asie',
+  europe: 'Europe',
+  oceania: 'Océanie',
+  antarctica: 'Antarctique',
+};
+const continentLabel = continentNames[country.continent as keyof typeof continentNames] || country.continent;
+---
+
+<Base
+  title={`${country.nom} — La France dans le monde`}
+  description={`Profil de ${country.nom} : population ${country.population?.toLocaleString('fr-FR')}, superficie ${country.area?.toLocaleString('fr-FR')} km²${country.hdi ? `, IDH ${country.hdi.toFixed(3)}` : ''}`}
+>
+  <article class="country-page">
+    <header class="country-page__header">
+      <a href="/monde" class="country-page__back">← La France dans le monde</a>
+      <div class="country-page__title-row">
+        <h1 class="country-page__title">{country.nom}</h1>
+        {country.capital && <span class="country-page__capital">{country.capital}</span>}
+      </div>
+      {country.nomEn && (
+        <p class="country-page__name-en">{country.nomEn}</p>
+      )}
+      <p class="country-page__meta">
+        {continentLabel}
+        {country.code && <span class="country-page__code">{country.code}</span>}
+      </p>
+    </header>
+
+    <div class="country-page__stats">
+      {country.population != null && (
+        <div class="stat-card">
+          <span class="stat-card__value">{country.population.toLocaleString('fr-FR')}</span>
+          <span class="stat-card__label">Habitant·es</span>
+        </div>
+      )}
+      {country.area != null && (
+        <div class="stat-card">
+          <span class="stat-card__value">{country.area.toLocaleString('fr-FR')} km²</span>
+          <span class="stat-card__label">Superficie</span>
+        </div>
+      )}
+      {country.density != null && (
+        <div class="stat-card">
+          <span class="stat-card__value">{country.density.toLocaleString('fr-FR')}</span>
+          <span class="stat-card__label">hab/km²</span>
+        </div>
+      )}
+      {country.hdi != null && (
+        <div class="stat-card">
+          <span class="stat-card__value">{country.hdi.toFixed(3)}</span>
+          <span class="stat-card__label">IDH</span>
+        </div>
+      )}
+      {country.ihdi != null && (
+        <div class="stat-card">
+          <span class="stat-card__value">{country.ihdi.toFixed(3)}</span>
+          <span class="stat-card__label">IDHAI</span>
+        </div>
+      )}
+    </div>
+
+    <div class="country-page__body">
+      {Content ? (
+        <Content />
+      ) : (
+        <p class="country-page__placeholder">
+          Page en cours de rédaction. Les informations sur {country.nom} seront bientôt disponibles.
+        </p>
+      )}
+    </div>
+
+    <footer class="country-page__footer">
+      <a href="/monde" class="btn btn--ghost">← Retour à la France dans le monde</a>
+    </footer>
+  </article>
+</Base>
+
+<style>
+  .country-page {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: var(--gap-xl) var(--gap-lg) var(--gap-2xl);
+  }
+
+  .country-page__back {
+    display: inline-block;
+    color: var(--color-text-muted);
+    font-size: 0.875rem;
+    margin-bottom: var(--gap-lg);
+    transition: color var(--transition-fast);
+  }
+
+  .country-page__back:hover {
+    color: var(--color-french-blue);
+  }
+
+  .country-page__title-row {
+    display: flex;
+    align-items: baseline;
+    gap: var(--gap-md);
+    margin-bottom: var(--gap-sm);
+    flex-wrap: wrap;
+  }
+
+  .country-page__title {
+    font-family: var(--font-serif);
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 800;
+    color: var(--color-text-light);
+    margin: 0;
+    line-height: 1.1;
+  }
+
+  .country-page__capital {
+    font-size: 1.1rem;
+    color: var(--color-text-muted);
+    font-weight: 500;
+  }
+
+  .country-page__name-en {
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+    margin-bottom: var(--gap-xs);
+  }
+
+  .country-page__meta {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    margin-bottom: var(--gap-lg);
+    display: flex;
+    gap: var(--gap-md);
+  }
+
+  .country-page__code {
+    font-family: var(--font-mono, monospace);
+    color: var(--color-french-blue);
+    opacity: 0.6;
+    font-weight: 600;
+  }
+
+  /* ── Stats row ── */
+  .country-page__stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: var(--gap-md);
+    margin-bottom: var(--gap-lg);
+  }
+
+  .stat-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: var(--gap-md);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-bg-card);
+  }
+
+  .stat-card__value {
+    font-family: var(--font-serif);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--color-accent-gold);
+  }
+
+  .stat-card__label {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    margin-top: var(--gap-xs);
+  }
+
+  .country-page__body {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--color-text-light);
+  }
+
+  .country-page__body :global(h2) {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-top: var(--gap-xl);
+    margin-bottom: var(--gap-md);
+    color: var(--color-text-light);
+  }
+
+  .country-page__placeholder {
+    text-align: center;
+    color: var(--color-text-muted);
+    font-style: italic;
+    padding: var(--gap-xl) 0;
+  }
+
+  .country-page__footer {
+    margin-top: var(--gap-2xl);
+    text-align: center;
+  }
+
+  @media (max-width: 500px) {
+    .country-page__stats {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>

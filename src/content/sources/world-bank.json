@@ -1,0 +1,13 @@
+{
+  "id": "world-bank",
+  "type": "dataset",
+  "title": "World Bank Open Data — Population indicators",
+  "author": [
+    { "literal": "Banque mondiale" }
+  ],
+  "publisher": "Banque mondiale",
+  "publisher-place": "Washington, D.C.",
+  "issued": { "date-parts": [[2024]] },
+  "URL": "https://data.worldbank.org/indicator/SP.POP.TOTL",
+  "genre": "Indicateurs de population"
+}

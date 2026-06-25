@@ -120,6 +120,27 @@ export const departmentSchema = z.object({
   slug: data.code,
 }));
 
+// ── Countries (world map + country profiles) ──
+
+export const countrySchema = z.object({
+  code: z.string().length(3), // ISO 3166-1 alpha-3
+  nom: z.string().min(1), // French name
+  nomEn: z.string().min(1), // English name
+  nativeName: z.string().optional(), // Name in native language
+  continent: z.enum(['africa', 'americas', 'asia', 'europe', 'oceania', 'antarctica']).optional(),
+  capital: z.string().optional(),
+  population: z.number().optional(),
+  area: z.number().optional(),
+  density: z.number().optional(),
+  hdi: z.number().min(0).max(1).optional(),
+  ihdi: z.number().min(0).max(1).optional(),
+  mediaIds: z.array(z.string()).optional(),
+  sourceIds: z.array(z.string()).optional(),
+}).transform((data) => ({
+  ...data,
+  slug: data.code.toLowerCase(),
+}));
+
 // ── Figures (data-driven charts, prerendered to SVG) ──
 
 const chartType = z.enum([
@@ -310,6 +331,7 @@ export const collections = {
   sources:      defineCollection({ type: 'data',    schema: sourceSchema }),
   media:        defineCollection({ type: 'data',    schema: mediaSchema }),
   departements: defineCollection({ type: 'content', schema: departmentSchema }),
+  countries:    defineCollection({ type: 'content', schema: countrySchema }),
   figures:      defineCollection({ type: 'data',    schema: figureSchema }),
 };
 
@@ -320,6 +342,7 @@ export type TimelineEvent = z.infer<typeof eventSchema>;
 export type CslSource = z.infer<typeof sourceSchema>;
 export type MediaEntry = z.infer<typeof mediaSchema>;
 export type Department = z.infer<typeof departmentSchema>;
+export type Country = z.infer<typeof countrySchema>;
 export type ChartFigure = z.infer<typeof figureSchema>;
 export type ChartType = z.infer<typeof chartType>;
 export type TimelineEntry = z.infer<typeof timelineEntrySchema>;

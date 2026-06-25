@@ -39,6 +39,16 @@ const sections: SectionMeta[] = [
       'La géographie de la France à travers des cartes et données interactives',
   },
   {
+    id: 'monde',
+    href: '/monde',
+    title: 'Monde',
+    icon: '🌍',
+    tileDesc:
+      'La France dans le monde — cartes thématiques, données comparatives et profils par pays',
+    metaDesc:
+      'La France dans le monde — cartes interactives, indicateurs de développement et profils par pays',
+  },
+  {
     id: 'actualites',
     href: '/actualites',
     title: 'Actualité',

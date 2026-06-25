@@ -1,0 +1,212 @@
+---
+import Base from '../../layouts/Base.astro';
+import sections from '../../data/sections';
+
+const { metaDesc } = sections.find((s) => s.id === 'monde')!;
+---
+
+<Base title="La France dans le monde — France en Chiffres" description={metaDesc}>
+  <section class="world-section">
+    <div class="container">
+      <h1 class="world-section__title">La France dans le monde</h1>
+      <p class="world-section__subtitle">
+        Place de la France dans le monde — cartes thématiques et profils par pays.
+      </p>
+      <div class="french-separator"></div>
+
+      <div class="world-tiles">
+        <!-- Tile 1: Interactive world map -->
+        <a href="/monde/carte-interactive" class="world-tile world-tile--map">
+          <div class="world-tile__preview">
+            <svg viewBox="0 0 100 60" class="world-tile__globe" aria-hidden="true">
+              <ellipse cx="50" cy="30" rx="45" ry="25" fill="rgba(212,168,67,0.05)" stroke="#d4a843" stroke-width="0.5" opacity="0.4"/>
+              <rect x="30" y="12" width="4" height="3" fill="rgba(78,179,211,0.5)" rx="0.5"/>
+              <rect x="55" y="18" width="8" height="3" fill="rgba(43,140,190,0.6)" rx="0.5"/>
+              <rect x="42" y="22" width="6" height="4" fill="rgba(212,168,67,0.4)" rx="0.5"/>
+              <rect x="20" y="28" width="10" height="4" fill="rgba(8,104,172,0.7)" rx="0.5"/>
+              <rect x="35" y="30" width="5" height="2" fill="rgba(8,64,129,0.8)" rx="0.5"/>
+              <rect x="60" y="32" width="8" height="3" fill="rgba(43,140,190,0.5)" rx="0.5"/>
+              <rect x="25" y="35" width="4" height="2" fill="rgba(78,179,211,0.3)" rx="0.5"/>
+              <rect x="45" y="38" width="6" height="3" fill="rgba(212,168,67,0.2)" rx="0.5"/>
+              <rect x="65" y="40" width="3" height="2" fill="rgba(43,140,190,0.4)" rx="0.5"/>
+              <!-- Grid lines -->
+              <path d="M 10,30 L 90,30" stroke="rgba(212,168,67,0.1)" stroke-width="0.3" fill="none"/>
+              <path d="M 50,8 L 50,52" stroke="rgba(212,168,67,0.1)" stroke-width="0.3" fill="none"/>
+            </svg>
+          </div>
+          <div class="world-tile__body">
+            <h2 class="world-tile__title">Carte interactive du monde</h2>
+            <p class="world-tile__desc">
+              Indice de développement humain ajusté aux inégalités (IDHAI), densité de population —
+              explorez les données mondiales et comparez la France aux autres pays.
+            </p>
+            <span class="world-tile__action">Explorer →</span>
+          </div>
+        </a>
+
+        <!-- Tile 2: Country profiles -->
+        <a href="/monde/pays/fra" class="world-tile world-tile--profiles">
+          <div class="world-tile__preview">
+            <div class="world-tile__flags-preview" aria-hidden="true">
+              <span class="world-tile__flag">🇫🇷</span>
+              <span class="world-tile__flag">🇩🇪</span>
+              <span class="world-tile__flag">🇬🇧</span>
+              <span class="world-tile__flag">🇺🇸</span>
+              <span class="world-tile__flag">🇨🇳</span>
+              <span class="world-tile__flag">🇯🇵</span>
+            </div>
+          </div>
+          <div class="world-tile__body">
+            <h2 class="world-tile__title">Profils par pays</h2>
+            <p class="world-tile__desc">
+              Découvrez la relation de la France avec chaque pays — histoire, échanges,
+              culture. Données démographiques et économiques pour tous les pays du monde.
+            </p>
+            <span class="world-tile__action">Explorer →</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .world-section {
+    padding-top: var(--gap-xl);
+    padding-bottom: var(--gap-2xl);
+  }
+
+  .world-section__title {
+    font-family: var(--font-serif);
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    font-weight: 800;
+    text-align: center;
+    color: var(--color-text-light);
+    margin-bottom: var(--gap-sm);
+  }
+
+  .world-section__subtitle {
+    color: var(--color-text-muted);
+    text-align: center;
+    max-width: 500px;
+    margin: 0 auto var(--gap-lg);
+    font-size: 1rem;
+  }
+
+  /* ── Tile grid ── */
+  .world-tiles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: var(--gap-lg);
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .world-tile {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: border-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+    text-decoration: none;
+    color: inherit;
+    background: var(--color-bg-card);
+  }
+
+  .world-tile:hover {
+    border-color: var(--color-french-blue);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  }
+
+  .world-tile:focus-visible {
+    outline: 2px solid var(--color-accent-gold);
+    outline-offset: 2px;
+  }
+
+  .world-tile__preview {
+    height: 180px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #0f172a;
+  }
+
+  .world-tile--map .world-tile__preview {
+    background: linear-gradient(135deg, #0f172a, #0e2a3f);
+  }
+
+  .world-tile--profiles .world-tile__preview {
+    background: linear-gradient(135deg, #0f172a, #1a1a2e);
+  }
+
+  .world-tile__globe {
+    width: 200px;
+    height: auto;
+    opacity: 0.8;
+  }
+
+  .world-tile__flags-preview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+    padding: 1rem;
+  }
+
+  .world-tile__flag {
+    font-size: 2rem;
+    filter: grayscale(0.3);
+    transition: filter var(--transition-fast), transform var(--transition-fast);
+  }
+
+  .world-tile:hover .world-tile__flag {
+    filter: grayscale(0);
+    transform: scale(1.1);
+  }
+
+  .world-tile__body {
+    padding: var(--gap-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-sm);
+  }
+
+  .world-tile__title {
+    font-family: var(--font-serif);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-text-light);
+    margin: 0;
+  }
+
+  .world-tile__desc {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .world-tile__action {
+    color: var(--color-french-blue);
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-top: auto;
+    transition: gap var(--transition-fast);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .world-tile:hover .world-tile__action {
+    gap: 0.5rem;
+  }
+
+  @media (max-width: 720px) {
+    .world-tiles {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
