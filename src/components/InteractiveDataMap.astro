@@ -177,6 +177,7 @@
      *  @param {Map} [sharedCache] — optional tile cache shared with commune layer */
     function createPreSlicedTileLayer(sharedCache) {
       const tileCache = sharedCache || new Map();
+      let firstTileDrawn = false;
 
       const PreSlicedLayer = L.GridLayer.extend({
         createTile: function (coords) {
@@ -195,7 +196,6 @@
             .then(r => r.ok ? r.json() : Promise.reject())
             .then(data => {
               if (!canvas.isConnected) return;
-              // Cache for hover hit-testing (shared with commune layer)
               const key = `${coords.z}/${coords.x}/${coords.y}`;
               tileCache.set(key, data.features);
               for (const feature of data.features) {
@@ -204,8 +204,13 @@
                   4096, size.x, dpr,
                   getDensityColor(density), '#475569', 0.3);
               }
-              const labelEl = document.getElementById('toggle-density')?.closest('.layer-controls__item');
-              if (labelEl) setLoading(labelEl, false);
+              // Hide loading overlay once first tile with data is rendered
+              if (!firstTileDrawn && data.features.length > 0) {
+                firstTileDrawn = true;
+                const labelEl = document.getElementById('toggle-density')?.closest('.layer-controls__item');
+                if (labelEl) setLoading(labelEl, false);
+                showMapLoading(false);
+              }
             })
             .catch(() => {});
 
@@ -478,9 +483,8 @@
         console.log(`✓ Density layer added (pre-sliced tiles, zoom ${zoom})`);
       } catch (err) {
         console.error('Failed to create density layer:', err);
-      } finally {
-        setLoading(labelEl, false);
         showMapLoading(false);
+      } finally {
         densityLoading = false;
       }
     }
