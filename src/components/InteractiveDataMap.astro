@@ -774,9 +774,9 @@
 
     /** Set up commune hover tooltip via canvas tile hit-testing. */
     /** Shared tooltip instance — used by both density and commune hover.
-     *  Closes any previously open tooltips to prevent visual overlap with
-     *  the department tooltip (both sit in the same Leaflet tooltip pane
-     *  at the mouse position). */
+     *  Closes any previously open Leaflet tooltip at the layer level
+     *  (e.g. department name) before showing commune info, preventing
+     *  visual overlap at the sticky mouse position. */
     function showCommuneTooltip(tags, latlng) {
       const name = tags.nom || '';
       const code = tags.code || '';
@@ -787,13 +787,18 @@
         tip += `<br><strong>${getDensityLabel(density)}</strong>`;
       }
 
+      // Close any existing department/other tooltip to prevent overlap
+      if (deptLayer) {
+        deptLayer.eachLayer((l) => {
+          if (l._tooltip && l._tooltip._map) l._tooltip.close();
+        });
+      }
+
       if (window._communeTip) {
-        // Reuse existing tooltip — just update content and position
         window._communeTip.setContent(tip).setLatLng(latlng);
         if (!window._communeTip._map) map.openTooltip(window._communeTip);
         return;
       }
-
       window._communeTip = L.tooltip({
         sticky: true,
         className: 'dept-tooltip dept-tooltip--commune',
