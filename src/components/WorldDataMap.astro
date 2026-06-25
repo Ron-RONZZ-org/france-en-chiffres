@@ -68,9 +68,13 @@
       maxZoom: MAX_ZOOM,
       zoomControl: true,
       attributionControl: true,
-      worldCopyJump: true,   // seamless globe panning — base tiles wrap, and
-                             // the map center auto-jumps to the nearest world copy
-                             // so vector layers stay visible on scroll
+      // worldCopyJump intentionally omitted: when enabled, Leaflet's coordinate
+      // system wraps around the antimeridian, causing GeoJSON vector layers
+      // (which don't wrap) to render as duplicates at low zoom.  Instead,
+      // we constrain the viewport to the world extent so the user can never
+      // pan far enough to trigger the wrapping.
+      maxBounds: [[-90, -180], [90, 180]],
+      maxBoundsViscosity: 1.0,
     });
 
     // ── Base tile layer (OSM) ──
