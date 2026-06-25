@@ -68,18 +68,24 @@ france-en-chiffres/
 │   │   ├── events/          # One .md per event (id, start, end, title, description, mediaIds; yearDisplay auto-inferred)
 │   │   ├── sources/         # CSL-JSON source files (ISO 690-compatible)
 │   │   ├── media/           # Media metadata (.json) + media files (.svg, rasters)
+│   │   ├── countries/       # Country profiles (.md, auto-generated from build pipeline)
 │   │   └── figures/         # Chart figure data (.json) with Zod-discriminated union per type (line, bar, population-pyramid, bump, choropleth, comparison, sankey)
 │   ├── pages/               # Route pages (index, history, culture, ...)
 │   │   ├── bibliography.astro           # Aggregated sources listing
 │   │   ├── bibliography/[id].astro      # Per-source page (auto-generated)
 │   │   ├── evenements/[slug].astro      # Per-event article page (auto-generated)
 │   │   ├── periodes/[slug].astro        # Per-era page (auto-generated)
+│   │   ├── monde/
+│   │   │   ├── index.astro              # «La France dans le monde» — section landing page
+│   │   │   ├── carte-interactive.astro  # Leaflet world map with thematic layers
+│   │   │   └── pays/[slug].astro        # Per-country profile page (auto-generated)
 │   │   └── geography/
 │   │       ├── departements-francais.astro  # Artistic SVG department map
 │   │       └── carte-interactive.astro      # Leaflet-based interactive layers map
 │   ├── components/          # Reusable Astro/HTML components
 │   │   ├── InteractiveFranceMap.astro  # Department-level interactive map
 │   │   ├── InteractiveDataMap.astro    # Leaflet-based geo map with layers
+│   │   ├── WorldDataMap.astro          # Leaflet world map (HDI, density layers, fullscreen)
 │   │   ├── Timeline.astro
 │   │   ├── TimelineEvent.astro
 │   │   ├── TimelineEra.astro
@@ -97,9 +103,13 @@ france-en-chiffres/
 │   │   ├── france.json
 │   │   ├── france-map-data.json       # Extracted SVG paths for FranceMap
 │   │   ├── france-departments.json    # Individual department paths (96 depts)
-│   │   └── geo/                      # Build-time geo data for interactive map
+│   │   ├── countries.ts              # Aggregation layer: loads country profiles + GeoJSON data
+│   │   └── geo/                      # Build-time geo data for interactive maps
+│   │       ├── departements.geojson  # France department boundaries
+│   │       └── world-countries.json  # World country boundaries + HDI/population data
 │   ├── scripts/             # Build-time helper scripts
 │   │   ├── extract-france-map.js # Parse France_departements.svg → data JSON
+│   │   ├── fetch-world-data.js  # Download NE 110m, UNDP, World Bank → world-countries.json
 │   │   └── charts/
 │   │       └── render-svg.js     # DOM-free D3 chart → SVG renderer (d3-scale, d3-shape)
 │   ├── tests/               # Automated validation tests
