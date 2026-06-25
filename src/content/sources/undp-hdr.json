@@ -1,0 +1,13 @@
+{
+  "id": "undp-hdr",
+  "type": "dataset",
+  "title": "Human Development Report — Composite Indices",
+  "author": [
+    { "literal": "Programme des Nations unies pour le développement (PNUD)" }
+  ],
+  "publisher": "PNUD",
+  "publisher-place": "New York",
+  "issued": { "date-parts": [[2024]] },
+  "URL": "https://hdr.undp.org/data-center",
+  "genre": "Indice de développement humain"
+}

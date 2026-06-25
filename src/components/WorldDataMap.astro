@@ -1,0 +1,968 @@
+---
+// WorldDataMap.astro — Leaflet-based world interactive map with thematic layers
+// Layers: HDI / HDIAI choropleth, population density
+// Tooltips via Tippy.js, click opens country profile
+// Uses the same fullscreen/layer-toggle/legend pattern as InteractiveDataMap.astro
+---
+
+<section class="world-map-section">
+  <div id="world-interactive-map" class="world-map" role="application" aria-label="Carte interactive du monde">
+    <noscript>
+      <div class="world-map__noscript">
+        <p>La carte interactive nécessite JavaScript. Veuillez activer JavaScript pour voir la carte.</p>
+      </div>
+    </noscript>
+  </div>
+
+  <div id="world-map-legend" class="world-map__legend" aria-hidden="true">
+    <p class="world-map__legend-title">Légende</p>
+    <div id="world-map-legend-content" class="world-map__legend-content">
+      <p class="world-map__legend-placeholder">Sélectionnez une couche pour voir la légende.</p>
+    </div>
+  </div>
+
+  <div id="world-map-loading" class="world-map__loading" aria-hidden="true">
+    <div class="world-map__loading-spinner"></div>
+    <span class="world-map__loading-text">Chargement des données…</span>
+  </div>
+</section>
+
+<script>
+  import L from 'leaflet';
+  import 'leaflet/dist/leaflet.css';
+  import tippy from 'tippy.js';
+  import 'tippy.js/dist/tippy.css';
+  import 'tippy.js/animations/shift-away.css';
+
+  (() => {
+    // ── Constants ──
+    const WORLD_CENTER = [20, 0];
+    const DEFAULT_ZOOM = 2;
+    const MIN_ZOOM = 2;
+    const MAX_ZOOM = 6;
+
+    const COUNTRY_STYLE = {
+      color: '#475569',
+      weight: 1.0,
+      fill: true,
+      fillColor: '#1e293b',
+      fillOpacity: 0.01,
+    };
+
+    const COUNTRY_HIGHLIGHT = {
+      color: '#d4a843',
+      weight: 2.0,
+      fill: true,
+      fillColor: '#d4a843',
+      fillOpacity: 0.15,
+    };
+
+    // ── Initialize map ──
+    const mapEl = document.getElementById('world-interactive-map');
+    if (!mapEl) return;
+
+    const map = L.map(mapEl, {
+      center: WORLD_CENTER,
+      zoom: DEFAULT_ZOOM,
+      minZoom: MIN_ZOOM,
+      maxZoom: MAX_ZOOM,
+      zoomControl: true,
+      attributionControl: true,
+    });
+
+    // ── Base tile layer (OSM) ──
+    const osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      maxZoom: 19,
+    }).addTo(map);
+
+    // ── State ──
+    let countryLayer = null;
+    let worldData = null;
+    let hdiLayer = null;
+    let densityLayer = null;
+    let currentHighlight = null;
+    let dataFetched = false;
+
+    // ── Color scales ──
+    // HDI quintiles (UNDP: low < 0.550, medium < 0.700, high < 0.800, very high >= 0.800)
+    function getHDIColor(value) {
+      if (value === null || value === undefined) return '#1e293b';
+      if (value >= 0.900) return '#006837';
+      if (value >= 0.800) return '#31a354';
+      if (value >= 0.700) return '#78c679';
+      if (value >= 0.550) return '#addd8e';
+      if (value >= 0.400) return '#f7f7c0';
+      return '#f03b20';
+    }
+
+    // IHDI colors (more inequality = lower score, similar gradient but shifted)
+    function getIHDIColor(value) {
+      if (value === null || value === undefined) return '#1e293b';
+      if (value >= 0.800) return '#006837';
+      if (value >= 0.700) return '#31a354';
+      if (value >= 0.600) return '#78c679';
+      if (value >= 0.450) return '#addd8e';
+      if (value >= 0.300) return '#f7f7c0';
+      return '#f03b20';
+    }
+
+    function getDensityColor(density) {
+      if (density === null || density === undefined) return '#1e293b';
+      if (density > 1000) return '#081d58';
+      if (density > 500) return '#253494';
+      if (density > 200) return '#225ea8';
+      if (density > 100) return '#1d91c0';
+      if (density > 50) return '#41b6c4';
+      if (density > 20) return '#78c679';
+      if (density > 10) return '#addd8e';
+      return '#c2e699';
+    }
+
+    function getHDILabel(value) {
+      if (value === null || value === undefined) return 'N/A';
+      return value.toFixed(3);
+    }
+
+    function getIHDILabel(value) {
+      if (value === null || value === undefined) return 'N/A';
+      return value.toFixed(3);
+    }
+
+    function getDensityLabel(value) {
+      if (value === null || value === undefined) return 'N/A';
+      return value.toLocaleString('fr-FR') + ' hab/km²';
+    }
+
+    function getPopLabel(value) {
+      if (!value) return 'N/A';
+      return value.toLocaleString('fr-FR');
+    }
+
+    // ── Helpers ──
+    function escapeHtml(str) {
+      const div = document.createElement('div');
+      div.textContent = str;
+      return div.innerHTML;
+    }
+
+    function formatTooltip(props) {
+      const nativeName = props.native_name || props.nativeName || '';
+      const frName = props.name_fr || props.name_en || '';
+      const pop = props.population;
+      const hdi = props.hdi;
+      const ihdi = props.ihdi;
+      const density = props.density;
+
+      let tip = '<div class="world-tooltip">';
+      // Name: native (French)
+      if (nativeName && nativeName !== frName) {
+        tip += `<strong>${escapeHtml(nativeName)}</strong> <span class="world-tooltip__fr">(${escapeHtml(frName)})</span>`;
+      } else {
+        tip += `<strong>${escapeHtml(frName)}</strong>`;
+      }
+      if (pop) {
+        tip += `<br>Population\u00a0: <strong>${getPopLabel(pop)}</strong>`;
+      }
+      if (hdi !== undefined && hdi !== null) {
+        tip += `<br>IDH\u00a0: <strong>${getHDILabel(hdi)}</strong>`;
+      }
+      if (ihdi !== undefined && ihdi !== null) {
+        tip += `<br>IDHAI\u00a0: <strong>${getIHDILabel(ihdi)}</strong>`;
+      }
+      if (density !== undefined && density !== null) {
+        tip += `<br>Densité\u00a0: <strong>${getDensityLabel(density)}</strong>`;
+      }
+      tip += '</div>';
+      return tip;
+    }
+
+    // ── Legend helpers ──
+    function setLegendContent(html) {
+      const normalEl = document.getElementById('world-map-legend-content');
+      const infoLegend = document.getElementById('world-map-info-legend');
+      if (normalEl) normalEl.innerHTML = html;
+      if (infoLegend) infoLegend.innerHTML = html;
+    }
+
+    function clearLegend() {
+      setLegendContent(
+        '<p class="world-map__legend-placeholder">Sélectionnez une couche pour voir la légende.</p>'
+      );
+    }
+
+    function setLoading(labelEl, loading) {
+      if (labelEl) labelEl.toggleAttribute('data-loading', loading);
+    }
+
+    function showMapLoading(visible) {
+      const el = document.getElementById('world-map-loading');
+      if (el) el.classList.toggle('world-map__loading--visible', visible);
+    }
+
+    // ── Load world data ──
+    async function loadWorldData() {
+      if (dataFetched && worldData) return;
+      showMapLoading(true);
+      try {
+        const resp = await fetch('/data/geo/world-countries.json');
+        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+        worldData = await resp.json();
+        dataFetched = true;
+        console.log(`✓ World data loaded (${worldData.features.length} countries)`);
+        renderCountryLayer();
+      } catch (err) {
+        console.error('Failed to load world data:', err);
+      } finally {
+        showMapLoading(false);
+      }
+    }
+
+    // ── Base country layer ──
+    function renderCountryLayer() {
+      if (countryLayer) return;
+
+      countryLayer = L.geoJSON(worldData, {
+        style: COUNTRY_STYLE,
+        onEachFeature: (feature, layer) => {
+          const props = feature.properties || {};
+
+          // Bind tooltip
+          const tip = formatTooltip(props);
+          layer.bindTooltip(tip, {
+            sticky: true,
+            direction: 'top',
+            offset: L.point(0, -8),
+            className: 'world-tooltip-leaflet',
+          });
+
+          // Highlight on hover
+          layer.on('mouseover', () => {
+            if (currentHighlight) {
+              currentHighlight.setStyle(COUNTRY_STYLE);
+            }
+            layer.setStyle(COUNTRY_HIGHLIGHT);
+            currentHighlight = layer;
+          });
+
+          layer.on('mouseout', () => {
+            if (currentHighlight) {
+              currentHighlight.setStyle(COUNTRY_STYLE);
+              currentHighlight = null;
+            }
+          });
+
+          // Click → open country profile
+          layer.on('click', () => {
+            const iso = (props.iso_a3 || '').toLowerCase();
+            if (iso && iso !== '-99') {
+              window.open(`/monde/pays/${iso}`, '_blank');
+            }
+          });
+        },
+      });
+
+      countryLayer.addTo(map);
+    }
+
+    // ── HDI choropleth layer ──
+    function applyHDI(active) {
+      if (active) {
+        if (!countryLayer) return;
+
+        countryLayer.eachLayer((layer) => {
+          const props = layer.feature.properties;
+          const val = props.ihdi || props.hdi;
+          const color = props.ihdi !== undefined ? getIHDIColor(props.ihdi) : (props.hdi !== undefined ? getHDIColor(props.hdi) : '#1e293b');
+          layer.setStyle({
+            fillColor: color,
+            fillOpacity: 0.7,
+            weight: 1.0,
+            color: '#334155',
+          });
+        });
+
+        setLegendContent(`
+          <p class="world-map__legend-subtitle">Indice de développement humain ajusté aux inégalités (IDHAI)</p>
+          <p class="world-map__legend-hint">IDH corrigé des inégalités — source PNUD 2022</p>
+          <div class="world-legend">
+            ${makeHDILegend()}
+          </div>
+          <p class="world-map__legend-source"><sup class="citation"><a href="/bibliographie/undp-hdr" data-source-id="undp-hdr" title="Source : PNUD">[1]</a></sup></p>
+        `);
+      } else {
+        // Reset to default
+        if (countryLayer) {
+          countryLayer.eachLayer((layer) => {
+            layer.setStyle(COUNTRY_STYLE);
+          });
+        }
+        clearLegend();
+      }
+    }
+
+    function makeHDILegend() {
+      const hdi = [
+        { label: '≥ 0,900', color: '#006837' },
+        { label: '0,800–0,899', color: '#31a354' },
+        { label: '0,700–0,799', color: '#78c679' },
+        { label: '0,550–0,699', color: '#addd8e' },
+        { label: '0,400–0,549', color: '#f7f7c0' },
+        { label: '< 0,400', color: '#f03b20' },
+        { label: 'N/A', color: '#1e293b' },
+      ];
+      return hdi.map(item => `
+        <span class="world-legend__item">
+          <span class="world-legend__swatch" style="background:${item.color}"></span>
+          ${item.label}
+        </span>
+      `).join('');
+    }
+
+    // ── Population density choropleth ──
+    function applyDensity(active) {
+      if (active) {
+        if (!countryLayer) return;
+
+        countryLayer.eachLayer((layer) => {
+          const props = layer.feature.properties;
+          const density = props.density;
+          layer.setStyle({
+            fillColor: getDensityColor(density),
+            fillOpacity: 0.7,
+            weight: 1.0,
+            color: '#334155',
+          });
+        });
+
+        setLegendContent(`
+          <p class="world-map__legend-subtitle">Densité de population</p>
+          <p class="world-map__legend-hint">Habitants par km² — source Banque mondiale / ONU 2022</p>
+          <div class="world-legend">
+            ${makeDensityLegend()}
+          </div>
+          <p class="world-map__legend-source"><sup class="citation"><a href="/bibliographie/world-bank" data-source-id="world-bank" title="Source : Banque mondiale">[2]</a></sup></p>
+        `);
+      } else {
+        // Reset to default
+        if (countryLayer) {
+          countryLayer.eachLayer((layer) => {
+            layer.setStyle(COUNTRY_STYLE);
+          });
+        }
+        clearLegend();
+      }
+    }
+
+    function makeDensityLegend() {
+      const items = [
+        { label: '≤ 10', color: '#c2e699' },
+        { label: '10–20', color: '#addd8e' },
+        { label: '20–50', color: '#78c679' },
+        { label: '50–100', color: '#41b6c4' },
+        { label: '100–200', color: '#1d91c0' },
+        { label: '200–500', color: '#225ea8' },
+        { label: '500–1 000', color: '#253494' },
+        { label: '> 1 000', color: '#081d58' },
+      ];
+      return items.map(item => `
+        <span class="world-legend__item">
+          <span class="world-legend__swatch" style="background:${item.color}"></span>
+          ${item.label}
+        </span>
+      `).join('');
+    }
+
+    // ── Layer toggles ──
+    function setupToggles() {
+      const toggles = document.querySelectorAll('[data-map-toggle]');
+      toggles.forEach((toggle) => {
+        toggle.addEventListener('change', async (e) => {
+          const layer = e.target.dataset.mapToggle;
+
+          // Load world data on first toggle
+          if (!dataFetched) {
+            showMapLoading(true);
+            await loadWorldData();
+          }
+
+          switch (layer) {
+            case 'hdi':
+              applyHDI(e.target.checked);
+              break;
+            case 'density':
+              applyDensity(e.target.checked);
+              break;
+          }
+        });
+      });
+    }
+
+    // ── Tippy: layer controls ──
+    function setupTippy() {
+      const items = document.querySelectorAll('.world-layer-controls__item[data-description]');
+      items.forEach((el) => {
+        const html = el.getAttribute('data-description');
+        if (!html) return;
+        tippy(el, {
+          content: html,
+          allowHTML: true,
+          placement: 'top',
+          animation: 'shift-away',
+          theme: 'dark',
+          maxWidth: 320,
+          delay: [200, 0],
+          interactive: true,
+        });
+      });
+    }
+
+    // ── Fullscreen control ──
+    const fullscreenControl = L.control({ position: 'topright' });
+    let isFullscreen = false;
+
+    fullscreenControl.onAdd = function () {
+      const btn = L.DomUtil.create('button', 'leaflet-control-zoom leaflet-control-fullscreen');
+      btn.setAttribute('type', 'button');
+      btn.setAttribute('aria-label', 'Plein écran');
+      btn.setAttribute('title', 'Plein écran');
+      btn.innerHTML = '<span class="fullscreen-icon">⛶</span>';
+      btn.style.cssText = `
+        font-size: 18px; line-height: 30px; text-align: center;
+        cursor: pointer; width: 30px; height: 30px;
+        background: #1e293b; border: 1px solid #334155; border-radius: 4px;
+      `;
+
+      btn.addEventListener('click', () => {
+        const wrapper = document.getElementById('world-map-page-wrapper');
+        if (!wrapper) return;
+
+        if (!document.fullscreenElement) {
+          wrapper.requestFullscreen().catch(() => {});
+        } else {
+          document.exitFullscreen().catch(() => {});
+        }
+      });
+
+      return btn;
+    };
+
+    fullscreenControl.addTo(map);
+
+    // Track fullscreen state
+    document.addEventListener('fullscreenchange', () => {
+      isFullscreen = !!document.fullscreenElement;
+      map.invalidateSize();
+      const wrapper = document.getElementById('world-map-page-wrapper');
+      if (wrapper) {
+        wrapper.classList.toggle('is-fullscreen', isFullscreen);
+      }
+      const controls = document.querySelector('.world-layer-controls');
+      if (controls) {
+        controls.classList.toggle('world-layer-controls--fullscreen', isFullscreen);
+        if (!isFullscreen) controls.classList.remove('world-layer-controls--collapsed');
+      }
+      // Move legend
+      const legendContent = document.getElementById('world-map-legend-content');
+      const infoLegend = document.getElementById('world-map-info-legend');
+      if (isFullscreen && legendContent && infoLegend) {
+        infoLegend.innerHTML = legendContent.innerHTML;
+        legendContent.innerHTML = '';
+      } else if (!isFullscreen && infoLegend && legendContent) {
+        legendContent.innerHTML = infoLegend.innerHTML;
+        infoLegend.innerHTML = '';
+      }
+      if (isFullscreen) {
+        document.body.classList.add('has-fullscreen-map');
+        const infoPanel = document.getElementById('world-map-info-panel');
+        if (infoPanel) infoPanel.classList.remove('world-map__info-panel--collapsed');
+      } else {
+        document.body.classList.remove('has-fullscreen-map');
+      }
+      const btn = document.querySelector('.leaflet-control-fullscreen');
+      if (btn) {
+        btn.innerHTML = isFullscreen
+          ? '<span class="fullscreen-icon">✕</span>'
+          : '<span class="fullscreen-icon">⛶</span>';
+        btn.setAttribute('aria-label', isFullscreen ? 'Quitter le plein écran' : 'Plein écran');
+        btn.setAttribute('title', isFullscreen ? 'Quitter le plein écran' : 'Plein écran');
+      }
+    });
+
+    // ── Collapse toggles ──
+    function setupFullscreenCollapse() {
+      const collapseBtn = document.querySelector('.world-layer-controls__collapse');
+      const controls = document.querySelector('.world-layer-controls');
+      if (!collapseBtn || !controls) return;
+
+      collapseBtn.addEventListener('click', () => {
+        const isCollapsed = controls.classList.toggle('world-layer-controls--collapsed');
+        collapseBtn.setAttribute('aria-label', isCollapsed ? 'Afficher les couches' : 'Masquer les couches');
+        collapseBtn.setAttribute('title', isCollapsed ? 'Afficher les couches' : 'Masquer les couches');
+        collapseBtn.innerHTML = isCollapsed ? '<span>☰</span>' : '<span>◀</span>';
+        map.invalidateSize();
+      });
+    }
+
+    function setupInfoPanelToggle() {
+      const header = document.querySelector('.world-map__info-panel-header');
+      const panel = document.getElementById('world-map-info-panel');
+      if (!header || !panel) return;
+
+      header.addEventListener('click', () => {
+        const isCollapsed = panel.classList.toggle('world-map__info-panel--collapsed');
+        const toggleBtn = panel.querySelector('.world-map__info-panel-toggle');
+        if (toggleBtn) {
+          toggleBtn.setAttribute('aria-label', isCollapsed ? 'Afficher le panneau d\'information' : 'Masquer le panneau d\'information');
+          toggleBtn.setAttribute('title', isCollapsed ? 'Afficher le panneau d\'information' : 'Masquer le panneau d\'information');
+        }
+        map.invalidateSize();
+      });
+    }
+
+    // ── Force reset toggles on init ──
+    function resetToggles() {
+      document.querySelectorAll('[data-map-toggle]').forEach((el) => {
+        if (el.type === 'checkbox') el.checked = false;
+      });
+      clearLegend();
+    }
+
+    // ── Init ──
+    resetToggles();
+    setupToggles();
+    setupTippy();
+    setupFullscreenCollapse();
+    setupInfoPanelToggle();
+
+    setTimeout(() => map.invalidateSize(), 200);
+
+    // Preload data
+    setTimeout(() => {
+      fetch('/data/geo/world-countries.geojson', { priority: 'low' }).catch(() => {});
+    }, 2000);
+
+    document.addEventListener('astro:after-swap', () => {
+      resetToggles();
+      setTimeout(() => map.invalidateSize(), 200);
+    });
+  })();
+</script>
+
+<style>
+  .world-map-section {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 var(--gap-lg);
+    position: relative;
+  }
+
+  .world-map {
+    width: 100%;
+    height: 600px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+    overflow: hidden;
+    background: #1e293b;
+  }
+
+  .world-map__noscript {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: var(--color-text-muted);
+    font-size: 1rem;
+    padding: var(--gap-lg);
+    text-align: center;
+  }
+
+  /* ── Loading overlay ── */
+  .world-map__loading {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.75rem 1.25rem;
+    background: rgba(11, 17, 32, 0.92);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: var(--color-text-light);
+    font-size: 0.9rem;
+    pointer-events: none;
+  }
+
+  .world-map__loading--visible {
+    display: flex;
+  }
+
+  .world-map__loading-spinner {
+    width: 20px;
+    height: 20px;
+    border: 2.5px solid var(--color-border);
+    border-top-color: var(--color-accent-gold, #d4a843);
+    border-radius: 50%;
+    animation: world-map-spin 0.7s linear infinite;
+    flex-shrink: 0;
+  }
+
+  .world-map__loading-text {
+    white-space: nowrap;
+  }
+
+  @keyframes world-map-spin {
+    to { transform: rotate(360deg); }
+  }
+
+  /* ── Legend ── */
+  .world-map__legend {
+    margin-top: var(--gap-md);
+    padding: var(--gap-md);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-bg-card);
+  }
+
+  .world-map__legend-title {
+    font-family: var(--font-serif);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--color-text-light);
+    margin-bottom: var(--gap-sm);
+  }
+
+  .world-map__legend-content {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+  }
+
+  .world-map__legend-placeholder {
+    font-style: italic;
+  }
+
+  .world-map__legend-subtitle {
+    font-weight: 600;
+    color: var(--color-text-light);
+    margin-bottom: var(--gap-xs);
+  }
+
+  .world-map__legend-hint {
+    font-size: 0.75rem;
+    color: var(--color-accent-gold, #d4a843);
+    font-style: italic;
+    margin-bottom: var(--gap-xs);
+  }
+
+  .world-map__legend-source {
+    margin-top: var(--gap-xs);
+    font-size: 0.75rem;
+  }
+
+  .world-map__legend-source a {
+    color: var(--color-link-on-dark);
+    text-decoration: none;
+  }
+
+  .world-map__legend-source a:hover {
+    text-decoration: underline;
+  }
+
+  .world-map__legend-source a:focus-visible {
+    outline: 2px solid var(--color-link-on-dark);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  /* ── World legend items ── */
+  .world-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 0.5rem;
+    margin: var(--gap-xs) 0;
+  }
+
+  .world-legend__item {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+  }
+
+  .world-legend__swatch {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border-radius: 2px;
+    border: 1px solid rgba(255,255,255,0.1);
+    flex-shrink: 0;
+  }
+
+  /* ── Tooltip ── */
+  :global(.world-tooltip-leaflet) {
+    background: #111827;
+    border: 1px solid #1e293b;
+    border-radius: 0.5rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    color: #e2e8f0;
+    font-size: 0.8rem;
+    padding: 0.35rem 0.6rem;
+    white-space: nowrap;
+  }
+
+  :global(.world-tooltip-leaflet::before) {
+    border-top-color: #1e293b;
+  }
+
+  .world-tooltip__fr {
+    color: #94a3b8;
+    font-weight: 400;
+  }
+
+  /* ── Info panel (fullscreen) ── */
+  .world-map__info-panel {
+    display: none;
+  }
+
+  /* ── Tippy overrides ── */
+  :global(.tippy-box[data-theme~="dark"]) {
+    background: #111827;
+    border: 1px solid #1e293b;
+    border-radius: 0.5rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    color: #e2e8f0;
+    font-size: 0.8rem;
+  }
+
+  :global(.tippy-box[data-theme~="dark"] .tippy-arrow) {
+    color: #111827;
+    stroke: #1e293b;
+  }
+
+  :global(.tippy-box[data-theme~="dark"] .tippy-content) {
+    padding: 0.5rem 0.65rem;
+  }
+
+  /* ── Leaflet overrides ── */
+  :global(.leaflet-container) {
+    font-family: inherit;
+    background: #1e293b;
+  }
+
+  :global(.leaflet-control-zoom a),
+  :global(.leaflet-control-fullscreen) {
+    background: #1e293b;
+    color: #e2e8f0;
+    border-color: #334155;
+  }
+
+  :global(.leaflet-control-zoom a:hover),
+  :global(.leaflet-control-fullscreen:hover) {
+    background: #334155;
+    color: #d4a843;
+  }
+
+  :global(.leaflet-control-attribution) {
+    background: rgba(15, 23, 42, 0.85) !important;
+    color: #64748b;
+    font-size: 0.65rem;
+  }
+
+  :global(.leaflet-control-attribution a) {
+    color: #94a3b8;
+  }
+
+  /* ── Fullscreen layout ── */
+  #world-map-page-wrapper.is-fullscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999;
+    background: var(--color-bg-base);
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    padding: 0 !important;
+  }
+
+  #world-map-page-wrapper.is-fullscreen .container {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    width: 100%;
+    max-width: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  #world-map-page-wrapper.is-fullscreen .world-interactive-page__title,
+  #world-map-page-wrapper.is-fullscreen .world-interactive-page__subtitle,
+  #world-map-page-wrapper.is-fullscreen .french-separator,
+  #world-map-page-wrapper.is-fullscreen .world-interactive-page__related {
+    display: none;
+  }
+
+  #world-map-page-wrapper.is-fullscreen .world-map-section {
+    flex: 1;
+    max-width: none;
+    padding: 0;
+    display: flex;
+    align-items: stretch;
+  }
+
+  #world-map-page-wrapper.is-fullscreen .world-map {
+    height: 100vh;
+    border-radius: 0;
+    border: none;
+  }
+
+  /* Push zoom controls down */
+  #world-map-page-wrapper.is-fullscreen :global(.leaflet-control-zoom) {
+    margin-top: 52px;
+  }
+
+  /* Info panel in fullscreen */
+  #world-map-page-wrapper.is-fullscreen .world-map__info-panel {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1001;
+    background: rgba(15, 23, 42, 0.92);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-top: 1px solid var(--color-border);
+    transition: transform var(--transition-normal);
+    max-height: 40vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  #world-map-page-wrapper.is-fullscreen .world-map__info-panel--collapsed {
+    transform: translateY(calc(100% - 36px));
+  }
+
+  .world-map__info-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.4rem var(--gap-md);
+    border-bottom: 1px solid var(--color-border);
+    cursor: pointer;
+    flex-shrink: 0;
+    min-height: 36px;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .world-map__info-panel-title {
+    font-weight: 600;
+    font-size: 0.8rem;
+    color: var(--color-text-light);
+  }
+
+  .world-map__info-panel-toggle {
+    background: none;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    color: var(--color-text-light);
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    transition: transform var(--transition-fast);
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  @media (max-width: 600px) {
+    .world-map__info-panel-toggle {
+      width: 36px;
+      height: 36px;
+    }
+  }
+
+  .world-map__info-panel--collapsed .world-map__info-panel-toggle {
+    transform: rotate(180deg);
+  }
+
+  .world-map__info-panel-body {
+    overflow-y: auto;
+    padding: var(--gap-sm) var(--gap-md);
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gap-md);
+    align-items: flex-start;
+  }
+
+  /* Hide normal legend in fullscreen */
+  #world-map-page-wrapper.is-fullscreen .world-map__legend {
+    display: none;
+  }
+
+  /* Sources inside info panel */
+  #world-map-page-wrapper.is-fullscreen .world-interactive-page__sources {
+    padding: 0;
+    margin: 0;
+    border: none;
+    flex: 1 1 auto;
+    min-width: 200px;
+  }
+
+  #world-map-page-wrapper.is-fullscreen .world-interactive-page__sources-title {
+    font-size: 0.8rem;
+    margin-bottom: var(--gap-xs);
+  }
+
+  #world-map-page-wrapper.is-fullscreen .world-interactive-page__source-item {
+    font-size: 0.75rem;
+  }
+
+  /* Citation superscripts */
+  :global(.world-layer-controls sup.citation) {
+    font-size: 0.75em;
+    vertical-align: super;
+    line-height: 1;
+  }
+
+  :global(.world-layer-controls sup.citation a) {
+    color: var(--color-link-on-dark);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  @media (max-width: 768px) {
+    .world-map {
+      height: 400px;
+    }
+  }
+
+  @media (max-width: 400px) {
+    .world-map {
+      height: 300px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .world-layer-controls--fullscreen {
+      transition: none !important;
+    }
+    .world-layer-controls--fullscreen.world-layer-controls--collapsed {
+      transform: none;
+      opacity: 1;
+    }
+  }
+</style>

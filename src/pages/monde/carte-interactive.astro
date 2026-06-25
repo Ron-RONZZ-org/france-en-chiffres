@@ -1,0 +1,406 @@
+---
+import Base from '../../layouts/Base.astro';
+import WorldDataMap from '../../components/WorldDataMap.astro';
+import { getSource, formatSourceLabel } from '../../data/sources';
+
+// Sources used on this page
+const sourceIds = [
+  'undp-hdr',
+  'world-bank',
+  'natural-earth',
+  'openstreetmap',
+];
+
+const sources = (await Promise.all(
+  sourceIds.map((id) => getSource(id)),
+)).filter(Boolean);
+---
+
+<Base
+  title="Carte interactive du monde — France en Chiffres"
+  description="Carte interactive du monde avec couches thématiques : indice de développement humain ajusté aux inégalités (IDHAI), densité de population — données PNUD, Banque mondiale et Natural Earth"
+>
+  <section id="world-map-page-wrapper" class="world-interactive-page">
+    <div class="container">
+      <h1 class="world-interactive-page__title">Carte interactive du monde</h1>
+      <p class="world-interactive-page__subtitle">
+        Explorez la place de la France dans le monde à travers les données mondiales.
+      </p>
+      <div class="french-separator"></div>
+
+      <!-- Layer toggles -->
+      <div class="world-layer-controls" role="group" aria-label="Couches thématiques">
+        <label
+          class="world-layer-controls__item"
+          data-map-toggle="hdi"
+          data-description="Indice de développement humain ajusté aux inégalités (IDHAI). Mesure le développement humain en tenant compte des inégalités internes. <sup class=&quot;citation&quot;><a href=&quot;/bibliographie/undp-hdr&quot; data-source-id=&quot;undp-hdr&quot; title=&quot;Source&nbsp;: PNUD&quot;>[1]</a></sup>"
+          for="toggle-hdi"
+        >
+          <input type="checkbox" id="toggle-hdi" data-map-toggle="hdi" class="world-layer-controls__checkbox">
+          <span class="world-layer-controls__swatch world-layer-controls__swatch--hdi"></span>
+          <span class="world-layer-controls__label">
+            <strong>IDHAI</strong>
+          </span>
+        </label>
+
+        <label
+          class="world-layer-controls__item"
+          data-map-toggle="density"
+          data-description="Densité de population — nombre d'habitants par km². <sup class=&quot;citation&quot;><a href=&quot;/bibliographie/world-bank&quot; data-source-id=&quot;world-bank&quot; title=&quot;Source&nbsp;: Banque mondiale&quot;>[2]</a></sup>"
+          for="toggle-density"
+        >
+          <input type="checkbox" id="toggle-density" data-map-toggle="density" class="world-layer-controls__checkbox">
+          <span class="world-layer-controls__swatch world-layer-controls__swatch--density"></span>
+          <span class="world-layer-controls__label">
+            <strong>Densité de population</strong>
+          </span>
+        </label>
+      </div>
+
+      <!-- Collapse button -->
+      <button class="world-layer-controls__collapse" type="button" aria-label="Masquer les couches" title="Masquer les couches">
+        <span>◀</span>
+      </button>
+
+      <!-- The map -->
+      <WorldDataMap />
+
+      <!-- Related links -->
+      <div class="world-interactive-page__related">
+        <h2 class="world-interactive-page__related-title">Ça peut vous intéresser aussi&nbsp;:</h2>
+        <ul class="world-interactive-page__related-links">
+          <li>
+            <a href="/monde/pays/fra">
+              Profil de la France
+            </a>
+          </li>
+          <li>
+            <a href="/geographie/carte-interactive/">
+              Carte interactive de la France
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Sources footer + legend -->
+      <div class="world-interactive-page__info-panel" id="world-map-info-panel">
+        <div class="world-map__info-panel-header">
+          <span class="world-map__info-panel-title">Informations</span>
+          <button class="world-map__info-panel-toggle" type="button" aria-label="Masquer le panneau d'information" title="Masquer le panneau d'information">
+            <span>▼</span>
+          </button>
+        </div>
+        <div class="world-map__info-panel-body">
+          <div class="world-interactive-page__info-legend" id="world-map-info-legend"></div>
+
+          <footer class="world-interactive-page__sources">
+            {sources.length > 0 && (
+              <>
+                <p class="world-interactive-page__sources-title">Sources des données</p>
+                <ol class="world-interactive-page__sources-list">
+                  {sources.map((s) => (
+                    <li class="world-interactive-page__source-item">
+                      <a href={`/bibliographie/${s.id}`}>{formatSourceLabel(s)}</a>
+                    </li>
+                  ))}
+                </ol>
+              </>
+            )}
+          </footer>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .world-interactive-page {
+    padding-top: var(--gap-xl);
+    padding-bottom: var(--gap-2xl);
+  }
+
+  .world-interactive-page__title {
+    font-family: var(--font-serif);
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    font-weight: 800;
+    text-align: center;
+    color: var(--color-text-light);
+    margin-bottom: var(--gap-sm);
+  }
+
+  .world-interactive-page__subtitle {
+    color: var(--color-text-muted);
+    text-align: center;
+    max-width: 550px;
+    margin: 0 auto var(--gap-lg);
+    font-size: 1rem;
+  }
+
+  /* ── Layer controls ── */
+  .world-layer-controls {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: var(--gap-sm);
+    margin-bottom: var(--gap-lg);
+  }
+
+  .world-layer-controls__item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 0.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: border-color var(--transition-fast), background var(--transition-fast);
+    user-select: none;
+  }
+
+  .world-layer-controls__item:hover {
+    border-color: var(--color-french-blue);
+    background: rgba(59, 130, 246, 0.05);
+  }
+
+  .world-layer-controls__swatch {
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  .world-layer-controls__swatch--hdi {
+    background: linear-gradient(135deg, #f03b20, #006837);
+  }
+
+  .world-layer-controls__swatch--density {
+    background: linear-gradient(135deg, #c2e699, #081d58);
+  }
+
+  .world-layer-controls__checkbox {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #475569;
+    border-radius: 4px;
+    background: #1e293b;
+    cursor: pointer;
+    flex-shrink: 0;
+    margin-top: 0;
+    transition: border-color var(--transition-fast), background var(--transition-fast);
+    position: relative;
+  }
+
+  .world-layer-controls__checkbox:checked {
+    border-color: var(--color-french-blue);
+    background: var(--color-french-blue);
+  }
+
+  .world-layer-controls__checkbox:checked::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .world-layer-controls__checkbox:focus-visible {
+    outline: 2px solid var(--color-accent-gold);
+    outline-offset: 2px;
+  }
+
+  .world-layer-controls__label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    font-size: 0.85rem;
+  }
+
+  .world-layer-controls__label strong {
+    color: var(--color-text-light);
+    font-weight: 600;
+  }
+
+  .world-layer-controls__item[data-loading] .world-layer-controls__label::after {
+    content: '…';
+    display: inline-block;
+    animation: world-loading-blink 1.2s steps(1, end) infinite;
+    margin-left: 0.25rem;
+    color: var(--color-accent-gold);
+  }
+
+  @keyframes world-loading-blink {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 1; }
+  }
+
+  /* ── Collapse button ── */
+  .world-layer-controls__collapse {
+    display: none;
+    position: fixed;
+    top: var(--gap-md);
+    left: var(--gap-md);
+    width: 32px;
+    height: 32px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: rgba(15, 23, 42, 0.9);
+    color: var(--color-text-light);
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    line-height: 1;
+    z-index: 1001;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    transition: left var(--transition-normal);
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .world-layer-controls__collapse:hover {
+    background: rgba(30, 41, 59, 0.95);
+  }
+
+  #world-map-page-wrapper.is-fullscreen .world-layer-controls__collapse {
+    display: flex;
+  }
+
+  #world-map-page-wrapper.is-fullscreen .world-layer-controls:not(.world-layer-controls--collapsed) ~ .world-layer-controls__collapse {
+    left: 240px;
+  }
+
+  @media (max-width: 600px) {
+    .world-layer-controls__collapse {
+      display: flex;
+      width: 44px;
+      height: 44px;
+      font-size: 1.1rem;
+    }
+    .world-layer-controls:not(.world-layer-controls--fullscreen).world-layer-controls--collapsed {
+      display: none !important;
+    }
+  }
+
+  /* ── Fullscreen ── */
+  .world-layer-controls--fullscreen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 240px;
+    height: 100%;
+    overflow-y: auto;
+    z-index: 1001;
+    background: rgba(15, 23, 42, 0.92);
+    border-right: 1px solid var(--color-border);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    padding: var(--gap-lg) var(--gap-md);
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-sm);
+    transition: transform var(--transition-normal), opacity var(--transition-normal);
+  }
+
+  .world-layer-controls--fullscreen.world-layer-controls--collapsed {
+    transform: translateX(-100%);
+  }
+
+  .world-layer-controls--fullscreen.world-layer-controls--collapsed .world-layer-controls__item {
+    pointer-events: none;
+  }
+
+  /* ── Related links ── */
+  .world-interactive-page__related {
+    margin-top: var(--gap-xl);
+    padding-top: var(--gap-lg);
+    border-top: 1px solid var(--color-border);
+    text-align: center;
+  }
+
+  .world-interactive-page__related-title {
+    font-family: var(--font-serif);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--color-text-light);
+    margin-bottom: var(--gap-sm);
+  }
+
+  .world-interactive-page__related-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .world-interactive-page__related-links li {
+    margin-bottom: var(--gap-xs);
+  }
+
+  .world-interactive-page__related-links a {
+    color: var(--color-link-on-dark);
+    text-decoration: none;
+    font-weight: 500;
+    transition: text-decoration var(--transition-fast);
+  }
+
+  .world-interactive-page__related-links a:hover {
+    text-decoration: underline;
+  }
+
+  /* ── Sources ── */
+  .world-interactive-page__sources {
+    margin-top: var(--gap-lg);
+    padding-top: var(--gap-md);
+    border-top: 1px solid var(--color-border);
+    font-size: 0.85rem;
+  }
+
+  .world-interactive-page__sources-title {
+    font-weight: 700;
+    color: var(--color-text-light);
+    margin-bottom: var(--gap-xs);
+  }
+
+  .world-interactive-page__sources-list {
+    padding-left: var(--gap-lg);
+    margin: 0;
+    list-style: decimal;
+  }
+
+  .world-interactive-page__source-item {
+    margin-bottom: var(--gap-xs);
+    line-height: 1.5;
+  }
+
+  .world-interactive-page__source-item a {
+    color: var(--color-link-on-dark);
+    text-decoration: none;
+  }
+
+  .world-interactive-page__source-item a:focus-visible {
+    outline: 2px solid var(--color-link-on-dark);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  .world-interactive-page__source-item a:hover {
+    text-decoration: underline;
+  }
+
+  /* ── Info panel ── */
+  .world-interactive-page__info-panel {
+    display: none;
+  }
+
+  @media (max-width: 600px) {
+    .world-layer-controls {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

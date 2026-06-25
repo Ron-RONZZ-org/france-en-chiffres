@@ -1,0 +1,12 @@
+{
+  "id": "natural-earth",
+  "type": "dataset",
+  "title": "Natural Earth — 1:110m Cultural Vectors",
+  "author": [
+    { "literal": "Natural Earth" }
+  ],
+  "publisher": "Natural Earth",
+  "issued": { "date-parts": [[2024]] },
+  "URL": "https://www.naturalearthdata.com/downloads/110m-cultural-vectors/",
+  "genre": "Données cartographiques vectorielles"
+}

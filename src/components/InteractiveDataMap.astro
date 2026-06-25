@@ -190,12 +190,18 @@
           fetch(url)
             .then(r => r.ok ? r.json() : Promise.reject())
             .then(data => {
+              // Guard: tile was recycled by Leaflet (user panned/zoomed)
+              if (!canvas.isConnected) return;
               for (const feature of data.features) {
                 const density = feature.tags.density || 0;
                 drawTileFeature(ctx, feature.geometry, feature.type,
                   4096, size.x, dpr,
                   getDensityColor(density), '#475569', 0.3);
               }
+              // Apply density fill on fully painted tiles
+              // (drawTileFeature already fills paths — this is a visual refresh)
+              const labelEl = document.getElementById('toggle-density')?.closest('.layer-controls__item');
+              if (labelEl) setLoading(labelEl, false);
             })
             .catch(() => {
               // Tile not available (water / outside France) — leave transparent
@@ -321,7 +327,6 @@
 
     async function applyDensity() {
       clearDensityLayer();
-      if (!deptLayer) return;
 
       const checkbox = document.getElementById('toggle-density');
       if (!checkbox || !checkbox.checked) return;
@@ -345,7 +350,7 @@
         const zoom = map.getZoom();
         setLegendContent(`
           <p class="data-map__legend-subtitle">Densité de population</p>
-          <p class="data-map__legend-hint">Communes (tuiles vectorielles pré-découpées, zoom ${zoom})</p>
+          <p class="data-map__legend-hint" data-legend="density">Par commune (zoom ${zoom})</p>
           <div class="density-legend">
             ${makeDensityLegend()}
           </div>
@@ -621,11 +626,17 @@
           (f) => (f.properties.minZoom || 10) <= zoom,
         ).length;
         const hintEl = document.querySelector('.data-map__legend-hint');
-        if (hintEl) {
+        // Only update if this is a waterways hint (check for waterways-specific text)
+        if (hintEl && hintEl.textContent.startsWith('Affichage')) {
           hintEl.textContent = `Affichage progressif selon le niveau de zoom : ${visibleCount} voies visibles (zoom ${zoom}).`;
         }
       }
 
+      // Density: update zoom number in legend
+      const densityHint = document.querySelector('[data-legend="density"]');
+      if (densityHint) {
+        densityHint.textContent = `Par commune (zoom ${zoom})`;
+      }
 
       // Communes: show/hide based on zoom (minZoom workaround)
       updateCommuneVisibility();
