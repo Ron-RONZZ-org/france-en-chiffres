@@ -744,6 +744,11 @@
       const communesCheck = document.getElementById('toggle-communes');
       if (!communesCheck || !communesCheck.checked) return;
 
+      // When density is active, the canvas tiles already render commune
+      // boundaries — skip the redundant SVG overlay.
+      const densityCheck = document.getElementById('toggle-density');
+      if (densityCheck && densityCheck.checked) return;
+
       if (zoom >= 9) {
         // Add communes layer to map if currently detached
         if (communesLayer && !map.hasLayer(communesLayer)) {
@@ -767,9 +772,18 @@
           switch (layer) {
             case 'density':
               if (e.target.checked) {
+                // Density canvas tiles already render commune boundaries —
+                // hide the redundant SVG commune overlay to reduce clutter.
+                if (communesLayer && map.hasLayer(communesLayer)) {
+                  map.removeLayer(communesLayer);
+                }
                 await applyDensity();
               } else {
                 clearDensityLayer();
+                // Restore commune SVG layer if it was loaded
+                if (communesLayer && communesFetched && map.getZoom() >= 9) {
+                  map.addLayer(communesLayer);
+                }
               }
               break;
             case 'elevation':
