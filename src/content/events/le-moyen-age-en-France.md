@@ -179,9 +179,9 @@ L'afflux constant de maîtres et d'étudiant·es venus de toute l'Europe transfo
 Le quartier prit le nom de **Quartier latin** — parce qu'on y parlait latin — avec ses rues étroites, ses librairies, ses tavernes. Les étudiant·es, venus de France, d'Angleterre, d'Allemagne, d'Italie, s'organisaient en « nations » selon leur région d'origine, descendaient parfois dans la rue et contestaient l'autorité du prévôt de Paris. C'était déjà, à sa manière, un petit monde cosmopolite.
 
 En 1257, un chapelain de Louis IX, **Robert de Sorbon**, fonda un collège destiné à héberger des étudiant·es pauvres en théologie : le collège de Sorbonne, qui devint rapidement le cœur de la faculté de théologie et, par extension, le symbole même de l'Université de Paris.
-
+{une illustration/image sous licence libre de Sorbonne}
 Parmi les grands penseurs qui enseignèrent à Paris, le plus éminent fut **Thomas d'Aquin** (1225–1274), dominicain italien qui tenta de concilier la philosophie d'Aristote avec la foi chrétienne dans sa *Somme théologique* [source:bnf]. Son œuvre devint la référence de l'enseignement catholique pendant des siècles.
-
+{une illustration/image sous licence libre de Thomas d'Aquin
 Pourtant, l'édifice que le Moyen Âge avait patiemment construit — l'alliance du trône et de l'autel, la synthèse scolastique, l'essor des villes et du commerce — allait bientôt vaciller. La croissance démographique et économique du XIII<sup>e</sup> siècle avait atteint ses limites ; les récoltes suffisaient de moins en moins à nourrir une population de plus en plus nombreuse. Le XIV<sup>e</sup> siècle s'ouvrit sur une série de catastrophes qui ébranlèrent les fondations mêmes du monde médiéval.
 
 ## Le crépuscule du Moyen Âge (XIV<sup>e</sup>–XV<sup>e</sup> siècle)

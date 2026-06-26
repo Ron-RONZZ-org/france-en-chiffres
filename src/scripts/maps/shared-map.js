@@ -17,16 +17,26 @@
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
-const DEFAULT_TILE_URL = 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png';
+/**
+ * CartoDB Dark Matter — fond sobre pour cartes embedded.
+ * 
+ * Choix du style « dark_no_labels » : pas de toponymes anglais parasites
+ * à l'écran, pas de symboles POI intempestifs. Le contexte géographique
+ * est apporté par le texte de l'article et la légende.
+ * 
+ * Si un jour on veut des labels localisés en français : utiliser
+ *   https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png
+ * mais les dalles osmfr contiennent des pastilles de villes/POI aux zooms 5–7.
+ */
+const DEFAULT_TILE_URL = 'https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png';
 const DEFAULT_TILE_ATTR = [
   '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
   '&copy; <a href="https://carto.com/">CARTO</a>',
 ].join(' ');
 
 /**
- * Initialise une carte Leaflet avec fond CartoDB Dark Matter.
- * Les dalles CartoDB sont plus épurées que les OSM standard et ne
- * contiennent pas de symboles POI intempestifs aux petits zooms.
+ * Initialise une carte Leaflet.
+ * Par défaut : fond CartoDB Dark Matter sans labels (pas d'anglais, pas de POI).
  *
  * @param {string} containerId - id du <div> conteneur
  * @param {object} [opts]
@@ -34,7 +44,7 @@ const DEFAULT_TILE_ATTR = [
  * @param {number} [opts.zoom=6] - zoom initial
  * @param {number} [opts.minZoom]
  * @param {number} [opts.maxZoom]
- * @param {string} [opts.tileUrl] - URL template pour les dalles (défaut: CartoDB dark)
+ * @param {string} [opts.tileUrl] - URL template pour les dalles
  * @param {string} [opts.tileAttribution] - texte d'attribution
  * @param {object} [opts.mapOptions] - options supplémentaires passées à L.map()
  * @returns {L.Map|null} l'instance Leaflet, ou null si le conteneur n'existe pas
