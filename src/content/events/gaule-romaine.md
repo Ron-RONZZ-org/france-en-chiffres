@@ -67,6 +67,8 @@ Bien que les légions romaines de César fussent nettement supérieures par leur
 
 - **Vercingétorix et l'unité des tribus celtes (52 AEC)** : L'année 52 AEC marqua l'apogée de la résistance contre les Romains. **Vercingétorix**, jeune chef arverne, réussit à unifier de nombreuses tribus dans une coalition contre Rome. Son armée, forte de dizaines de milliers de guerrier·ères, pratiqua la tactique de la terre brûlée : brûler les récoltes et les villages que les Romains pourraient utiliser. On infligea ainsi à César une défaite majeure à **Gergovie** [source:worldhistory-roman-gaul]. Cependant, la contre-attaque romaine fut implacable. César poursuivit les forces de Vercingétorix jusqu'à **Alésia**, une forteresse des Mandubiens. Au lieu d'assaillir la ville, César construisit un double mur de fortifications autour d'elle — un système de siège de 40 kilomètres de circonvallation et contrevallation, avec des tours, des pièges et des fossés. L'armée de Vercingétorix, affamée, attendit une armée de secours — qui arriva mais ne put briser l'étau romain. Vercingétorix, vaincu, se rendit. César le fit emmener à Rome où il fut exhibé, puis exécuté six ans plus tard [source:cesar-guerre-gaules].
 
+{une illustration/image sous licence libre de Vercingétorix}
+
 - **Uxellodunum (51 AEC)** : La dernière résistance majeure de la conquête de César se joua à Uxellodunum (dans le Lot actuel). La place forte locale refusa de se rendre. Après un siège difficile, César la prit et, pour servir d'exemple, fit couper les mains des guerrier·ères survivant·es [source:worldhistory-roman-gaul].
 
 ## La victoire romaine

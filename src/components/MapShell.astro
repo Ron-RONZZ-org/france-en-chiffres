@@ -1,0 +1,198 @@
+---
+// MapShell.astro — Shared HTML skeleton + dark theme CSS for Leaflet maps
+// embedded in event/article pages.
+//
+// Each map component wraps this shell and provides specific data + script.
+//
+// Props:
+//   id        (string)  — prefix for element IDs (e.g. 'prehistoric' → #prehistoric-map)
+//   label     (string)  — aria-label for the map container
+//   title     (string)  — legend title
+//   hint      (string)  — legend hint text (e.g. "Survolez un marqueur…")
+//   height    (number)  — map container height in px (default 420)
+//
+// Slots:
+//   legend-bottom  — extra HTML appended after the legend content div
+
+interface Props {
+  id: string;
+  label: string;
+  title: string;
+  hint?: string;
+  height?: number;
+}
+
+const { id, label, title, hint, height = 420 } = Astro.props;
+const mapId = `${id}-map`;
+const legendId = `${id}-legend`;
+const legendContentId = `${id}-legend-content`;
+---
+
+<section class="map-shell">
+  <div id={mapId} class="map-shell__map" role="application" aria-label={label} style={`height:${height}px`}>
+    <noscript>
+      <div class="map-shell__noscript">
+        <p>La carte interactive nécessite JavaScript. Veuillez activer JavaScript pour voir la carte.</p>
+      </div>
+    </noscript>
+  </div>
+  <div id={legendId} class="map-shell__legend">
+    <p class="map-shell__legend-title">{title}</p>
+    {hint && <p class="map-shell__legend-hint">{hint}</p>}
+    <div id={legendContentId} class="map-shell__legend-content">
+      <p class="map-shell__legend-placeholder">Survolez un élément sur la carte.</p>
+    </div>
+    <slot name="legend-bottom" />
+  </div>
+</section>
+
+<style>
+  /* ── Layout ── */
+  .map-shell {
+    width: 100%;
+    max-width: 720px;
+    margin: var(--gap-lg) auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-md);
+  }
+
+  .map-shell__map {
+    width: 100%;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+    overflow: hidden;
+    background: #1e293b;
+  }
+
+  .map-shell__noscript {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    padding: var(--gap-lg);
+    text-align: center;
+  }
+
+  /* ── Legend ── */
+  .map-shell__legend {
+    padding: var(--gap-md);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-bg-card);
+  }
+
+  .map-shell__legend-title {
+    font-family: var(--font-serif);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--color-text-light);
+    margin-bottom: var(--gap-xs);
+  }
+
+  .map-shell__legend-hint {
+    font-size: 0.75rem;
+    color: var(--color-accent-gold, #d4a843);
+    font-style: italic;
+    margin-bottom: var(--gap-sm);
+  }
+
+  .map-shell__legend-content {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    min-height: 3em;
+  }
+
+  .map-shell__legend-placeholder {
+    font-style: italic;
+  }
+
+  .map-shell__legend-site {
+    font-weight: 600;
+    color: var(--color-text-light);
+    margin-bottom: var(--gap-xs);
+  }
+
+  .map-shell__legend-lieu {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    margin-bottom: var(--gap-xs);
+  }
+
+  .map-shell__legend-age {
+    font-weight: 600;
+    color: var(--color-accent-gold, #d4a843);
+    margin-bottom: var(--gap-xs);
+  }
+
+  .map-shell__legend-desc {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    line-height: 1.5;
+  }
+
+  /* ── Dark theme Leaflet overrides (global) ── */
+  :global(.leaflet-container) {
+    font-family: inherit;
+    background: #1e293b;
+  }
+
+  :global(.leaflet-control-zoom a) {
+    background: #1e293b !important;
+    color: #e2e8f0 !important;
+    border-color: #334155 !important;
+  }
+
+  :global(.leaflet-control-zoom a:hover) {
+    background: #334155 !important;
+  }
+
+  :global(.leaflet-control-attribution) {
+    background: rgba(11, 17, 32, 0.85) !important;
+    color: #94a3b8 !important;
+    font-size: 10px !important;
+  }
+
+  :global(.leaflet-control-attribution a) {
+    color: #94a3b8 !important;
+  }
+
+  :global(.leaflet-popup-content-wrapper) {
+    background: #1e293b;
+    color: #e2e8f0;
+    border: 1px solid #334155;
+    border-radius: 8px;
+  }
+
+  :global(.leaflet-popup-tip) {
+    background: #1e293b;
+    border: 1px solid #334155;
+  }
+
+  /* ── Marker icon (common pattern) ── */
+  :global(.map-shell-marker) {
+    background: none !important;
+    border: none !important;
+  }
+
+  :global(.map-shell-marker__icon) {
+    display: block;
+    width: 24px;
+    height: 24px;
+    font-size: 28px;
+    line-height: 24px;
+    text-align: center;
+    color: #d4a843;
+    text-shadow:
+      0 0 4px rgba(0,0,0,0.6),
+      0 0 8px rgba(0,0,0,0.4);
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+
+  :global(.map-shell-marker__icon:hover) {
+    transform: scale(1.3);
+  }
+</style>
