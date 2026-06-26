@@ -19,7 +19,7 @@ timeline:
     end: -30000
 ---
 
-## Une dent de lait qui change tout
+## Une dent de lait qui change tout {#1er-homo-sapien}
 
 En 2022, une équipe de chercheurs dirigée par Ludovic Slimak publia une découverte qui défia soixante ans de certitudes scientifiques [source:slimak-2022-mandrin]. Dans la grotte Mandrin, dans la Drôme, e·ils mirent au jour une dent de lait — une molaire d'enfant, minuscule, presque banale — datée de **54 000 ans**. Jusque-là, les plus anciennes traces d'*Homo sapiens* en France remontaient à environ 40 000 ans. Cette dent repoussa l'horizon de plus de dix mille ans d'un seul coup.
 

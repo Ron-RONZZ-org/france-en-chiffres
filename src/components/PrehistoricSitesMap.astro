@@ -1,9 +1,25 @@
 ---
-// PrehistoricSitesMap.astro — Client-side script + styles for the prehistoric sites map
-// The HTML container is injected into the markdown content by the remark-figure-embed plugin
-// via [map:prehistoric-sites]. This component provides the Leaflet initialization script
-// and associated styles for the container.
+// PrehistoricSitesMap.astro — Leaflet map of the 5 oldest prehistoric sites in France (>1 Ma)
+// Rendered as an Astro component inside event-page body.
+// Contains the map container HTML (so Astro scoped styles apply) + initialisation script + styles.
 ---
+
+<section class="prehistoric-map-section">
+  <div id="prehistoric-map" class="prehistoric-map" role="application" aria-label="Carte des cinq plus anciens sites préhistoriques de France">
+    <noscript>
+      <div class="prehistoric-map__noscript">
+        <p>La carte interactive nécessite JavaScript. Veuillez activer JavaScript pour voir la carte.</p>
+      </div>
+    </noscript>
+  </div>
+  <div id="prehistoric-legend" class="prehistoric-map__legend">
+    <p class="prehistoric-map__legend-title">Sites préhistoriques &gt; 1 Ma</p>
+    <p class="prehistoric-map__legend-hint">Survolez un marqueur pour plus d'informations.</p>
+    <div id="prehistoric-legend-content" class="prehistoric-map__legend-content">
+      <p class="prehistoric-map__legend-placeholder">Survolez un site sur la carte.</p>
+    </div>
+  </div>
+</section>
 
 <script>
   import L from 'leaflet';
@@ -135,7 +151,7 @@
   })();
 </script>
 
-<style is:global>
+<style>
   .prehistoric-map-section {
     width: 100%;
     max-width: 720px;

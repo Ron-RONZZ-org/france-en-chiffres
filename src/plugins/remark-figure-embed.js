@@ -158,25 +158,10 @@ function buildChartFigure(id) {
 
 // ── Map figure (interactive embed container) ──
 
-const MAP_IDS = new Set(['prehistoric-sites', 'roman-provinces', 'roman-cities']);
+const MAP_IDS = new Set(['roman-provinces', 'roman-cities']);
 
 function buildMapFigure(id) {
   if (!MAP_IDS.has(id)) return `<p class="figure-warning">Carte introuvable : ${id}</p>`;
-
-  if (id === 'prehistoric-sites') {
-    const parts = [];
-    parts.push('<section class="prehistoric-map-section">');
-    parts.push(`<div id="prehistoric-map" class="prehistoric-map" role="application" aria-label="Carte des cinq plus anciens sites pr\u00e9historiques de France">
-      <noscript><div class="prehistoric-map__noscript"><p>La carte interactive n\u00e9cessite JavaScript.</p></div></noscript>
-    </div>`);
-    parts.push('<div id="prehistoric-legend" class="prehistoric-map__legend">');
-    parts.push('<p class="prehistoric-map__legend-title">Sites pr\u00e9historiques &gt; 1 Ma</p>');
-    parts.push('<p class="prehistoric-map__legend-hint">Survolez un marqueur pour plus d\u2019informations.</p>');
-    parts.push('<div id="prehistoric-legend-content" class="prehistoric-map__legend-content">');
-    parts.push('<p class="prehistoric-map__legend-placeholder">Survolez un site sur la carte.</p>');
-    parts.push('</div></div></section>');
-    return parts.join('\n');
-  }
 
   if (id === 'roman-provinces') {
     const parts = [];

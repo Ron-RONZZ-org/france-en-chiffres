@@ -24,8 +24,6 @@ Dans les années 1940, Willard Libby inventa la datation au Carbone 14, une mét
 
 Aujourd'hui, nous connaissons cinq sites préhistoriques en France datés entre 1 et 1,2 million d'années [source:airvaux-2012-conquete-ouest] :
 
-[map:prehistoric-sites]
-
 Ces sites s'étendent du sud méditerranéen jusqu'au centre de la France, ce qui suggère que les premières populations humaines ne se limitaient pas à un refuge côtier, mais exploraient déjà l'intérieur des terres dès leur arrivée. Tous ces niveaux archéologiques sont associés à des industries de type oldowayen (Mode 1) : de simples galets aménagés et des éclats de silex, sans biface ni outil sophistiqué.
 
 ## Un monde disparu
