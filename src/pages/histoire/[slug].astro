@@ -5,6 +5,8 @@ import { getSource, formatSourceLabel } from '../../data/sources';
 import { getMedia } from '../../data/media';
 import MediaFigure from '../../components/MediaFigure.astro';
 import EventMiniTimeline from '../../components/EventMiniTimeline.astro';
+import PrehistoricSitesMap from '../../components/PrehistoricSitesMap.astro';
+import MigrationMap from '../../components/MigrationMap.astro';
 
 export async function getStaticPaths() {
   const events = await getCollection('events');
@@ -68,6 +70,8 @@ const galleryMedia = (await Promise.all(
 
     <div class="event-page__body">
       <Content />
+      {event.id === 'premiers-humains' && <PrehistoricSitesMap />}
+      {event.id === 'arrivee-sapiens' && <MigrationMap />}
     </div>
 
     <footer class="event-page__footer">
