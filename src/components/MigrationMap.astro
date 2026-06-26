@@ -369,6 +369,14 @@
     const bounds = L.latLngBounds(allCoords);
     map.fitBounds(bounds, { padding: [50, 50], maxZoom: 5 });
 
+    // ── Relocate the map to its slot in the article body ──
+    const slot = document.querySelector('[data-map-slot="migration"]');
+    const section = document.querySelector('.migration-map-section');
+    if (slot && section) {
+      section.remove();
+      slot.replaceWith(section);
+    }
+
     // ── Handle Astro View Transitions ──
     document.addEventListener('astro:after-swap', () => {
       setTimeout(() => map.invalidateSize(), 200);

@@ -7,12 +7,12 @@ description: "L'agriculture apparaît en France il y a environ 7 500 ans, boulev
 timeline:
   - id: proto-agriculture
     title: La proto-agriculture
-    start: -10000
-    end: -8000
+    start: -23000
+    end: -11700
   - id: naissance-agriculture
     title: La naissance de l'agriculture
-    start: -8000
-    end: -6000
+    start: -11700
+    end: -5000
   - id: bouleversement-agricole
     title: L'agriculture bouleverse la vie française
     start: -6000
@@ -26,7 +26,7 @@ Vous passiez votre journée type comment ?
 Si vous n'êtes pas parmi les exceptions rares, vous ne passez probablement pas vos journées à chasser les animaux, pêcher les poissons, ou cueillir des fruits/légumes sauvages. Effectivement, les êtres humains modernes ne dépendent plus directement de la nature sauvage pour se nourrir.
 
 Ça vous surprend peut-être, mais pendant la majeure partie de l'Histoire, les humains ont passé la plupart de leurs journées à chasser, pêcher et cueillir pour se nourrir. De temps en temps, on n'arrive plus à trouver ce qu'il faut, et on emballe toutes ses possessions dans un sac de cuir pour entreprendre une marche de plusieurs dizaines voire centaines de kilomètres à la recherche d'une nouvelle terre avec plus d'abondance. Nous appelons aujourd'hui ce style de vie **chasse-cueillette** [source:bar-yosef-1998-natufian].
-
+{une illustration/image sous licence libre de chasse-cueillette}
 ## La proto-agriculture {#proto-agriculture}
 
 Aujourd'hui, la chasse-cueillette est encore pratiquée dans certains endroits du monde [source:inrap]. En France, par contre, presque plus personne ne se nourrit par cette méthode. Ça vous semble peut-être un progrès naturel, puisqu'il est bien plus facile d'acheter sa nourriture dans un supermarché, ou si vous voulez bien, cultiver/élever une certaine partie dans votre jardin/ferme. Il faut quand même un effort, soit par l'intermédiaire d'un travail qui vous permet d'acheter, soit en sortant directement du confort de votre logement et de semer, d'arroser/de nourrir puis de récolter/d'abattre vous-même. Dans les deux cas, il s'agit d'un effort bien moins épuisant que ce que vos ancêtres chasseur·euse·cueilleur·euse ont dû donner au jour le jour, se déplaçant d'une ou deux dizaines de kilomètres par jour derrière leurs proies ou des légumes/fruits sauvages qui se font de plus en plus rares, avant une migration de jusqu'à une centaine de kilomètres à pied presque saisonnière.
@@ -42,6 +42,7 @@ Aujourd'hui, un·e amateur·e peut facilement retrouver tout ce qu'il lui faut a
 Les humains ont donc continué à chasser et cueillir jour après jour, année après année, siècle après siècle. Il est possible que de temps en temps, pendant leurs grands déplacements à la suite d'une nouvelle pénurie alimentaire, quelques personnes parmi eux ont rêvé d'un futur dans lequel ils peuvent plutôt s'installer sur une bonne terre, et faire pousser les plantes et élever des animaux sur place sans se déplacer, pour qu'il n'y ait jamais besoin de se lancer sur une nouvelle grande marche. Il est aussi possible que certaines parmi ces grand·es rêveur·es ont déterré des plantes comestibles de loin et les ont remis près de chez eux, ou construit des cages en pierre pour garder les animaux capturés vivants pendant une chasse dans leurs grottes.
 
 En fait, nous avons même des preuves archéologiques que ces expériences ont eu lieu. La fouille du site d'Ohalo II en Israël, datant d'environ 23 000 ans, a récupéré plusieurs outils de récolte et des restes de blé et d'orge en quantité trop importante pour avoir plausiblement été simplement cueillis à l'état sauvage [source:science-2021-ice-age-cereal].
+{une illustration/image sous licence libre de Ohalo II}
 
 ## La naissance de l'agriculture {#naissance-agriculture}
 

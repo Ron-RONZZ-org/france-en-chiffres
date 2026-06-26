@@ -31,6 +31,8 @@ Pendant des décennies, le scénario dominant fut simple : *Homo sapiens* serait
 
 Cependant, la grotte Mandrin raconta une tout autre histoire : celle d'une première incursion, réussie mais éphémère, d'*Homo sapiens* en Europe, bien plus tôt que prévu. Ces premier·ères Européen·nes *sapiens* — e·ils n'étaient probablement qu'un petit groupe — laissèrent des outils d'un type particulier, appelé **Néronien**, que les archéologues connaissaient déjà mais n'arrivaient pas à attribuer avec certitude. La dent de Mandrin permit de les identifier : le Néronien, c'est *Homo sapiens*.
 
+<div data-map-slot="migration"></div>
+
 ## La grande vague : l'Aurignacien {#aurignacien}
 
 Il fallut attendre environ 42 000 ans AEC pour qu'*Homo sapiens* s'installât durablement en Europe. Cette fois, la culture **aurignacienne** accompagna la migration — des lames en pierre d'une régularité stupéfiante, des sagaies en ivoire, des perles en coquillage et en dent animale. Des sites comme l'abri Pataud en Dordogne, la grotte Chauvet en Ardèche ou le Geissenklösterle en Allemagne témoignèrent de cette présence qui, cette fois, ne s'éteignit plus [source:lascaux-ministere-culture].
