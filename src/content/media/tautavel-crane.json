@@ -1,8 +1,9 @@
 {
   "id": "tautavel-crane",
-  "alt": "Crâne de l'Homme de Tautavel — plus ancien habitant connu du territoire français",
-  "caption": "Crâne de Tautavel (Homo heidelbergensis), vieux de 450 000 ans",
-  "credit": "Musée de Tautavel — Centre européen de la Préhistoire",
+  "alt": "Reconstitution du crâne de l'Homme de Tautavel à partir des fragments Arago 13, Arago 21 et Arago 47",
+  "caption": "Crâne de Tautavel (Homo heidelbergensis), vieux de 450 000 ans — reconstitution à partir des fragments fossiles découverts à la caune de l'Arago",
+  "credit": "Miniwark / Wikimedia Commons",
   "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/deed.fr",
   "sourceId": "tautavel-musee"
 }
