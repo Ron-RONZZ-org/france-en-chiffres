@@ -8,6 +8,8 @@ import EventMiniTimeline from '../../components/EventMiniTimeline.astro';
 import PrehistoricSitesMap from '../../components/PrehistoricSitesMap.astro';
 import MigrationMap from '../../components/MigrationMap.astro';
 import ResourceMap from '../../components/ResourceMap.astro';
+import RomanProvincesMap from '../../components/RomanProvincesMap.astro';
+import RomanCitiesMap from '../../components/RomanCitiesMap.astro';
 
 export async function getStaticPaths() {
   const events = await getCollection('events');
@@ -74,6 +76,8 @@ const galleryMedia = (await Promise.all(
       {event.id === 'premiers-humains' && <PrehistoricSitesMap />}
       {event.id === 'arrivee-sapiens' && <MigrationMap />}
       {event.id === 'age-de-fer' && <ResourceMap />}
+      {event.id === 'occupation-romaine' && <RomanProvincesMap />}
+      {event.id === 'occupation-romaine' && <RomanCitiesMap />}
     </div>
 
     <footer class="event-page__footer">

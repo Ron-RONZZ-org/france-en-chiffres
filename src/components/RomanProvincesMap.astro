@@ -1,0 +1,208 @@
+---
+// RomanProvincesMap.astro — Leaflet map of Roman provinces in Gaul
+// The HTML container is injected into the markdown content by the remark-figure-embed plugin
+// via [map:roman-provinces]. This component provides the Leaflet initialization script
+// and associated styles for the container.
+---
+
+<script>
+  import L from 'leaflet';
+  import 'leaflet/dist/leaflet.css';
+  import tippy from 'tippy.js';
+  import 'tippy.js/dist/tippy.css';
+  import 'tippy.js/animations/shift-away.css';
+
+  (() => {
+    const mapEl = document.getElementById('roman-provinces-map');
+    if (!mapEl) return;
+
+    // ── Province data ──
+    const provinces = [
+      {
+        id: 'narbonensis',
+        name: 'Gaule narbonnaise',
+        latin: 'Gallia Narbonensis',
+        capitale: 'Narbo Martius (Narbonne)',
+        desc: 'Province sénatoriale. Romanisée dès le II<sup>e</sup> siècle AEC. Territoire méditerranéen des Alpes aux Pyrénées.',
+        coords: [43.183, 3.000],
+        // Approximate polygon points
+        polygon: [
+          [43.5, 6.5], [43.2, 7.2], [42.5, 3.0], [42.6, 2.5],
+          [43.2, 2.5], [44.0, 4.0], [44.3, 4.8], [44.2, 5.5],
+          [44.0, 6.0], [43.5, 6.5],
+        ],
+        color: '#d4a843',
+      },
+      {
+        id: 'aquitania',
+        name: 'Gaule aquitaine',
+        latin: 'Gallia Aquitania',
+        capitale: 'Mediolanum Santonum (Saintes)',
+        desc: 'Province impériale. Territoire du sud-ouest, des Pyrénées à la Loire.',
+        coords: [45.745, -0.634],
+        polygon: [
+          [44.5, -1.5], [43.0, -1.0], [42.5, 0.5], [43.0, 1.5],
+          [44.0, 1.5], [44.5, 3.0], [45.5, 2.0], [46.5, 0.5],
+          [46.5, -1.5], [44.5, -1.5],
+        ],
+        color: '#22c55e',
+      },
+      {
+        id: 'lugdunensis',
+        name: 'Gaule lyonnaise',
+        latin: 'Gallia Lugdunensis',
+        capitale: 'Lugdunum (Lyon)',
+        desc: 'Province impériale. Territoire central, entre Loire et Seine. Capitale administrative de la Gaule romaine.',
+        coords: [45.764, 4.835],
+        polygon: [
+          [46.5, -1.5], [46.5, 0.5], [47.0, 2.5], [48.5, 2.5],
+          [49.0, 1.0], [49.0, -0.5], [48.5, -1.5], [46.5, -1.5],
+        ],
+        color: '#3b82f6',
+      },
+      {
+        id: 'belgica',
+        name: 'Gaule belgique',
+        latin: 'Gallia Belgica',
+        capitale: 'Durocortorum (Reims)',
+        desc: 'Province impériale. Territoire du nord et de l\'est, du front du Rhin aux plaines du nord.',
+        coords: [49.258, 4.032],
+        polygon: [
+          [49.0, -0.5], [49.0, 1.0], [49.5, 3.0], [49.5, 5.0],
+          [49.0, 6.5], [48.0, 7.5], [47.2, 7.0], [47.0, 5.0],
+          [47.0, 2.5], [48.5, 2.5], [49.0, 1.0], [49.0, -0.5],
+        ],
+        color: '#a855f7',
+      },
+    ];
+
+    // ── Map init ──
+    const map = L.map(mapEl, {
+      center: [46.5, 2.5],
+      zoom: 6,
+      minZoom: 5,
+      maxZoom: 10,
+      zoomControl: true,
+      attributionControl: true,
+    });
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      maxZoom: 19,
+    }).addTo(map);
+
+    // ── Province polygons (approximate boundaries) ──
+    const provinceLayers = [];
+    for (const p of provinces) {
+      const layer = L.polygon(p.polygon, {
+        color: p.color,
+        weight: 2,
+        fillColor: p.color,
+        fillOpacity: 0.15,
+      }).addTo(map);
+
+      layer.bindTooltip(
+        `<strong>${p.name}</strong><br>${p.latin}<br>Capitale : ${p.capitale}`,
+        { sticky: true, className: 'roman-map-tooltip' },
+      );
+
+      provinceLayers.push(layer);
+    }
+
+    // ── Capital markers ──
+    for (const p of provinces) {
+      const marker = L.circleMarker(p.coords, {
+        radius: 8,
+        color: '#fff',
+        weight: 2,
+        fillColor: p.color,
+        fillOpacity: 0.9,
+      }).addTo(map);
+
+      marker.bindTooltip(
+        `<strong>${p.capitale}</strong><br>${p.name}`,
+        { sticky: true, className: 'roman-map-tooltip' },
+      );
+    }
+
+    // ── Legend ──
+    const legendEl = document.getElementById('roman-provinces-legend-content');
+    if (legendEl) {
+      let html = '';
+      for (const p of provinces) {
+        html += `<div class="roman-legend__item">
+          <span class="roman-legend__swatch" style="background:${p.color}"></span>
+          <strong>${p.name}</strong> — ${p.latin}
+        </div>`;
+      }
+      legendEl.innerHTML = html;
+    }
+
+    // ── Tippy: hover info on legend items ──
+    tippy('.roman-legend__item', {
+      content: (ref) => {
+        const idx = Array.from(ref.parentNode.children).indexOf(ref);
+        const p = provinces[idx];
+        if (!p) return '';
+        return `<p>${p.desc}</p>`;
+      },
+      allowHTML: true,
+      placement: 'top',
+      animation: 'shift-away',
+      theme: 'dark',
+      maxWidth: 300,
+      delay: [200, 0],
+    });
+
+    setTimeout(() => map.invalidateSize(), 200);
+  })();
+</script>
+
+<style>
+  :global(.roman-map-tooltip) {
+    background: #111827;
+    border: 1px solid #1e293b;
+    border-radius: 0.5rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    color: #e2e8f0;
+    font-size: 0.8rem;
+    padding: 0.35rem 0.6rem;
+    white-space: nowrap;
+  }
+
+  :global(.roman-map-tooltip::before) {
+    border-top-color: #1e293b;
+  }
+
+  .roman-legend__item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.25rem 0;
+    font-size: 0.85rem;
+    color: var(--color-text-muted, #94a3b8);
+    cursor: pointer;
+  }
+
+  .roman-legend__item:hover {
+    color: var(--color-text-light, #e2e8f0);
+  }
+
+  .roman-legend__swatch {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+    flex-shrink: 0;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+
+  :global(.tippy-box[data-theme~="dark"]) {
+    background: #111827;
+    border: 1px solid #1e293b;
+    border-radius: 0.5rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    color: #e2e8f0;
+    font-size: 0.8rem;
+  }
+</style>
