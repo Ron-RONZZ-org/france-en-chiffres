@@ -2,9 +2,13 @@
 id: "arrivee-sapiens"
 start: -54000
 end: -30000
-title: "Arrivée d'Homo sapiens en Europe"
+title: "Arrivée d'Homo sapiens en France"
 description: "Il y a 54 000 ans, un·e petit·e Homo sapiens perd une dent de lait dans la grotte Mandrin. Cette dent, retrouvée 54 000 ans plus tard, a bouleversé notre chronologie du peuplement de l'Europe."
 timeline:
+  - id: 1er-homo-sapien
+    title: "la plus ancienne arrivée documentée"
+    start: -56000
+    end: -52000
   - id: aurignacien
     title: "La grande vague : l'Aurignacien"
     start: -42000
