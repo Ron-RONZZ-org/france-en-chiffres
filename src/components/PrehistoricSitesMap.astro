@@ -136,7 +136,7 @@
 </script>
 
 <style>
-  .prehistoric-map-section {
+  :global(.prehistoric-map-section) {
     width: 100%;
     max-width: 720px;
     margin: var(--gap-lg) auto;
@@ -145,7 +145,7 @@
     gap: var(--gap-md);
   }
 
-  .prehistoric-map {
+  :global(.prehistoric-map) {
     width: 100%;
     height: 420px;
     border-radius: var(--radius-md);
@@ -154,7 +154,7 @@
     background: #1e293b;
   }
 
-  .prehistoric-map__noscript {
+  :global(.prehistoric-map__noscript) {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -166,14 +166,14 @@
   }
 
   /* ── Legend panel ── */
-  .prehistoric-map__legend {
+  :global(.prehistoric-map__legend) {
     padding: var(--gap-md);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
     background: var(--color-bg-card);
   }
 
-  .prehistoric-map__legend-title {
+  :global(.prehistoric-map__legend-title) {
     font-family: var(--font-serif);
     font-size: 0.95rem;
     font-weight: 700;
@@ -181,54 +181,54 @@
     margin-bottom: var(--gap-xs);
   }
 
-  .prehistoric-map__legend-hint {
+  :global(.prehistoric-map__legend-hint) {
     font-size: 0.75rem;
     color: var(--color-accent-gold, #d4a843);
     font-style: italic;
     margin-bottom: var(--gap-sm);
   }
 
-  .prehistoric-map__legend-content {
+  :global(.prehistoric-map__legend-content) {
     font-size: 0.85rem;
     color: var(--color-text-muted);
     min-height: 3em;
   }
 
-  .prehistoric-map__legend-placeholder {
+  :global(.prehistoric-map__legend-placeholder) {
     font-style: italic;
   }
 
-  .prehistoric-map__legend-site {
+  :global(.prehistoric-map__legend-site) {
     font-weight: 600;
     color: var(--color-text-light);
     margin-bottom: var(--gap-xs);
   }
 
-  .prehistoric-map__legend-lieu {
+  :global(.prehistoric-map__legend-lieu) {
     font-size: 0.8rem;
     color: var(--color-text-muted);
     margin-bottom: var(--gap-xs);
   }
 
-  .prehistoric-map__legend-age {
+  :global(.prehistoric-map__legend-age) {
     font-weight: 600;
     color: var(--color-accent-gold, #d4a843);
     margin-bottom: var(--gap-xs);
   }
 
-  .prehistoric-map__legend-desc {
+  :global(.prehistoric-map__legend-desc) {
     font-size: 0.8rem;
     color: var(--color-text-muted);
     line-height: 1.5;
   }
 
   /* ── Custom marker ── */
-  .prehistoric-marker {
+  :global(.prehistoric-marker) {
     background: none !important;
     border: none !important;
   }
 
-  .prehistoric-marker__icon {
+  :global(.prehistoric-marker__icon) {
     display: block;
     width: 24px;
     height: 24px;
@@ -243,7 +243,7 @@
     transition: transform 0.2s ease;
   }
 
-  .prehistoric-marker__icon:hover {
+  :global(.prehistoric-marker__icon:hover) {
     transform: scale(1.3);
   }
 
