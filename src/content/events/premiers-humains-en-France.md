@@ -24,12 +24,7 @@ Dans les années 1940, Willard Libby inventa la datation au Carbone 14, une mét
 
 Aujourd'hui, nous connaissons cinq sites préhistoriques en France datés entre 1 et 1,2 million d'années [source:airvaux-2012-conquete-ouest] :
 
----
-1. **Le Bois-de-Riquet**, à Lézignan-la-Cèbe (Hérault) — 1,2 Ma, découvert en 2008
-2. **La grotte du Vallonnet**, à Roquebrune-Cap-Martin (Alpes-Maritimes) — 1,15 Ma, découverte en 1958
-3. **Terre-des-Sablons**, à Lunery-Rosières (Cher) — 1,15 Ma
-4. **Pont-de-Lavaud**, à Éguzon-Chantôme (Indre) — 1,05 Ma
-5. **Pont-de-la-Hulauderie**, à Saint-Hilaire-la-Gravelle (Loir-et-Cher) — 1 Ma
+[map:prehistoric-sites]
 
 Ces sites s'étendent du sud méditerranéen jusqu'au centre de la France, ce qui suggère que les premières populations humaines ne se limitaient pas à un refuge côtier, mais exploraient déjà l'intérieur des terres dès leur arrivée. Tous ces niveaux archéologiques sont associés à des industries de type oldowayen (Mode 1) : de simples galets aménagés et des éclats de silex, sans biface ni outil sophistiqué.
 

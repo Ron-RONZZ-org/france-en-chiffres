@@ -28,6 +28,7 @@ const FIGURES_DIR = resolve(PROJECT_ROOT, 'src/content/figures');
 
 const MEDIA_RE = /\[media:\s*([\w-]+)\]/g;
 const CHART_RE = /\[chart:\s*([\w-]+)\]/g;
+const MAP_RE = /\[map:\s*([\w-]+)\]/g;
 
 // ── Media file resolution ──
 
@@ -155,6 +156,31 @@ function buildChartFigure(id) {
   return parts.join('\n');
 }
 
+// ── Map figure (interactive embed container) ──
+
+const MAP_IDS = new Set(['prehistoric-sites']);
+
+function buildMapFigure(id) {
+  if (!MAP_IDS.has(id)) return `<p class="figure-warning">Carte introuvable : ${id}</p>`;
+
+  if (id === 'prehistoric-sites') {
+    const parts = [];
+    parts.push('<section class="prehistoric-map-section">');
+    parts.push(`<div id="prehistoric-map" class="prehistoric-map" role="application" aria-label="Carte des cinq plus anciens sites pr\u00e9historiques de France">
+      <noscript><div class="prehistoric-map__noscript"><p>La carte interactive n\u00e9cessite JavaScript.</p></div></noscript>
+    </div>`);
+    parts.push('<div id="prehistoric-legend" class="prehistoric-map__legend">');
+    parts.push('<p class="prehistoric-map__legend-title">Sites pr\u00e9historiques &gt; 1 Ma</p>');
+    parts.push('<p class="prehistoric-map__legend-hint">Survolez un marqueur pour plus d\u2019informations.</p>');
+    parts.push('<div id="prehistoric-legend-content" class="prehistoric-map__legend-content">');
+    parts.push('<p class="prehistoric-map__legend-placeholder">Survolez un site sur la carte.</p>');
+    parts.push('</div></div></section>');
+    return parts.join('\n');
+  }
+
+  return `<p class="figure-warning">Carte introuvable : ${id}</p>`;
+}
+
 function esc(s) {
   if (!s) return '';
   return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -169,14 +195,23 @@ export default function remarkFigureEmbed() {
     visit(tree, 'text', (node, index, parent) => {
       MEDIA_RE.lastIndex = 0;
       CHART_RE.lastIndex = 0;
-      if (MEDIA_RE.test(node.value) || CHART_RE.test(node.value)) {
+      MAP_RE.lastIndex = 0;
+      if (MEDIA_RE.test(node.value) || CHART_RE.test(node.value) || MAP_RE.test(node.value)) {
         targets.push({ node, index, parent });
         return visit.SKIP;
       }
     });
 
+    const dispatchBuild = (match) => {
+      switch (match.type) {
+        case 'media': return buildMediaFigure(match.id);
+        case 'chart': return buildChartFigure(match.id);
+        case 'map':   return buildMapFigure(match.id);
+        default: return '';
+      }
+    };
+
     for (const { node } of targets) {
-      // Collect all matches in document order
       const matches = [];
       let m;
 
@@ -187,6 +222,10 @@ export default function remarkFigureEmbed() {
       CHART_RE.lastIndex = 0;
       while ((m = CHART_RE.exec(node.value)) !== null) {
         matches.push({ type: 'chart', id: m[1], index: m.index, end: m.index + m[0].length });
+      }
+      MAP_RE.lastIndex = 0;
+      while ((m = MAP_RE.exec(node.value)) !== null) {
+        matches.push({ type: 'map', id: m[1], index: m.index, end: m.index + m[0].length });
       }
       matches.sort((a, b) => a.index - b.index);
 
@@ -199,16 +238,14 @@ export default function remarkFigureEmbed() {
         if (match.index > lastIdx) {
           children.push({ type: 'text', value: node.value.slice(lastIdx, match.index) });
         }
-        const html = match.type === 'media' ? buildMediaFigure(match.id) : buildChartFigure(match.id);
-        children.push({ type: 'html', value: html });
+        children.push({ type: 'html', value: dispatchBuild(match) });
         lastIdx = match.end;
       }
       if (lastIdx < node.value.length) {
         children.push({ type: 'text', value: node.value.slice(lastIdx) });
       }
 
-      // Replace in-place (we track the original node reference)
-      node.type = 'paragraph'; // will be replaced below
+      node.type = 'paragraph';
     }
 
     // Apply replacements in reverse order
@@ -225,6 +262,10 @@ export default function remarkFigureEmbed() {
       while ((m = CHART_RE.exec(node.value)) !== null) {
         matches.push({ type: 'chart', id: m[1], index: m.index, end: m.index + m[0].length });
       }
+      MAP_RE.lastIndex = 0;
+      while ((m = MAP_RE.exec(node.value)) !== null) {
+        matches.push({ type: 'map', id: m[1], index: m.index, end: m.index + m[0].length });
+      }
       matches.sort((a, b) => a.index - b.index);
 
       const children = [];
@@ -234,8 +275,7 @@ export default function remarkFigureEmbed() {
         if (match.index > lastIdx) {
           children.push({ type: 'text', value: node.value.slice(lastIdx, match.index) });
         }
-        const html = match.type === 'media' ? buildMediaFigure(match.id) : buildChartFigure(match.id);
-        children.push({ type: 'html', value: html });
+        children.push({ type: 'html', value: dispatchBuild(match) });
         lastIdx = match.end;
       }
       if (lastIdx < node.value.length) {

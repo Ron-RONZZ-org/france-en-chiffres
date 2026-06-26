@@ -25,7 +25,7 @@ timeline:
 
 ## La dernière bataille
 
-Imaginez : nous sommes en 52 AEC, et vous êtes un·e enfant de douze ans. Les nouvelles arrivent comme le tonnerre sur votre village au pied du mont Beuvray. Vercingétorix, le chef arverne, a rallié les tribus : des milliers de guerrier·ères descendent des collines ; des femmes fourbissent les chars ; les plus âgé·es gardent les enfants ; les forgerons travaillent jour et nuit. Votre père attelle les bœufs pour porter des provisions au camp. Votre mère cache le grain sous le sol de la maison.
+L'année était 52 AEC, et Carata aviez douze ans. Les nouvelles arrivent comme le tonnerre sur son village, au pied du mont Beuvray. Vercingétorix, le chef arverne, a rallié les tribus : des milliers de guerrier·ères descendent des collines ; des femmes fourbissent les chars ; les plus âgé·es gardent les enfants ; les forgerons travaillent jour et nuit. Votre père attelle les bœufs pour porter des provisions au camp. Votre mère cache le grain sous le sol de la maison.
 
 Puis le silence. La rumeur d'un siège à Alésia. Le bruit d'une défaite.
 
@@ -53,6 +53,8 @@ Pendant les soixante années qui suivirent, la Narbonnaise prospéra. Les villes
 
 En 58 AEC, un certain Jules César arriva comme gouverneur de la Gaule transalpine (la Narbonnaise) et de l'Illyrie, cherchant gloire et richesse. Avide de conquérir plus de territoire, il tourna rapidement son regard vers les tribus celtes occupant le centre et le nord de la France actuelle. Il n'attendait qu'un bon prétexte pour y envahir. En 58 AEC, ce prétexte lui fut fourni par les **Helvètes** — un peuple celte installé dans l'actuelle Suisse — qui entreprirent une migration massive vers l'ouest à travers le territoire des Éduens, alliés traditionnels de Rome. Les Éduens appelèrent César à l'aide [source:cesar-guerre-gaules].
 
+{une illustration/image sous licence libre de Jules César}
+
 César intervint, battit les Helvètes près de Bibracte, puis se tourna contre le roi germain **Arioviste**, que les tribus elles-mêmes avaient appelé à leur secours quelques années plus tôt. Vaincu, Arioviste repassa le Rhin. Ces deux victoires n'étaient que le début : César, qui avait longtemps préparé son armée pour la conquête, profitait du prétexte pour s'emparer d'une partie encore plus vaste de l'Europe occidentale.
 
 Ainsi commencèrent huit années de guerre qui allaient changer pour toujours le destin du territoire français [source:worldhistory-roman-gaul].
@@ -79,6 +81,7 @@ Ainsi, à l'exception de l'alliance de Vercingétorix en 52 AEC, les tribus celt
 
 Le grand conquérant César n'avait pas eu l'occasion de gouverner ses vastes territoires conquis pendant longtemps : il fut assassiné en 44 AEC. Sa mort déclencha une longue guerre civile qui dura une dizaine d'années, jusqu'à la victoire définitive de son fils adoptif **Auguste** en 31 AEC, qui entreprit ensuite une vaste réorganisation administrative de l'Empire romain pour consolider son pouvoir. Il divisa le territoire de la France moderne, appelé **la Gaule** à l'époque, en quatre provinces [source:unrv-gallia] :
 
+{une carte leaflet pour illustrer la limite territorielle des provinces romaines, et emplacement de leurs capitales pour REMPLACER le tableau}
 | Province | Capitale | Territoire approximatif |
 |---|---|---|
 | **Gaule narbonnaise** (*Gallia Narbonensis*) | Narbo Martius (Narbonne) | Sud-est méditerranéen, Provence |
@@ -96,7 +99,9 @@ Il est temps de nous rappeler de l'enfant de douze ans du début de l'article. C
 
 Le mont Beuvray, où se dressait l'oppidum de Bibracte, était désormais désert. Ses habitant·es avaient été déplacé·es vers la vallée, dans une nouvelle ville romaine — Augustodunum (l'actuelle Autun), construite selon un plan en damier avec un forum, des thermes, un théâtre et des temples. Les rues sont pavées, bordées de boutiques et de maisons en pierre [source:bibracte].
 
-Notre enfant, si e·il avait bien survécu la guerre, était maintenant devenu·e adulte et vivait dans une ferme gallo-romaine: une *villa* aux murs de pierre et au toit de tuiles. Dans la maison, la vaisselle est en céramique sigillée importée de La Graufesenque, et la lampe à huile en bronze vient d'Italie. À la maison, les gens parlent encore leurs langues tribales, mais les actes officiels doivent être rédigés en latin.
+Notre Carata, si elle avait bien survécu la guerre, était maintenant devenue adulte et vivait dans une ferme gallo-romaine: une *villa* aux murs de pierre et au toit de tuiles. Dans la maison, la vaisselle est en céramique sigillée importée de La Graufesenque, et la lampe à huile en bronze vient d'Italie. À la maison, les gens parlent encore leurs langues tribales, mais les actes officiels doivent être rédigés en latin.
+
+{une illustration/image sous licence libre de ferme gallo-romaine}
 
 Le marché, qui se tient tous les huit jours, est une petite image de l'Empire : du vin d'Italie, de l'huile d'Hispanie, du blé de la Beauce, des poteries d'Aveyron, du sel de la Méditerranée. Les taxes sont payées en monnaie romaine — le sesterce et le denier — et non plus en nature comme au temps des chef·fes celtes [source:unrv-gallia].
 
@@ -110,11 +115,14 @@ Les langues celtiques continuèrent d'être parlées dans les campagnes pendant 
 
 Les Romains n'imposèrent pas leur religion par la force. Au contraire, e·ils pratiquèrent l'*interpretatio romana* : l'assimilation des dieux des cultures vaincues à leurs propres divinités. Le dieu gaulois Toutatis devint Mars ; la déesse Épona fut adoptée par l'armée romaine comme protectrice des chevaux ; le dieu guérisseur Borvo fut associé à Apollon. Dans les sanctuaires, les inscriptions étaient souvent bilingues, et les rituels mélangeaient traditions celtes (dépôts d'armes dans les lacs, crânes exposés) et pratiques romaines (sacrifices d'animaux, vœux écrits) [source:gallia-cnrs].
 
+{une illustration/image sous licence libre de Dieux romains}
+
 Les druides, en revanche, furent activement réprimés. L'empereur Claude interdit leur culte dès le I<sup>er</sup> siècle EC, voyant dans leur pouvoir spirituel et judiciaire une menace pour l'autorité romaine. Mais le druidisme ne disparut pas complètement : il se fondit dans les pratiques locales et survécut sous des formes discrètes [source:worldhistory-roman-gaul].
 
 ### Art et artisanat
 
 Les artisan·es gaulois·es devinrent célèbres dans tout l'Empire. La céramique sigillée de La Graufesenque (Aveyron) — ces vases rouges décorés de motifs en relief — s'exporta jusqu'en Syrie et en Égypte romaine. Les techniques gauloises d'émaillerie sur métal furent reprises par Rome, et les ateliers de verrerie de Lugdunum produisaient des pièces aussi fines que celles de la lointaine Alexandrie. Les sculptures gallo-romaines mêlaient le réalisme romain à l'abstraction celtique — le pilier des Nautes, à Paris (I<sup>er</sup> siècle EC), représente des dieux romains et gaulois côte à côte [source:unrv-gallia].
+{une illustration/image sous licence libre de vases rouges gaulois}
 
 ### L'économie : le grenier de Rome
 
@@ -131,6 +139,8 @@ La société gallo-romaine était strictement hiérarchisée. Au sommet, les **c
 En dessous, les **pérégrin·es** — habitant·es libres mais sans citoyenneté romaine. E·ils payaient des impôts, servaient dans l'armée, mais ne pouvaient ni voter ni occuper de charges publiques. La situation changea en 212 EC, quand l'édit de Caracalla (*Constitutio Antoniniana*) accorda la citoyenneté romaine à tou·tes les habitant·es libres de l'Empire [source:constitutio-antoniniana].
 
 Au bas de l'échelle sociale, les **esclaves**. L'esclavage était omniprésent dans la Gaule romaine. Les grands domaines agricoles, les mines et les ateliers artisanaux reposaient sur le travail servile. Les esclaves gaulois·es — souvent issu·es des conquêtes ou de la dette — pouvaient espérer l'affranchissement après des années de service ; leurs enfants devenaient alors citoyen·nes romain·es. Mais pour la majorité, la vie restait rude, sans droits, soumise à la volonté d'un·e maître·sse [source:britannica-gaul].
+
+{une illustration/image sous licence libre de pyramide sociale romaine}
 
 ### Femmes et rapports de genre
 
@@ -197,6 +207,7 @@ Aujourd'hui, les villes fondées par les Romain·es n'ont pas disparu. Elles por
 | **Augustodunum** | Autun |
 | **Narbo Martius** | Narbonne |
 | **Massalia** | Marseille |
+{une carte leaflet pour illustrer les villes romaines et leurs correspondantes actuelles, remplacant le tableau}
 
 Les rues de ces villes suivent parfois encore le tracé des voies romaines. Certains amphithéâtres et arènes romains, devenus places publiques, marchés ou lieux de festival, sont conservés jusqu'à nos jours. Certaines routes romaines sont aussi restées les axes principaux de la France moderne : la Via Agrippa entre Lugdunum et le littoral méditerranéen est devenue, dans les grandes lignes, l'actuelle autoroute A7 [source:roman-roads-gaul].
 
