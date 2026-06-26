@@ -97,9 +97,12 @@ Le système féodal reposait sur une hiérarchie de dépendances personnelles li
 
 La relation de **vassalité** était scellée par l'**hommage** : le vassal s'agenouillait devant son seigneur, plaçait ses mains dans les siennes et jurait fidélité. En échange, le seigneur lui remettait un fief (généralement une terre) qui lui permettait d'entretenir son équipement militaire et de vivre [source:britannica-feudalism]. Ce réseau d'obligations mutuelles structurait toute la société : chacun avait un devoir de protection vers le bas et de service vers le haut.
 
+{une illustration/image sous licence libre de système féodal}
+
 ### L'économie seigneuriale
 
 La base de cette société, c'était la **seigneurie** — une unité territoriale qui appartenait à un seigneur (laïc ou ecclésiastique). Elle se divisait en deux parties :
+{une illustration/image sous licence libre de seigneurie}
 
 - La **réserve seigneuriale** : les terres que le seigneur exploitait directement, cultivées par les paysan·nes à titre de corvée.
 - Les **tenures** : des parcelles confiées à des paysan·nes qui les cultivaient pour leur propre subsistance, en échange de redevances.
@@ -109,11 +112,12 @@ Les champs étaient organisés selon le système de l'**assolement triennal** : 
 90 % de la population étaient des **paysan·nes**, mais leur condition juridique variait. Les **serfs** étaient attaché·es à la terre : e·les ne pouvaient ni partir ni se marier sans l'autorisation du seigneur, et devaient payer une taxe (*chevage*) pour reconnaître leur dépendance. Les **vilain·es** (ou hommes libres) possédaient leur terre en tenure, payaient un cens annuel au seigneur, mais pouvaient se déplacer librement, tester et contracter un mariage sans autorisation [source:worldhistory-medieval-daily-life].
 
 Quant aux productions, les paysan·nes gardaient une partie de leur récolte pour leur propre nourriture et pour les semences de l'année suivante. Le surplus était partagé entre plusieurs prélèvements obligatoires : la **dîme** à l'Église (environ un dixième des récoltes), le **cens** (loyer foncier annuel, souvent modique), les **champarts** (redevance proportionnelle à la récolte, variant de 1/12 à 1/4 selon les régions), et diverses redevances en nature ou en argent (banalités pour l'utilisation du moulin, du four, du pressoir seigneurial) [source:worldhistory-medieval-daily-life]. Au total, un paysan ou une paysanne pouvait perdre entre 30 et 50 % de sa production brute entre tous ces prélèvements, selon les usages locaux.
+{une charte pie pour illustrer la repartition du revenu des paysans entre les différents devoirs et leur propre partie}
 
 ### La vie à Lagny : un village dans le système féodal
 
 Expérimentons le système féodal par le petit village de Lagny. Au X<sup>e</sup> siècle, il devint la propriété des comtes de Champagne, l'une des familles les plus puissantes du royaume. Le comte, haut seigneur, était lui-même le vassal direct du roi de France. Il ne vivait pas à Lagny : il résidait à Troyes ou à Provins, dans un château digne de son rang. Sur place, il déléguait son autorité à un **prévôt** — un agent local qui rendait la justice en son nom, percevait les impôts, entretenait les fortifications et veillait au respect des corvées.
-
+{une illustration/image sous licence libre de lagny}
 Autour de Lagny s'étendaient les champs ouverts, divisés en trois soles. Les paysan·nes du village — serfs et vilain·es mêlé·es — y cultivaient le seigle et le froment, tandis que les troupeaux paissaient sur les communaux.
 
 Au XIII<sup>e</sup> siècle, la seigneurie de Lagny se dota d'un petit château fort en pierre, avec tour, courtine et fossé [source:britannica-france-medieval]. Ce n'était pas une résidence militaire au sens moderne : c'était le centre administratif de la seigneurie. Le prévôt y rendait la justice, y percevait les redevances, y stockait les récoltes de la réserve seigneuriale. En cas de danger, les paysan·nes du village pouvaient s'y réfugier [source:worldhistory-medieval-daily-life].
