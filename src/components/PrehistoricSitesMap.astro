@@ -135,8 +135,8 @@
   })();
 </script>
 
-<style>
-  :global(.prehistoric-map-section) {
+<style is:global>
+  .prehistoric-map-section {
     width: 100%;
     max-width: 720px;
     margin: var(--gap-lg) auto;
@@ -145,7 +145,7 @@
     gap: var(--gap-md);
   }
 
-  :global(.prehistoric-map) {
+  .prehistoric-map {
     width: 100%;
     height: 420px;
     border-radius: var(--radius-md);
@@ -154,7 +154,7 @@
     background: #1e293b;
   }
 
-  :global(.prehistoric-map__noscript) {
+  .prehistoric-map__noscript) {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -166,14 +166,14 @@
   }
 
   /* ── Legend panel ── */
-  :global(.prehistoric-map__legend) {
+  .prehistoric-map__legend) {
     padding: var(--gap-md);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
     background: var(--color-bg-card);
   }
 
-  :global(.prehistoric-map__legend-title) {
+  .prehistoric-map__legend-title) {
     font-family: var(--font-serif);
     font-size: 0.95rem;
     font-weight: 700;
@@ -181,54 +181,54 @@
     margin-bottom: var(--gap-xs);
   }
 
-  :global(.prehistoric-map__legend-hint) {
+  .prehistoric-map__legend-hint) {
     font-size: 0.75rem;
     color: var(--color-accent-gold, #d4a843);
     font-style: italic;
     margin-bottom: var(--gap-sm);
   }
 
-  :global(.prehistoric-map__legend-content) {
+  .prehistoric-map__legend-content) {
     font-size: 0.85rem;
     color: var(--color-text-muted);
     min-height: 3em;
   }
 
-  :global(.prehistoric-map__legend-placeholder) {
+  .prehistoric-map__legend-placeholder) {
     font-style: italic;
   }
 
-  :global(.prehistoric-map__legend-site) {
+  .prehistoric-map__legend-site) {
     font-weight: 600;
     color: var(--color-text-light);
     margin-bottom: var(--gap-xs);
   }
 
-  :global(.prehistoric-map__legend-lieu) {
+  .prehistoric-map__legend-lieu) {
     font-size: 0.8rem;
     color: var(--color-text-muted);
     margin-bottom: var(--gap-xs);
   }
 
-  :global(.prehistoric-map__legend-age) {
+  .prehistoric-map__legend-age) {
     font-weight: 600;
     color: var(--color-accent-gold, #d4a843);
     margin-bottom: var(--gap-xs);
   }
 
-  :global(.prehistoric-map__legend-desc) {
+  .prehistoric-map__legend-desc) {
     font-size: 0.8rem;
     color: var(--color-text-muted);
     line-height: 1.5;
   }
 
   /* ── Custom marker ── */
-  :global(.prehistoric-marker) {
+  .prehistoric-marker) {
     background: none !important;
     border: none !important;
   }
 
-  :global(.prehistoric-marker__icon) {
+  .prehistoric-marker__icon) {
     display: block;
     width: 24px;
     height: 24px;
@@ -243,45 +243,45 @@
     transition: transform 0.2s ease;
   }
 
-  :global(.prehistoric-marker__icon:hover) {
+  .prehistoric-marker__icon:hover) {
     transform: scale(1.3);
   }
 
   /* ── Leaflet overrides ── */
-  :global(.leaflet-container) {
+  .leaflet-container) {
     font-family: inherit;
     background: #1e293b;
   }
 
-  :global(.leaflet-control-zoom a) {
+  .leaflet-control-zoom a) {
     background: #1e293b !important;
     color: #e2e8f0 !important;
     border-color: #334155 !important;
   }
 
-  :global(.leaflet-control-zoom a:hover) {
+  .leaflet-control-zoom a:hover) {
     background: #334155 !important;
   }
 
-  :global(.leaflet-control-attribution) {
+  .leaflet-control-attribution) {
     background: rgba(11, 17, 32, 0.85) !important;
     color: #94a3b8 !important;
     font-size: 10px !important;
   }
 
-  :global(.leaflet-control-attribution a) {
+  .leaflet-control-attribution a) {
     color: #94a3b8 !important;
   }
 
   /* ── Popup ── */
-  :global(.leaflet-popup-content-wrapper) {
+  .leaflet-popup-content-wrapper) {
     background: #1e293b;
     color: #e2e8f0;
     border: 1px solid #334155;
     border-radius: 8px;
   }
 
-  :global(.leaflet-popup-tip) {
+  .leaflet-popup-tip) {
     background: #1e293b;
     border: 1px solid #334155;
   }
