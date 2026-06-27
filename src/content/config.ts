@@ -151,6 +151,7 @@ const chartType = z.enum([
   'choropleth',
   'comparison',
   'sankey',
+  'pie',
 ]);
 
 const figureBase = {
@@ -211,6 +212,22 @@ const barFigureSchema = z.object({
         name: z.string(),
         value: z.number(),
       })).min(1),
+    })).min(1),
+  }),
+});
+
+// ── Pie chart ──
+const pieFigureSchema = z.object({
+  ...figureBase,
+  type: z.literal('pie'),
+  config: z.object({
+    showLegend: z.boolean().optional(),
+    innerRadius: z.number().min(0).optional(),
+  }).optional(),
+  data: z.object({
+    values: z.array(z.object({
+      label: z.string(),
+      value: z.number().positive(),
     })).min(1),
   }),
 });
@@ -316,6 +333,7 @@ const sankeyFigureSchema = z.object({
 export const figureSchema = z.discriminatedUnion('type', [
   lineFigureSchema,
   barFigureSchema,
+  pieFigureSchema,
   pyramidFigureSchema,
   bumpFigureSchema,
   choroplethFigureSchema,
