@@ -1,0 +1,9 @@
+{
+  "id": "dynasties-francaises",
+  "alt": "Schéma des relations entre les dynasties royales françaises, des Mérovingiens aux Bourbons",
+  "caption": "Relations entre les principales dynasties ayant régné sur la France du Ve au XVIe siècle.",
+  "credit": "Généré avec D3 hierarchy",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+  "sourceId": "britannica-france-medieval"
+}

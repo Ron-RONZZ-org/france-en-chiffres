@@ -1,0 +1,87 @@
+---
+/**
+ * MermaidDiagram.astro — renders a Mermaid relationship/genealogy diagram.
+ * Uses client-side Mermaid rendering.
+ *
+ * Props:
+ *   chart: string — the Mermaid diagram definition
+ *   caption: string (optional) — figure caption
+ *   id: string (optional) — unique id for this diagram instance
+ */
+
+export interface Props {
+  chart: string;
+  caption?: string;
+  id?: string;
+}
+
+const { chart, caption, id = 'mermaid-' + Math.random().toString(36).slice(2, 8) } = Astro.props;
+const encodedId = id.replace(/[^a-zA-Z0-9_-]/g, '');
+---
+
+<figure id={encodedId} class="mermaid-figure">
+  <div class="mermaid" data-diagram={chart}>
+    <pre class="mermaid-pre">{chart}</pre>
+  </div>
+  {caption && <figcaption>{caption}</figcaption>}
+</figure>
+
+<script>
+  import mermaid from 'mermaid';
+
+  mermaid.initialize({
+    startOnLoad: false,
+    theme: 'dark',
+    themeVariables: {
+      fontFamily: 'system-ui, sans-serif',
+      primaryColor: '#1a5276',
+      primaryTextColor: '#e2e8f0',
+      primaryBorderColor: '#2980b9',
+      lineColor: '#4a5568',
+      secondaryColor: '#2471a3',
+      tertiaryColor: '#1a1a2e',
+      fontSize: '14px',
+    },
+  });
+
+  document.querySelectorAll('.mermaid-figure').forEach(async (container) => {
+    const pre = container.querySelector('.mermaid-pre');
+    if (!pre) return;
+    const definition = pre.textContent || '';
+    if (!definition.trim()) return;
+
+    try {
+      const id = 'mermaid-svg-' + Math.random().toString(36).slice(2, 8);
+      const { svg } = await mermaid.render(id, definition);
+      pre.innerHTML = svg;
+      pre.classList.remove('mermaid-pre');
+      pre.classList.add('mermaid-rendered');
+    } catch (err) {
+      console.warn('Mermaid render failed:', err);
+      pre.innerHTML = '<div style="color:#ef4444;padding:1rem;text-align:center;">Diagramme non disponible</div>';
+    }
+  });
+</script>
+
+<style is:global>
+  .mermaid-figure {
+    margin: 1.5rem 0;
+    text-align: center;
+  }
+  .mermaid-figure figcaption {
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+    color: #94a3b8;
+    font-style: italic;
+  }
+  .mermaid-figure .mermaid svg {
+    max-width: 100%;
+    height: auto;
+  }
+  .mermaid-figure .mermaid-pre {
+    display: none;
+  }
+  .mermaid-figure .mermaid-rendered {
+    display: block;
+  }
+</style>

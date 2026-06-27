@@ -33,7 +33,7 @@ if (fs.existsSync(figuresDir)) {
     figureIds.add(content.id);
 
     // Validate type
-    const validTypes = ['line', 'bar', 'population-pyramid', 'bump', 'choropleth', 'comparison', 'sankey'];
+    const validTypes = ['line', 'bar', 'pie', 'population-pyramid', 'bump', 'choropleth', 'comparison', 'sankey'];
     assert.ok(validTypes.includes(content.type),
       `Figure ${content.id}: unknown type "${content.type}"`);
 

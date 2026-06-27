@@ -85,6 +85,8 @@ L'extension du nom « France » à l'ensemble du royaume se fit graduellement. S
 
 En 987, les grands du royaume — les ducs, comtes et évêques les plus puissants — élurent **Hugues Capet** comme roi [source:britannica-hugh-capet]. Malgré leurs titres royaux, le pouvoir des premiers Capétiens était minuscule : ils ne contrôlaient véritablement que l'Île-de-France, un petit territoire entre Paris et Orléans. Les ducs de Normandie, d'Aquitaine, de Bourgogne étaient pratiquement autonomes et plus puissants que le roi lui-même : ils contrôlaient des territoires bien plus vastes et plus riches, battaient leur propre monnaie, levaient leurs propres armées, rendaient la justice en dernier ressort sans faire appel au roi. En théorie vassaux du roi, ils étaient en pratique des souverains indépendants [source:britannica-france-medieval].
 
+[media:dynasties-francaises]
+
 ## La société féodale (X<sup>e</sup>–XIII<sup>e</sup> siècle) {#societe-feodale}
 
 C'est dans ce contexte de pouvoir royal faible que se développa ce que l'on appelle le **système féodal**. 
@@ -97,7 +99,7 @@ Le système féodal reposait sur une hiérarchie de dépendances personnelles li
 
 La relation de **vassalité** était scellée par l'**hommage** : le vassal s'agenouillait devant son seigneur, plaçait ses mains dans les siennes et jurait fidélité. En échange, le seigneur lui remettait un fief (généralement une terre) qui lui permettait d'entretenir son équipement militaire et de vivre [source:britannica-feudalism]. Ce réseau d'obligations mutuelles structurait toute la société : chacun avait un devoir de protection vers le bas et de service vers le haut.
 
-[media:feodalite-pyramide]
+[media:pyramide-feodale-fr]
 
 ### L'économie seigneuriale
 

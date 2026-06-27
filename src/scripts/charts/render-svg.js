@@ -13,7 +13,7 @@
  */
 
 import { scaleLinear, scalePoint, scaleBand, scaleOrdinal } from 'd3-scale';
-import { line, curveMonotoneX } from 'd3-shape';
+import { line, curveMonotoneX, arc, pie } from 'd3-shape';
 import { max, extent } from 'd3-array';
 
 // ── Default palette (French tricolor + extended) ──
@@ -55,6 +55,8 @@ export function renderChartSvg(figure) {
       return renderLineChart(figure);
     case 'bar':
       return renderBarChart(figure);
+    case 'pie':
+      return renderPieChart(figure);
     default:
       return renderUnsupported(figure);
   }
@@ -317,6 +319,98 @@ function renderBarChart(figure) {
   }
 
   return wrapSvg(parts.join('\n'), width, height, figure, margin.left, margin.top);
+}
+
+// ── Pie chart renderer ──
+
+function renderPieChart(figure) {
+  const { data, config = {}, palette, width = 720, height = 400 } = figure;
+  const colors = palette ?? DEFAULT_PALETTE;
+
+  const titleHeight = figure.title ? 28 : 0;
+  const showLegend = config.showLegend !== false && data.values.length > 1;
+  const legendWidth = showLegend ? 140 : 0;
+  const margin = { top: 8 + titleHeight, right: 10, bottom: 20, left: 10 };
+  const chartArea = width - margin.left - margin.right - legendWidth;
+  const innerH = height - margin.top - margin.bottom;
+  const radius = Math.min(chartArea, innerH) / 2 - 10;
+  const cx = margin.left + chartArea / 2;
+  const cy = margin.top + innerH / 2;
+
+  const parts = [];
+
+  // Title
+  if (figure.title) {
+    parts.push(textEl(cx, margin.top - 12, figure.title, {
+      fill: '#e2e8f0', 'font-size': '14', 'font-weight': '600',
+      'text-anchor': 'middle',
+    }));
+  }
+
+  // Pie layout
+  const pieGen = pie()
+    .value((d) => d.value)
+    .sort(null);
+
+  const arcGen = arc()
+    .innerRadius(config.innerRadius ?? 0)
+    .outerRadius(radius);
+
+  const hoverArcGen = arc()
+    .innerRadius(config.innerRadius ?? 0)
+    .outerRadius(radius + 8);
+
+  const total = data.values.reduce((sum, d) => sum + d.value, 0);
+  const slices = pieGen(data.values);
+
+  slices.forEach((slice, i) => {
+    const color = colors[i % colors.length];
+    const d = arcGen(slice);
+    if (!d) return;
+
+    const pct = ((slice.data.value / total) * 100).toFixed(1);
+    const midAngle = (slice.startAngle + slice.endAngle) / 2;
+    const labelRadius = radius + 22;
+    const lx = cx + Math.cos(midAngle) * labelRadius;
+    const ly = cy + Math.sin(midAngle) * labelRadius;
+
+    parts.push(`<path d="${d}" fill="${color}" stroke="#1a1a2e" stroke-width="2"
+      data-label="${escapeXml(slice.data.label)}"
+      data-value="${slice.data.value}"
+      data-pct="${pct}"
+      class="chart-datapoint"/>`);
+
+    // Percentage label outside the slice
+    const isLeft = lx < cx;
+    parts.push(textEl(lx + (isLeft ? -6 : 6), ly + 4, `${pct}%`, {
+      fill: '#cbd5e1', 'font-size': '11',
+      'text-anchor': isLeft ? 'end' : 'start',
+    }));
+  });
+
+  // Legend
+  if (showLegend) {
+    const legendX = width - legendWidth + 10;
+    let legendY = margin.top + 10;
+
+    data.values.forEach((d, i) => {
+      const color = colors[i % colors.length];
+      if (legendY + 40 > height) return;
+
+      parts.push(`<rect x="${legendX}" y="${legendY}" width="12" height="12" fill="${color}" rx="2"/>`);
+      parts.push(textEl(legendX + 18, legendY + 10, d.label, {
+        fill: '#cbd5e1', 'font-size': '10',
+      }));
+      const pct = ((d.value / total) * 100).toFixed(1);
+      parts.push(textEl(legendX + 18, legendY + 22, `${d.value}% (${pct}%)`, {
+        fill: '#64748b', 'font-size': '9',
+      }));
+
+      legendY += 36;
+    });
+  }
+
+  return wrapSvg(parts.join('\n'), width, height, figure, 0, 0);
 }
 
 // ── Shared helpers ──
