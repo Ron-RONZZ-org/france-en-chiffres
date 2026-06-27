@@ -29,7 +29,7 @@ timeline:
 
 ## Le Moyen Âge, c'est quand ?
 
-Alors que vous regardez un château fort et qu'un·e enfant vous demande l'époque dans laquelle il fut construit, vous répondez comment ?
+Alors que vous regardez un château fort et qu'un·e enfant vous demande l'époque à laquelle il fut construit, vous répondez comment ?
 
 Si vous avez des connaissances particulières sur ce château, vous répondez peut-être : « Il y a 500 ans, sous le règne de Louis XIV, on a bâti ce château. » Sinon, vous répondez probablement : « C'est pendant le Moyen Âge ».
 
@@ -37,7 +37,7 @@ Si vous avez des connaissances particulières sur ce château, vous répondez pe
 
 Logiquement, les gens qui vécurent au « Moyen Âge » n'employèrent jamais cette terminologie. Comment auraient-e·ils pu ? Le « Moyen Âge » pour les intellectuel·les du XIV<sup>e</sup> siècle était leur époque moderne, avec ses derniers développements sociaux, technologiques, économiques et culturels. Il n'y avait rien de « moyen ».
 
-Dans cet article, j'essaierai au maximum d'éviter de désigner l'époque que nous allons aborder comme « le Moyen Âge ». Pour nous, les Français·es, particulièrement, le « Moyen Âge » n'est pas du tout moyen. La nation française, sa culture, sa langue et ses traditions se développèrent au cours des siècles qui suivirent la chute de l'Empire romain, qui colonisait le territoire de l'actuelle France sous forme de quatre provinces gauloises. Si l'occupation romaine, qui unifia le territoire français pour la première fois, débuta la civilisation française, ce fut pendant les siècles suivants que la France devint un pays à part entière avec ses propres coutumes. En fait, vous allez voir : même le nom de notre pays, « la France », est une invention « moyenageuse ».
+Dans cet article, j'essaierai au maximum d'éviter de désigner l'époque que nous allons aborder comme « le Moyen Âge ». Pour nous, les Français·es en particulier, le « Moyen Âge » n'est pas du tout moyen. La nation française, sa culture, sa langue et ses traditions se développèrent au cours des siècles qui suivirent la chute de l'Empire romain, qui colonisait le territoire de l'actuelle France sous forme de quatre provinces gauloises. Si l'occupation romaine, qui unifia le territoire français pour la première fois, débuta la civilisation française, ce fut pendant les siècles suivants que la France devint un pays à part entière avec ses propres coutumes. En fait, vous allez voir : même le nom de notre pays, « la France », est une invention « moyenageuse ».
 
 ## La naissance du royaume des Francs {#naissance-royaume}
 
@@ -65,7 +65,7 @@ L'expression « rois fainéants » (ou *rois ne faisant rien*) fut popularisée 
 
 ### L'essor carolingien
 
-Comme attendu, la dynastie mérovingienne s'acheva par l'usurpation du pouvoir par un maire du palais. **Charles Martel** (« Charles le Marteau »), fils illégitime de **Pippin II de Herstal** — lui-même maire du palais [source:britannica-charles-martel] — était initialement exclu de la succession. À la mort de son père en 714, Plectrude, la veuve de Pippin, fit emprisonner Charles pour écarter ce rival gênant et gouverner au nom de ses propres petits-fils. Mais Charles s'évada, rassembla une armée et battit ses rival·es à Amblève (716) et Vincy (717). Il devint ainsi le seul maire du palais, gouvernant les Francs sans partage.
+Comme attendu, la dynastie mérovingienne s'acheva par l'usurpation du pouvoir par un maire du palais. **Charles Martel** (« Charles le Marteau »), fils illégitime de **Pippin II de Herstal** — lui-même maire du palais [source:britannica-charles-martel] — était initialement exclu de la succession. À la mort de son père en 714, Plectrude, la veuve de Pippin, fit emprisonner Charles pour écarter ce rival gênant et gouverner au nom de ses propres petits-fils. Cependant, Charles s'évada, rassembla une armée et battit ses rival·es à Amblève (716) et Vincy (717). Il devint ainsi le seul maire du palais, gouvernant les Francs sans partage.
 
 Pendant ce temps, les derniers rois mérovingiens — Childéric II, puis Chilpéric II et enfin Childéric III — régnaient encore officiellement, mais n'étaient que des figures d'apparat sans pouvoir réel. Charles Martel, en tant que maire du palais, détenait l'autorité véritable : il conduisait les armées, levait les impôts et prenait toutes les décisions politiques. C'est dans ce cadre qu'il arrêta l'avancée des troupes arabo-berbères à la bataille de Poitiers en 732, victoire qui renforça considérablement sa légitimité et son autorité sur l'ensemble du royaume [source:britannica-charles-martel].
 
@@ -97,12 +97,12 @@ Le système féodal reposait sur une hiérarchie de dépendances personnelles li
 
 La relation de **vassalité** était scellée par l'**hommage** : le vassal s'agenouillait devant son seigneur, plaçait ses mains dans les siennes et jurait fidélité. En échange, le seigneur lui remettait un fief (généralement une terre) qui lui permettait d'entretenir son équipement militaire et de vivre [source:britannica-feudalism]. Ce réseau d'obligations mutuelles structurait toute la société : chacun avait un devoir de protection vers le bas et de service vers le haut.
 
-{une illustration/image sous licence libre de système féodal}
+[media:feodalite-pyramide]
 
 ### L'économie seigneuriale
 
 La base de cette société, c'était la **seigneurie** — une unité territoriale qui appartenait à un seigneur (laïc ou ecclésiastique). Elle se divisait en deux parties :
-{une illustration/image sous licence libre de seigneurie}
+[media:seigneurie-trh-mars]
 
 - La **réserve seigneuriale** : les terres que le seigneur exploitait directement, cultivées par les paysan·nes à titre de corvée.
 - Les **tenures** : des parcelles confiées à des paysan·nes qui les cultivaient pour leur propre subsistance, en échange de redevances.
@@ -111,13 +111,13 @@ Les champs étaient organisés selon le système de l'**assolement triennal** : 
 
 90 % de la population étaient des **paysan·nes**, mais leur condition juridique variait. Les **serfs** étaient attaché·es à la terre : e·les ne pouvaient ni partir ni se marier sans l'autorisation du seigneur, et devaient payer une taxe (*chevage*) pour reconnaître leur dépendance. Les **vilain·es** (ou hommes libres) possédaient leur terre en tenure, payaient un cens annuel au seigneur, mais pouvaient se déplacer librement, tester et contracter un mariage sans autorisation [source:worldhistory-medieval-daily-life].
 
-Quant aux productions, les paysan·nes gardaient une partie de leur récolte pour leur propre nourriture et pour les semences de l'année suivante. Le surplus était partagé entre plusieurs prélèvements obligatoires : la **dîme** à l'Église (environ un dixième des récoltes), le **cens** (loyer foncier annuel, souvent modique), les **champarts** (redevance proportionnelle à la récolte, variant de 1/12 à 1/4 selon les régions), et diverses redevances en nature ou en argent (banalités pour l'utilisation du moulin, du four, du pressoir seigneurial) [source:worldhistory-medieval-daily-life]. Au total, un paysan ou une paysanne pouvait perdre entre 30 et 50 % de sa production brute entre tous ces prélèvements, selon les usages locaux.
-{une charte pie pour illustrer la repartition du revenu des paysans entre les différents devoirs et leur propre partie}
+Quant aux récoltes, les paysan·nes en gardaient une partie pour leur propre nourriture et pour les semences de l'année suivante. Le surplus était partagé entre plusieurs prélèvements obligatoires : la **dîme** à l'Église (environ un dixième des récoltes), le **cens** (loyer foncier annuel, souvent modique), les **champarts** (redevance proportionnelle à la récolte, variant de 1/12 à 1/4 selon les régions), et diverses redevances en nature ou en argent (banalités pour l'utilisation du moulin, du four, du pressoir seigneurial) [source:worldhistory-medieval-daily-life]. Au total, un paysan ou une paysanne pouvait perdre entre 30 et 50 % de sa production brute entre tous ces prélèvements, selon les usages locaux.
+[chart:part-revenus-paysans]
 
 ### La vie à Lagny : un village dans le système féodal
 
 Expérimentons le système féodal par le petit village de Lagny. Au X<sup>e</sup> siècle, il devint la propriété des comtes de Champagne, l'une des familles les plus puissantes du royaume. Le comte, haut seigneur, était lui-même le vassal direct du roi de France. Il ne vivait pas à Lagny : il résidait à Troyes ou à Provins, dans un château digne de son rang. Sur place, il déléguait son autorité à un **prévôt** — un agent local qui rendait la justice en son nom, percevait les impôts, entretenait les fortifications et veillait au respect des corvées.
-{une illustration/image sous licence libre de lagny}
+[media:village-fortifie-medieval]
 Autour de Lagny s'étendaient les champs ouverts, divisés en trois soles. Les paysan·nes du village — serfs et vilain·es mêlé·es — y cultivaient le seigle et le froment, tandis que les troupeaux paissaient sur les communaux.
 
 Au XIII<sup>e</sup> siècle, la seigneurie de Lagny se dota d'un petit château fort en pierre, avec tour, courtine et fossé [source:britannica-france-medieval]. Ce n'était pas une résidence militaire au sens moderne : c'était le centre administratif de la seigneurie. Le prévôt y rendait la justice, y percevait les redevances, y stockait les récoltes de la réserve seigneuriale. En cas de danger, les paysan·nes du village pouvaient s'y réfugier [source:worldhistory-medieval-daily-life].
@@ -168,7 +168,7 @@ Chaque cathédrale était un projet collectif qui mobilisait toute une ville pen
 
 Quand on regarde une cathédrale gothique aujourd'hui, on est saisi par la hauteur, la lumière, la complexité. Mais les gens du XIII<sup>e</sup> siècle y voyaient autre chose : une image de la Jérusalem céleste, un lieu où la matière devenait spirituelle, où la pierre et le verre racontaient l'histoire du salut.
 
-### La première université française fut fondée: l'Université de Paris
+### La première université française : l'Université de Paris
 
 Au XII<sup>e</sup> siècle, Paris était déjà la plus grande ville du royaume, un carrefour où convergeaient marchand·es, pèlerin·es, clercs et pouvoir royal. Autour de l'île de la Cité et sur la rive gauche, sur la montagne Sainte-Geneviève, s'étaient regroupées plusieurs écoles — l'école cathédrale de Notre-Dame, l'école de Saint-Victor, l'école de Sainte-Geneviève — où des maîtres réputés enseignaient la grammaire, la rhétorique et la logique.
 
@@ -176,12 +176,17 @@ C'est dans ce bouillonnement intellectuel qu'émergea la figure d'**Abélard** (
 
 L'afflux constant de maîtres et d'étudiant·es venus de toute l'Europe transforma peu à peu la rive gauche en un quartier dédié au savoir. En 1200, le roi Philippe Auguste reconnut officiellement l'**Université de Paris** — une corporation de maîtres et d'élèves, organisée en quatre facultés : arts, droit, médecine et théologie. L'enseignement se faisait en latin, la langue universelle des clercs, dans des locaux dispersés autour de la montagne Sainte-Geneviève [source:bnf].
 
+[media:universite-paris-medievale]
+
 Le quartier prit le nom de **Quartier latin** — parce qu'on y parlait latin — avec ses rues étroites, ses librairies, ses tavernes. Les étudiant·es, venus de France, d'Angleterre, d'Allemagne, d'Italie, s'organisaient en « nations » selon leur région d'origine, descendaient parfois dans la rue et contestaient l'autorité du prévôt de Paris. C'était déjà, à sa manière, un petit monde cosmopolite.
 
+[media:plan-paris-1550]
+
 En 1257, un chapelain de Louis IX, **Robert de Sorbon**, fonda un collège destiné à héberger des étudiant·es pauvres en théologie : le collège de Sorbonne, qui devint rapidement le cœur de la faculté de théologie et, par extension, le symbole même de l'Université de Paris.
-{une illustration/image sous licence libre de Sorbonne}
+[media:robert-de-sorbon]
+[media:la-sorbonne]
 Parmi les grands penseurs qui enseignèrent à Paris, le plus éminent fut **Thomas d'Aquin** (1225–1274), dominicain italien qui tenta de concilier la philosophie d'Aristote avec la foi chrétienne dans sa *Somme théologique* [source:bnf]. Son œuvre devint la référence de l'enseignement catholique pendant des siècles.
-{une illustration/image sous licence libre de Thomas d'Aquin
+[media:thomas-d-aquin]
 Pourtant, l'édifice que le Moyen Âge avait patiemment construit — l'alliance du trône et de l'autel, la synthèse scolastique, l'essor des villes et du commerce — allait bientôt vaciller. La croissance démographique et économique du XIII<sup>e</sup> siècle avait atteint ses limites ; les récoltes suffisaient de moins en moins à nourrir une population de plus en plus nombreuse. Le XIV<sup>e</sup> siècle s'ouvrit sur une série de catastrophes qui ébranlèrent les fondations mêmes du monde médiéval.
 
 ## Le crépuscule du Moyen Âge (XIV<sup>e</sup>–XV<sup>e</sup> siècle)
@@ -202,6 +207,8 @@ Puis vint l'effondrement. Le roi Charles VI sombra dans la folie, et deux factio
 
 C'est alors qu'une jeune paysanne de Domrémy, **Jeanne d'Arc** (1412–1431), se présenta devant le dauphin, affirmant que des voix divines l'appelaient à libérer la France. En neuf jours, elle délivra Orléans assiégée, puis conduisit Charles VII à Reims pour son sacre — un acte qui rendit au roi de France sa légitimité. Capturée par les Bourguignons, vendue aux Anglais, jugée par un tribunal ecclésiastique, elle fut brûlée vive à Rouen en 1431 [source:proces-jeanne-arc].
 
+[media:jeanne-arc]
+
 Sa mort ne fut pas vaine : elle avait retourné l'opinion et galvanisé les troupes. En 1453, les Anglais furent définitivement chassés du continent (sauf Calais). La guerre de Cent Ans s'acheva.
 
 ### La famine
@@ -212,10 +219,13 @@ Avant même la guerre de Cent Ans, la France avait connu une famine catastrophiq
 
 En 1347, la peste bubonique arriva à Marseille par des navires génois venus de Crimée. En quelques mois, elle remonta le Rhône, toucha Lyon, Avignon, Paris. À son apogée en 1349, elle tua entre un tiers et la moitié de la population française [source:britannica-black-death].
 
+[media:peste-noire-doutielt3]
+
 Pour les gens du XIV<sup>e</sup> siècle, ce fléau était incompréhensible. On accusa les Juif·ves (pogroms à Strasbourg en 1349 : plusieurs centaines de Juif·ves brûlé·es vif·ves). Les lépreux·euses, les sorcièr·es. On se flagella en procession. On pria. Rien n'arrêta la maladie [source:britannica-black-death].
+[media:persecution-juifs-peste]
 
-Partout en France, la population chuta brutalement. Le royaume comptait environ 16 à 17 millions d'habitant·es au début du XIV<sup>e</sup> siècle ; après la peste, il n'en restait plus qu'environ 10 millions. Certaines régions, comme alentours de Marseille, perdirent plus de la moitié de leur population. Des villages entiers furent abandonnés, leurs champs retournant à la friche. Des maisons restèrent vides. Les seigneurs, qui avaient perdu leurs paysan·nes, ne percevaient plus de redevances [source:britannica-black-death].
-
+Partout en France, la population chuta brutalement. Le royaume comptait environ 16 à 17 millions d'habitant·es au début du XIV<sup>e</sup> siècle ; après la peste, il n'en restait plus qu'environ 10 millions. Certaines régions, comme aux alentours de Marseille, perdirent plus de la moitié de leur population. Des villages entiers furent abandonnés, leurs champs retournant à la friche. Des maisons restèrent vides. Les seigneurs, qui avaient perdu leurs paysan·nes, ne percevaient plus de redevances [source:britannica-black-death].
+[chart:population-peste-noire]
 Mais la pénurie de main-d'œuvre eut aussi un effet inattendu : les survivant·es purent exiger de meilleurs salaires. Les serfs qui restaient obtinrent leur liberté. Le système féodal, déjà ébranlé par la guerre, vacilla [source:britannica-black-death].
 
 ### Les révoltes paysannes
@@ -240,5 +250,5 @@ Promenez-vous dans n'importe quel village français aujourd'hui : l'église au c
 
 L'héritage de ces siècles ne se lit pas seulement dans la pierre. Des institutions que nous tenons aujourd'hui pour acquises — l'Université, la commune, le parlement, la banque — sont nées entre le V<sup>e</sup> et le XV<sup>e</sup> siècle et structurent encore notre vie quotidienne [source:britannica-middle-ages].
 
-L'héritage le plus intime, est peut-être la langue elle-même. C'est durant ces siècles que le latin parlé en Gaule du Nord — la *lingua romana rustica* — se transforma en ancien français, puis en français moderne. Les plus anciens textes littéraires en français — le *Serment de Strasbourg* (842), la *Chanson de Roland* (~1100), les *Lais* de Marie de France (XII<sup>e</sup> siècle) — datent de cette période [source:bnf-serment-strasbourg]. Et surtout, le sentiment d'appartenance à une nation française, distincte des autres royaumes, se forgea pendant ces siècles médiévaux — porté par la langue commune, la foi partagée, et les épreuves surmontées ensemble.
+L'héritage le plus intime est peut-être la langue elle-même. C'est durant ces siècles que le latin parlé en Gaule du Nord — la *lingua romana rustica* — se transforma en ancien français, puis en français moderne. Les plus anciens textes littéraires en français — le *Serment de Strasbourg* (842), la *Chanson de Roland* (~1100), les *Lais* de Marie de France (XII<sup>e</sup> siècle) — datent de cette période [source:bnf-serment-strasbourg]. Et surtout, le sentiment d'appartenance à une nation française, distincte des autres royaumes, se forgea pendant ces siècles médiévaux — porté par la langue commune, la foi partagée, et les épreuves surmontées ensemble.
 

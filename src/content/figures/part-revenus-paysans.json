@@ -1,0 +1,41 @@
+{
+  "id": "part-revenus-paysans",
+  "type": "bar",
+  "title": "Répartition des prélèvements sur le revenu paysan (XIIIe siècle)",
+  "caption": "Part du revenu brut d'un paysan ou d'une paysanne prélevée par les différents droits seigneuriaux et ecclésiastiques. Au total, entre 30 et 50 % de la production pouvait être prélevée.",
+  "license": "CC BY-SA 4.0",
+  "sourceIds": ["worldhistory-medieval-daily-life"],
+  "width": 720,
+  "height": 400,
+  "palette": ["#1a5276", "#922b21", "#1e8449", "#d4ac0d", "#6c3483"],
+  "config": {
+    "xAxis": { "label": "Type de prélèvement" },
+    "yAxis": { "label": "Part du revenu brut (%)", "min": 0, "max": 20 },
+    "orientation": "grouped",
+    "showLegend": false
+  },
+  "data": {
+    "values": [
+      {
+        "category": "Dîme (Église)",
+        "groups": [{ "name": "Redevance", "value": 10 }]
+      },
+      {
+        "category": "Cens (loyer foncier)",
+        "groups": [{ "name": "Redevance", "value": 5 }]
+      },
+      {
+        "category": "Champart (part de récolte)",
+        "groups": [{ "name": "Redevance", "value": 12 }]
+      },
+      {
+        "category": "Banalités (moulin, four, pressoir)",
+        "groups": [{ "name": "Redevance", "value": 8 }]
+      },
+      {
+        "category": "Corvées (travail gratuit)",
+        "groups": [{ "name": "Redevance", "value": 5 }]
+      }
+    ]
+  }
+}

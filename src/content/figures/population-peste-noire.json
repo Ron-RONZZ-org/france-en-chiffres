@@ -1,0 +1,36 @@
+{
+  "id": "population-peste-noire",
+  "type": "line",
+  "title": "Population du royaume de France avant et après la peste noire (1300–1450)",
+  "caption": "Estimation de la population du royaume de France (en millions d'habitants) de 1300 à 1450. La Grande Famine (1315–1317) puis la Peste noire (1347–1352) firent chuter la population d'environ 40 %.",
+  "license": "CC BY-SA 4.0",
+  "sourceIds": ["britannica-black-death", "britannica-france-medieval"],
+  "width": 720,
+  "height": 400,
+  "palette": ["#8b0000"],
+  "config": {
+    "xAxis": { "label": "Année" },
+    "yAxis": { "label": "Population (millions)", "min": 0 },
+    "interpolation": "monotone"
+  },
+  "data": {
+    "series": [
+      {
+        "name": "Population (estimations)",
+        "values": [
+          { "x": 1300, "y": 17.0 },
+          { "x": 1315, "y": 17.0 },
+          { "x": 1320, "y": 15.0 },
+          { "x": 1340, "y": 16.0 },
+          { "x": 1347, "y": 16.5 },
+          { "x": 1350, "y": 10.5 },
+          { "x": 1360, "y": 10.0 },
+          { "x": 1380, "y": 10.5 },
+          { "x": 1400, "y": 11.0 },
+          { "x": 1420, "y": 11.0 },
+          { "x": 1450, "y": 12.0 }
+        ]
+      }
+    ]
+  }
+}
