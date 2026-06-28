@@ -1,11 +1,18 @@
 ---
 // /media/[id]/code/ — Source code viewer for programmatically generated media assets.
-// Statically generated at build time for all media entries that have a sourceCode field.
+// Shows both the authored input data and, when available, the shared rendering code
+// that transforms data into the final SVG.
 
+import { readFileSync, existsSync } from 'node:fs';
+import { resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import Base from '../../../layouts/Base.astro';
-import { getAllMedia, getMedia } from '../../../data/media';
+import { getAllMedia } from '../../../data/media';
 import SourceCodeBlock from '../../../components/SourceCodeBlock.astro';
 import type { ResolvedMedia } from '../../../data/media';
+
+const __dirname = fileURLToPath(new URL('.', import.meta.url));
+const PROJECT_ROOT = resolve(__dirname, '../../../../');
 
 export interface Props {
   media: ResolvedMedia;
@@ -14,7 +21,7 @@ export interface Props {
 export async function getStaticPaths() {
   const allMedia = await getAllMedia();
   return allMedia
-    .filter((m) => m.sourceCode)
+    .filter((m) => m.sourceCode && m.sourceCode.length > 0)
     .map((m) => ({
       params: { id: m.id },
       props: { media: m },
@@ -23,6 +30,22 @@ export async function getStaticPaths() {
 
 const { media } = Astro.props;
 const title = `Code source — ${media.caption ?? media.id}`;
+
+// Read the shared rendering source file (if specified)
+let renderingCode = '';
+let renderingLabel = '';
+let renderingLang = '';
+
+if (media.renderingSource) {
+  const filePath = resolve(PROJECT_ROOT, media.renderingSource.filePath);
+  if (existsSync(filePath)) {
+    renderingCode = readFileSync(filePath, 'utf-8');
+    renderingLabel = media.renderingSource.label;
+    // Detect language from extension
+    const ext = media.renderingSource.filePath.split('.').pop()?.toLowerCase();
+    renderingLang = ext === 'js' ? 'javascript' : ext === 'ts' ? 'javascript' : ext ?? 'text';
+  }
+}
 ---
 
 <Base title={title} description={`Code source du diagramme : ${media.caption ?? media.id}`}>
@@ -36,12 +59,30 @@ const title = `Code source — ${media.caption ?? media.id}`;
           <p class="code-page__subtitle">{media.caption}</p>
         </header>
 
-        <SourceCodeBlock sourceCode={media.sourceCode!} />
+        {media.sourceCode && media.sourceCode.length > 0 && (
+          <section class="code-page__section">
+            {media.sourceCode.map((sc, i) => (
+              <SourceCodeBlock sourceCode={sc} key={`data-${i}`} />
+            ))}
+          </section>
+        )}
+
+        {renderingCode && (
+          <section class="code-page__section">
+            <h2 class="code-page__section-title">{renderingLabel}</h2>
+            <p class="code-page__section-desc">
+              Ce fichier contient la fonction de rendu qui transforme les données JSON en diagramme SVG.
+              Il est partagé par tous les diagrammes de ce type — une seule source, pas de duplication.
+            </p>
+            <SourceCodeBlock sourceCode={{ lang: renderingLang, code: renderingCode, label: renderingLabel }} />
+          </section>
+        )}
 
         <footer class="code-page__footer">
           <p>
-            Ce code a servi à générer le diagramme affiché sur cette page.
-            Vous pouvez le copier ou le télécharger pour le réutiliser ou l'adapter.
+            Les données ci-dessus sont spécifiques à ce diagramme. Le code de rendu
+            {renderingCode ? ' (ci-dessus) est' : ''} partagé par l'ensemble des diagrammes du même type.
+            Vous pouvez copier ou télécharger chaque bloc séparément.
           </p>
           {media.license && (
             <p>
@@ -71,7 +112,7 @@ const title = `Code source — ${media.caption ?? media.id}`;
   }
 
   .code-page {
-    max-width: 800px;
+    max-width: 900px;
     margin: 0 auto;
   }
 
@@ -91,6 +132,24 @@ const title = `Code source — ${media.caption ?? media.id}`;
     font-size: 1rem;
     color: var(--color-text-muted);
     font-style: italic;
+  }
+
+  .code-page__section {
+    margin-bottom: var(--gap-xl);
+  }
+
+  .code-page__section-title {
+    font-family: var(--font-serif);
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: var(--gap-sm);
+  }
+
+  .code-page__section-desc {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    margin-bottom: var(--gap-md);
+    line-height: 1.6;
   }
 
   .code-page__footer {

@@ -100,6 +100,11 @@ const sourceCodeSchema = z.object({
   label: z.string().optional(),
 });
 
+const renderingSourceSchema = z.object({
+  filePath: z.string(),
+  label: z.string(),
+});
+
 const mediaSchema = z.object({
   id: z.string().min(1),
   alt: z.string().min(1),
@@ -110,7 +115,8 @@ const mediaSchema = z.object({
   sourceId: z.string().optional(),
   width: z.number().optional(),
   height: z.number().optional(),
-  sourceCode: sourceCodeSchema.optional(),
+  sourceCode: z.array(sourceCodeSchema).optional(),
+  renderingSource: renderingSourceSchema.optional(),
 });
 
 // ── Departments ──
