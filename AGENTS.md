@@ -349,6 +349,10 @@ bash scripts/new-figure.sh population-evolution line
 - ❌ **Framer Motion** — React-only. If you need a React animation library, you're using the wrong approach.
 - ❌ **Client-side routing** — use multi-page Astro + CSS View Transitions API. No React Router, no Vue Router.
 - ❌ **Tracking, analytics, cookies** — educational site, no business need, no user data collection.
+- ❌ **Raw SVG `<path d="…">` strings for arrows, connectors, or relationship diagrams** — hand-crafted path strings are almost never correctly oriented and are impossible to maintain. Use a high-level API instead:
+  - D3 `linkVertical` / `linkHorizontal` / `line().curve(curveNatural)` for curved connectors
+  - SVG `<marker>` with `orient="auto"` for arrowheads
+  - Define arrows declaratively as `{ source: [x,y], target: [x,y] }` where source→target is the arrow direction; `marker-end` is always at target
 
 ### Allowed with justification (opt-in, per-page)
 - ✅ **GSAP + ScrollTrigger** — for pinned sections, scrub animations, staggered timelines where vanilla JS would require 3x+ the code.
