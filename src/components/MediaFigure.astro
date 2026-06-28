@@ -28,6 +28,7 @@ const cssClass = Astro.props.class ?? '';
   sourceId={entry.sourceId}
   dataFigureType="media"
   dataFigureId={entry.id}
+  sourceCodeMediaId={entry.sourceCode ? entry.id : undefined}
 >
   {isSvg ? (
     <img

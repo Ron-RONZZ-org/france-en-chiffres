@@ -1,0 +1,120 @@
+---
+// /media/[id]/code/ — Source code viewer for programmatically generated media assets.
+// Statically generated at build time for all media entries that have a sourceCode field.
+
+import Base from '../../../layouts/Base.astro';
+import { getAllMedia, getMedia } from '../../../data/media';
+import SourceCodeBlock from '../../../components/SourceCodeBlock.astro';
+import type { ResolvedMedia } from '../../../data/media';
+
+export interface Props {
+  media: ResolvedMedia;
+}
+
+export async function getStaticPaths() {
+  const allMedia = await getAllMedia();
+  return allMedia
+    .filter((m) => m.sourceCode)
+    .map((m) => ({
+      params: { id: m.id },
+      props: { media: m },
+    }));
+}
+
+const { media } = Astro.props;
+const title = `Code source — ${media.caption ?? media.id}`;
+---
+
+<Base title={title} description={`Code source du diagramme : ${media.caption ?? media.id}`}>
+  <section class="section">
+    <div class="container">
+      <a href="/" class="breadcrumb">← Retour à l'accueil</a>
+
+      <article class="code-page">
+        <header class="code-page__header">
+          <h1>Code source</h1>
+          <p class="code-page__subtitle">{media.caption}</p>
+        </header>
+
+        <SourceCodeBlock sourceCode={media.sourceCode!} />
+
+        <footer class="code-page__footer">
+          <p>
+            Ce code a servi à générer le diagramme affiché sur cette page.
+            Vous pouvez le copier ou le télécharger pour le réutiliser ou l'adapter.
+          </p>
+          {media.license && (
+            <p>
+              Licence : <a href={media.licenseUrl} target="_blank" rel="license">{media.license}</a>
+            </p>
+          )}
+          <p>
+            <a href="/" class="code-page__back">← Retour à l'accueil</a>
+          </p>
+        </footer>
+      </article>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .breadcrumb {
+    display: inline-block;
+    color: var(--color-text-muted);
+    font-size: 0.875rem;
+    margin-bottom: var(--gap-xl);
+    transition: color var(--transition-fast);
+  }
+
+  .breadcrumb:hover {
+    color: var(--color-link-on-dark);
+  }
+
+  .code-page {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .code-page__header {
+    margin-bottom: var(--gap-xl);
+  }
+
+  .code-page__header h1 {
+    font-family: var(--font-serif);
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: var(--gap-sm);
+  }
+
+  .code-page__subtitle {
+    font-size: 1rem;
+    color: var(--color-text-muted);
+    font-style: italic;
+  }
+
+  .code-page__footer {
+    margin-top: var(--gap-xl);
+    padding-top: var(--gap-lg);
+    border-top: 1px solid var(--color-border);
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-sm);
+  }
+
+  .code-page__footer a {
+    color: var(--color-link-on-dark);
+  }
+
+  .code-page__footer a:hover {
+    text-decoration: underline;
+  }
+
+  .code-page__back {
+    display: inline-block;
+    margin-top: var(--gap-sm);
+    font-size: 0.9rem;
+  }
+</style>

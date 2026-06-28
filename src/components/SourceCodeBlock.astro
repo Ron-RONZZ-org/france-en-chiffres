@@ -1,0 +1,166 @@
+---
+// SourceCodeBlock.astro — Server-side syntax-highlighted code block using Shiki.
+// Renders at build time, zero client JS for highlighting.
+// Copy/Download buttons are added client-side via the page's bundled script.
+
+import type { SourceCode } from '../../content/config';
+
+export interface Props {
+  sourceCode: SourceCode;
+}
+
+const { sourceCode } = Astro.props;
+
+// Shiki is already available via Astro 5
+let highlighted = '';
+
+try {
+  const { createHighlighter } = await import('shiki');
+
+  const highlighter = await createHighlighter({
+    themes: ['nord'],
+    langs: [sourceCode.lang === 'json' ? 'json' : sourceCode.lang === 'javascript' ? 'js' : sourceCode.lang === 'svg' ? 'xml' : 'text'],
+  });
+
+  highlighted = highlighter.codeToHtml(sourceCode.code, {
+    lang: sourceCode.lang === 'json' ? 'json' : sourceCode.lang === 'javascript' ? 'js' : sourceCode.lang === 'svg' ? 'xml' : 'text',
+    theme: 'nord',
+  });
+} catch (e) {
+  // Fallback: plain pre/code block
+  highlighted = `<pre style="background:#1a1a2e;color:#e2e8f0;padding:1rem;border-radius:8px;overflow-x:auto;font-size:0.8rem;line-height:1.5"><code>${escapeHtml(sourceCode.code)}</code></pre>`;
+}
+
+function escapeHtml(s: string): string {
+  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+---
+
+<div class="source-code-block" data-code={encodeURIComponent(sourceCode.code)} data-lang={sourceCode.lang}>
+  <div class="source-code-block__header">
+    <span class="source-code-block__lang">{sourceCode.label ?? sourceCode.lang}</span>
+    <div class="source-code-block__actions">
+      <button class="source-code-block__btn" data-copy>Copier</button>
+      <a class="source-code-block__btn" data-download href="#" download={`source.${sourceCode.lang === 'javascript' ? 'js' : sourceCode.lang === 'svg' ? 'svg' : sourceCode.lang === 'json' ? 'json' : 'txt'}`}>Télécharger</a>
+    </div>
+  </div>
+  <div class="source-code-block__body" data-highlighted>
+    {highlighted}
+  </div>
+</div>
+
+<style is:global>
+  .source-code-block {
+    margin: 1.5rem 0;
+    border: 1px solid #2a2a3e;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #1a1a2e;
+  }
+  .source-code-block__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    background: #16213e;
+    border-bottom: 1px solid #2a2a3e;
+  }
+  .source-code-block__lang {
+    font-size: 0.75rem;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .source-code-block__actions {
+    display: flex;
+    gap: 0.5rem;
+  }
+  .source-code-block__btn {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.75rem;
+    border: 1px solid #4a5568;
+    border-radius: 4px;
+    background: transparent;
+    color: #cbd5e1;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.15s, color 0.15s;
+  }
+  .source-code-block__btn:hover {
+    background: #2a2a3e;
+    color: #fff;
+  }
+  .source-code-block__body {
+    overflow-x: auto;
+  }
+  .source-code-block__body pre {
+    margin: 0;
+    padding: 1rem;
+    font-size: 0.8rem;
+    line-height: 1.5;
+  }
+  /* Copy feedback toast */
+  .source-code-block__toast {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1e8449;
+    color: #fff;
+    padding: 0.5rem 1.5rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    z-index: 100;
+    opacity: 0;
+    animation: toastFade 2s ease forwards;
+  }
+  @keyframes toastFade {
+    0% { opacity: 0; transform: translateX(-50%) translateY(10px); }
+    15% { opacity: 1; transform: translateX(-50%) translateY(0); }
+    85% { opacity: 1; transform: translateX(-50%) translateY(0); }
+    100% { opacity: 0; transform: translateX(-50%) translateY(-10px); }
+  }
+</style>
+
+<script>
+  // Client-side: Copy and Download buttons
+  document.querySelectorAll('.source-code-block').forEach((block) => {
+    const code = decodeURIComponent(block.dataset.code || '');
+    const lang = block.dataset.lang || '';
+    const copyBtn = block.querySelector('[data-copy]');
+    const downloadLink = block.querySelector('[data-download]');
+
+    // Copy
+    if (copyBtn && code) {
+      copyBtn.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(code);
+          const toast = document.createElement('div');
+          toast.className = 'source-code-block__toast';
+          toast.textContent = 'Copié !';
+          document.body.appendChild(toast);
+          setTimeout(() => toast.remove(), 2000);
+        } catch {
+          // Fallback for older browsers
+          const ta = document.createElement('textarea');
+          ta.value = code;
+          ta.style.position = 'fixed';
+          ta.style.opacity = '0';
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand('copy');
+          document.body.removeChild(ta);
+        }
+      });
+    }
+
+    // Download
+    if (downloadLink && code) {
+      const extMap = { javascript: 'js', json: 'json', svg: 'svg', mermaid: 'mmd' };
+      const ext = extMap[lang] || 'txt';
+      const blob = new Blob([code], { type: 'text/plain' });
+      downloadLink.href = URL.createObjectURL(blob);
+      downloadLink.download = `source.${ext}`;
+    }
+  });
+</script>

@@ -25,6 +25,8 @@ export interface Props {
   /** Data attribute for machine readability */
   dataFigureType?: string;
   dataFigureId?: string;
+  /** Media ID whose source code page to link to */
+  sourceCodeMediaId?: string;
 }
 
 const {
@@ -37,6 +39,7 @@ const {
   sourceIds,
   dataFigureType,
   dataFigureId,
+  sourceCodeMediaId,
 } = Astro.props;
 
 // Resolve sources (supports both single and plural)
@@ -67,7 +70,7 @@ const hasAttribution = !!(caption || credit || license || resolvedSources.length
     <figcaption class="figure__caption">
       {caption && <p class="figure__caption-text">{caption}</p>}
 
-      {(credit || license || resolvedSources.length > 0) && (
+      {(credit || license || resolvedSources.length > 0 || sourceCodeMediaId) && (
         <ul class="figure__meta">
           {credit && <li class="figure__credit">{credit}</li>}
           {license && (
@@ -77,6 +80,9 @@ const hasAttribution = !!(caption || credit || license || resolvedSources.length
                 : license
               }
             </li>
+          )}
+          {sourceCodeMediaId && (
+            <li><a href={`/media/${sourceCodeMediaId}/code`} class="figure__source-code">Code source →</a></li>
           )}
           {resolvedSources.map((s) => (
             <li key={s.id}>
