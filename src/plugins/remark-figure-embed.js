@@ -60,7 +60,7 @@ function resolveMediaFile(id) {
   const mime = format === 'svg' ? 'image/svg+xml' : `image/${format}`;
   const src = `data:${mime};base64,${b64}`;
 
-  return { src, format, alt: meta.alt || '', caption: meta.caption, credit: meta.credit, license: meta.license, licenseUrl: meta.licenseUrl, sourceId: meta.sourceId };
+  return { src, format, alt: meta.alt || '', caption: meta.caption, credit: meta.credit, license: meta.license, licenseUrl: meta.licenseUrl, sourceId: meta.sourceId, sourceCode: meta.sourceCode };
 }
 
 // ── Figure builders ──
@@ -82,6 +82,7 @@ function buildMediaFigure(id) {
       const l = m.licenseUrl ? `<a href="${esc(m.licenseUrl)}" target="_blank" rel="license">${esc(m.license)}</a>` : esc(m.license);
       items.push(`<li class="figure__license">${l}</li>`);
     }
+    if (m.sourceCode) items.push(`<li><a href="/media/${id}/code" class="figure__source-code">Code source →</a></li>`);
     if (m.sourceId) items.push(`<li><a href="/bibliographie/${m.sourceId}" class="figure__source">Source</a></li>`);
     if (items.length) parts.push(`<ul class="figure__meta">${items.join('')}</ul>`);
     parts.push('</figcaption>');

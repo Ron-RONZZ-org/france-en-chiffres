@@ -94,6 +94,12 @@ const sourceSchema = z.object({
 
 // ── Media ──
 
+const sourceCodeSchema = z.object({
+  lang: z.enum(['javascript', 'mermaid', 'svg', 'json']),
+  code: z.string(),
+  label: z.string().optional(),
+});
+
 const mediaSchema = z.object({
   id: z.string().min(1),
   alt: z.string().min(1),
@@ -104,6 +110,7 @@ const mediaSchema = z.object({
   sourceId: z.string().optional(),
   width: z.number().optional(),
   height: z.number().optional(),
+  sourceCode: sourceCodeSchema.optional(),
 });
 
 // ── Departments ──
@@ -364,3 +371,4 @@ export type Country = z.infer<typeof countrySchema>;
 export type ChartFigure = z.infer<typeof figureSchema>;
 export type ChartType = z.infer<typeof chartType>;
 export type TimelineEntry = z.infer<typeof timelineEntrySchema>;
+export type SourceCode = z.infer<typeof sourceCodeSchema>;
