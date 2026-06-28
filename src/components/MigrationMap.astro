@@ -1,45 +1,39 @@
 ---
 // MigrationMap.astro — Leaflet map showing Homo sapiens and Neanderthal
 // migration routes across Europe and the Mediterranean.
-// Embedded in event pages for arrivee-sapiens.
-// Uses Leaflet for basemap + polylines + markers, Tippy.js for hover tooltips.
+// Uses MapShell for HTML skeleton + shared-map.js for base layer init.
+import MapShell from './MapShell.astro';
 ---
 
-<section class="migration-map-section">
-  <div id="migration-map" class="migration-map" role="application" aria-label="Carte interactive des migrations des Homo sapiens et Néandertaliens">
-    <noscript>
-      <div class="migration-map__noscript">
-        <p>La carte interactive nécessite JavaScript. Veuillez activer JavaScript pour voir la carte.</p>
-      </div>
-    </noscript>
-  </div>
-  <div id="migration-legend" class="migration-map__legend">
-    <p class="migration-map__legend-title">Migrations et territoires</p>
-    <p class="migration-map__legend-hint">Survolez les routes ou les sites pour plus d'informations.</p>
-    <div class="migration-map__legend-content" id="migration-legend-content">
-      <p class="migration-map__legend-placeholder">Survolez un élément sur la carte.</p>
+<div class="migration-map-wrapper" data-map-wrapper="migration">
+  <MapShell
+    id="migration"
+    label="Carte interactive des migrations des Homo sapiens et Néandertaliens"
+    title="Migrations et territoires"
+    hint="Survolez les routes ou les sites pour plus d'informations."
+    height={500}
+  >
+    <div slot="legend-bottom" class="migration-legend-layers">
+      <span class="migration-legend-line migration-legend-line--sapiens">—</span>
+      <span class="migration-legend-label">Homo sapiens</span>
+      <span class="migration-legend-line migration-legend-line--neanderthal">—</span>
+      <span class="migration-legend-label">Néandertaliens</span>
+      <span class="migration-legend-line migration-legend-line--neronian">—</span>
+      <span class="migration-legend-label">Incursion néronienne (Mandrin)</span>
     </div>
-    <div class="migration-map__legend-layers">
-      <span class="migration-map__legend-line migration-map__legend-line--sapiens">—</span>
-      <span class="migration-map__legend-label">Homo sapiens</span>
-      <span class="migration-map__legend-line migration-map__legend-line--neanderthal">—</span>
-      <span class="migration-map__legend-label">Néandertaliens</span>
-      <span class="migration-map__legend-line migration-map__legend-line--neronian">—</span>
-      <span class="migration-map__legend-label">Incursion néronienne (Mandrin)</span>
-    </div>
-  </div>
-</section>
+  </MapShell>
+</div>
 
 <script>
   import L from 'leaflet';
-  import 'leaflet/dist/leaflet.css';
+  import { initMap, onViewTransition } from '../scripts/maps/shared-map';
   import tippy from 'tippy.js';
   import 'tippy.js/dist/tippy.css';
   import 'tippy.js/animations/shift-away.css';
 
   (() => {
-    const mapEl = document.getElementById('migration-map');
-    if (!mapEl) return;
+    const map = initMap('migration-map', { center: [38, 18], zoom: 4, minZoom: 3, maxZoom: 8 });
+    if (!map) return;
 
     // ── Site data ──
     const sites = [
@@ -203,35 +197,10 @@
       },
     ];
 
-    // ── Map init ──
-    const map = L.map(mapEl, {
-      center: [38.0, 18.0],
-      zoom: 4,
-      minZoom: 3,
-      maxZoom: 8,
-      zoomControl: true,
-      attributionControl: true,
-    });
-
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-      maxZoom: 19,
-    }).addTo(map);
-
     // ── Route styles ──
     const routeStyles = {
-      sapiens: {
-        color: '#d4a843',
-        weight: 3,
-        opacity: 0.8,
-        dashArray: '10, 6',
-      },
-      neronian: {
-        color: '#e07b39',
-        weight: 3,
-        opacity: 0.8,
-        dashArray: '6, 4',
-      },
+      sapiens: { color: '#d4a843', weight: 3, opacity: 0.8, dashArray: '10, 6' },
+      neronian: { color: '#e07b39', weight: 3, opacity: 0.8, dashArray: '6, 4' },
     };
 
     // ── Marker icons ──
@@ -256,7 +225,7 @@
 
     function clearLegend() {
       if (!legendContent) return;
-      legendContent.innerHTML = '<p class="migration-map__legend-placeholder">Survolez un élément sur la carte.</p>';
+      legendContent.innerHTML = '<p class="map-shell__legend-placeholder">Survolez un élément sur la carte.</p>';
     }
 
     function escapeHtml(str) {
@@ -266,26 +235,13 @@
     }
 
     // ── Add polylines (migration routes) ──
-    const polylines = [];
     routes.forEach((route) => {
       const style = routeStyles[route.type] || routeStyles.sapiens;
       const polyline = L.polyline(route.coords, style).addTo(map);
-      polylines.push(polyline);
 
-      // Tippy tooltip on hover for polyline
-      const tipContent = `
-        <div class="migration-tooltip">
-          <strong>${escapeHtml(route.label)}</strong>
-        </div>
-      `;
-
-      polyline.on('mouseover', (e) => {
-        const el = e.target.getElement ? e.target.getElement() : null;
-        if (el) {
-          el.style.cursor = 'pointer';
-        }
+      polyline.on('mouseover', () => {
         updateLegend(`
-          <p class="migration-map__legend-route"><strong>${escapeHtml(route.label)}</strong></p>
+          <p class="map-shell__legend-site"><strong>${escapeHtml(route.label)}</strong></p>
         `);
       });
 
@@ -295,11 +251,9 @@
     });
 
     // ── Add site markers ──
-    const markers = [];
     sites.forEach((site) => {
       const icon = createSiteIcon(site.type);
       const marker = L.marker(site.coords, { icon }).addTo(map);
-      markers.push(marker);
 
       // Build Tippy tooltip content
       const typeLabel = site.type === 'sapiens' ? 'Homo sapiens' : 'Néandertalien';
@@ -313,7 +267,6 @@
         </div>
       `;
 
-      // Use Tippy for hover tooltip (on the marker element)
       marker.on('add', () => {
         const el = marker.getElement();
         if (el) {
@@ -330,12 +283,6 @@
         }
       });
 
-      // Click → highlight in legend
-      marker.on('click', () => {
-        marker.openPopup();
-      });
-
-      // Popup on click (brief info)
       marker.bindPopup(`
         <div class="migration-popup">
           <strong>${escapeHtml(site.name)}</strong><br>
@@ -345,14 +292,13 @@
         </div>
       `);
 
-      // Hover → update legend
       marker.on('mouseover', () => {
         const typeLabel = site.type === 'sapiens' ? 'Homo sapiens' : 'Néandertalien';
         updateLegend(`
-          <p class="migration-map__legend-site"><strong>${escapeHtml(site.name)}</strong> <span class="migration-map__legend-type">${typeLabel}</span></p>
-          <p class="migration-map__legend-lieu">${escapeHtml(site.lieu)}</p>
-          <p class="migration-map__legend-age">Âge : ${escapeHtml(site.age)}</p>
-          <p class="migration-map__legend-desc">${escapeHtml(site.desc)}</p>
+          <p class="map-shell__legend-site"><strong>${escapeHtml(site.name)}</strong> <span class="migration-legend-type">${typeLabel}</span></p>
+          <p class="map-shell__legend-lieu">${escapeHtml(site.lieu)}</p>
+          <p class="map-shell__legend-age">Âge : ${escapeHtml(site.age)}</p>
+          <p class="map-shell__legend-desc">${escapeHtml(site.desc)}</p>
         `);
       });
 
@@ -371,148 +317,20 @@
 
     // ── Relocate the map to its slot in the article body ──
     const slot = document.querySelector('[data-map-slot="migration"]');
-    const section = document.querySelector('.migration-map-section');
-    if (slot && section) {
-      section.remove();
-      slot.replaceWith(section);
+    const wrapper = document.querySelector('[data-map-wrapper="migration"]');
+    if (slot && wrapper) {
+      wrapper.remove();
+      slot.replaceWith(wrapper);
     }
 
-    // ── Handle Astro View Transitions ──
-    document.addEventListener('astro:after-swap', () => {
-      setTimeout(() => map.invalidateSize(), 200);
-    });
+    onViewTransition(map);
   })();
 </script>
 
 <style>
-  .migration-map-section {
+  /* ── Wrapper for relocation ── */
+  .migration-map-wrapper {
     width: 100%;
-    max-width: 720px;
-    margin: var(--gap-lg) auto;
-    display: flex;
-    flex-direction: column;
-    gap: var(--gap-md);
-  }
-
-  .migration-map {
-    width: 100%;
-    height: 500px;
-    border-radius: var(--radius-md);
-    border: 1px solid var(--color-border);
-    overflow: hidden;
-    background: #1e293b;
-  }
-
-  .migration-map__noscript {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    color: var(--color-text-muted);
-    font-size: 0.9rem;
-    padding: var(--gap-lg);
-    text-align: center;
-  }
-
-  /* ── Legend panel ── */
-  .migration-map__legend {
-    padding: var(--gap-md);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    background: var(--color-bg-card);
-  }
-
-  .migration-map__legend-title {
-    font-family: var(--font-serif);
-    font-size: 0.95rem;
-    font-weight: 700;
-    color: var(--color-text-light);
-    margin-bottom: var(--gap-xs);
-  }
-
-  .migration-map__legend-hint {
-    font-size: 0.75rem;
-    color: var(--color-accent-gold, #d4a843);
-    font-style: italic;
-    margin-bottom: var(--gap-sm);
-  }
-
-  .migration-map__legend-content {
-    font-size: 0.85rem;
-    color: var(--color-text-muted);
-    min-height: 3em;
-  }
-
-  .migration-map__legend-placeholder {
-    font-style: italic;
-  }
-
-  .migration-map__legend-site {
-    font-weight: 600;
-    color: var(--color-text-light);
-    margin-bottom: var(--gap-xs);
-  }
-
-  .migration-map__legend-type {
-    font-size: 0.75rem;
-    color: var(--color-accent-gold, #d4a843);
-    font-weight: 400;
-  }
-
-  .migration-map__legend-lieu {
-    font-size: 0.8rem;
-    color: var(--color-text-muted);
-    margin-bottom: var(--gap-xs);
-  }
-
-  .migration-map__legend-age {
-    font-weight: 600;
-    color: var(--color-accent-gold, #d4a843);
-    margin-bottom: var(--gap-xs);
-  }
-
-  .migration-map__legend-desc {
-    font-size: 0.8rem;
-    color: var(--color-text-muted);
-    line-height: 1.5;
-  }
-
-  .migration-map__legend-route {
-    font-weight: 600;
-    color: var(--color-text-light);
-  }
-
-  .migration-map__legend-layers {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 0.25rem 0.75rem;
-    margin-top: var(--gap-sm);
-    padding-top: var(--gap-sm);
-    border-top: 1px solid var(--color-border);
-    font-size: 0.8rem;
-    color: var(--color-text-muted);
-  }
-
-  .migration-map__legend-line {
-    font-weight: 700;
-    font-size: 1.1rem;
-  }
-
-  .migration-map__legend-line--sapiens {
-    color: #d4a843;
-  }
-
-  .migration-map__legend-line--neanderthal {
-    color: #4a90d9;
-  }
-
-  .migration-map__legend-line--neronian {
-    color: #e07b39;
-  }
-
-  .migration-map__legend-label {
-    margin-right: 0.25rem;
   }
 
   /* ── Custom marker ── */
@@ -539,43 +357,44 @@
     transform: scale(1.4);
   }
 
-  /* ── Leaflet overrides ── */
-  :global(.leaflet-container) {
-    font-family: inherit;
-    background: #1e293b;
+  /* ── Legend layers (legend-bottom slot) ── */
+  .migration-legend-layers {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.25rem 0.75rem;
+    margin-top: var(--gap-sm);
+    padding-top: var(--gap-sm);
+    border-top: 1px solid var(--color-border);
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
   }
 
-  :global(.leaflet-control-zoom a) {
-    background: #1e293b !important;
-    color: #e2e8f0 !important;
-    border-color: #334155 !important;
+  .migration-legend-line {
+    font-weight: 700;
+    font-size: 1.1rem;
   }
 
-  :global(.leaflet-control-zoom a:hover) {
-    background: #334155 !important;
+  .migration-legend-line--sapiens {
+    color: #d4a843;
   }
 
-  :global(.leaflet-control-attribution) {
-    background: rgba(11, 17, 32, 0.85) !important;
-    color: #94a3b8 !important;
-    font-size: 10px !important;
+  .migration-legend-line--neanderthal {
+    color: #4a90d9;
   }
 
-  :global(.leaflet-control-attribution a) {
-    color: #94a3b8 !important;
+  .migration-legend-line--neronian {
+    color: #e07b39;
   }
 
-  /* ── Popup ── */
-  :global(.leaflet-popup-content-wrapper) {
-    background: #1e293b;
-    color: #e2e8f0;
-    border: 1px solid #334155;
-    border-radius: 8px;
+  .migration-legend-label {
+    margin-right: 0.25rem;
   }
 
-  :global(.leaflet-popup-tip) {
-    background: #1e293b;
-    border: 1px solid #334155;
+  .migration-legend-type {
+    font-size: 0.75rem;
+    color: var(--color-accent-gold, #d4a843);
+    font-weight: 400;
   }
 
   /* ── Tippy overrides ── */
@@ -607,15 +426,16 @@
     color: #94a3b8;
   }
 
-  @media (max-width: 768px) {
-    .migration-map {
-      height: 350px;
-    }
+  /* ── Leaflet popup ── */
+  :global(.leaflet-popup-content-wrapper) {
+    background: #1e293b;
+    color: #e2e8f0;
+    border: 1px solid #334155;
+    border-radius: 8px;
   }
 
-  @media (max-width: 400px) {
-    .migration-map {
-      height: 280px;
-    }
+  :global(.leaflet-popup-tip) {
+    background: #1e293b;
+    border: 1px solid #334155;
   }
 </style>

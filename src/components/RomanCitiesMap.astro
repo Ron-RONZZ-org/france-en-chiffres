@@ -1,18 +1,19 @@
 ---
 // RomanCitiesMap.astro — Leaflet map of Roman cities in Gaul with modern equivalents
 // The HTML container is injected by the remark-figure-embed plugin via [map:roman-cities]
+// Uses shared-map.js for base layer init.
 ---
 
 <script>
   import L from 'leaflet';
-  import 'leaflet/dist/leaflet.css';
+  import { initMap, onViewTransition } from '../scripts/maps/shared-map';
   import tippy from 'tippy.js';
   import 'tippy.js/dist/tippy.css';
   import 'tippy.js/animations/shift-away.css';
 
   (() => {
-    const mapEl = document.getElementById('roman-cities-map');
-    if (!mapEl) return;
+    const map = initMap('roman-cities-map', { center: [46, 2.5], zoom: 6 });
+    if (!map) return;
 
     // ── City data ──
     const cities = [
@@ -40,21 +41,6 @@
       const idx = cities.findIndex((c) => c.name === name);
       return colors[idx % colors.length];
     };
-
-    // ── Map init ──
-    const map = L.map(mapEl, {
-      center: [46.0, 2.5],
-      zoom: 6,
-      minZoom: 5,
-      maxZoom: 10,
-      zoomControl: true,
-      attributionControl: true,
-    });
-
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-      maxZoom: 19,
-    }).addTo(map);
 
     // ── City markers ──
     for (const city of cities) {
@@ -113,7 +99,7 @@
       delay: [200, 0],
     });
 
-    setTimeout(() => map.invalidateSize(), 200);
+    onViewTransition(map);
   })();
 </script>
 

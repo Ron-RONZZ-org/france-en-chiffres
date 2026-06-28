@@ -164,35 +164,28 @@ const MAP_IDS = new Set(['roman-provinces', 'roman-cities']);
 function buildMapFigure(id) {
   if (!MAP_IDS.has(id)) return `<p class="figure-warning">Carte introuvable : ${id}</p>`;
 
-  if (id === 'roman-provinces') {
-    const parts = [];
-    parts.push('<section class="roman-provinces-section">');
-    parts.push('<div id="roman-provinces-map" class="roman-map" role="application" aria-label="Carte des provinces romaines en Gaule">');
-    parts.push('<noscript><div class="roman-map__noscript"><p>La carte interactive n\u00e9cessite JavaScript.</p></div></noscript>');
-    parts.push('</div>');
-    parts.push('<div id="roman-provinces-legend" class="roman-map__legend">');
-    parts.push('<p class="roman-map__legend-title">Provinces de la Gaule romaine</p>');
-    parts.push('<p class="roman-map__legend-hint">Survolez une province ou une capitale pour plus d\u2019informations.</p>');
-    parts.push('<div id="roman-provinces-legend-content" class="roman-map__legend-content">');
-    parts.push('</div></div></section>');
-    return parts.join('\n');
-  }
+  const labels = {
+    'roman-provinces': { label: 'Carte des provinces romaines en Gaule', title: 'Provinces de la Gaule romaine', hint: 'Survolez une province ou une capitale pour plus d\u2019informations.' },
+    'roman-cities': { label: 'Carte des villes romaines de Gaule', title: 'Villes romaines et leurs noms actuels', hint: 'Survoler un marqueur ou un nom de ville pour plus de d\u00e9tails.' },
+  };
 
-  if (id === 'roman-cities') {
-    const parts = [];
-    parts.push('<section class="roman-cities-section">');
-    parts.push('<div id="roman-cities-map" class="roman-map" role="application" aria-label="Carte des villes romaines de Gaule">');
-    parts.push('<noscript><div class="roman-map__noscript"><p>La carte interactive n\u00e9cessite JavaScript.</p></div></noscript>');
-    parts.push('</div>');
-    parts.push('<div id="roman-cities-legend" class="roman-map__legend">');
-    parts.push('<p class="roman-map__legend-title">Villes romaines et leurs noms actuels</p>');
-    parts.push('<p class="roman-map__legend-hint">Survolez un marqueur ou un nom de ville pour plus de détails.</p>');
-    parts.push('<div id="roman-cities-legend-content" class="roman-map__legend-content">');
-    parts.push('</div></div></section>');
-    return parts.join('\n');
-  }
+  const info = labels[id];
+  const mapId = `${id}-map`;
+  const legendId = `${id}-legend`;
+  const legendContentId = `${id}-legend-content`;
 
-  return `<p class="figure-warning">Carte introuvable : ${id}</p>`;
+  const parts = [];
+  parts.push('<section class="map-shell">');
+  parts.push(`<div id="${mapId}" class="map-shell__map" role="application" aria-label="${info.label}">`);
+  parts.push('<noscript><div class="map-shell__noscript"><p>La carte interactive n\u00e9cessite JavaScript. Veuillez activer JavaScript pour voir la carte.</p></div></noscript>');
+  parts.push('</div>');
+  parts.push(`<div id="${legendId}" class="map-shell__legend">`);
+  parts.push(`<p class="map-shell__legend-title">${info.title}</p>`);
+  parts.push(`<p class="map-shell__legend-hint">${info.hint}</p>`);
+  parts.push(`<div id="${legendContentId}" class="map-shell__legend-content">`);
+  parts.push('<p class="map-shell__legend-placeholder">Survolez un \u00e9l\u00e9ment sur la carte.</p>');
+  parts.push('</div></div></section>');
+  return parts.join('\n');
 }
 
 function esc(s) {
