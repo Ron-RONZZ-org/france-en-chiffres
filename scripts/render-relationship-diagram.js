@@ -213,10 +213,16 @@ for (const spec of DIAGRAMS) {
     license: 'CC BY-SA 4.0',
     licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0/',
     sourceId: spec.sourceId,
-    sourceCode: {
-      lang: 'json',
-      code: JSON.stringify(sourceData, null, 2),
-      label: 'Définition des nœuds (JSON)',
+    sourceCode: [
+      {
+        lang: 'json',
+        code: JSON.stringify(sourceData, null, 2),
+        label: 'Définition des nœuds (JSON)',
+      },
+    ],
+    renderingSource: {
+      filePath: 'scripts/render-relationship-diagram.js',
+      label: 'Rendu D3 (JavaScript)',
     },
   };
   const jsonPath = resolve(MEDIA_DIR, `${spec.id}.json`);

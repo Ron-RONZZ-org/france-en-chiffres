@@ -60,7 +60,7 @@ function resolveMediaFile(id) {
   const mime = format === 'svg' ? 'image/svg+xml' : `image/${format}`;
   const src = `data:${mime};base64,${b64}`;
 
-  return { src, format, alt: meta.alt || '', caption: meta.caption, credit: meta.credit, license: meta.license, licenseUrl: meta.licenseUrl, sourceId: meta.sourceId, sourceCode: meta.sourceCode };
+  return { src, format, alt: meta.alt || '', caption: meta.caption, credit: meta.credit, license: meta.license, licenseUrl: meta.licenseUrl, sourceId: meta.sourceId, sourceCode: meta.sourceCode && meta.sourceCode.length > 0 ? meta.sourceCode : undefined };
 }
 
 // ── Figure builders ──
