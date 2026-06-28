@@ -44,9 +44,7 @@ function escapeHtml(s: string): string {
       <a class="source-code-block__btn" data-download href="#" download={`source.${sourceCode.lang === 'javascript' ? 'js' : sourceCode.lang === 'svg' ? 'svg' : sourceCode.lang === 'json' ? 'json' : 'txt'}`}>Télécharger</a>
     </div>
   </div>
-  <div class="source-code-block__body" data-highlighted>
-    {highlighted}
-  </div>
+  <div class="source-code-block__body" data-highlighted set:html={highlighted} />
 </div>
 
 <style is:global>
