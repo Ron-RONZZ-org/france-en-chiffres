@@ -1,91 +1,34 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 480" width="500" height="480" role="img" aria-label="Pyramide féodale : hiérarchie du royaume de France">
-  <defs>
-    <style>
-      text { font-family: 'system-ui', sans-serif; text-anchor: middle; }
-      .title { fill: #e2e8f0; font-size: 15px; font-weight: 700; }
-      .label { fill: #fff; font-size: 13px; font-weight: 600; }
-      .sub { fill: #e2e8f0; font-size: 10px; }
-      .pct { fill: #cbd5e1; font-size: 9px; }
-    </style>
-    <!-- Arrowhead marker for downward arrow (Service militaire) -->
-    <marker id="arrow-down" viewBox="0 0 10 10" refX="5" refY="10" markerWidth="6" markerHeight="6" orient="auto">
-      <path d="M0,0 L5,10 L10,0" fill="#6c3483"/>
-    </marker>
-    <!-- Arrowhead marker for upward arrow (Protection) -->
-    <marker id="arrow-up" viewBox="0 0 10 10" refX="5" refY="0" markerWidth="6" markerHeight="6" orient="auto">
-      <path d="M0,10 L5,0 L10,10" fill="#b7950b"/>
-    </marker>
-  </defs>
-
-  <!-- Background -->
-  <rect width="500" height="480" fill="#1a1a2e" rx="8"/>
-
-  <!-- Title -->
-  <text x="250" y="24" class="title">Pyramide féodale</text>
-
-  <!-- Tier 1: King (top) -->
-  <polygon points="250,45 200,85 300,85" fill="#1a5276" stroke="#2980b9" stroke-width="1.5"/>
-  <text x="250" y="67" class="label">Roi</text>
-  <text x="250" y="80" class="sub">Suzerain suprême</text>
-
-  <!-- Connector -->
-  <line x1="250" y1="85" x2="250" y2="100" stroke="#4a5568" stroke-width="1.5"/>
-
-  <!-- Tier 2: High nobles -->
-  <polygon points="250,100 140,145 360,145" fill="#2471a3" stroke="#2980b9" stroke-width="1.5"/>
-  <text x="250" y="121" class="label">Grands vassaux</text>
-  <text x="250" y="135" class="sub">Ducs, comtes</text>
-  <text x="250" y="143" class="pct">~1 %</text>
-
-  <!-- Connector -->
-  <line x1="250" y1="145" x2="250" y2="160" stroke="#4a5568" stroke-width="1.5"/>
-
-  <!-- Tier 3: Lesser nobles -->
-  <polygon points="250,160 90,205 410,205" fill="#2e86c1" stroke="#5dade2" stroke-width="1.5"/>
-  <text x="250" y="180" class="label">Arrière-vassaux</text>
-  <text x="250" y="194" class="sub">Vicomtes, barons, châtelains</text>
-  <text x="250" y="205" class="pct">~5 %</text>
-
-  <!-- Connector -->
-  <line x1="250" y1="205" x2="250" y2="220" stroke="#4a5568" stroke-width="1.5"/>
-
-  <!-- Tier 4: Knights -->
-  <polygon points="250,220 40,265 460,265" fill="#3498db" stroke="#5dade2" stroke-width="1.5"/>
-  <text x="250" y="240" class="label">Chevaliers</text>
-  <text x="250" y="254" class="sub">Petits seigneurs, guerriers</text>
-  <text x="250" y="265" class="pct">~4 %</text>
-
-  <!-- Connector -->
-  <line x1="250" y1="265" x2="250" y2="280" stroke="#4a5568" stroke-width="1.5"/>
-
-  <!-- Tier 5: Peasants (base, widest) -->
-  <polygon points="250,280 10,335 490,335" fill="#1e8449" stroke="#27ae60" stroke-width="1.5"/>
-  <text x="250" y="302" class="label">Paysan·nes</text>
-  <text x="250" y="316" class="sub">Serfs et vilain·es</text>
-  <text x="250" y="330" class="pct">~90 %</text>
-
-  <!-- RIGHT SIDE: Service militaire (↓) — vassals provide military service upward -->
-  <!-- Curved arrow going DOWN along the right side of the pyramid -->
-  <path d="M350,105 Q420,200 420,300 Q420,360 380,390"
-        fill="none" stroke="#6c3483" stroke-width="2.5" stroke-dasharray="6,4"
-        marker-end="url(#arrow-down)"/>
-  <!-- Label for military service -->
-  <text x="430" y="240" fill="#a569bd" font-size="11" font-weight="600"
-        font-family="system-ui, sans-serif" text-anchor="start">Service</text>
-  <text x="430" y="254" fill="#a569bd" font-size="11" font-weight="600"
-        font-family="system-ui, sans-serif" text-anchor="start">militaire</text>
-
-  <!-- LEFT SIDE: Protection et terres (↑) — lord provides protection/land downward -->
-  <!-- Curved arrow going UP along the left side of the pyramid -->
-  <path d="M150,390 Q80,360 80,300 Q80,200 150,105"
-        fill="none" stroke="#b7950b" stroke-width="2.5" stroke-dasharray="6,4"
-        marker-end="url(#arrow-up)"/>
-  <!-- Label for protection -->
-  <text x="25" y="248" fill="#f4d03f" font-size="11" font-weight="600"
-        font-family="system-ui, sans-serif" text-anchor="start">Protection</text>
-  <text x="25" y="262" fill="#f4d03f" font-size="11" font-weight="600"
-        font-family="system-ui, sans-serif" text-anchor="start">et terres</text>
-
-  <!-- Source note -->
-  <text x="250" y="465" fill="#4a5568" font-size="8" font-family="system-ui, sans-serif" text-anchor="middle">Source : Encyclopædia Britannica</text>
+<defs>
+<marker id="arrow-down" viewBox="0 0 10 10" refX="5" refY="10" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L5,10 L10,0" fill="#6c3483"/></marker>
+<marker id="arrow-up" viewBox="0 0 10 10" refX="5" refY="0" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,10 L5,0 L10,10" fill="#b7950b"/></marker>
+</defs>
+<rect width="500" height="480" fill="#1a1a2e" rx="8"/>
+<text x="250" y="24" fill="#e2e8f0" font-size="15" font-weight="700" text-anchor="middle" font-family="system-ui, sans-serif">Pyramide féodale</text>
+<polygon points="195,48 305,48 341,92 159,92" fill="#1a5276" stroke="#2980b9" stroke-width="1.5"/>
+<polygon points="159,96 341,96 377,140 123,140" fill="#2471a3" stroke="#2980b9" stroke-width="1.5"/>
+<polygon points="123,144 377,144 413,188 87,188" fill="#2e86c1" stroke="#5dade2" stroke-width="1.5"/>
+<polygon points="87,192 413,192 449,236 51.00000000000003,236" fill="#3498db" stroke="#5dade2" stroke-width="1.5"/>
+<polygon points="51.00000000000003,240 449,240 NaN,284 NaN,284" fill="#1e8449" stroke="#27ae60" stroke-width="1.5"/>
+<text x="250" y="72" fill="#fff" font-size="13" font-weight="600" text-anchor="middle" font-family="system-ui, sans-serif" dominant-baseline="middle">Roi</text>
+<text x="250" y="87" fill="#e2e8f0" font-size="10" text-anchor="middle" font-family="system-ui, sans-serif" dominant-baseline="middle">Suzerain suprême</text>
+<text x="250" y="120" fill="#fff" font-size="13" font-weight="600" text-anchor="middle" font-family="system-ui, sans-serif" dominant-baseline="middle">Grands vassaux</text>
+<text x="250" y="135" fill="#e2e8f0" font-size="10" text-anchor="middle" font-family="system-ui, sans-serif" dominant-baseline="middle">Ducs, comtes</text>
+<text x="331" y="134" fill="#cbd5e1" font-size="9" text-anchor="end" font-family="system-ui, sans-serif">~1 %</text>
+<text x="250" y="168" fill="#fff" font-size="13" font-weight="600" text-anchor="middle" font-family="system-ui, sans-serif" dominant-baseline="middle">Arrière-vassaux</text>
+<text x="250" y="183" fill="#e2e8f0" font-size="10" text-anchor="middle" font-family="system-ui, sans-serif" dominant-baseline="middle">Vicomtes, barons, châtelains</text>
+<text x="367" y="182" fill="#cbd5e1" font-size="9" text-anchor="end" font-family="system-ui, sans-serif">~5 %</text>
+<text x="250" y="216" fill="#fff" font-size="13" font-weight="600" text-anchor="middle" font-family="system-ui, sans-serif" dominant-baseline="middle">Chevaliers</text>
+<text x="250" y="231" fill="#e2e8f0" font-size="10" text-anchor="middle" font-family="system-ui, sans-serif" dominant-baseline="middle">Petits seigneurs, guerriers</text>
+<text x="403" y="230" fill="#cbd5e1" font-size="9" text-anchor="end" font-family="system-ui, sans-serif">~4 %</text>
+<text x="250" y="264" fill="#fff" font-size="13" font-weight="600" text-anchor="middle" font-family="system-ui, sans-serif" dominant-baseline="middle">Paysan·nes</text>
+<text x="250" y="279" fill="#e2e8f0" font-size="10" text-anchor="middle" font-family="system-ui, sans-serif" dominant-baseline="middle">Serfs et vilain·es</text>
+<text x="439" y="278" fill="#cbd5e1" font-size="9" text-anchor="end" font-family="system-ui, sans-serif">~90 %</text>
+<path d="M499,276 C519,291 519,42 355,42" fill="none" stroke="#6c3483" stroke-width="2.5" stroke-dasharray="6,4" marker-end="url(#arrow-down)"/>
+<text x="527" y="153" fill="#a569bd" font-size="11" font-weight="600" font-family="system-ui, sans-serif" text-anchor="start">Service</text>
+<text x="527" y="169" fill="#a569bd" font-size="11" font-weight="600" font-family="system-ui, sans-serif" text-anchor="start">militaire</text>
+<path d="M1.0000000000000284,276 C-18.99999999999997,291 -18.99999999999997,42 145,42" fill="none" stroke="#b7950b" stroke-width="2.5" stroke-dasharray="6,4" marker-end="url(#arrow-up)"/>
+<text x="133.99999999999997" y="153" fill="#f4d03f" font-size="11" font-weight="600" font-family="system-ui, sans-serif" text-anchor="start">Protection</text>
+<text x="133.99999999999997" y="169" fill="#f4d03f" font-size="11" font-weight="600" font-family="system-ui, sans-serif" text-anchor="start">et terres</text>
+<text x="250" y="468" fill="#4a5568" font-size="8" font-family="system-ui, sans-serif" text-anchor="middle">Source : Encyclopædia Britannica</text>
 </svg>
