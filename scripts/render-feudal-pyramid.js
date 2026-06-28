@@ -34,18 +34,22 @@ function renderPyramid() {
   const cx = WIDTH / 2;
   const parts = [];
 
-  // Compute half-widths at each tier boundary (linear interpolation)
-  const halfWidths = TIERS.map((_, i) => {
-    const t = i / TIERS.length;
+  // Compute half-widths at each tier boundary (linear interpolation).
+  // N tiers need N+1 boundaries (top of tier 1, bottom of tier 1, …, bottom of tier N).
+  const numBoundaries = TIERS.length + 1;
+  const halfWidths = Array.from({ length: numBoundaries }, (_, i) => {
+    const t = i / TIERS.length; // t=0 at top, t=1 at bottom
     return ((TOP_WIDTH / 2) + t * ((BASE_WIDTH - TOP_WIDTH) / 2)) * WIDTH;
   });
 
   const yTierEnd = VERTICAL_START + TIERS.length * (HEIGHT_PER_TIER + TIER_GAP) - TIER_GAP;
 
   // Arrow geometry: tight to pyramid sides
-  const arrowPad = 14; // px padding from pyramid edge to arrow path
-  const arrowX = halfWidths[TIERS.length - 1] + arrowPad;
-  const arrowXTop = halfWidths[0] + arrowPad;
+  const arrowPad = 14;
+  const bottomEdge = halfWidths[halfWidths.length - 1]; // last entry = bottom tier edge
+  const topEdge = halfWidths[0];
+  const arrowX = bottomEdge + arrowPad;
+  const arrowXTop = topEdge + arrowPad;
 
   const arrowYBot = yTierEnd - 4;
   const arrowYTop = VERTICAL_START - 4;
@@ -83,16 +87,18 @@ function renderPyramid() {
   // Labels sit between the arrow path and the pyramid edge, reading toward the center.
   const midY = (arrowYBot + arrowYTop) / 2;
 
-  // LEFT SIDE: Protection et terres (↑) — path bottom→top
-  parts.push(`<path d="M${cx - arrowX},${arrowYBot} Q${cx - arrowX - 14},${midY} ${cx - arrowXTop},${arrowYTop}" fill="none" stroke="#b7950b" stroke-width="2.5" stroke-dasharray="6,4" marker-end="url(#arrow-up)"/>`);
-  // Label right-side of arrow path, reading rightward toward pyramid
+  // Re-read: "service vers le haut, protection vers le bas"
+  // Service militaire ↑ — flows from vassals (bottom) to lord (top): path bottom→top
+  // Protection et terres ↓ — flows from lord (top) to vassals (bottom): path top→bottom
+
+  // LEFT SIDE: Protection et terres ↓ — path top→bottom, arrowhead at bottom
+  parts.push(`<path d="M${cx - arrowXTop},${arrowYTop} Q${cx - arrowX - 14},${midY} ${cx - arrowX},${arrowYBot}" fill="none" stroke="#b7950b" stroke-width="2.5" stroke-dasharray="6,4" marker-end="url(#arrow-down)"/>`);
   const leftLabelX = cx - arrowX + 8;
   parts.push(`<text x="${leftLabelX}" y="${midY - 6}" fill="#f4d03f" font-size="11" font-weight="600" font-family="system-ui, sans-serif" text-anchor="start">Protection</text>`);
   parts.push(`<text x="${leftLabelX}" y="${midY + 10}" fill="#f4d03f" font-size="11" font-weight="600" font-family="system-ui, sans-serif" text-anchor="start">et terres</text>`);
 
-  // RIGHT SIDE: Service militaire (↓) — path top→bottom
-  parts.push(`<path d="M${cx + arrowXTop},${arrowYTop} Q${cx + arrowX + 14},${midY} ${cx + arrowX},${arrowYBot}" fill="none" stroke="#6c3483" stroke-width="2.5" stroke-dasharray="6,4" marker-end="url(#arrow-down)"/>`);
-  // Label left-side of arrow path, reading leftward (end at arrow)
+  // RIGHT SIDE: Service militaire ↑ — path bottom→top, arrowhead at top
+  parts.push(`<path d="M${cx + arrowX},${arrowYBot} Q${cx + arrowX + 14},${midY} ${cx + arrowXTop},${arrowYTop}" fill="none" stroke="#6c3483" stroke-width="2.5" stroke-dasharray="6,4" marker-end="url(#arrow-up)"/>`);
   const rightLabelX = cx + arrowX - 8;
   parts.push(`<text x="${rightLabelX}" y="${midY - 6}" fill="#a569bd" font-size="11" font-weight="600" font-family="system-ui, sans-serif" text-anchor="end">Service</text>`);
   parts.push(`<text x="${rightLabelX}" y="${midY + 10}" fill="#a569bd" font-size="11" font-weight="600" font-family="system-ui, sans-serif" text-anchor="end">militaire</text>`);
