@@ -1,47 +1,69 @@
 ---
 import Base from '../layouts/Base.astro';
 import sections from '../data/sections';
+import CultureTile from '../components/culture/CultureTile.astro';
+import { cultureSections } from '../data/culture-sections';
 
 const { metaDesc } = sections.find((s) => s.id === 'culture')!;
 ---
 
 <Base title="Culture — France en Chiffres" description={metaDesc}>
-  <section class="section">
+  <section class="culture-section">
     <div class="container">
-      <h1 class="section__title">Culture en chiffres</h1>
-      <div class="french-separator"></div>
-      <p class="section__subtitle">
+      <h1 class="culture-section__title">Culture en chiffres</h1>
+      <p class="culture-section__subtitle">
         Cinéma, gastronomie, musées, littérature — le rayonnement culturel français en données.
       </p>
-      <div class="placeholder">
-        <p class="placeholder__text">🚧 Cette page est en construction.</p>
-        <p class="placeholder__sub">
-          Films produits par an, baguettes vendues, musées visités — les chiffres
-          qui font la culture française apparaîtront ici.
-        </p>
-        <a href="/" class="btn btn--ghost">← Retour à l'accueil</a>
+      <div class="french-separator"></div>
+
+      <div class="culture-tiles">
+        {cultureSections.map((s) => (
+          <CultureTile
+            href={s.href}
+            title={s.title}
+            description={s.description}
+            icon={s.icon}
+          />
+        ))}
       </div>
     </div>
   </section>
 </Base>
 
 <style>
-  .placeholder {
-    text-align: center;
-    padding: var(--gap-2xl) 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--gap-lg);
+  .culture-section {
+    padding-top: var(--gap-xl);
+    padding-bottom: var(--gap-2xl);
   }
 
-  .placeholder__text {
+  .culture-section__title {
     font-family: var(--font-serif);
-    font-size: 2rem;
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    font-weight: 800;
+    text-align: center;
+    color: var(--color-text-light);
+    margin-bottom: var(--gap-sm);
   }
 
-  .placeholder__sub {
+  .culture-section__subtitle {
     color: var(--color-text-muted);
+    text-align: center;
     max-width: 500px;
+    margin: 0 auto var(--gap-lg);
+    font-size: 1rem;
+  }
+
+  .culture-tiles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: var(--gap-lg);
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 720px) {
+    .culture-tiles {
+      grid-template-columns: 1fr;
+    }
   }
 </style>

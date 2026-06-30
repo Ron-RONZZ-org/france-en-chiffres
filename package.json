@@ -15,6 +15,7 @@
     "new:dept": "scripts/new-dept.sh",
     "new:figure": "scripts/new-figure.sh",
     "new:media": "scripts/new-media.sh",
+    "new:literature": "scripts/new-literature.sh",
     "generate:depts": "node scripts/generate-all-departments.mjs",
     "test:all": "npm run build && npm run test && npm run test:sources && npm run test:media && npm run test:figures && npm run test:citations && npm run test:agents && npm run test:map",
     "test:figures": "node src/tests/figures.test.cjs",
@@ -50,6 +51,7 @@
     "leaflet.vectorgrid": "^1.3.0",
     "linkedom": "^0.18.12",
     "mermaid": "^11.16.0",
+    "minisearch": "^7.2.0",
     "tailwindcss": "^3.4.19",
     "tippy.js": "^6.3.7"
   },

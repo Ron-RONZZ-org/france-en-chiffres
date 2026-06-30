@@ -1,0 +1,86 @@
+---
+interface Props {
+  href: string;
+  title: string;
+  description: string;
+  icon: string;
+}
+
+const { href, title, description, icon } = Astro.props;
+---
+
+<a href={href} class="culture-tile">
+  <div class="culture-tile__icon" aria-hidden="true">{icon}</div>
+  <div class="culture-tile__body">
+    <h2 class="culture-tile__title">{title}</h2>
+    <p class="culture-tile__desc">{description}</p>
+    <span class="culture-tile__action">Explorer →</span>
+  </div>
+</a>
+
+<style>
+  .culture-tile {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: border-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+    text-decoration: none;
+    color: inherit;
+    background: var(--color-bg-card);
+  }
+
+  .culture-tile:hover {
+    border-color: var(--color-french-blue);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  }
+
+  .culture-tile:focus-visible {
+    outline: 2px solid var(--color-accent-gold);
+    outline-offset: 2px;
+  }
+
+  .culture-tile__icon {
+    font-size: 3rem;
+    padding: var(--gap-lg) 0 0 var(--gap-lg);
+  }
+
+  .culture-tile__body {
+    padding: var(--gap-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-sm);
+  }
+
+  .culture-tile__title {
+    font-family: var(--font-serif);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-text-light);
+    margin: 0;
+  }
+
+  .culture-tile__desc {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .culture-tile__action {
+    color: var(--color-french-blue);
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-top: auto;
+    transition: gap var(--transition-fast);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .culture-tile:hover .culture-tile__action {
+    gap: 0.5rem;
+  }
+</style>

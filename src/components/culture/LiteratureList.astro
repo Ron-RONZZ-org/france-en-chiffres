@@ -1,0 +1,56 @@
+---
+import type { Literature } from '../../content/config';
+import LiteratureCard from './LiteratureCard.astro';
+
+interface Props {
+  works: Literature[];
+}
+
+const { works } = Astro.props;
+---
+
+<div class="lit-list" id="literature-list">
+  {works.length > 0 ? (
+    <div class="lit-list__grid">
+      {works.map((work) => (
+        <LiteratureCard work={work} />
+      ))}
+    </div>
+  ) : (
+    <div class="lit-list__empty">
+      <p class="lit-list__empty-text">Aucune œuvre trouvée.</p>
+      <p class="lit-list__empty-hint">Essayez de modifier vos critères de recherche.</p>
+    </div>
+  )}
+</div>
+
+<style>
+  .lit-list__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--gap-md);
+  }
+
+  .lit-list__empty {
+    text-align: center;
+    padding: var(--gap-2xl) 0;
+    color: var(--color-text-muted);
+  }
+
+  .lit-list__empty-text {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: var(--gap-sm);
+  }
+
+  .lit-list__empty-hint {
+    font-size: 0.9rem;
+    opacity: 0.7;
+  }
+
+  @media (max-width: 640px) {
+    .lit-list__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

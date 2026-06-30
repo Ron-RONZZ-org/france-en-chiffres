@@ -1,0 +1,323 @@
+---
+import Base from '../../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+import LiteratureSearch from '../../../components/culture/LiteratureSearch.astro';
+import LiteratureList from '../../../components/culture/LiteratureList.astro';
+
+const works = await getCollection('litterature');
+const sorted = works
+  .map((w) => w.data)
+  .sort((a, b) => a.year - b.year);
+
+// Extract unique authors and tags for filter dropdowns
+const authors = [...new Set(sorted.map((w) => w.author))].sort();
+const allTags = [...new Set(sorted.flatMap((w) => w.tags ?? []))].sort();
+---
+
+<Base title="Littérature — France en Chiffres" description="Œuvres littéraires françaises — explorez les livres qui ont marqué la France à travers les âges.">
+  <section class="lit-section">
+    <div class="container">
+      <h1 class="lit-section__title">Littérature française</h1>
+      <p class="lit-section__subtitle">
+        Œuvres, auteurs et courants littéraires — explorez les livres qui ont marqué la France.
+      </p>
+      <div class="french-separator"></div>
+
+      <noscript>
+        <div class="lit-section__noscript">
+          <p>Le formulaire de recherche nécessite JavaScript. Toutes les œuvres sont listées ci-dessous.</p>
+        </div>
+      </noscript>
+
+      <LiteratureSearch authors={authors} allTags={allTags} />
+      <LiteratureList works={sorted} />
+    </div>
+  </section>
+</Base>
+
+<script>
+  import MiniSearch from 'minisearch';
+
+  (() => {
+    const motionOK = window.matchMedia('(prefers-reduced-motion: no-preference)').matches;
+
+    // ── Elements ──
+    const form = document.getElementById('search-form');
+    const listContainer = document.getElementById('literature-list');
+    const countEl = document.getElementById('search-count');
+    if (!form || !listContainer) return;
+
+    const qInput = document.getElementById('search-q');
+    const authorSelect = document.getElementById('search-author');
+    const yearFromInput = document.getElementById('search-year-from');
+    const yearToInput = document.getElementById('search-year-to');
+    const isbnInput = document.getElementById('search-isbn');
+    const tagCheckboxes = document.querySelectorAll('input[name="tags"]');
+    const resetBtn = form.querySelector('button[type="reset"]');
+
+    // ── State ──
+    let allWorks = [];
+    let mini = null;
+
+    // ── Init MiniSearch ──
+    async function initSearch() {
+      try {
+        const res = await fetch('/search/litterature-index.json');
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const docs = await res.json();
+        allWorks = docs;
+        mini = new MiniSearch({
+          fields: ['title', 'author', 'tags', 'body'],
+          storeFields: ['id', 'title', 'author', 'year', 'isbn', 'tags', 'slug'],
+          searchOptions: {
+            boost: { title: 3, author: 2, tags: 2 },
+            prefix: true,
+            fuzzy: 0.15,
+          },
+        });
+        mini.addAll(docs);
+
+        // Read initial URL params and search
+        applyURLParams();
+      } catch (err) {
+        console.warn('Search index unavailable:', err);
+        updateCount(allWorks.length, allWorks.length);
+      }
+    }
+
+    // ── Get selected tags ──
+    function getSelectedTags() {
+      return Array.from(tagCheckboxes)
+        .filter((cb) => cb.checked)
+        .map((cb) => cb.value);
+    }
+
+    // ── Advanced filter function (post-MiniSearch) ──
+    function applyFilters(results) {
+      const author = authorSelect ? authorSelect.value : '';
+      const yearFrom = yearFromInput ? parseInt(yearFromInput.value, 10) : NaN;
+      const yearTo = yearToInput ? parseInt(yearToInput.value, 10) : NaN;
+      const isbn = isbnInput ? isbnInput.value.trim().toLowerCase() : '';
+      const selectedTags = getSelectedTags();
+
+      return results.filter((work) => {
+        if (author && work.author !== author) return false;
+        if (!isNaN(yearFrom) && work.year < yearFrom) return false;
+        if (!isNaN(yearTo) && work.year > yearTo) return false;
+        if (isbn && work.isbn && !work.isbn.toLowerCase().includes(isbn)) return false;
+        if (isbn && !work.isbn) return false;
+        if (selectedTags.length > 0) {
+          const workTags = work.tags || [];
+          if (!selectedTags.some((t) => workTags.includes(t))) return false;
+        }
+        return true;
+      });
+    }
+
+    // ── Perform search ──
+    function doSearch() {
+      const query = qInput ? qInput.value.trim() : '';
+
+      let matched;
+      if (!query) {
+        // No query: just apply filters to all works
+        matched = applyFilters(allWorks);
+      } else if (mini) {
+        // Full-text search via MiniSearch, then apply filters
+        const results = mini.search(query, { prefix: true });
+        const ids = new Set(results.map((r) => r.id));
+        const fullTextMatched = allWorks.filter((w) => ids.has(w.id));
+        matched = applyFilters(fullTextMatched);
+      } else {
+        // Fallback: simple substring search
+        const lower = query.toLowerCase();
+        matched = applyFilters(allWorks.filter((w) => {
+          const inTitle = w.title.toLowerCase().includes(lower);
+          const inAuthor = w.author.toLowerCase().includes(lower);
+          const inBody = w.body && w.body.toLowerCase().includes(lower);
+          return inTitle || inAuthor || inBody;
+        }));
+        // Sort: title matches first
+        matched.sort((a, b) => {
+          const aTitle = a.title.toLowerCase().includes(lower) ? 1 : 0;
+          const bTitle = b.title.toLowerCase().includes(lower) ? 1 : 0;
+          return bTitle - aTitle;
+        });
+      }
+
+      renderResults(matched);
+      updateURL(query);
+    }
+
+    // ── Render results ──
+    function renderResults(results) {
+      const total = allWorks.length;
+      const count = results.length;
+
+      // Rebuild the grid
+      const grid = document.createElement('div');
+      grid.className = 'lit-list__grid';
+
+      if (results.length === 0) {
+        listContainer.innerHTML = `
+          <div class="lit-list__empty">
+            <p class="lit-list__empty-text">Aucune œuvre trouvée.</p>
+            <p class="lit-list__empty-hint">Essayez de modifier vos critères de recherche.</p>
+          </div>
+        `;
+      } else {
+        for (const work of results) {
+          const tags = work.tags || [];
+          const tagsHtml = tags.length
+            ? `<div class="lit-card__tags">${tags.map((t) => `<span class="lit-card__tag">${t}</span>`).join('')}</div>`
+            : '';
+
+          const card = document.createElement('a');
+          card.href = `/culture/litterature/${work.slug}`;
+          card.className = 'lit-card';
+          card.setAttribute('style', motionOK ? '' : 'opacity: 1; transform: none;');
+          card.innerHTML = `
+            <div class="lit-card__body">
+              <h3 class="lit-card__title">${escHtml(work.title)}</h3>
+              <p class="lit-card__author">${escHtml(work.author)}</p>
+              <div class="lit-card__meta">
+                <span class="lit-card__year">${work.year}</span>
+                ${work.isbn ? `<span class="lit-card__isbn">ISBN&nbsp;: ${escHtml(work.isbn)}</span>` : ''}
+              </div>
+              ${tagsHtml}
+              <span class="lit-card__action">Lire l'article →</span>
+            </div>
+          `;
+          grid.appendChild(card);
+        }
+        listContainer.innerHTML = '';
+        listContainer.appendChild(grid);
+
+        // Animate in
+        if (motionOK) {
+          requestAnimationFrame(() => {
+            const cards = grid.querySelectorAll('.lit-card');
+            cards.forEach((card, i) => {
+              card.style.opacity = '0';
+              card.style.transform = 'translateY(12px)';
+              card.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+              requestAnimationFrame(() => {
+                card.style.transitionDelay = `${i * 0.05}s`;
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+              });
+            });
+          });
+        }
+      }
+      updateCount(count, total);
+    }
+
+    function updateCount(count, total) {
+      if (countEl) {
+        countEl.textContent = `${count} œuvre${count !== 1 ? 's' : ''} sur ${total}`;
+      }
+    }
+
+    // ── URL param management ──
+    function updateURL(query) {
+      const params = new URLSearchParams();
+      if (query) params.set('q', query);
+      if (authorSelect && authorSelect.value) params.set('author', authorSelect.value);
+      if (yearFromInput && yearFromInput.value) params.set('yearFrom', yearFromInput.value);
+      if (yearToInput && yearToInput.value) params.set('yearTo', yearToInput.value);
+      if (isbnInput && isbnInput.value.trim()) params.set('isbn', isbnInput.value.trim());
+      const selectedTags = getSelectedTags();
+      for (const tag of selectedTags) {
+        params.append('tags', tag);
+      }
+      const str = params.toString();
+      const url = str ? `?${str}` : window.location.pathname;
+      history.replaceState(null, '', url);
+    }
+
+    function applyURLParams() {
+      const params = new URLSearchParams(window.location.search);
+      if (params.has('q') && qInput) qInput.value = params.get('q');
+      if (params.has('author') && authorSelect) authorSelect.value = params.get('author');
+      if (params.has('yearFrom') && yearFromInput) yearFromInput.value = params.get('yearFrom');
+      if (params.has('yearTo') && yearToInput) yearToInput.value = params.get('yearTo');
+      if (params.has('isbn') && isbnInput) isbnInput.value = params.get('isbn');
+      const urlTags = params.getAll('tags');
+      if (urlTags.length > 0) {
+        tagCheckboxes.forEach((cb) => {
+          cb.checked = urlTags.includes(cb.value);
+        });
+      }
+      doSearch();
+    }
+
+    // ── Escape HTML for safe rendering ──
+    function escHtml(str) {
+      const div = document.createElement('div');
+      div.textContent = str;
+      return div.innerHTML;
+    }
+
+    // ── Event listeners ──
+    // Debounced search on text/input changes
+    let debounceTimer;
+    function onInput() {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(doSearch, 200);
+    }
+
+    qInput?.addEventListener('input', onInput);
+    authorSelect?.addEventListener('change', doSearch);
+    yearFromInput?.addEventListener('input', onInput);
+    yearToInput?.addEventListener('input', onInput);
+    isbnInput?.addEventListener('input', onInput);
+    tagCheckboxes.forEach((cb) => cb.addEventListener('change', doSearch));
+
+    // Reset button
+    resetBtn?.addEventListener('click', (e) => {
+      e.preventDefault();
+      form.reset();
+      qInput?.focus();
+      doSearch();
+    });
+
+    // ── Start ──
+    initSearch();
+  })();
+</script>
+
+<style>
+  .lit-section {
+    padding-top: var(--gap-xl);
+    padding-bottom: var(--gap-2xl);
+  }
+
+  .lit-section__title {
+    font-family: var(--font-serif);
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    font-weight: 800;
+    text-align: center;
+    color: var(--color-text-light);
+    margin-bottom: var(--gap-sm);
+  }
+
+  .lit-section__subtitle {
+    color: var(--color-text-muted);
+    text-align: center;
+    max-width: 500px;
+    margin: 0 auto var(--gap-lg);
+    font-size: 1rem;
+  }
+
+  .lit-section__noscript {
+    text-align: center;
+    padding: var(--gap-md);
+    margin-bottom: var(--gap-md);
+    background: rgba(212, 168, 67, 0.1);
+    border: 1px solid rgba(212, 168, 67, 0.3);
+    border-radius: var(--radius-md);
+    color: var(--color-accent-gold);
+    font-size: 0.9rem;
+  }
+</style>

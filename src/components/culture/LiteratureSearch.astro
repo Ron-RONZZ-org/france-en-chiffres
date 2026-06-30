@@ -1,0 +1,264 @@
+---
+import type { Literature } from '../../content/config';
+
+interface Props {
+  authors: string[];
+  allTags: string[];
+}
+
+const { authors, allTags } = Astro.props;
+---
+
+<div class="lit-search">
+  <form id="search-form" class="lit-search__form" role="search" aria-label="Rechercher une œuvre littéraire">
+    <!-- Full-text search -->
+    <div class="lit-search__field lit-search__field--wide">
+      <label for="search-q" class="lit-search__label">Recherche</label>
+      <input
+        type="search"
+        id="search-q"
+        name="q"
+        class="lit-search__input"
+        placeholder="Titre, auteur, mot-clé…"
+        autocomplete="off"
+      />
+    </div>
+
+    <!-- Advanced filters (collapsible) -->
+    <details class="lit-search__advanced">
+      <summary class="lit-search__advanced-toggle">Recherche avancée</summary>
+      <div class="lit-search__advanced-fields">
+        <!-- Author filter -->
+        <div class="lit-search__field">
+          <label for="search-author" class="lit-search__label">Auteur</label>
+          <select id="search-author" name="author" class="lit-search__select">
+            <option value="">Tous les auteurs</option>
+            {authors.map((a) => (
+              <option value={a}>{a}</option>
+            ))}
+          </select>
+        </div>
+
+        <!-- Year range -->
+        <div class="lit-search__field">
+          <label class="lit-search__label">Année de publication</label>
+          <div class="lit-search__range">
+            <input
+              type="number"
+              id="search-year-from"
+              name="yearFrom"
+              class="lit-search__input lit-search__input--sm"
+              placeholder="De"
+              min="1000"
+              max="2100"
+            />
+            <span class="lit-search__range-sep">–</span>
+            <input
+              type="number"
+              id="search-year-to"
+              name="yearTo"
+              class="lit-search__input lit-search__input--sm"
+              placeholder="À"
+              min="1000"
+              max="2100"
+            />
+          </div>
+        </div>
+
+        <!-- ISBN -->
+        <div class="lit-search__field">
+          <label for="search-isbn" class="lit-search__label">ISBN</label>
+          <input
+            type="text"
+            id="search-isbn"
+            name="isbn"
+            class="lit-search__input"
+            placeholder="978-…"
+            autocomplete="off"
+          />
+        </div>
+
+        <!-- Tags -->
+        <fieldset class="lit-search__field lit-search__field--tags">
+          <legend class="lit-search__label">Genres</legend>
+          <div class="lit-search__tags">
+            {allTags.map((tag) => (
+              <label class="lit-search__tag-label">
+                <input type="checkbox" name="tags" value={tag} class="lit-search__tag-cb" />
+                <span class="lit-search__tag-name">{tag}</span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
+      </div>
+    </details>
+
+    <div class="lit-search__actions">
+      <button type="reset" class="btn btn--ghost lit-search__reset">Effacer</button>
+      <span class="lit-search__count" id="search-count" aria-live="polite"></span>
+    </div>
+  </form>
+</div>
+
+<style>
+  .lit-search {
+    margin-bottom: var(--gap-lg);
+  }
+
+  .lit-search__form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-md);
+    padding: var(--gap-md);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-bg-card);
+  }
+
+  .lit-search__field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-xs);
+  }
+
+  .lit-search__field--wide {
+    flex: 1;
+  }
+
+  .lit-search__label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .lit-search__input {
+    padding: 0.6rem 0.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-bg-dark);
+    color: var(--color-text-light);
+    font-size: 1rem;
+    transition: border-color var(--transition-fast);
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .lit-search__input:focus {
+    outline: none;
+    border-color: var(--color-french-blue);
+  }
+
+  .lit-search__input::placeholder {
+    color: var(--color-text-muted);
+    opacity: 0.5;
+  }
+
+  .lit-search__input--sm {
+    max-width: 120px;
+  }
+
+  .lit-search__select {
+    padding: 0.6rem 0.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-bg-dark);
+    color: var(--color-text-light);
+    font-size: 0.95rem;
+    transition: border-color var(--transition-fast);
+    width: 100%;
+    box-sizing: border-box;
+    cursor: pointer;
+  }
+
+  .lit-search__select:focus {
+    outline: none;
+    border-color: var(--color-french-blue);
+  }
+
+  .lit-search__range {
+    display: flex;
+    align-items: center;
+    gap: var(--gap-sm);
+  }
+
+  .lit-search__range-sep {
+    color: var(--color-text-muted);
+  }
+
+  .lit-search__advanced {
+    border: none;
+    padding: 0;
+  }
+
+  .lit-search__advanced-toggle {
+    font-size: 0.85rem;
+    color: var(--color-french-blue);
+    cursor: pointer;
+    padding: var(--gap-xs) 0;
+    user-select: none;
+  }
+
+  .lit-search__advanced-toggle:hover {
+    color: var(--color-accent-gold);
+  }
+
+  .lit-search__advanced-fields {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: var(--gap-md);
+    padding-top: var(--gap-md);
+  }
+
+  .lit-search__field--tags {
+    grid-column: 1 / -1;
+    border: none;
+    padding: 0;
+  }
+
+  .lit-search__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gap-sm);
+  }
+
+  .lit-search__tag-label {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--gap-xs);
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .lit-search__tag-cb {
+    accent-color: var(--color-french-blue);
+  }
+
+  .lit-search__tag-name {
+    font-size: 0.85rem;
+    color: var(--color-text-light);
+  }
+
+  .lit-search__actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--gap-md);
+  }
+
+  .lit-search__reset {
+    font-size: 0.85rem;
+  }
+
+  .lit-search__count {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+  }
+
+  @media (max-width: 640px) {
+    .lit-search__advanced-fields {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
