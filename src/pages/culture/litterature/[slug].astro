@@ -1,0 +1,182 @@
+---
+import Base from '../../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('litterature');
+  return entries.map((entry) => ({
+    params: { slug: entry.data.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const work = entry.data;
+const { Content } = await entry.render();
+const tagList = work.tags ?? [];
+---
+
+<Base
+  title={`${work.title} — Littérature`}
+  description={work.description ?? `${work.title} de ${work.author} (${work.year})`}
+>
+  <article class="lit-article">
+    <header class="lit-article__header">
+      <a href="/culture/litterature" class="lit-article__back">← Littérature</a>
+      <h1 class="lit-article__title">{work.title}</h1>
+      <p class="lit-article__author">{work.author}</p>
+      <div class="lit-article__meta">
+        <span class="lit-article__year">{work.year}</span>
+        {work.isbn && <span class="lit-article__isbn">ISBN&nbsp;: {work.isbn}</span>}
+      </div>
+      {tagList.length > 0 && (
+        <div class="lit-article__tags">
+          {tagList.map((tag) => (
+            <span class="lit-article__tag">{tag}</span>
+          ))}
+        </div>
+      )}
+    </header>
+
+    <div class="lit-article__body">
+      <Content />
+    </div>
+
+    <footer class="lit-article__footer">
+      <a href="/culture/litterature" class="btn btn--ghost">← Retour à la littérature</a>
+    </footer>
+  </article>
+</Base>
+
+<style>
+  .lit-article {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: var(--gap-xl) var(--gap-lg) var(--gap-2xl);
+  }
+
+  .lit-article__back {
+    display: inline-block;
+    color: var(--color-text-muted);
+    font-size: 0.875rem;
+    margin-bottom: var(--gap-lg);
+    transition: color var(--transition-fast);
+  }
+
+  .lit-article__back:hover {
+    color: var(--color-french-blue);
+  }
+
+  .lit-article__header {
+    margin-bottom: var(--gap-xl);
+    border-left: 4px solid var(--color-french-blue);
+    padding-left: var(--gap-lg);
+  }
+
+  .lit-article__title {
+    font-family: var(--font-serif);
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--color-text-light);
+    margin-bottom: var(--gap-xs);
+  }
+
+  .lit-article__author {
+    color: var(--color-accent-gold);
+    font-size: 1.15rem;
+    font-weight: 500;
+    margin-bottom: var(--gap-sm);
+  }
+
+  .lit-article__meta {
+    display: flex;
+    gap: var(--gap-md);
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    margin-bottom: var(--gap-sm);
+  }
+
+  .lit-article__year {
+    font-weight: 600;
+  }
+
+  .lit-article__isbn {
+    opacity: 0.6;
+    font-family: var(--font-mono, monospace);
+  }
+
+  .lit-article__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gap-xs);
+    margin-top: var(--gap-sm);
+  }
+
+  .lit-article__tag {
+    display: inline-block;
+    padding: 2px 8px;
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: var(--color-french-blue);
+    background: rgba(0, 35, 149, 0.15);
+    border-radius: 999px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .lit-article__body {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--color-text-light);
+  }
+
+  .lit-article__body :global(h2) {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-top: var(--gap-xl);
+    margin-bottom: var(--gap-md);
+    color: var(--color-text-light);
+  }
+
+  .lit-article__body :global(h3) {
+    font-family: var(--font-serif);
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-top: var(--gap-lg);
+    margin-bottom: var(--gap-sm);
+    color: var(--color-text-light);
+  }
+
+  .lit-article__body :global(p) {
+    margin-bottom: var(--gap-md);
+  }
+
+  .lit-article__body :global(img) {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--radius-md);
+    margin: var(--gap-lg) 0;
+  }
+
+  .lit-article__body :global(ul), .lit-article__body :global(ol) {
+    margin-bottom: var(--gap-md);
+    padding-left: var(--gap-lg);
+  }
+
+  .lit-article__body :global(blockquote) {
+    border-left: 3px solid var(--color-french-blue);
+    padding-left: var(--gap-md);
+    margin: var(--gap-lg) 0;
+    color: var(--color-text-muted);
+    font-style: italic;
+  }
+
+  .lit-article__footer {
+    margin-top: var(--gap-2xl);
+    padding-top: var(--gap-lg);
+    border-top: 1px solid var(--color-border);
+    text-align: center;
+  }
+</style>

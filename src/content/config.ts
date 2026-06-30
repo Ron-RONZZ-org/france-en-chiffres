@@ -354,6 +354,25 @@ export const figureSchema = z.discriminatedUnion('type', [
   sankeyFigureSchema,
 ]);
 
+// ── Literature (culture/litterature) ──
+
+export const literatureSchema = z.object({
+  id: z.string().min(1),
+  title: z.string().min(1),
+  author: z.string().min(1),
+  year: z.number().int(),
+  isbn: z.string()
+    .regex(/^(?:\d{9}[\dX]|\d{13})$/, 'Must be a valid ISBN-10 or ISBN-13')
+    .optional(),
+  tags: z.array(z.string()).optional(),
+  description: z.string().optional(),
+  mediaIds: z.array(z.string()).optional(),
+  sourceIds: z.array(z.string()).optional(),
+}).transform((data) => ({
+  ...data,
+  slug: data.id,
+}));
+
 // ── Export collections ──
 
 export const collections = {
@@ -364,6 +383,7 @@ export const collections = {
   departements: defineCollection({ type: 'content', schema: departmentSchema }),
   countries:    defineCollection({ type: 'content', schema: countrySchema }),
   figures:      defineCollection({ type: 'data',    schema: figureSchema }),
+  litterature:  defineCollection({ type: 'content', schema: literatureSchema }),
 };
 
 // ── Convenience types ──
@@ -378,3 +398,4 @@ export type ChartFigure = z.infer<typeof figureSchema>;
 export type ChartType = z.infer<typeof chartType>;
 export type TimelineEntry = z.infer<typeof timelineEntrySchema>;
 export type SourceCode = z.infer<typeof sourceCodeSchema>;
+export type Literature = z.infer<typeof literatureSchema>;

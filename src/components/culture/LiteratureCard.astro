@@ -1,0 +1,136 @@
+---
+import type { Literature } from '../../content/config';
+
+interface Props {
+  work: Literature;
+}
+
+const { work } = Astro.props;
+const tagList = work.tags ?? [];
+---
+
+<a href={`/culture/litterature/${work.slug}`} class="lit-card">
+  <div class="lit-card__body">
+    <h3 class="lit-card__title">{work.title}</h3>
+    <p class="lit-card__author">{work.author}</p>
+    {work.description && (
+      <p class="lit-card__desc">{work.description}</p>
+    )}
+    <div class="lit-card__meta">
+      <span class="lit-card__year">{work.year}</span>
+      {work.isbn && <span class="lit-card__isbn">ISBN&nbsp;: {work.isbn}</span>}
+    </div>
+    {tagList.length > 0 && (
+      <div class="lit-card__tags">
+        {tagList.map((tag) => (
+          <span class="lit-card__tag">{tag}</span>
+        ))}
+      </div>
+    )}
+    <span class="lit-card__action">Lire l'article →</span>
+  </div>
+</a>
+
+<style>
+  .lit-card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: border-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+    text-decoration: none;
+    color: inherit;
+    background: var(--color-bg-card);
+  }
+
+  .lit-card:hover {
+    border-color: var(--color-french-blue);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  }
+
+  .lit-card:focus-visible {
+    outline: 2px solid var(--color-accent-gold);
+    outline-offset: 2px;
+  }
+
+  .lit-card__body {
+    padding: var(--gap-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-sm);
+  }
+
+  .lit-card__title {
+    font-family: var(--font-serif);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--color-text-light);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .lit-card__author {
+    color: var(--color-accent-gold);
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin: 0;
+  }
+
+  .lit-card__desc {
+    color: var(--color-text-muted);
+    font-size: 0.875rem;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .lit-card__meta {
+    display: flex;
+    gap: var(--gap-md);
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+  }
+
+  .lit-card__year {
+    font-weight: 600;
+  }
+
+  .lit-card__isbn {
+    opacity: 0.6;
+    font-family: var(--font-mono, monospace);
+  }
+
+  .lit-card__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gap-xs);
+  }
+
+  .lit-card__tag {
+    display: inline-block;
+    padding: 2px 8px;
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: var(--color-french-blue);
+    background: rgba(0, 35, 149, 0.15);
+    border-radius: 999px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .lit-card__action {
+    color: var(--color-french-blue);
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-top: auto;
+    transition: gap var(--transition-fast);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .lit-card:hover .lit-card__action {
+    gap: 0.5rem;
+  }
+</style>
