@@ -73,7 +73,7 @@ Les conséquences furent immenses :
 - **Les textes antiques** — Platon, Aristote, Plutarque — furent diffusés massivement, traduits du grec et du latin en français par des humanistes comme Guillaume Budé.
 - **La Bible** fut traduite et imprimée en français dès les années 1520 par Lefèvre d'Étaples, permettant aux croyant·es de lire les textes sacrés sans passer par le clergé.
 - **Les idées nouvelles** — celles de la Renaissance italienne, puis celles de la Réforme protestante — circulèrent d'une ville à l'autre en quelques semaines, portées par les colporteur·euses.
-
+{(montage de) illustration(s)/image(s) sous licence libre des livres imprimés vers 1500}
 Ainsi la société française s'en trouva bouleversée : l'imprimerie créa des métiers nouveaux (imprimeur·euses, correcteur·ices, libraires) et fit émerger une bourgeoisie lettrée qui concurrençait le clergé dans la production et la diffusion du savoir. Le livre imprimé permit à des milliers de personnes d'accéder aux textes sans passer par l'Église, affaiblissant **le monopole intellectuel du clergé** et préparant l'émergence d'un espace public — un siècle avant les premiers journaux [source:britannica-renaissance-france].
 
 Lyon devint le cœur battant de cette révolution en France. En 1500, la ville comptait déjà une cinquantaine d'ateliers d'imprimerie. Les presses lyonnaises publiaient de tout : des éditions des classiques grecs et latins, des romans de chevalerie, des almanachs, des pamphlets religieux, des livres illustrés. Les imprimeurs — souvent d'ancien·nes commerçant·es ou des savant·es — faisaient fortune. Leurs ateliers employaient des apprenti·es, des correcteur·ices, des illustrateur·ices [source:britannica-renaissance-france].
@@ -102,7 +102,7 @@ Ronsard devint célèbre dans toute l'Europe pour ses odes, ses sonnets et ses h
 En 1571, Michel de Montaigne (1533–1592), nobliau périgourdin qui avait été magistrat à Bordeaux, se retira dans sa bibliothèque. Il y passa les vingt dernières années de sa vie à écrire — sur ses lectures, ses humeurs, ses voyages, ses amitiés, la mort de son meilleur ami, les guerres qui déchiraient la France. Il appela le résultat les *Essais* (1580, puis 1588, puis 1595 posthume) [source:britannica-montaigne].
 
 Les *Essais* sont peut-être le livre le plus surprenant du XVI<sup>e</sup> siècle. Montaigne y parle de tout et surtout de lui-même — sans ordre, sans prétention, avec un scepticisme radieux. « Que sais-je ? » aimait-il demander, inscrivant ce doute au fronton de sa philosophie. Pour Montaigne, l'humain est changeant, contradictoire, incapable d'atteindre une vérité absolue. Mieux vaut donc la tolérance que le fanatisme, la curiosité que le dogme. Dans une France déchirée par les guerres de Religion, cette voix calme et ironique était un trésor.
-
+{(montage de) illustration(s)/image(s) sous licence libre de Montaigne}
 ### Marguerite de Navarre et Louise Labé : les voix féminines de la Renaissance
 
 Sœur de François I<sup>er</sup>, Marguerite de Navarre (1492–1549) fut l'une des femmes les plus puissantes et les plus cultivées de son temps. Elle protégea les humanistes, correspondit avec Érasme, et écrivit elle-même des poèmes, des pièces de théâtre et *l'Heptaméron* (publié après sa mort), un recueil de nouvelles inspiré du *Décaméron* de Boccace. L'*Heptaméron* raconte les histoires que se disent dix voyageur·euses bloqué·es par les inondations dans un monastère des Pyrénées. Sous le couvert de la fiction galante, Marguerite abordait des sujets audacieux : le désir féminin, l'hypocrisie des hommes, la violence faite aux femmes [source:britannica-renaissance-france].
@@ -143,7 +143,7 @@ Dans les campagnes, en revanche, le XVI<sup>e</sup> siècle fut une catastrophe 
 
 ### La Réforme s'installe en France
 
-Le 31 octobre 1517, un moine allemand nommé Martin Luther afficha 95 thèses sur la porte de l'église de Wittenberg. Il y dénonçait la vente des indulgences — ces pardons payés à l'Église pour réduire le temps au purgatoire — et affirmait que le salut ne s'achetait pas : il venait de la foi seule (*sola fide*), de la grâce seule (*sola gratia*), de l'Écriture seule (*sola scriptura*). Luther rejetait l'autorité du pape, niait le pouvoir des prêtres d'intercéder entre Dieu et les croyant·es, et proclamait le « sacerdoce universel » : chaque chrétien·ne pouvait lire la Bible, la comprendre et communier directement avec Dieu. Trois idées radicales que l'imprimerie transforma en quelques années en une lame de fond traversant le Rhin et envahissant la France [source:britannica-wars-religion].
+Le 31 octobre 1517, un moine allemand nommé Martin Luther afficha 95 thèses sur la porte de l'église de Wittenberg. Il y dénonçait la vente des indulgences — ces pardons payés à l'Église pour réduire le temps au purgatoire — et affirmait que le salut ne s'achetait pas : il venait de la foi seule (*sola fide*), de la grâce seule (*sola gratia*), de l'Écriture seule (*sola scriptura*). Luther rejetait aussi l'autorité du pape, niait le pouvoir des prêtres d'intercéder entre Dieu et les croyant·es, et proclamait le « sacerdoce universel » : chaque chrétien·ne pouvait lire la Bible, la comprendre et communier directement avec Dieu. Ces trois idées radicales propage rapidement grâce à l'imprimerie à travers de l'Europe [source:britannica-wars-religion].
 
 [media:martin-luther]
 

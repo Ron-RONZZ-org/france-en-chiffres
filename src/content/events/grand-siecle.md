@@ -51,21 +51,23 @@ C'est dans ce contexte que le **cardinal de Richelieu** (Armand Jean du Plessis,
 
 ## Richelieu : l'inventeur de la raison d'État
 
-Richelieu est sans doute le premier homme politique français à avoir pensé l'État comme une fin en soi. Dans son *Testament politique*, il écrivit : « Le salut de l'État est la suprême loi. » Pour lui, tout devait plier devant cette exigence : la noblesse, l'Église, les protestant·es, les ambitions personnelles.
+[media:richelieu-portrait]
+
+Richelieu fut sans doute le premier personnage politique français à avoir pensé l'État comme une fin en soi. Dans son *Testament politique*, il écrivit : « Le salut de l'État est la suprême loi. » Pour lui, tout devait plier devant cette exigence : la noblesse, l'Église, les protestant·es, les ambitions personnelles.
 
 Sa politique intérieure eut deux grands adversaires : les **grands nobles** et les **huguenot·es**.
 
 Les grands nobles — les Guise, les Montmorency, les Condé — considéraient le pouvoir royal comme une affaire de famille. Ils conspiraient, levaient des troupes, négociaient avec l'étranger. Richelieu les écrasa sans pitié. Le duc de Montmorency, l'un des plus grands seigneurs du royaume, fut exécuté à Toulouse en 1632 pour avoir pris les armes contre le roi. La leçon fut entendue : plus personne ne défia l'autorité royale aussi ouvertement [source:britannica-richelieu].
 
 Les huguenot·es, depuis l'Édit de Nantes, contrôlaient des places fortes militaires. Pour Richelieu, un État ne pouvait tolérer un « État dans l'État ». En 1627, il assiégea **La Rochelle**, la principale place forte protestante, défendue par la mer et par l'Angleterre. Le siège dura quatorze mois. Richelieu fit construire une digue gigantesque pour bloquer le port, coupa tout ravitaillement. La ville capitula en octobre 1628, après avoir perdu les trois quarts de sa population par la faim et les maladies [source:britannica-richelieu].
-
+[media:siege-rochelle]
 En 1629, par l'**édit d'Alès**, Richelieu confirma la liberté de conscience des protestant·es, mais leur retira toutes leurs places fortes et leurs droits politiques. Le parti huguenot en tant que force militaire cessa d'exister. La raison d'État l'avait emporté.
 
 ### La guerre de Trente Ans et le renversement des alliances
 
 En politique étrangère, Richelieu accomplit un geste qui surprit toute l'Europe catholique : il engagea la France dans la **guerre de Trente Ans** (1618–1648) **contre** les Habsbourg catholiques d'Autriche et d'Espagne, et aux côtés des princes protestants allemands.
 
-Son calcul était pratique : les Habsbourg encerclaient la France (Espagne au sud, Franche-Comté et Pays-Bas espagnols au nord, Saint-Empire à l'est). Si l'empereur germanique écrasait les protestant·es allemands, la France serait définitivement prise en tenaille. La « raison d'État » passait avant la religion.
+Son calcul était pragmatique : les Habsbourg encerclaient la France (Espagne au sud, Franche-Comté et Pays-Bas espagnols au nord, Saint-Empire à l'est). Si l'empereur germanique écrasait les protestant·es allemands, la France serait définitivement prise en tenaille. La « raison d'État » passait avant la religion.
 
 La guerre fut atroce. Les armées françaises combattirent en Allemagne, en Lorraine, en Alsace, en Italie, en Catalogne. Les impôts explosèrent. Les campagnes françaises, mises à contribution pour financer la guerre, subirent une pression sans précédent [source:britannica-richelieu].
 
@@ -79,6 +81,8 @@ En 1648, le mécontentement explosa. Les **parlements** — cours de justice qui
 
 Paris se souleva. Ce fut la **Fronde parlementaire**[source:britannica-fronde]. Aux barricades dans les rues de la capitale s'ajouta une guerre de pamphlets qui ébranla l'autorité monarchique : en quelques semaines, le mouvement gagna plusieurs grandes villes du royaume (Bordeaux, Aix-en-Provence, Rouen).
 
+[media:fronde-parlementaire]
+
 La situation dégénérait rapidement pour le jeune roi. Les grandes familles nobles — les Condé, les Conti, les Longueville — virent là une occasion de reprendre le pouvoir qu'elles avaient perdu sous Richelieu. Ce fut la **Fronde des princes** (1650–1653), une guerre civile confuse où les alliances changeaient tous les six mois, où les armées privées des nobles parcouraient la France en pillant les campagnes.
 
 Pour le jeune Louis XIV, la Fronde fut une expérience fondatrice. Il connut la peur : en 1649, alors qu'il n'avait pas dix ans, il dut fuir Paris déguisé, dans un carrosse mal chauffé dans la nuit, sous les insultes de la foule. Il vit sa mère humiliée, Mazarin insulté, des princes lever des armées contre le roi. Il ne l'oublia jamais.
@@ -91,6 +95,7 @@ Dès qu'il le pourrait, Louis XIV quitterait Paris et construirait ailleurs un p
 
 Le 9 mars 1661, Mazarin mourut. Le lendemain, Louis XIV convoqua ses ministres et leur annonça une décision stupéfiante : **il n'aurait plus de Premier ministre**. Il gouvernerait seul.
 
+[media:louis-xiv-rigaud]
 Pendant cinquante-quatre ans, Louis XIV tint parole. Il travaillait six à huit heures par jour avec ses ministres, lisait les dépêches, décidait de tout — les guerres, les nominations, les impôts, la politique religieuse, jusqu'à l'emplacement des fontaines de Versailles. Il ne déléguait jamais le pouvoir, seulement son exécution [source:britannica-louis-xiv]. Il s'entoura ainsi des ministres spécialisés directement responsables devant lui :
 
 - **Jean-Baptiste Colbert** (1619–1683), contrôleur général des finances, qui assainit les comptes, développa l'industrie et le commerce maritime, créa les manufactures royales (Gobelins, Savonnerie) et posa les bases de l'économie française moderne [source:britannica-colbert].
@@ -102,6 +107,7 @@ L'administration du royaume fut profondément réformée. Sous Louis XIV, le sys
 ### Versailles : la cage dorée
 
 En 1661, Louis XIV commença à agrandir le petit pavillon de chasse que son père avait fait construire à Versailles, à vingt kilomètres de Paris. Les travaux durèrent cinquante ans et coûtèrent des sommes immenses — environ 80 millions de livres, l'équivalent de plusieurs années du budget royal. Des milliers d'ouvrier·ères travaillèrent sur le chantier : maçon·nes, charpentier·ères, sculpteur·euses, jardinier·ères, fontainier·ères [source:chateau-versailles].
+[media:versailles-chateau]
 
 Mais Versailles n'était pas une simple résidence. C'était aussi une cage pour les grands nobles qui menaçaient le pouvoir absolu revendiqué par le roi.
 
@@ -118,6 +124,8 @@ Les murs de Versailles, peints de scènes mythologiques où le Roi figurait en A
 Pendant que Louis XIV bâtissait Versailles, la France construisait aussi un empire colonial. Dès les années 1660, Colbert créa la Compagnie des Indes orientales et la Compagnie des Indes occidentales (1664), sur le modèle des compagnies hollandaises et anglaises [source:britannica-colbert]. Les Français s'installèrent en **Amérique du Nord** (Nouvelle-France, Acadie, Louisiane), dans les **Antilles** (Martinique, Guadeloupe, Saint-Domingue) et dans l'**océan Indien** (Madagascar, puis Bourbon et Île de France).
 
 L'économie des Antilles reposait sur le sucre, cultivé dans de grandes plantations par des esclaves africain·es. Le **Code noir** (1685), rédigé sous l'impulsion de Colbert mais promulgué après sa mort, réglementait l'esclavage dans les colonies françaises. C'était un texte ambigu : il imposait le baptême aux esclaves et leur accordait quelques droits (ne pas travailler le dimanche, être nourris), mais il légalisait également leur condition de « biens meubles » (article 44), autorisait les châtiments corporels et punissait de mort les esclaves fugitifs [source:britannica-colbert].
+
+[media:plantation-code-noir]
 
 Bâtie sur la sueur et le sang de centaines de milliers d'hommes, de femmes et d'enfants déporté·es d'Afrique, Saint-Domingue (aujourd'hui Haïti) devint au XVIII<sup>e</sup> siècle la colonie la plus productive du monde, produisant la moitié du sucre et du café consommés en Europe. 
 
@@ -137,6 +145,8 @@ Le XVII<sup>e</sup> siècle fut l'âge d'or du théâtre français. Jamais la sc
 
 **Molière** (Jean-Baptiste Poquelin, 1622–1673) en fut le génie comique. Fils d'un tapissier, il renonça à la charge paternelle pour monter sur les planches. Pendant treize ans, il parcourut les provinces avec sa troupe, apprenant son métier sur les routes. Revenu à Paris en 1658, il obtint la protection du frère du Roi, puis celle de Louis XIV lui-même. *Les Précieuses ridicules* (1659), *L'École des femmes* (1662), *Tartuffe* (1664), *Dom Juan* (1665), *Le Misanthrope* (1666), *L'Avare* (1668), *Le Bourgeois gentilhomme* (1670), *Les Fourberies de Scapin* (1671), *Le Malade imaginaire* (1673) : Molière créa la comédie moderne. Sous le rire, il attaquait l'hypocrisie religieuse, le pédantisme, la tyrannie familiale, l'arrivisme social. *Tartuffe*, qui dénonçait les faux dévots, fut interdit par l'Église ; Louis XIV le soutint contre les censures. Molière mourut sur scène, le 17 février 1673, après la quatrième représentation du *Malade imaginaire*[source:comedie-francaise].
 
+[media:moliere-mort]
+
 **Jean Racine** (1639–1699) porta la tragédie classique à sa perfection. Formé à Port-Royal par les jansénistes, il sut allier la rigueur morale à la beauté poétique. *Andromaque* (1667), *Britannicus* (1669), *Bérénice* (1670), *Phèdre* (1677) : ses pièces, écrites en alexandrins aux rythmes implacables, explorent la passion comme une force destructrice. Racine peignait des héros et des héroïnes déchiré·es entre leur devoir et leur désir, prisonnier·ères de leur destin [source:britannica-louis-xiv].
 
 **Pierre Corneille** (1606–1684), l'aîné, avait ouvert la voie avec *Le Cid* (1637), où Rodrigue et Chimène se déchirent entre l'amour et l'honneur. Sa pièce souleva une querelle célèbre — la **Querelle du Cid** — sur les règles du théâtre classique, qui aboutit à codifier la règle des trois unités (temps, lieu, action).
@@ -145,12 +155,14 @@ Ces œuvres, encore jouées aujourd'hui sur les scènes du monde entier, fixère
 
 Louis XIV, lui-même grand amateur de théâtre, fusionna les troupes parisiennes pour créer la **Comédie-Française** en 1680, institution qui demeure active jusqu'à nos jours [source:comedie-francaise].
 
+[media:comedie-francaise]
+
 ### La littérature : La Fontaine, Sévigné et les autres
 
 **Jean de La Fontaine** (1621–1695) publia ses *Fables* entre 1668 et 1694. Sous des histoires d'animaux — la cigale et la fourmi, le corbeau et le renard, le lièvre et la tortue — il brosse une satire impitoyable de la société de son temps : la vanité des puissant·es, la ruse des faibles, la naïveté du peuple. Ses fables sont devenues des proverbes ; elles apprennent encore aujourd'hui le français aux enfants du monde entier [source:britannica-louis-xiv].
 
 **Madame de Sévigné** (1626–1696) écrivit à sa fille, partie en Provence, des lettres qui sont parmi les plus beaux textes de la langue française. Elle y raconte la vie à la Cour, les potins parisiens, les procès, les mariages, la guerre, la mort : un témoignage inestimable sur son temps.
-
+[media:madame-sevigne]
 ### Le classicisme en peinture et en musique
 
 Deux grands peintres français du XVIIe siècle sont très connus aujourd'hui : **Nicolas Poussin** (1594–1665), qui passa presque toute sa carrière à Rome et dont les toiles — calmes, équilibrées, inspirées de l'Antiquité — définirent l'idéal classique ; et **Charles Le Brun** (1619–1690), premier peintre du Roi, qui décora Versailles et la galerie des Glaces, et dirigea l'Académie royale de peinture et de sculpture où il imposa le style officiel de la monarchie.
@@ -179,34 +191,36 @@ Dans le Midi, les protestant·es qui refusèrent de partir ou de se convertir se
 
 Sous Louis XIV, la France fut quasiment en guerre permanente. Le Roi voulait « la gloire » — agrandir le territoire, asseoir sa domination sur l'Europe et effacer les humiliations de son enfance. Dès les premières années de son règne personnel, il lança des campagnes qui, de conflit en conflit, engagèrent la France dans des guerres toujours plus vastes et plus coûteuses.
 
+[media:crossing-rhine-1672]
+
 La **guerre de Dévolution (1667–1668)** fut la première de ces guerres de gloire. Invoquant le droit de sa femme Marie-Thérèse sur les Pays-Bas espagnols, Louis XIV envoya l'armée française s'emparer de la Flandre. Mais l'Angleterre, la Suède et les Provinces-Unies formèrent une coalition pour l'arrêter, et le Roi dut se contenter de quelques places fortes [source:britannica-louis-xiv]. Cette opposition des Provinces-Unies le poussa à préparer une revanche.
 
 Sa deuxième campagne, la **guerre de Hollande (1672–1678)**, fut bien plus ambitieuse. Voulant punir les Hollandais et abattre leur puissance commerciale, Louis XIV envahit les Provinces-Unies à la tête d'une armée de 120 000 hommes. Les Hollandais, acculés, sauvèrent leur pays en ouvrant les digues, inondant leurs propres terres pour arrêter l'avance française. Le conflit dura six ans, s'étendit à toute l'Europe et se termina par le traité de Nimègue (1678), qui donna à la France la Franche-Comté et plusieurs places des Flandres [source:britannica-louis-xiv]. Mais cette victoire inquiéta l'Europe : la France était désormais perçue comme une puissance hégémonique qu'il fallait contenir.
 
-Ainsi naquit la troisième : la **guerre de la Ligue d'Augsbourg (1688–1697)**, qui opposa la France à une coalition européenne presque unanime. Louis XIV l'avait engagée sur plusieurs fronts, de l'Allemagne à l'Italie. Elle fut marquée par la **politique des Réunions** — des annexions brutales (Strasbourg, 1681) — et par les **brûlements du Palatinat** (1689), où les armées françaises ravagèrent systématiquement une région entière pour priver l'ennemi de ressources. La paix de Ryswick (1697) laissa la France épuisée, mais toujours puissante [source:britannica-louis-xiv].
+Ainsi naquit la troisième : la **guerre de la Ligue d'Augsbourg (1688–1697)**, qui opposa la France à une coalition européenne presque unanime. Louis XIV l'avait engagée sur plusieurs fronts, de l'Allemagne à l'Italie. Elle fut marquée par la **politique des Réunions** — des annexions brutales (Strasbourg, 1681) — et par les **brûlements du Palatinat** (1689), où les armées françaises ravagèrent systématiquement une région entière pour priver l'ennemi de ressources. La paix de Ryswick (1697) laissa la France puissante mais épuisée [source:britannica-louis-xiv].
 
 Finalement, la **guerre de Succession d'Espagne (1701–1714)** fut la plus longue et la plus dure. En 1700, le roi d'Espagne Charles II, sans héritier, légua son empire à Philippe d'Anjou, petit-fils de Louis XIV. Les autres puissances européennes refusèrent d'accepter un Bourbon sur les trônes de France et d'Espagne réunis : ce fut la guerre générale. La France subit des défaites retentissantes — **Blenheim** (1704), **Ramillies** (1706), **Malplaquet** (1709) — et frôla le désastre. En 1709, l'hiver glacial détruisit les récoltes ; la famine tua des centaines de milliers de personnes. Louis XIV dut fondre son argenterie pour financer la guerre. La paix d'Utrecht (1713) sauva l'essentiel : Philippe V resta roi d'Espagne, mais la France perdit des territoires en Amérique du Nord [source:britannica-war-spanish-succession][source:britannica-louis-xiv].
 
-## La France de Louis XIV: ni libre, ni égale, ni fraternelle
+## La France de Louis XIV : ni libre, ni égale, ni fraternelle
 
 La société du Grand Siècle était officiellement divisée en trois ordres figés par la loi et la coutume.
 
-Le **clergé**: le premier ordre comptait environ 130 000 personnes (environ 0,7 % de la population). Il possédait 10 % des terres du royaume et ne payait presque pas d'impôts. L'Église contrôlait l'éducation, les registres d'état civil, l'assistance aux pauvres, et la censure des livres.
+Le **clergé** : le premier ordre comptait environ 130 000 personnes (environ 0,7 % de la population). Il possédait 10 % des terres du royaume et ne payait presque pas d'impôts. L'Église contrôlait l'éducation, les registres d'état civil, l'assistance aux pauvres, et la censure des livres.
 
-La **noblesse**: le deuxième ordre comptait environ 300 000 personnes (1,5 % de la population). Elle possédait 25 à 30 % des terres et était exemptée de la taille, le principal impôt royal. La distinction entre noblesse d'épée (ancienne) et noblesse de robe (récente) restait vive, même si Louis XIV préférait s'appuyer sur la seconde. Les nobles passaient leur vie entre les charges militaires, la gestion de leurs domaines, et — pour les plus riches — la vie à la Cour [source:britannica-louis-xiv].
+La **noblesse** : le deuxième ordre comptait environ 300 000 personnes (1,5 % de la population). Elle possédait 25 à 30 % des terres et était exemptée de la taille, le principal impôt royal. La distinction entre noblesse d'épée (ancienne) et noblesse de robe (récente) restait vive, même si Louis XIV préférait s'appuyer sur la seconde. Les nobles passaient leur vie entre les charges militaires, la gestion de leurs domaines, et — pour les plus riches — la vie à la Cour [source:britannica-louis-xiv].
 
-Le **tiers état**: le troisième ordre, représentant presque 98 % de la population, se divisait en une bourgeoisie aisée (marchand·es, avocat·es, officier·ères), des artisan·es urbain·es, et l'immense masse des paysan·nes. Parmi eux, les paysan·nes constituaient environ 85 % de la population française. E·ils cultivaient les terres du seigneur, grevé de multiples prélèvements. Au seigneur, ils devaient le **cens** (loyer annuel de la terre), le **champart** ou **terrage** (part de la récolte, généralement 1/8 à 1/12), les **banalités** (taxes pour l'usage du moulin, du four et du pressoir seigneuriaux) et les **corvées** (journées de travail gratuit) — au total, environ 15 à 25 % du revenu brut. À l'Église, ils versaient la **dîme**, théoriquement le dixième de la récolte mais souvent 1/13 à 1/8, soit 8 à 10 % du revenu brut. Au roi, ils payaient la **taille** (impôt direct), la **gabelle** (taxe sur le sel), les **aides** (taxes sur les boissons), et plus tard la **capitation** (impôt par tête, créé en 1695) — l'ensemble des impôts royaux absorbant 15 à 25 % supplémentaires. Après avoir mis de côté la semence pour l'année suivante (15 à 20 % de la récolte), il ne restait au paysan qu'entre 20 et 40 % de sa production pour nourrir sa famille. Les récoltes variaient d'une année à l'autre ; une mauvaise récolte signifiait la famine [source:britannica-louis-xiv][source:britannica-colbert].
-
+Le **tiers état** : le troisième ordre, représentant presque 98 % de la population, se divisait en une bourgeoisie aisée (marchand·es, avocat·es, officier·ères), des artisan·es urbain·es, et l'immense masse des paysan·nes. Parmi eux, les paysan·nes constituaient environ 85 % de la population française. E·ils cultivaient les terres du seigneur, grevé de multiples prélèvements. Au seigneur, ils devaient le **cens** (loyer annuel de la terre), le **champart** ou **terrage** (part de la récolte, généralement 1/8 à 1/12), les **banalités** (taxes pour l'usage du moulin, du four et du pressoir seigneuriaux) et les **corvées** (journées de travail gratuit) — au total, environ 15 à 25 % du revenu brut. À l'Église, ils versaient la **dîme**, théoriquement le dixième de la récolte mais souvent 1/13 à 1/8, soit 8 à 10 % du revenu brut. Au roi, ils payaient la **taille** (impôt direct), la **gabelle** (taxe sur le sel), les **aides** (taxes sur les boissons), et plus tard la **capitation** (impôt par tête, créé en 1695) — l'ensemble des impôts royaux absorbant 15 à 25 % supplémentaires. Après avoir mis de côté la semence pour l'année suivante (15 à 20 % de la récolte), il ne restait au paysan qu'entre 20 et 40 % de sa production pour nourrir sa famille. Les récoltes variaient d'une année à l'autre ; une mauvaise récolte signifiait la famine [source:britannica-louis-xiv][source:britannica-colbert].
+[chart:trois-ordres]
 ### La condition paysanne : le poids du siècle
 
 Pour la majorité du peuple français, le Grand Siècle fut un siècle de misère. La guerre — constante — écrasait les campagnes d'impôts. La taille avait doublé entre 1661 et 1683. S'y ajoutaient les **aides** (taxes sur les boissons), la **gabelle** (taxe sur le sel), les **traites** (droits de douane intérieurs), sans oublier les corvées pour l'entretien des routes.
 
-En 1662, Colbert écrivait : « La France est un pays d'une fertilité admirable, mais le peuple y est misérable. » En réalité, la fertilité était inégale et la misère profonde. Dans les régions de grande culture (Bassin parisien, Flandre, Alsace), la productivité stagnait : on obtenait en moyenne quatre à cinq grains pour un semé, contre dix ou douze en Angleterre. Cet écart tenait à plusieurs facteurs : les techniques agricoles françaises restaient archaïques (absence d'assolement quadriennal, outils insuffisants), le bétail — et donc le fumier — manquait, et la pression fiscale empêchait les paysan·nes d'investir dans l'amélioration de leurs terres. Le paysan français était pauvre, malnutri, vulnérable aux maladies et aux disettes [source:britannica-colbert].
+En 1662, Colbert écrivait : « La France est un pays d'une fertilité admirable, mais le peuple y est misérable. » Dans les régions de grande culture (Bassin parisien, Flandre, Alsace), la productivité stagnait : on obtenait en moyenne quatre à cinq grains pour un semé, contre dix ou douze en Angleterre. Cet écart tenait à plusieurs facteurs : les techniques agricoles françaises restaient archaïques (absence d'assolement quadriennal, outils insuffisants), le bétail — et donc le fumier — manquait, et la pression fiscale empêchait les paysan·nes d'investir dans l'amélioration de leurs terres. Le paysan français était pauvre, malnutri, vulnérable aux maladies et aux disettes [source:britannica-colbert].
 
 ### Les grandes famines et la guerre
 
 Les fragilités structurelles du royaume rendirent les campagnes terriblement vulnérables aux aléas climatiques. Entre 1693 et 1710, deux grandes famines — liées aux guerres incessantes et aux hivers les plus rigoureux que l'Europe eût connus — frappèrent le royaume et révélèrent les limites profondes de la monarchie absolue.
-
+[media:famine-bread-1693]
 Selon les estimations des historien·nes, entre 1,3 et 1,5 million de personnes (soit 6 à 7 % de la population) périrent lors de la **famine de 1693–1694**. L'hiver de 1693, atrocement froid, fit geler les récoltes ; le prix du blé tripla. Les pauvres des villes et des campagnes mouraient par milliers chaque jour. À Paris, les enterrements collectifs se multiplièrent [source:fenelon-salm-distress].
 
 À peine le royaume commençait-il à se relever que survint un second cataclysme, plus terrible encore. L'hiver 1708–1709, le plus froid depuis des siècles, détruisit les oliviers du Midi, les vignes et les blés. Le pain devint inaccessible. Les historien·nes estiment qu'entre 1,5 et 2 millions de personnes moururent, tandis que la guerre de Succession d'Espagne accaparait les dernières ressources du royaume. Dans les campagnes, on rapportait des cas de cannibalisme. Voltaire, qui avait quinze ans, écrira plus tard : « Ce fut une année de calamités [source:fenelon-salm-distress]. »
@@ -230,7 +244,7 @@ Trois siècles plus tard, l'empreinte du Grand Siècle reste visible.
 Elle est inscrite dans les pierres de Versailles : classé au patrimoine mondial de l'UNESCO depuis 1979, le château et ses jardins attirent environ 7 millions de visiteur·euses chaque année [source:chateau-versailles]. Elle est inscrite dans la langue française : sa grammaire et son vocabulaire furent fixés par l'Académie française au Grand Siècle, faisant du français une langue de portée universelle [source:academie-francaise]. Elle vibre sur les scènes de théâtre : Molière, Racine et Corneille sont toujours au programme des écoles et des théâtres, et la Comédie-Française, fondée en 1680, joue encore leurs pièces [source:comedie-francaise].
 
 D'ailleurs, l'héritage politique du Grand Siècle demeure en notre république : il a forgé l'idée d'un État fort, centralisé, administré par des professionnel·les — les préfets de la République sont des descendants direct·es des intendants de Louis XIV. 
-
+[media:prefecture-moderne]
 ## Épilogue : Après le Grand Siècle
 
 Le Grand Siècle léguait à la France une puissance rayonnante et une machine politique redoutable — mais aussi des fragilités profondes : un peuple épuisé, des finances ruinées, une noblesse impatiente, et des idées nouvelles qui, dans les salons parisiens, commençaient déjà à gronder.
