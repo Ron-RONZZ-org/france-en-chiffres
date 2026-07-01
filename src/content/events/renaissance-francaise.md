@@ -25,7 +25,7 @@ timeline:
 
 ## Prologue
 
-Lyon, 1476. Antoine, fils d'un tonnelier, avait quatorze ans. Comme la plupart des gens à l'époque, il ne savait pas lire. Rien n'empêchait qu'il eût été placé chez un certain M. Buyer depuis l'année dernière.  Ce monsieur Buyer, marchand, venait d'importer à Lyon la plus grande invention du siècle : la presse à imprimer. Ce n'était malheureusement pas un développement joyeux pour Antoine : il avait maintenant les mains noires d'encre, les bras endoloris à force d'actionner le levier. Il ne comprenait rien des textes latins qui sortaient de la presse — des manuels de droit, les lettres d'un pape, des grammaires — mais il voyait ce que tout le monde voyait : il s'agissait de livres.
+Lyon, 1476. Antoine, fils d'un tonnelier, avait quatorze ans. Comme la plupart des gens à l'époque, il ne savait pas lire. Depuis l'année précédente, il travaillait chez un certain M. Buyer, marchand, qui venait d'importer à Lyon la plus grande invention du siècle : la presse à imprimer. Ce n'était malheureusement pas un développement joyeux pour Antoine : il avait maintenant les mains noires d'encre, les bras endoloris à force d'actionner le levier. Il ne comprenait rien des textes latins qui sortaient de la presse — des manuels de droit, les lettres d'un pape, des grammaires — mais il voyait ce que tout le monde voyait : il s'agissait de livres.
 
 Des livres, qui ne sont plus recopiés à la main, un par un, dans le silence des monastères. Des livres, manufacturés à la chaîne, comme des étoffes. Des livres, que les marchands peuvent acheter, que les femmes lettrées peuvent lire chez elles, que les étudiant·es peuvent emprunter au lieu de les recopier sous la dictée d'un maître [source:britannica-printing].
 
@@ -62,6 +62,7 @@ François I<sup>er</sup> créa aussi une institution qui allait marquer la vie i
 
 En 1539, François I<sup>er</sup> promulguait son ordonnance la plus durable : l'**ordonnance de Villers-Cotterêts** (1539), exigeant que tous les actes officiels du royaume soient rédigés « en langage maternel françois et non autrement », imposant ainsi le français comme langue de l'administration, de la justice et du pouvoir. Le latin recula ; le français, jusqu'alors simple parler populaire, devint une langue d'État [source:knecht-francois-ier]. L'ordonnance est dans un sens toujours en vigueur jusqu'à nos jours : le deuxième article de la Constitution de la Ve République, en 1958, dispose que « la langue de la République est le français » [source:constitution-francaise], réaffirmant la dominance de la langue française dans notre pays.
 [media:ordonnance-villers-cotterets]
+
 ## L'imprimerie transforma la société française
 
 L'imprimerie ne produisait pas que des livres : elle bouleversa la structure de la société française du XVI<sup>e</sup> siècle, comme Internet a transformé la nôtre.
@@ -73,7 +74,7 @@ Les conséquences furent immenses :
 - **Les textes antiques** — Platon, Aristote, Plutarque — furent diffusés massivement, traduits du grec et du latin en français par des humanistes comme Guillaume Budé.
 - **La Bible** fut traduite et imprimée en français dès les années 1520 par Lefèvre d'Étaples, permettant aux croyant·es de lire les textes sacrés sans passer par le clergé.
 - **Les idées nouvelles** — celles de la Renaissance italienne, puis celles de la Réforme protestante — circulèrent d'une ville à l'autre en quelques semaines, portées par les colporteur·euses.
-{(montage de) illustration(s)/image(s) sous licence libre des livres imprimés vers 1500}
+[media:livres-imprimes-1500]
 Ainsi la société française s'en trouva bouleversée : l'imprimerie créa des métiers nouveaux (imprimeur·euses, correcteur·ices, libraires) et fit émerger une bourgeoisie lettrée qui concurrençait le clergé dans la production et la diffusion du savoir. Le livre imprimé permit à des milliers de personnes d'accéder aux textes sans passer par l'Église, affaiblissant **le monopole intellectuel du clergé** et préparant l'émergence d'un espace public — un siècle avant les premiers journaux [source:britannica-renaissance-france].
 
 Lyon devint le cœur battant de cette révolution en France. En 1500, la ville comptait déjà une cinquantaine d'ateliers d'imprimerie. Les presses lyonnaises publiaient de tout : des éditions des classiques grecs et latins, des romans de chevalerie, des almanachs, des pamphlets religieux, des livres illustrés. Les imprimeurs — souvent d'ancien·nes commerçant·es ou des savant·es — faisaient fortune. Leurs ateliers employaient des apprenti·es, des correcteur·ices, des illustrateur·ices [source:britannica-renaissance-france].
@@ -102,7 +103,8 @@ Ronsard devint célèbre dans toute l'Europe pour ses odes, ses sonnets et ses h
 En 1571, Michel de Montaigne (1533–1592), nobliau périgourdin qui avait été magistrat à Bordeaux, se retira dans sa bibliothèque. Il y passa les vingt dernières années de sa vie à écrire — sur ses lectures, ses humeurs, ses voyages, ses amitiés, la mort de son meilleur ami, les guerres qui déchiraient la France. Il appela le résultat les *Essais* (1580, puis 1588, puis 1595 posthume) [source:britannica-montaigne].
 
 Les *Essais* sont peut-être le livre le plus surprenant du XVI<sup>e</sup> siècle. Montaigne y parle de tout et surtout de lui-même — sans ordre, sans prétention, avec un scepticisme radieux. « Que sais-je ? » aimait-il demander, inscrivant ce doute au fronton de sa philosophie. Pour Montaigne, l'humain est changeant, contradictoire, incapable d'atteindre une vérité absolue. Mieux vaut donc la tolérance que le fanatisme, la curiosité que le dogme. Dans une France déchirée par les guerres de Religion, cette voix calme et ironique était un trésor.
-{(montage de) illustration(s)/image(s) sous licence libre de Montaigne}
+[media:montaigne-tour-bibliotheque]
+
 ### Marguerite de Navarre et Louise Labé : les voix féminines de la Renaissance
 
 Sœur de François I<sup>er</sup>, Marguerite de Navarre (1492–1549) fut l'une des femmes les plus puissantes et les plus cultivées de son temps. Elle protégea les humanistes, correspondit avec Érasme, et écrivit elle-même des poèmes, des pièces de théâtre et *l'Heptaméron* (publié après sa mort), un recueil de nouvelles inspiré du *Décaméron* de Boccace. L'*Heptaméron* raconte les histoires que se disent dix voyageur·euses bloqué·es par les inondations dans un monastère des Pyrénées. Sous le couvert de la fiction galante, Marguerite abordait des sujets audacieux : le désir féminin, l'hypocrisie des hommes, la violence faite aux femmes [source:britannica-renaissance-france].
@@ -110,6 +112,7 @@ Sœur de François I<sup>er</sup>, Marguerite de Navarre (1492–1549) fut l'une
 
 La même liberté d'esprit se retrouvait à Lyon, où la poétesse **Louise Labé** (vers 1524–1566) publia en 1555 un recueil de sonnets qui proclamaient, avec une intensité rare, le droit des femmes à aimer, à écrire et à être prises au sérieux. Fille d'un marchand de cordes, elle participait aux joutes poétiques lyonnaises et fréquentait les cercles d'imprimeurs. Sa « querelle des Amies » engagea toute la ville dans un débat sur l'égalité des sexes [source:britannica-renaissance-france].
 [media:louise-labe]
+
 ## Renaissance, mais aussi des nouvelles naissances
 
 ### La noblesse se transforme
@@ -124,6 +127,7 @@ Cette noblesse de robe construisit de magnifiques hôtels particuliers dans les 
 
 Lyon, avec ses foires, ses banquiers italiens et ses imprimeurs, était la capitale économique de la France au XVI<sup>e</sup> siècle. Les quatre foires annuelles de la ville attiraient des marchand·es de toute l'Europe. Les banquiers géraient les dettes du roi. Les ateliers de soie, introduits par des ouvrier·ères italien·nes dans les années 1530, produisaient des étoffes qui concurrençaient celles de Florence et de Gênes [source:britannica-renaissance-france].
 [media:lyon-16e-siecle]
+
 ### Les paysan·nes continuèrent à souffrir
 
 La Renaissance ne fut pas une fête pour tout le monde. Les paysan·nes, qui représentaient plus de 80 % de la population française, ne virent ni châteaux de la Loire ni livres imprimés. Ce qu'e·ils virent, ce furent les impôts qui doublaient, triplaient, quadruplaient pour financer les guerres d'Italie.
@@ -143,11 +147,15 @@ Dans les campagnes, en revanche, le XVI<sup>e</sup> siècle fut une catastrophe 
 
 ### La Réforme s'installe en France
 
-Le 31 octobre 1517, un moine allemand nommé Martin Luther afficha 95 thèses sur la porte de l'église de Wittenberg. Il y dénonçait la vente des indulgences — ces pardons payés à l'Église pour réduire le temps au purgatoire — et affirmait que le salut ne s'achetait pas : il venait de la foi seule (*sola fide*), de la grâce seule (*sola gratia*), de l'Écriture seule (*sola scriptura*). Luther rejetait aussi l'autorité du pape, niait le pouvoir des prêtres d'intercéder entre Dieu et les croyant·es, et proclamait le « sacerdoce universel » : chaque chrétien·ne pouvait lire la Bible, la comprendre et communier directement avec Dieu. Ces trois idées radicales propage rapidement grâce à l'imprimerie à travers de l'Europe [source:britannica-wars-religion].
+Le 31 octobre 1517, un moine allemand nommé **Martin Luther** afficha 95 thèses sur la porte de l'église de Wittenberg. Il y dénonçait la vente des indulgences — ces pardons payés à l'Église pour réduire le temps au purgatoire — et affirmait que le salut ne s'achetait pas : il venait de la foi seule (*sola fide*), de la grâce seule (*sola gratia*), de l'Écriture seule (*sola scriptura*). Luther rejetait aussi l'autorité du pape, niait le pouvoir des prêtres d'intercéder entre Dieu et les croyant·es, et proclamait le « sacerdoce universel » : chaque chrétien·ne pouvait lire la Bible, la comprendre et communier directement avec Dieu. Ces trois idées radicales se propagèrent rapidement grâce à l'imprimerie à travers l'Europe [source:britannica-wars-religion].
 
 [media:martin-luther]
 
-Le protestantisme français eut aussi son propre fondateur : **Jean Calvin** (1509–1564), né à Noyon, en Picardie. Formé à Paris, Orléans et Bourges, Calvin se convertit aux idées réformées vers 1533, dut fuir la France, et s'installa à Genève. De là, il publia en 1536 *l'Institution de la religion chrétienne* — la somme théologique du protestantisme, d'abord en latin puis en français (1541). Ce texte, imprimé et diffusé dans tout le royaume, offrait une doctrine claire, cohérente, radicale : le salut par la foi seule, l'autorité de la Bible seule, la prédestination [source:britannica-wars-religion].
+Les idées de Luther ne tardèrent pas à franchir le Rhin. Ses traités, imprimés à Wittenberg, furent réimprimés à Bâle, à Strasbourg et à Lyon. En France, des cercles de lettrés les lisaient, les discutaient et s'en inspiraient. Parmi eux, un jeune Picard devint la figure centrale de la Réforme française.
+
+**Jean Calvin** (1509–1564), né à Noyon, en Picardie. Formé à Paris, Orléans et Bourges, Calvin se convertit aux idées réformées vers 1533, dut fuir la France, et s'installa à Genève. De là, il publia en 1536 *l'Institution de la religion chrétienne* — la somme théologique du protestantisme, d'abord en latin puis en français (1541). Ce texte, imprimé et diffusé dans tout le royaume, offrait une doctrine claire, cohérente, radicale : le salut par la foi seule, l'autorité de la Bible seule, la prédestination [source:britannica-wars-religion].
+
+[media:jean-calvin]
 
 Le calvinisme séduisit d'abord les élites : des nobles, des avocat·es, des imprimeur·euses, des artisan·es urbain·es. Les protestant·es français·es — appelé·es « huguenot·es » — fondèrent des églises, organisèrent des synodes, tinrent des consistoires. En 1561, on estime qu'il y avait environ deux millions de huguenot·es en France, soit environ 10 % de la population [source:britannica-wars-religion].
 
@@ -160,7 +168,7 @@ L'irréparable se produisit le 1<sup>er</sup> mars 1562 : le duc de Guise, chef 
 Pendant trente-six ans, la France subit huit guerres civiles entrecoupées de trêves précaires. Les armées des deux camps pillèrent les campagnes. Les villes changèrent de main, subirent des sièges, des massacres. Le conflit n'était pas seulement religieux : il mêlait des rivalités nobiliaires (les Guise et la Ligue catholique contre les Bourbons et les Montmorency protestant·es), des ambitions politiques (les grandes familles voulaient contrôler le roi), et une profonde lassitude populaire.
 
 L'épisode le plus infâme fut le **massacre de la Saint-Barthélemy** (nuit du 24 août 1572). Le mariage de la princesse Marguerite de Valois (la « reine Margot ») avec le protestant Henri de Navarre devait sceller la paix. Mais le surlendemain des noces, alors que les chefs protestant·es étaient encore à Paris, la Cour décida de les éliminer. Le tocsin sonna à l'aube. Les milices parisiennes, menées par les Guise, massacrèrent des milliers de protestant·es — on estime entre 3 000 et 10 000 morts à Paris en trois jours, et peut-être 30 000 dans toute la France dans les semaines qui suivirent [source:britannica-wars-religion].
-
+[media:saint-barthelemy-massacre]
 La Saint-Barthélemy brisa le camp protestant, mais ne mit pas fin à la guerre. Au contraire, elle radicalisa les deux camps. La **Ligue catholique**, dirigée par les Guise, devint un pouvoir quasi-indépendant, contrôlant Paris, défiant le roi. La monarchie vacilla.
 
 ### Le prix humain des guerres de Religion

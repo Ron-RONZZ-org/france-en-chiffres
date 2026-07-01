@@ -1,0 +1,49 @@
+{
+  "id": "trois-ordres",
+  "type": "bar",
+  "title": "Les trois ordres du royaume : population et propriété foncière (XVIIᵉ siècle)",
+  "caption": "Contraste saisissant entre le poids démographique de chaque ordre et sa part de la propriété foncière : le clergé (0,7 % de la population) possède 10 % des terres, la noblesse (1,5 %) en possède 25 à 30 %, tandis que le tiers état (près de 98 % de la population) se partage moins des deux tiers du sol.",
+  "credit": "France en Chiffres — d'après les données de l'historiographie",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+  "sourceIds": ["britannica-louis-xiv", "britannica-colbert"],
+  "width": 720,
+  "height": 450,
+  "palette": ["#1a5276", "#922b21"],
+  "config": {
+    "orientation": "grouped",
+    "xAxis": {
+      "label": "Ordre"
+    },
+    "yAxis": {
+      "label": "Part (en % du total)",
+      "unit": "%"
+    },
+    "showLegend": true
+  },
+  "data": {
+    "values": [
+      {
+        "category": "Clergé",
+        "groups": [
+          { "name": "Population", "value": 0.7 },
+          { "name": "Terres possédées", "value": 10 }
+        ]
+      },
+      {
+        "category": "Noblesse",
+        "groups": [
+          { "name": "Population", "value": 1.5 },
+          { "name": "Terres possédées", "value": 27 }
+        ]
+      },
+      {
+        "category": "Tiers état",
+        "groups": [
+          { "name": "Population", "value": 97.8 },
+          { "name": "Terres possédées", "value": 63 }
+        ]
+      }
+    ]
+  }
+}
