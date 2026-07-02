@@ -1,0 +1,36 @@
+{
+  "id": "referendums-europeens",
+  "type": "bar",
+  "title": "Résultats des référendums européens en France (1992 et 2005)",
+  "caption": "Proportion des voix exprimées pour les référendums sur le traité de Maastricht (1992) et le traité constitutionnel européen (2005), en France.",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+  "sourceIds": ["insee-2024"],
+  "width": 720,
+  "height": 400,
+  "palette": ["#1a5276", "#922b21"],
+  "config": {
+    "orientation": "grouped",
+    "xAxis": { "label": "Référendum" },
+    "yAxis": { "label": "Voix exprimées (%)", "unit": "%" },
+    "showLegend": true
+  },
+  "data": {
+    "values": [
+      {
+        "category": "Maastricht (1992)",
+        "groups": [
+          { "name": "Oui", "value": 51.05 },
+          { "name": "Non", "value": 48.95 }
+        ]
+      },
+      {
+        "category": "Constitution européenne (2005)",
+        "groups": [
+          { "name": "Oui", "value": 45.33 },
+          { "name": "Non", "value": 54.67 }
+        ]
+      }
+    ]
+  }
+}

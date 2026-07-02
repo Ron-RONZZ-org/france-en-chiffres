@@ -1,0 +1,13 @@
+{
+  "id": "britannica-name-france",
+  "type": "entry-encyclopedia",
+  "title": "France — Name",
+  "author": [
+    { "literal": "Encyclopædia Britannica" }
+  ],
+  "container-title": "Encyclopædia Britannica",
+  "issued": { "date-parts": [[2025]] },
+  "accessed": { "date-parts": [[2026, 7, 1]] },
+  "URL": "https://www.britannica.com/place/France",
+  "note": "L'article « France » de l'Encyclopædia Britannica retrace l'étymologie du nom « France », issu du latin Francia (terre des Francs). Le terme est attesté en ancien français dès le XIe siècle et désignait d'abord la région de l'Île-de-France avant de s'étendre à l'ensemble du royaume."
+}
