@@ -140,6 +140,7 @@ france-en-chiffres/
 8. **Responsive before fancy** — layout must work at 320px before adding any animation.
 9. **Content Collections** — all content data (eras, events, sources, media) lives in `src/content/` as Astro Content Collections with Zod schemas in `src/content/config.ts`. Data validation happens at build time. Aggregation layers reside in `src/data/*.ts`.
 10. **Era–event matching by year range** — events are automatically matched to eras by `start`/`end` year containment (see `src/data/history.ts`). When a year is shared by adjacent eras (e.g., 1789), the event is assigned to the era whose `start` matches that year. Editors add an event file to `content/events/` without specifying which era it belongs to. Each era has a dedicated page at `/periodes/[slug]` (auto-generated from `content/eras/`). On the timeline page, era titles link to these internal pages and descriptions are displayed inline.
+11. **`.md` files are prose-only** — no raw HTML, no CSS, no JS, no custom data attributes. See [Markdown Purity Rule](#⚠️-critical-markdown-purity-rule). All interactive features go in `.astro` components.
 
 ---
 
@@ -184,31 +185,91 @@ The script:
 
 **ID normalization** when derived from filename: NFD-decompose → strip diacritics → lowercase → `[^a-z0-9]+` → `-` → trim dashes.
 
-### Inline Media and Charts
+### ⚠️ CRITICAL: Markdown Purity Rule
 
-Embed media and charts in event Markdown body text:
+**`.md` content files must contain ONLY:**
+- Prose text (French)
+- `[source:id]` citation references
+- `[media:id]` references (images)
+- `[chart:id]` references (data charts)
+- YAML frontmatter (metadata)
+
+**NEVER put in `.md` files:**
+- ❌ Raw HTML tags (`<div>`, `<section>`, `<style>`, etc.) — the markdown parser strips them
+- ❌ CSS or `<style>` blocks
+- ❌ JavaScript or `<script>` blocks
+- ❌ Custom HTML data attributes for JS hooks
+
+**Why:** `rehype-raw` is configured but Astro's markdown pipeline only preserves single-line self-closing HTML tags in `.md` files (e.g., `<div data-map-slot="x"></div>`). Multi-line HTML blocks, CSS, and JS are stripped silently.
+
+**If you need interactive features (maps, hover-tables, custom layout):** create an Astro component in `src/components/` and wire it conditionally in the page template (see [Interactive Components](#interactive-components-maps-tables-etc) below).
+
+### Inline Media and Charts (inside `.md`)
+
+These are the ONLY two embed patterns allowed inside markdown body text:
 
 ```md
-{Texte avant}
+[Texte avant]
 
 [media:versailles-chateau]
 
-{Texte après}
+[Texte après]
 ```
 
 ```md
-{Texte avant}
+[Texte avant]
 
 [chart:population-evolution]
 
-{Texte après}
+[Texte après]
 ```
 
-As seen, `chart` and `media` should be their own paragraphs.
+**Rules:**
+- `[media:id]` and `[chart:id]` must be on their **own line**, separated by blank lines from surrounding paragraphs.
+- `[media:id]` — embeds a registered media asset (image) with caption/credit/license. Register via `npm run new:media`.
+- `[chart:id]` — embeds a data-driven chart (prerendered to inline SVG). Define in `src/content/figures/<id>.json`. Create via `npm run new:figure`.
+- Both are rendered server-side at build time by `src/plugins/remark-figure-embed.js` — zero client JS required.
 
-- `[media:id]` — embeds a registered media asset (image) with full caption/credit/license. Use `npm run new:media` to register first.
-- `[chart:id]` — embeds a data-driven chart (prerendered to inline SVG). Chart definitions live in `src/content/figures/<id>.json`. Use `npm run new:figure` to create.
-- All figures are rendered server-side at build time — zero client JS required.
+### Interactive Components (Maps, Tables, etc.)
+
+For anything interactive (Leaflet maps, hover-reveal tables, custom JS/CSS), create an Astro component and render it **conditionally** in the page template. The component renders **after** the markdown `<Content />`, at the bottom of the page body.
+
+**Step-by-step recipe:**
+
+1. **Create the component** in `src/components/YourComponent.astro`
+   - For Leaflet maps: use `<MapShell>` for the HTML skeleton + dark theme CSS, then initialize via `import { initMap } from '../scripts/maps/shared-map'`
+   - For custom interactive elements: include the `<script>` and `<style>` directly in the component
+
+2. **Wire it in the page template** (`src/pages/histoire/[slug].astro`):
+
+```astro
+// 1. Import the component
+import YourComponent from '../../components/YourComponent.astro';
+
+// 2. Render it conditionally based on event ID
+<div class="event-page__body">
+  <Content />
+  {event.id === 'your-event-id' && <YourComponent />}
+</div>
+```
+
+**Existing examples:**
+
+| Event ID | Component | Type |
+|----------|-----------|------|
+| `premiers-humains` | `<PrehistoricSitesMap />` | Leaflet + MapShell |
+| `arrivee-sapiens` | `<MigrationMap />` | Leaflet + MapShell |
+| `age-de-fer` | `<ResourceMap />` | Leaflet + MapShell |
+| `occupation-romaine` | `<RomanProvincesMap />` + `<RomanCitiesMap />` | Leaflet + MapShell |
+| `revolution-francaise` | `<RevolutionMaps />` (3 maps) | Leaflet + MapShell |
+| `revolution-francaise` | `<RevolutionBilan />` | Interactive hover table |
+
+**For Leaflet maps specifically:**
+- Import and use `<MapShell id="your-id" label="..." title="..." hint="..." />` for the container
+- In the `<script>` tag: `import { initMap } from '../scripts/maps/shared-map'` then `const map = initMap('your-id-map', { center: [lat, lng], zoom: N })`
+- CartoDB Dark Matter tiles are used by default (no POI labels at low zoom)
+
+**Note on `[map:id]`:** The `remark-figure-embed.js` plugin also supports `[map:id]` for maps that must appear inline within markdown content (currently only `roman-provinces` and `roman-cities`). To add a new inline map, you must modify both `MAP_IDS` and `buildMapFigure()` in `src/plugins/remark-figure-embed.js`. For most cases, the conditional component approach above is simpler and preferred.
 
 ### Creating Chart Figures
 
@@ -349,6 +410,7 @@ bash scripts/new-figure.sh population-evolution line
 - ❌ **Framer Motion** — React-only. If you need a React animation library, you're using the wrong approach.
 - ❌ **Client-side routing** — use multi-page Astro + CSS View Transitions API. No React Router, no Vue Router.
 - ❌ **Tracking, analytics, cookies** — educational site, no business need, no user data collection.
+- ❌ **Raw HTML, CSS, or JavaScript in `.md` content files** — the markdown pipeline strips multi-line HTML blocks, `<style>`, and `<script>` tags. See [Markdown Purity Rule](#⚠️-critical-markdown-purity-rule). All interactive features belong in `.astro` components.
 - ❌ **Raw SVG `<path d="…">` strings for arrows, connectors, or relationship diagrams** — hand-crafted path strings are almost never correctly oriented and are impossible to maintain. Use a high-level API instead:
   - D3 `linkVertical` / `linkHorizontal` / `line().curve(curveNatural)` for curved connectors
   - SVG `<marker>` with `orient="auto"` for arrowheads

@@ -1,0 +1,137 @@
+---
+// RevolutionBilan.astro — Interactive bilan table for the French Revolution event
+// Shows 4 groups (gagnants/ambivalents/ignores/perdants) as a hover-reveal grid.
+
+const groups = [
+  {
+    id: 'gagnants',
+    heading: 'Les grand·es gagnant·es',
+    color: '#22c55e',
+    paragraphs: [
+      '<strong>La grande bourgeoisie</strong> — banquier·ères, négociant·es, manufacturier·ères — fut la grande gagnante de la Révolution. Elle accéda aux postes de pouvoir, acheta les biens nationaux confisqués à l\'Église et aux émigrés, et imposa sa conception de la liberté — celle du commerce, de la propriété, des carrières ouvertes aux talents <sup class="citation"><a href="/bibliographie/britannica-french-revolution" data-source-id="britannica-french-revolution">[1]</a></sup>. Les bourgeois éclairés, qui lisaient Voltaire et Rousseau, trouvèrent dans la Révolution l\'aboutissement de leurs aspirations : une société où le mérite, non la naissance, décidait du rang.',
+      '<strong>Les paysan·nes</strong> gagnèrent aussi : l\'abolition des droits seigneuriaux supprimait des charges qui pesaient sur elles·eux depuis des générations. L\'accès à la propriété, rendu possible par la vente des biens nationaux, transforma des milliers de métayer·ères en propriétaires. L\'égalité civile, enfin, les rendait citoyen·nes à part entière. Cependant, la conscription — la levée en masse de 300 000 hommes en 1793 — emporta des paysans dans des guerres qui ne finissaient plus.',
+    ],
+  },
+  {
+    id: 'ambivalents',
+    heading: 'Les ambivalent·es',
+    color: '#eab308',
+    paragraphs: [
+      '<strong>Les ouvrier·ères et les artisan·es</strong> — les sans-culottes — gagnèrent l\'égalité politique, mais perdirent la bataille économique. La loi Le Chapelier (1791) interdit les grèves et les coalitions ouvrières, brisant la solidarité entre travailleur·euses. Le salariat, libre en théorie, restait soumis en pratique à la volonté du patron. Le pain avait été taxé pendant la Terreur, et le prix explosa après la chute de Robespierre. Les plus pauvres virent leur situation empirer sous le Directoire, quand le suffrage censitaire les exclut du vote. La Révolution avait proclamé l\'égalité — mais sans pain, sans travail décent, sans protection, l\'égalité politique restait une promesse vide pour les classes populaires urbaines.',
+    ],
+  },
+  {
+    id: 'ignores',
+    heading: 'Les ignoré·es',
+    color: '#64748b',
+    paragraphs: [
+      '<strong>Les femmes</strong> furent les grandes oubliées de la Révolution malgré leur participation active. Elles étaient nombreuses lors des marches d\'octobre 1789, dans les sections révolutionnaires et à la garde des frontières. Pourtant, lorsque Condorcet proposa le droit de vote des femmes en 1790, la Convention refusa ; et lorsque Olympe de Gouges rédigea la <em>Déclaration des droits de la femme et de la citoyenne</em> en 1791, la Convention la rejeta. La République reconnaissait les femmes comme citoyennes passives — elles avaient des devoirs (payer des impôts, obéir aux lois) mais pas de droits politiques. Pire : le code civil napoléonien, en 1804, allait reculer leurs droits par rapport à l\'Ancien Régime, en les plaçant sous la tutelle juridique de leur mari <sup class="citation"><a href="/bibliographie/britannica-code-napoleon" data-source-id="britannica-code-napoleon">[2]</a></sup>.',
+      '<strong>Les esclaves des colonies</strong> ne connurent qu\'une brève libération : la Convention abolit l\'esclavage le 4 février 1794, sous la pression de la révolte de Saint-Domingue (l\'actuelle Haïti) menée par Toussaint Louverture. Mais Napoléon le rétablit en 1802, envoyant une expédition militaire pour mater la révolte. Les ancien·nes esclaves d\'Haïti durent conquérir leur liberté les armes à la main : le pays devint indépendant en 1804, la première république noire de l\'histoire. Dans les autres colonies françaises — Martinique, Guadeloupe, La Réunion — l\'esclavage fut rétabli et perdura jusqu\'en 1848 <sup class="citation"><a href="/bibliographie/britannica-french-revolution" data-source-id="britannica-french-revolution">[1]</a></sup>.',
+    ],
+  },
+  {
+    id: 'perdants',
+    heading: 'Les perdant·es',
+    color: '#ef4444',
+    paragraphs: [
+      '<strong>La noblesse et le clergé</strong> perdirent leurs privilèges — exemptions fiscales, droits seigneuriaux, dîme, justices seigneuriales — abolis dans la nuit du 4 août 1789. Beaucoup durent s\'exiler, devenant les « émigrés ». Leurs biens furent confisqués et vendus comme biens nationaux. L\'Église catholique, dépouillée de ses terres et réorganisée par la Constitution civile du clergé, sortit profondément affaiblie de la décennie révolutionnaire <sup class="citation"><a href="/bibliographie/britannica-french-revolution" data-source-id="britannica-french-revolution">[1]</a></sup>.',
+      '<strong>Le roi et sa famille</strong> eurent la tête tranchée — Louis XVI le 21 janvier 1793, Marie-Antoinette le 16 octobre 1793. Leur fils, Louis-Charles (Louis XVII pour les royalistes), mourut le 8 juin 1795 à l\'âge de dix ans dans sa prison du Temple, probablement de tuberculose. Leur fille, Marie-Thérèse-Charlotte, fut la seule survivante : libérée en décembre 1795, elle vécut jusqu\'en 1851. Madame Élisabeth, sœur du roi, fut exécutée le 10 mai 1794. Les frères de Louis XVI, les comtes de Provence et d\'Artois (futurs Louis XVIII et Charles X), avaient émigré et survécurent. La monarchie millénaire tomba avec eux.',
+    ],
+  },
+];
+---
+
+<div class="revolution-bilan" id="revolution-bilan">
+  <div class="revolution-bilan__grid" role="group" aria-label="Bilan de la Révolution par groupe">
+    {groups.map((g) => (
+      <div class="revolution-bilan__cell" data-group={g.id}>
+        <h3 class="revolution-bilan__heading" style={`border-bottom-color: ${g.color}; color: ${g.color};`}>{g.heading}</h3>
+        <div class="revolution-bilan__detail">
+          {g.paragraphs.map((p) => <p set:html={p} />)}
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
+
+<style>
+  .revolution-bilan__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--gap-md);
+    margin: var(--gap-lg) 0;
+  }
+
+  .revolution-bilan__cell {
+    position: relative;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--gap-md);
+    cursor: help;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+    background: var(--color-bg-card);
+  }
+
+  .revolution-bilan__cell:hover,
+  .revolution-bilan__cell:focus-within {
+    border-color: var(--color-accent-gold, #d4a843);
+    box-shadow: 0 0 0 2px rgba(212, 168, 67, 0.3);
+  }
+
+  .revolution-bilan__heading {
+    font-family: var(--font-serif);
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin: 0 0 var(--gap-xs);
+    padding-bottom: var(--gap-xs);
+    border-bottom: 2px solid;
+  }
+
+  .revolution-bilan__detail {
+    display: none;
+    position: absolute;
+    z-index: 20;
+    top: 100%;
+    left: 0;
+    right: 0;
+    margin-top: var(--gap-xs);
+    padding: var(--gap-md);
+    background: #111827;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--color-text-light);
+    min-width: 300px;
+    pointer-events: auto;
+  }
+
+  .revolution-bilan__cell:hover .revolution-bilan__detail,
+  .revolution-bilan__cell:focus-within .revolution-bilan__detail {
+    display: block;
+  }
+
+  .revolution-bilan__detail p {
+    margin-bottom: var(--gap-sm);
+  }
+
+  .revolution-bilan__detail p:last-child {
+    margin-bottom: 0;
+  }
+
+  @media (max-width: 768px) {
+    .revolution-bilan__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .revolution-bilan__detail {
+      min-width: 240px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .revolution-bilan__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -10,6 +10,8 @@ import MigrationMap from '../../components/MigrationMap.astro';
 import ResourceMap from '../../components/ResourceMap.astro';
 import RomanProvincesMap from '../../components/RomanProvincesMap.astro';
 import RomanCitiesMap from '../../components/RomanCitiesMap.astro';
+import RevolutionBilan from '../../components/RevolutionBilan.astro';
+import RevolutionMaps from '../../components/RevolutionMaps.astro';
 
 export async function getStaticPaths() {
   const events = await getCollection('events');
@@ -78,6 +80,8 @@ const galleryMedia = (await Promise.all(
       {event.id === 'age-de-fer' && <ResourceMap />}
       {event.id === 'occupation-romaine' && <RomanProvincesMap />}
       {event.id === 'occupation-romaine' && <RomanCitiesMap />}
+      {event.id === 'revolution-francaise' && <RevolutionMaps />}
+      {event.id === 'revolution-francaise' && <RevolutionBilan />}
     </div>
 
     <footer class="event-page__footer">

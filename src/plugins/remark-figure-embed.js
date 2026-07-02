@@ -239,16 +239,16 @@ export default function remarkFigureEmbed() {
       }
       MAP_RE.lastIndex = 0;
       while ((m = MAP_RE.exec(node.value)) !== null) {
-        matches.push({ type: 'map', id: m[1], index: m.index, end: m.index + m[0].length });
-      }
-      matches.sort((a, b) => a.index - b.index);
+          matches.push({ type: 'map', id: m[1], index: m.index, end: m.index + m[0].length });
+        }
+        matches.sort((a, b) => a.index - b.index);
 
-      if (matches.length === 0) continue;
+        if (matches.length === 0) continue;
 
-      const children = [];
-      let lastIdx = 0;
+        const children = [];
+        let lastIdx = 0;
 
-      for (const match of matches) {
+        for (const match of matches) {
         if (match.index > lastIdx) {
           children.push({ type: 'text', value: node.value.slice(lastIdx, match.index) });
         }

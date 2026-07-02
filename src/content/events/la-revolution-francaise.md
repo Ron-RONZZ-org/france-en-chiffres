@@ -33,7 +33,7 @@ timeline:
 
 ## Prologue
 
-Le matin du 14 juillet 1789, Pierre, trente-quatre ans, maître serrurier sur la rue de la Roquette à Paris, se leva avant l'aube.
+14 juillet, 1789, Pierre, trente-quatre ans, maître serrurier sur la rue de la Roquette à Paris, se leva avant l'aube.
 
 Il avait entendu la veille que le roi avait renvoyé Necker, le ministre populaire, et que des régiments étrangers campaient autour de Paris. Dans son quartier, la rumeur courait que la Cour préparait un massacre.
 
@@ -45,6 +45,7 @@ Pierre n'avait jamais pensé à la politique. Il travaillait douze heures par jo
 
 Le 5 mai 1789, les États généraux s'ouvrirent à Versailles. 1 200 député·es — 300 pour le clergé, 300 pour la noblesse, 600 pour le tiers état. Le roi, dans son discours, parla de réformes financières. Les député·es du tiers état, elleux, parlaient de tout autre chose : la souveraineté nationale, la constitution, les droits [source:britannica-french-revolution].
 
+[media:serment-jeu-paume]
 Le conflit éclata sur le vote : le roi voulait que chaque ordre vote séparément, ce qui aurait donné 2 voix aux privilégié·es contre 1 à la majorité populaire ; le tiers état exigeait le vote par tête. Le 17 juin, les député·es du tiers se proclamèrent **Assemblée nationale**. Le 20 juin, trouvant leur salle fermée par ordre du roi, ils se rendirent dans une salle de jeu de paume et jurèrent de ne pas se séparer avant d'avoir donné une constitution à la France.
 
 Le roi céda, puis durcit sa position. Il renvoya Necker, rassembla des troupes autour de Paris. La capitale s'embrasa [source:britannica-french-revolution].
@@ -54,20 +55,26 @@ Le roi céda, puis durcit sa position. Il renvoya Necker, rassembla des troupes 
 La Bastille, forteresse de huit tours construite au XIVe siècle sous Charles V pour protéger la porte Saint-Antoine, était détestée depuis des décennies comme symbole de l'arbitraire royal : on y était emprisonné sans procès, par simple *lettre de cachet* — un ordre scellé du roi permettant l'incarcération arbitraire, sans inculpation, sans jugement et sans limite de durée [source:britannica-bastille].
 
 Le 14 juillet 1789, une foule de plusieurs milliers de Parisien·nes — artisan·es, boutiquier·ères, ouvrier·ères — l'attaqua pour y prendre la poudre stockée dans ses murs. Le gouverneur de Launay, après avoir fait tirer sur la foule (98 mort·es), capitula. Il fut tué, sa tête promenée au bout d'une pique. La prise de la Bastille n'avait presque aucune importance militaire. Mais elle fut un symbole qui excita la révolution dans toute la France : le peuple de Paris avait vaincu le roi.
+[media:prise-bastille]
 
 Dans les jours qui suivirent, des communes révolutionnaires — c'est-à-dire les nouvelles municipalités élues qui remplaçaient les autorités royales — se formèrent partout en France. Le pouvoir royal s'effondrait rapidement dans les provinces comme à Paris [source:britannica-french-revolution].
+
+Dès la fin juillet 1789, des communes révolutionnaires s'étaient formées dans la plupart des grandes villes : Lyon, Marseille, Bordeaux, Nantes, Rouen, Lille, Strasbourg. Les anciennes autorités municipales, nommées par le roi ou les seigneurs, furent remplacées par des élections locales — une révolution administrative qui préfigura la création des départements en 1790.
 
 ### La Grande Peur et la nuit du 4 août
 
 Dans les campagnes, une rumeur terrible se répandit en juillet et août 1789 : les « brigands » — des aristocrates payés par les princes émigrés — allaient brûler les récoltes et massacrer les paysan·nes. En réalité, c'étaient parfois les paysan·nes elleux-mêmes qui attaquaient les châteaux pour brûler les archives où étaient consignées leurs dettes seigneuriales [source:britannica-french-revolution]. Dans tous les cas, les villages s'armèrent en panique.
 
+[media:nuit-4-aout]
 Dans la nuit du 4 août 1789, l'Assemblée nationale, sous le choc des nouvelles des campagnes, vota l'abolition des privilèges féodaux : les droits seigneuriaux, la dîme, les exemptions fiscales, les justices seigneuriales — tout ce qui structurait la société depuis des siècles fut aboli en quelques heures. C'est ce que les historien·nes appellent la « nuit du 4 août » : un moment d'enthousiasme collectif où les député·es, comme pris d'une fièvre, renoncèrent à leurs propres privilèges.
 
 ### La Déclaration des droits de l'homme (26 août 1789)
 
 Moins d'un mois plus tard, l'Assemblée adopta la **Déclaration des droits de l'homme et du citoyen** : 17 articles qui proclamaient la liberté, l'égalité, la propriété, la sûreté, la résistance à l'oppression comme droits naturels et imprescriptibles. « Les hommes naissent et demeurent libres et égaux en droits » (article 1) ; « Le principe de toute souveraineté réside essentiellement dans la Nation » (article 3).
 
-La Déclaration ne parlait pas des femmes (Olympe de Gouges en rédigea une version féminine en 1791 — elle fut guillotinée en 1793). Elle ne parlait pas des esclaves des colonies (l'esclavage ne fut aboli qu'en 1794, puis rétabli par Napoléon en 1802). Mais elle posait un principe qui allait ébranler le monde [source:britannica-french-revolution].
+[media:declaration-droits-homme]
+
+La Déclaration posait les grands principes des droits humains inaliénables qui allaient ébranler le monde. Cependant, l'universalité apparente de la Déclaration était en réalité beaucoup plus limitée que proclamée. Elle ne parlait pas des femmes : Olympe de Gouges rédigea une version féminine en 1791, mais elle reçut peu d'écho auprès des élites politiques quasi-totalement masculines de la jeune république. L'auteure elle-même fut guillotinée le 3 novembre 1793 pour avoir publié des pamphlets appelant à un référendum sur le choix du régime politique — un acte jugé séditieux par le Tribunal révolutionnaire [source:britannica-french-revolution]. La Déclaration ne parlait pas non plus des esclaves des colonies : l'esclavage ne fut aboli qu'en 1794, puis rétabli par Napoléon en 1802.
 
 ### Les femmes marchèrent sur Versailles (5-6 octobre 1789)
 
@@ -75,13 +82,17 @@ La récolte de 1788 avait été désastreuse : un orage de grêle dévastateur e
 
 La colère montait : le 5 octobre 1789, des milliers de femmes — marchandes, ouvrières, lavandières — prirent le chemin de Versailles, à vingt kilomètres de Paris. Elles traînaient des canons pris aux Invalides, battaient le tambour, exigeaient du pain. Dans l'après-midi, elles envahirent l'Assemblée nationale, puis, le lendemain matin, forcèrent les grilles du palais. Des gardes du roi furent tués ; La Fayette, commandant de la garde nationale, dut protéger la famille royale. La foule força Louis XVI, sa femme et ses enfants à revenir à Paris, « au milieu de son peuple ». La famille royale fut installée aux Tuileries, prisonniers dorés de la Révolution [source:britannica-french-revolution].
 
-Ces femmes — sans nom pour la plupart, sans voix dans les assemblées — avaient changé le cours des événements. Désormais, le roi était à Paris, sous la surveillance du peuple qui l'avait conquis.
+[media:femmes-versailles]
+
+Ces femmes — sans nom pour la plupart, sans voix dans les assemblées — avaient cependant changé le cours de l'Histoire française. Désormais, le roi était à Paris, sous la surveillance du peuple qui l'avait conquis.
 
 ## La monarchie constitutionnelle (1789–1792) {#monarchie-const}
 
 Pendant deux ans, la France tenta de fonctionner comme une monarchie constitutionnelle. L'Assemblée nationale réorganisa tout le royaume : les provinces furent remplacées par 83 départements ; l'Église fut réorganisée par la Constitution civile du clergé (1790) ; la justice, les impôts, les poids et mesures furent unifiés.
 
-Mais le roi jouait double jeu. Pieusement catholique, il refusait la Constitution civile du clergé. Le 21 juin 1791, il tenta de fuir Paris avec sa famille, déguisé en valet. Repéré à Varennes, il fut ramené sous escorte. [source:britannica-french-revolution]
+Mais le roi jouait double jeu. Pieusement catholique, il refusait la Constitution civile du clergé. Le 21 juin 1791, il tenta de fuir Paris avec sa famille, déguisé en valet. Repéré à Varennes, il fut ramené sous escorte [source:britannica-french-revolution].
+
+L'itinéraire de la fuite : de Paris vers l'est, par Bondy, Châlons-sur-Marne, jusqu'à Varennes-en-Argonne — à quelques kilomètres seulement de la frontière et du refuge royaliste de Montmédy. La famille royale, voyagant dans un lourd carrosse, fut reconnue à Sainte-Menehould par le maître de poste Jean-Baptiste Drouet, qui galopa prévenir les patriotes de Varennes. Le roi et sa famille furent arrêtés dans la nuit du 21 au 22 juin, puis ramenés à Paris sous escorte militaire, en un voyage de retour de quatre jours à travers la France humiliée et silencieuse.
 
 ### La guerre et la chute de la monarchie
 
@@ -89,13 +100,17 @@ Le 20 avril 1792, l'Assemblée législative déclara la guerre à l'Autriche. Le
 
 Le 10 août 1792, les sans-culottes — les petit·es artisan·es et ouvrier·ères parisien·nes organisé·es en sections — envahirent les Tuileries. Le roi et sa famille se réfugièrent à l'Assemblée. La monarchie tomba.
 
+[media:prise-tuileries]
+
 ## La République en guerre (1792–1794) {#republique-guerre}
 
-Le 21 septembre 1792, la Convention nationale — élue au suffrage universel masculin — proclama la République. Quelques jours plus tard, les armées françaises repoussèrent une intervention prussienne à Valmy.
+Le 21 septembre 1792, la Convention nationale — élue au **suffrage universel masculin** — proclama la République. Quelques jours plus tard, les armées françaises repoussèrent une intervention prussienne à Valmy.
 
 Le procès de Louis XVI commença en décembre 1792 devant la Convention nationale. Le roi, que les révolutionnaires appelaient désormais « Louis Capet » — du nom de famille de Hugues Capet, fondateur de la dynastie — pour lui refuser tout titre royal, fut condamné à mort par une courte majorité (361 voix pour la mort immédiate contre 319 pour l'emprisonnement).
 
-Le 21 janvier 1793, il monta sur l'échafaud place de la Révolution (aujourd'hui place de la Concorde). Ses derniers mots, prononcés d'une voix forte, furent : « Je meurs innocent de tous les crimes dont on m'accuse. Je pardonne à ceux qui ont causé ma mort. Je prie Dieu que le sang que vous allez répandre ne retombe jamais sur la France. »<!-- meilleure source souhaitée: témoignage contemporain --> [source:britannica-french-revolution] La lame commençait à descendre. Dans la foule, certains pleuraient ; mais la majorité cria « Vive la République ! Vive la Nation ! » et agita ses chapeaux. La tête du roi tomba, la monarchie millénaire avec elle [source:britannica-french-revolution].
+Le 21 janvier 1793, il monta sur l'échafaud place de la Révolution (aujourd'hui place de la Concorde). Ses derniers mots, prononcés d'une voix forte, furent : « Je meurs innocent de tous les crimes dont on m'accuse. Je pardonne à ceux qui ont causé ma mort. Je prie Dieu que le sang que vous allez répandre ne retombe jamais sur la France. » [source:britannica-french-revolution] La lame commençait à descendre. Dans la foule, certains pleuraient ; mais la majorité cria « Vive la République ! Vive la Nation ! » et agita ses chapeaux. La tête du roi tomba, la monarchie millénaire avec elle [source:britannica-french-revolution].
+
+[media:execution-louis-xvi]
 
 ### La Terreur (1793–1794) {#terreur}
 
@@ -103,55 +118,44 @@ L'exécution du roi déclencha une coalition de toutes les monarchies européenn
 
 Le **Comité de salut public**, dirigé par **Maximilien Robespierre**, prit le contrôle. La **Loi des suspects** (17 septembre 1793) permit d'arrêter quiconque était soupçonné d'activité contre-révolutionnaire. Le **Tribunal révolutionnaire** jugea sommairement. La guillotine fonctionna sans relâche : environ 17 000 exécutions officielles en France, dont 2 639 à Paris [source:britannica-french-revolution].
 
-Qui étaient les guillotiné·es ? Des nobles (8 %) et des prêtres (6 %), mais surtout des paysan·es, des artisan·es, des ouvrier·ères (environ 70 %) — accusé·es de « fédéralisme », de trahison, d'accaparement, de simple désobéissance.
+[media:terreur-comite]
+Qui étaient les guillotiné·es ? Il y avait des nobles (8 %) et des prêtres (6 %), mais surtout des paysan·es, des artisan·es, des ouvrier·ères (environ 70 %) — accusé·es de « fédéralisme », de trahison, d'accaparement, de simple désobéissance.
 
-La Terreur n'épargna pas les révolutionnaires elleux-mêmes. Danton, ancien ministre de la Justice, partisan de la modération, fut exécuté le 5 avril 1794. Des femmes aussi : Olympe de Gouges (3 novembre 1793), Madame Roland (8 novembre 1793). La Révolution, disait-on, « dévorait ses enfants ».
+La Terreur n'épargna pas les révolutionnaires elleux-mêmes. Danton, ancien ministre de la Justice, partisan de la modération, fut exécuté le 5 avril 1794 pour avoir appelé à mettre fin à la Terreur et avoir été accusé de corruption et d'intelligence avec l'étranger par le Comité de salut public. Des femmes aussi : Olympe de Gouges (3 novembre 1793), guillotinée pour ses écrits séditieux réclamant des droits politiques pour les femmes et un référendum sur le régime ; Madame Roland (8 novembre 1793), égérie du parti girondin, exécutée pour « conspiration contre l'unité de la République ». La Révolution, disait-on, « dévorait ses enfants ».
 
 ### Les sans-culottes et la vie quotidienne
 
-Les sans-culottes — ainsi nommé·es parce qu'ils portaient le pantalon long, non la culotte courte des nobles — étaient les petit·es artisan·es, les boutiquier·ères, les compagnon·nes des ateliers parisiens. Pendant cinq ans, ils furent l'aile marchante de la Révolution.
+Les sans-culottes — ainsi nommé·es parce qu'ils portaient le pantalon long, non la culotte courte des nobles — étaient les petit·es artisan·es, les boutiquier·ères, les compagnon·nes des ateliers parisiens. 
 
-Leur programme était simple : le pain à prix fixe, la taxation des riches, la Terreur contre les traîtres, l'instruction pour tou·tes. Ils vivaient dans les quartiers populaires de Paris — le Faubourg Saint-Antoine, la rue Mouffetard, la Montagne Sainte-Geneviève — dans des immeubles de six étages, sans eau ni chauffage, partageant une cour et une fontaine [source:britannica-french-revolution].
+Leur programme était simple : le pain à prix fixe, la taxation des riches, la Terreur contre les traîtres, l'instruction pour tou·tes. Ils vivaient dans les quartiers populaires de Paris — le Faubourg Saint-Antoine (à l'est, autour de la Bastille), la rue Mouffetard (sur la rive gauche, au pied de la Montagne Sainte-Geneviève), les Halles, le quartier des Arcis — dans des immeubles de six étages, sans eau ni chauffage, partageant une cour et une fontaine [source:britannica-french-revolution]. Ces quartiers formaient un arc populaire qui cernait le centre monarchique et aristocratique des Tuileries et du Marais : géographie sociale qui préfigurait les affrontements politiques des années suivantes.
 
-Trois dates scandent leur action. Le **14 juillet 1789** : la prise de la Bastille, où tout avait commencé. Le **10 août 1792** : l'invasion des Tuileries, mettant fin à la monarchie. Le **31 mai 1793** : l'arrestation des député·es girondin·es, la faction modérée, ouvrant la voie à la Terreur.  Ces grands jours révolutionnaires furent portés par ces hommes et ces femmes qui n'avaient que leurs bras et leur détermination.
+Malgré leurs moyens modestes, pendant cinq ans, ils furent l'aile marchante de la Révolution.
+
+Leur force tenait à leur organisation. Chaque section de Paris — quarante-huit au total — était une assemblée populaire permanente où l'on débattait des lois, des prix du pain, de la défense de la patrie. Les sections envoyaient des représentant·es à la Commune de Paris, qui rivalisait parfois d'autorité avec la Convention nationale. C'est des sections que partirent les grandes journées révolutionnaires : le 10 août 1792, le 31 mai 1793. Les sans-culottes avaient leurs journaux — *Le Père Duchesne* d'Hébert, lu à haute voix dans les ateliers — leurs clubs, leurs chansons. *Ça ira, ça ira, les aristocrates à la lanterne* — la musique scandait les exécutions comme les fêtes.
+
+Cependant, leur influence déclina après la chute de Robespierre. Le Directoire, régime censitaire qui exigeait une fortune minimale pour voter, les exclut de la vie politique. La loi Le Chapelier interdisait leurs coalitions. La disette continuait, les prix flambaient. Privé·es de pain et de voix, les sans-culottes rentrèrent dans leurs ateliers et leurs échoppes, laissant la République aux mains des notables. Le peuple de Paris, qui avait fait la Révolution, en fut l'un des grands perdants.
 
 ## La réaction et le Directoire (1794–1799) {#directoire}
 
-Le 27 juillet 1794 (9 thermidor an II), Robespierre fut renversé en un jour par ses collègues de la Convention. La veille, il avait prononcé un discours menaçant, dénonçant des conspirateurs sans les nommer — ce qui terrifia les députés, craignant une nouvelle purge. Le 9 thermidor, Tallien et d'autres retournèrent la Convention contre lui : l'assemblée vota son arrestation et celle de Saint-Just, Couthon et son frère Augustin. La Commune de Paris les libéra et les accueillit à l'Hôtel de Ville, mais les troupes fidèles à la Convention, menées par Barras, encerclèrent le bâtiment. Robespierre tenta de se suicider d'un coup de pistolet et se brisa la mâchoire. Le lendemain, il fut guillotiné sans procès, avec 21 de ses partisans [source:britannica-french-revolution].
+Le 27 juillet 1794 (9 thermidor an II), Robespierre fut renversé par ses collègues de la Convention en un seul jour. La veille, il avait prononcé un discours menaçant, dénonçant des conspirateurs sans les nommer — ce qui terrifia les députés, craignant une nouvelle purge. Le 9 thermidor, Tallien et d'autres retournèrent la Convention contre lui : l'assemblée vota son arrestation et celle de Saint-Just, Couthon et son frère Augustin. La Commune de Paris les libéra et les accueillit à l'Hôtel de Ville, mais les troupes fidèles à la Convention, menées par Barras, encerclèrent le bâtiment. Robespierre tenta de se suicider d'un coup de pistolet et se brisa la mâchoire. Le lendemain, il fut guillotiné sans procès, avec 21 de ses partisans [source:britannica-french-revolution].
 
+[media:arrestation-robespierre]
 La **réaction thermidorienne** ouvrit une période de liquidation de la Terreur. Les clubs jacobins — ces sociétés politiques qui avaient été le nerf de la Révolution, avec des centaines d'antennes à travers toute la France — furent fermés, la loi des suspects abrogée, les prisonnier·ères libéré·es. Les jeunes riches des quartiers de l'Ouest parisien — les « muscadins » — pourchassaient les anciens jacobins dans les rues. La guillotine, dressée place de Grève, exécuta une fois encore les révolutionnaires.
 
 Le **Directoire** (1795–1799) fut un régime de compromis : cinq directeurs, un parlement bicaméral, un suffrage censitaire qui excluait les pauvres. Le pain était toujours rare, la corruption généralisée, les guerres continuaient. Les royalistes tentèrent un coup d'État en 1795. Il fut réprimé par Bonaparte, « le général vendémiaire ». Les jacobins tentèrent leur chance aussi, en 1796, avec la conjuration des Égaux de Gracchus Babeuf. La conspiration, qui visait à renverser le Directoire pour instaurer une république égalitariste et collectiviste, fut dénoncée par l'un de ses membres, Georges Grisel. Babeuf et ses principaux lieutenants furent arrêtés le 10 mai 1796 avant d'avoir pu passer à l'action. Jugés à Vendôme, Babeuf et Darthé furent condamnés à mort et exécutés le 27 mai 1797 [source:britannica-french-revolution].
 
+[media:gracchus-babeuf]
 La jeune république, dix ans après la révolution, était épuisée : par les guerres civiles et étrangères, par l'instabilité politique chronique et par une crise économique qui ne finissait pas. 
 
 ## La révolution réussit, mais pour qui ?
 
-La Révolution française a transformé la société en profondeur : en abolissant les privilèges, en proclamant l'égalité civile et en ouvrant les carrières au mérite plutôt qu'à la naissance. 
+La Révolution française a transformé la société en profondeur : en abolissant les privilèges, en proclamant l'égalité civile et en ouvrant les carrières au mérite plutôt qu'à la naissance.
 
-Mais les bénéfices furent très inégalement répartis.
+Cependant, les bénéfices furent très inégalement répartis.
 
-### Les grand·es gagnant·es
+<!-- Le tableau interactif est rendu par le composant RevolutionBilan -->
 
-**La grande bourgeoisie** — banquier·ères, négociant·es, manufacturier·ères — fut la grande gagnante de la Révolution. Elle accéda aux postes de pouvoir, acheta les biens nationaux confisqués à l'Église et aux émigrés, et imposa sa conception de la liberté — celle du commerce, de la propriété, des carrières ouvertes aux talents [source:britannica-french-revolution]. Les bourgeois éclairés, qui lisaient Voltaire et Rousseau, trouvèrent dans la Révolution l'aboutissement de leurs aspirations : une société où le mérite, non la naissance, décidait du rang.
-
-**Les paysan·nes** gagnèrent aussi: l'abolition des droits seigneuriaux supprimait des charges qui pesaient sur elles·eux depuis des générations. L'accès à la propriété, rendu possible par la vente des biens nationaux, transforma des milliers de métayer·ères en propriétaires. L'égalité civile, enfin, les rendait citoyen·nes à part entière. Cependant, la conscription — la levée en masse de 300 000 hommes en 1793 — emporta des paysans dans des guerres qui ne finissaient plus.
-
-### Les ambivalent·es
-
-**Les ouvrier·ères et les artisan·es** — les sans-culottes — gagnèrent l'égalité politique, mais perdirent la bataille économique. La loi Le Chapelier (1791) interdit les grèves et les coalitions ouvrières, brisant la solidarité entre travailleur·euses. Le salariat, libre en théorie, restait soumis en pratique à la volonté du patron. Le pain avait été taxé pendant la Terreur, et le prix explosa après la chute de la Terreur. Les plus pauvres virent leur situation empirer sous le Directoire, quand le suffrage censitaire les exclut du vote. La Révolution avait proclamé l'égalité — mais sans pain, sans travail décent, sans protection, l'égalité politique restait une promesse vide pour les classes populaires urbaines.
-
-### Les ignoré·es
-
-**Les femmes** furent les grandes oubliées de la Révolution malgré leur participation active — les marches d'octobre 1789, les sections révolutionnaires, la garde des frontières. Olympe de Gouges rédigea la *Déclaration des droits de la femme et de la citoyenne* (1791), mais la Convention la rejeta ; elle fut arrêtée, jugée pour ses écrits et guillotinée le 3 novembre 1793. Condorcet proposa le droit de vote des femmes en 1790 ; la Convention refusa. La République reconnaissait les femmes comme citoyennes passives — elles avaient des devoirs (payer des impôts, obéir aux lois) mais pas de droits politiques. Pire : le code civil napoléonien, en 1804, allait reculer leurs droits par rapport à l'Ancien Régime, en les plaçant sous la tutelle juridique de leur mari [source:britannica-code-napoleon].
-
-**Les esclaves des colonies** connurent une brève libération : la Convention abolit l'esclavage le 4 février 1794, sous la pression de la révolte de Saint-Domingue (l'actuelle Haïti) menée par Toussaint Louverture. Mais Napoléon le rétablit en 1802, envoyant une expédition militaire pour mater la révolte. Les ancien·nes esclaves d'Haïti durent conquérir leur liberté les armes à la main : le pays devint indépendant en 1804, la première république noire de l'histoire. Dans les autres colonies françaises — Martinique, Guadeloupe, La Réunion — l'esclavage fut rétabli et perdura jusqu'en 1848 [source:britannica-french-revolution].
-
-### Les perdant·es
-
-**Le roi et sa famille** eurent la tête tranchée — Louis XVI le 21 janvier 1793, Marie-Antoinette le 16 octobre 1793. {des autres dans la famille ?} La monarchie millénaire tomba avec eux.
-
-**La noblesse et le clergé** perdirent ainsi leurs privilèges — exemptions fiscales, droits seigneuriaux, dîme, justices seigneuriales — abolis dans la nuit du 4 août 1789. Beaucoup durent s'exiler (les « émigrés »), leurs biens furent confisqués et vendus comme biens nationaux. L'Église catholique, dépouillée de ses terres et réorganisée par la Constitution civile du clergé, sortit profondément affaiblie de la décennie révolutionnaire [source:britannica-french-revolution].
+[media:toussaint-louverture]
 
 ## Épilogue : la liberté et l'égalité, une question jamais résolue
 
