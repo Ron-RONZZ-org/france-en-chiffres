@@ -1,0 +1,142 @@
+---
+// CoalitionCampaignMap.astro — Leaflet map of the 1814 campaign in France
+// Shows the 6th Coalition armies converging on Paris while Napoleon
+// fought rearguard actions.
+import MapShell from './MapShell.astro';
+---
+
+<MapShell
+  id="coalition-1814"
+  label="Carte de la campagne de France (1814) — mouvements des armées de la Sixième Coalition"
+  title="La campagne de France (février-mars 1814)"
+  hint="En rouge : armée napoléonienne. En bleu : armées coalisées. Cliquez sur une bataille pour zoomer."
+/>
+
+<script>
+  import { initMap, onViewTransition } from '../scripts/maps/shared-map';
+  import L from 'leaflet';
+  import tippy from 'tippy.js';
+  import 'tippy.js/dist/tippy.css';
+  import 'tippy.js/animations/shift-away.css';
+
+  (() => {
+    const map = initMap('coalition-1814-map', {
+      center: [48.2, 3.5],
+      zoom: 7,
+      minZoom: 5,
+      maxZoom: 10,
+    });
+    if (!map) return;
+
+    // ── Battles of the 1814 French campaign ──
+    const battles = [
+      { name: 'Champaubert', coords: [48.8833, 3.7833], date: '10 février 1814', desc: 'Napoléon écrase le corps russe d\'Olsufiev, capturant 2 000 hommes. Première victoire de la campagne.', type: 'victoire' },
+      { name: 'Montmirail', coords: [48.8667, 3.5333], date: '11 février 1814', desc: 'Napoléon défait les Prussiens de Sacken et les Russes d\'Osten-Sacken, infligeant 4 000 pertes.', type: 'victoire' },
+      { name: 'Château-Thierry', coords: [49.0333, 3.4000], date: '12 février 1814', desc: 'Napoléon poursuit les alliés en déroute, leur infligeant de nouvelles pertes.', type: 'victoire' },
+      { name: 'Vauchamps', coords: [48.8833, 3.6167], date: '14 février 1814', desc: 'Napoléon bat Blücher, mettant fin à la contre-offensive prussienne. 5 000 pertes alliées.', type: 'victoire' },
+      { name: 'Mormant', coords: [48.6167, 3.0000], date: '17 février 1814', desc: 'Napoléon bat le corps russe de Wittgenstein.', type: 'victoire' },
+      { name: 'Montereau', coords: [48.3833, 2.9500], date: '18 février 1814', desc: 'Victoire française. Napoléon en personne pointe les canons. Les Alliés reculent.', type: 'victoire' },
+      { name: 'Craonne', coords: [49.4333, 3.7833], date: '7 mars 1814', desc: 'Bataille indécise sur le plateau de Craonne. Napoléon manque de détruire le corps de Blücher.', type: 'indecise' },
+      { name: 'Laon', coords: [49.5667, 3.6167], date: '9-10 mars 1814', desc: 'Défaite française. Blücher, renforcé, repousse Napoléon.', type: 'defaite' },
+      { name: 'Reims', coords: [49.2500, 4.0333], date: '13 mars 1814', desc: 'Napoléon reprend Reims aux coalisés, capturant 5 000 hommes.', type: 'victoire' },
+      { name: 'Arcis-sur-Aube', coords: [48.5333, 4.1333], date: '20-21 mars 1814', desc: 'Napoléon, inférieur en nombre, évite l\'encerclement et bat en retraite vers Saint-Dizier.', type: 'defaite' },
+      { name: 'Paris', coords: [48.8566, 2.3522], date: '30-31 mars 1814', desc: 'Bataille de Paris. Marmont capitule. Les Alliés entrent dans Paris. Napoléon abdique le 6 avril.', type: 'capitulation' },
+    ];
+
+    // ── Coalition army movements (general direction arrows) ──
+    const coalitionArmies = [
+      { name: 'Armée de Silésie (Blücher)', path: [[51.0, 6.0], [49.5, 4.5], [49.0, 3.8], [48.9, 3.6]], color: '#2563eb', weight: 3 },
+      { name: 'Armée de Bohême (Schwarzenberg)', path: [[48.5, 7.0], [48.3, 5.0], [48.4, 4.0], [48.5, 3.0], [48.6, 2.5]], color: '#1d4ed8', weight: 3 },
+      { name: 'Armée de Napoléon', path: [[48.5, 2.5], [48.9, 3.8], [48.9, 3.6], [48.5, 3.0], [48.5, 2.5], [48.55, 4.1], [48.55, 2.35]], color: '#dc2626', weight: 4 },
+    ];
+
+    const legendContent = document.getElementById('coalition-1814-legend-content');
+
+    function updateLegend(battle) {
+      if (!legendContent) return;
+      const typeLabel = { victoire: 'Victoire française', defaite: 'Défaite française', indecise: 'Bataille indécise', capitulation: 'Capitulation' };
+      legendContent.innerHTML = `
+        <p class="map-shell__legend-site"><strong>${battle.name}</strong></p>
+        <p class="map-shell__legend-lieu" style="color:#d4a843">${battle.date}</p>
+        <p class="map-shell__legend-age">${typeLabel[battle.type]}</p>
+        <p class="map-shell__legend-desc">${battle.desc}</p>
+      `;
+    }
+
+    function clearLegend() {
+      if (!legendContent) return;
+      legendContent.innerHTML = '<p class="map-shell__legend-placeholder">Survolez une bataille ou cliquez pour zoomer.</p>';
+    }
+
+    // ── Coalition army lines ──
+    coalitionArmies.forEach((army) => {
+      const polyline = L.polyline(army.path, {
+        color: army.color,
+        weight: army.weight,
+        opacity: 0.6,
+        dashArray: '8, 6',
+      }).addTo(map);
+
+      // Add arrow markers at midpoint
+      const midIdx = Math.floor(army.path.length / 2);
+      const p1 = army.path[midIdx - 1];
+      const p2 = army.path[midIdx];
+      if (p1 && p2) {
+        const angle = Math.atan2(p2[1] - p1[1], p2[0] - p1[0]) * 180 / Math.PI;
+        L.marker(p2, {
+          icon: L.divIcon({
+            className: 'coalition-arrow',
+            html: `<div class="coalition-arrow__icon" style="color:${army.color};transform:rotate(${angle}deg)">▶</div>`,
+            iconSize: [16, 16],
+            iconAnchor: [8, 8],
+          }),
+        }).addTo(map);
+      }
+    });
+
+    // ── Battle markers ──
+    battles.forEach((battle) => {
+      const colors = { victoire: '#22c55e', defaite: '#ef4444', indecise: '#f59e0b', capitulation: '#6b7280' };
+      const color = colors[battle.type] || '#6b7280';
+
+      const marker = L.circleMarker(battle.coords, {
+        radius: battle.type === 'capitulation' ? 12 : 8,
+        color: color,
+        weight: 2,
+        fillColor: color,
+        fillOpacity: 0.7,
+      }).addTo(map);
+
+      marker.bindTooltip(`<div style="font-size:0.8rem;line-height:1.4"><strong>${battle.name}</strong><br><span style="color:${color}">${battle.date}</span><br>${battle.desc}</div>`);
+
+      marker.on('mouseover', () => updateLegend(battle));
+      marker.on('mouseout', () => clearLegend());
+      marker.on('click', () => {
+        map.setView(battle.coords, 9, { animate: true });
+      });
+    });
+
+    // Fit bounds
+    const bounds = L.latLngBounds(battles.map((b) => b.coords));
+    map.fitBounds(bounds, { padding: [50, 50], maxZoom: 7 });
+
+    onViewTransition(map);
+  })();
+</script>
+
+<style>
+  .coalition-arrow {
+    background: none !important;
+    border: none !important;
+  }
+  .coalition-arrow__icon {
+    display: block;
+    width: 16px;
+    height: 16px;
+    font-size: 14px;
+    line-height: 16px;
+    text-align: center;
+    text-shadow: 0 0 4px rgba(0,0,0,0.8);
+    cursor: default;
+  }
+</style>

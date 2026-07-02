@@ -1,0 +1,145 @@
+---
+// NapoleonExileMap.astro — Leaflet map showing Napoleon's two exiles:
+// Elba (1814-1815) and St. Helena (1815-1821).
+// Embedded in lempire-napoleonien event page.
+import MapShell from './MapShell.astro';
+---
+
+<MapShell
+  id="napoleon-exil"
+  label="Carte des lieux d'exil de Napoléon : île d'Elbe et Sainte-Hélène"
+  title="Les exils de Napoléon : Elbe et Sainte-Hélène"
+  hint="De l'Elbe (Méditerranée) à Sainte-Hélène (Atlantique Sud). Survolez un marqueur pour plus d'informations."
+  height={500}
+/>
+
+<script>
+  import { initMap, onViewTransition } from '../scripts/maps/shared-map';
+  import tippy from 'tippy.js';
+  import 'tippy.js/dist/tippy.css';
+  import 'tippy.js/animations/shift-away.css';
+
+  (() => {
+    const map = initMap('napoleon-exil-map', {
+      center: [20.0, -10.0],
+      zoom: 3,
+      minZoom: 2,
+      maxZoom: 8,
+    });
+    if (!map) return;
+
+    const locations = [
+      {
+        id: 'elbe',
+        name: 'Île d\'Elbe',
+        coords: [42.7833, 10.3167],
+        date: '1814–1815',
+        desc: 'Napoléon y est exilé après sa première abdication (6 avril 1814). Il reçoit la souveraineté de l\'île (319 km²), conserve 1 000 hommes et y réside 300 jours avant de s\'en échapper le 26 février 1815.',
+        type: 'exil',
+        capital: 'Portoferraio',
+      },
+      {
+        id: 'sainte-helene',
+        name: 'Sainte-Hélène',
+        coords: [-15.9833, -5.7000],
+        date: '1815–1821',
+        desc: 'Napoléon y est exilé après Waterloo. Il débarque le 15 octobre 1815 et réside à Longwood House jusqu\'à sa mort le 5 mai 1821. L\'île, possession britannique perdue dans l\'Atlantique Sud, est l\'une des terres les plus isolées du monde.',
+        type: 'exil',
+        capital: 'Jamestown',
+      },
+      {
+        id: 'golfe-juan',
+        name: 'Golfe-Juan',
+        coords: [43.5500, 7.0667],
+        date: '1er mars 1815',
+        desc: 'Débarquement de Napoléon à son retour de l\'île d\'Elbe, avec 1 000 hommes. Début des Cent-Jours.',
+        type: 'retour',
+      },
+      {
+        id: 'waterloo',
+        name: 'Waterloo',
+        coords: [50.7167, 4.3833],
+        date: '18 juin 1815',
+        desc: 'Dernière bataille de Napoléon. Défaite face aux Anglo-Prussiens. Seconde abdication quatre jours plus tard.',
+        type: 'defaite',
+      },
+      {
+        id: 'paris',
+        name: 'Paris',
+        coords: [48.8566, 2.3522],
+        date: '1815',
+        desc: 'Napoléon regagne Paris le 20 mars 1815 après son retour de l\'Elbe. Abdique une seconde fois le 22 juin après Waterloo.',
+        type: 'capitale',
+      },
+    ];
+
+    const legendContent = document.getElementById('napoleon-exil-legend-content');
+
+    function updateLegend(loc) {
+      if (!legendContent) return;
+      const typeLabel = { exil: 'Lieu d\'exil', retour: 'Retour', defaite: 'Défaite finale', capitale: 'Capitale' };
+      legendContent.innerHTML = `
+        <p class="map-shell__legend-site"><strong>${loc.name}</strong></p>
+        <p class="map-shell__legend-lieu" style="color:#d4a843">${loc.date}</p>
+        ${loc.capital ? `<p class="map-shell__legend-lieu">Chef-lieu : ${loc.capital}</p>` : ''}
+        <p class="map-shell__legend-age">${typeLabel[loc.type] || ''}</p>
+        <p class="map-shell__legend-desc">${loc.desc}</p>
+      `;
+    }
+
+    function clearLegend() {
+      if (!legendContent) return;
+      legendContent.innerHTML = '<p class="map-shell__legend-placeholder">Survolez un lieu pour plus d\'informations.</p>';
+    }
+
+    locations.forEach((loc) => {
+      const colors = { exil: '#ef4444', retour: '#22c55e', defaite: '#6b7280', capitale: '#d4a843' };
+      const color = colors[loc.type] || '#6b7280';
+
+      const marker = L.circleMarker(loc.coords, {
+        radius: loc.type === 'exil' ? 12 : 8,
+        color: color,
+        weight: 2,
+        fillColor: color,
+        fillOpacity: 0.7,
+      }).addTo(map);
+
+      marker.bindTooltip(`<div style="font-size:0.8rem;line-height:1.4"><strong>${loc.name}</strong><br><span style="color:${color}">${loc.date}</span><br>${loc.desc}</div>`);
+
+      marker.on('mouseover', () => updateLegend(loc));
+      marker.on('mouseout', () => clearLegend());
+      marker.on('click', () => {
+        map.setView(loc.coords, 6, { animate: true });
+      });
+    });
+
+    // Draw a dashed arc from Elba to St Helena
+    const points = [
+      [42.8, 10.3],
+      [40.0, 11.0],
+      [35.0, 10.0],
+      [30.0, 8.0],
+      [25.0, 5.0],
+      [20.0, 2.0],
+      [15.0, -1.0],
+      [10.0, -3.0],
+      [5.0, -4.5],
+      [0.0, -5.0],
+      [-5.0, -5.5],
+      [-10.0, -5.5],
+      [-15.0, -5.7],
+    ];
+    L.polyline(points, {
+      color: '#ef4444',
+      weight: 2,
+      opacity: 0.5,
+      dashArray: '6, 8',
+    }).addTo(map);
+
+    // Fit bounds
+    const bounds = L.latLngBounds(locations.map((l) => l.coords));
+    map.fitBounds(bounds, { padding: [50, 50], maxZoom: 3 });
+
+    onViewTransition(map);
+  })();
+</script>

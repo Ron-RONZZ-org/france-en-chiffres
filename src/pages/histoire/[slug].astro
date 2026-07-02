@@ -12,6 +12,11 @@ import RomanProvincesMap from '../../components/RomanProvincesMap.astro';
 import RomanCitiesMap from '../../components/RomanCitiesMap.astro';
 import RevolutionBilan from '../../components/RevolutionBilan.astro';
 import RevolutionMaps from '../../components/RevolutionMaps.astro';
+import FirstColonialEmpireMap from '../../components/FirstColonialEmpireMap.astro';
+import SecondColonialEmpireMap from '../../components/SecondColonialEmpireMap.astro';
+import NapoleonBirthplaceMap from '../../components/NapoleonBirthplaceMap.astro';
+import CoalitionCampaignMap from '../../components/CoalitionCampaignMap.astro';
+import NapoleonExileMap from '../../components/NapoleonExileMap.astro';
 
 export async function getStaticPaths() {
   const events = await getCollection('events');
@@ -82,6 +87,11 @@ const galleryMedia = (await Promise.all(
       {event.id === 'occupation-romaine' && <RomanCitiesMap />}
       {event.id === 'revolution-francaise' && <RevolutionMaps />}
       {event.id === 'revolution-francaise' && <RevolutionBilan />}
+      {event.id === 'le-xixe-siecle' && <FirstColonialEmpireMap />}
+      {event.id === 'le-xixe-siecle' && <SecondColonialEmpireMap />}
+      {event.id === 'empire-napoleonien' && <NapoleonBirthplaceMap />}
+      {event.id === 'empire-napoleonien' && <CoalitionCampaignMap />}
+      {event.id === 'empire-napoleonien' && <NapoleonExileMap />}
     </div>
 
     <footer class="event-page__footer">
