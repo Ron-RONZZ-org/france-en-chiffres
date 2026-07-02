@@ -1,0 +1,15 @@
+{
+  "id": "houdaille-blum-1985-illettrisme",
+  "type": "article-journal",
+  "title": "L'alphabétisation au XVIIIe et XIXe siècle. L'illusion parisienne",
+  "container-title": "Population",
+  "publisher": "INED",
+  "author": [
+    { "family": "Houdaille", "given": "Jacques" },
+    { "family": "Blum", "given": "Alain" }
+  ],
+  "issued": { "date-parts": [[1985]] },
+  "volume": "40",
+  "issue": "6",
+  "URL": "https://www.persee.fr/doc/pop_0032-4663_1985_num_40_6_17652"
+}

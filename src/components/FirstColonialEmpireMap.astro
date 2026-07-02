@@ -1,0 +1,209 @@
+---
+// FirstColonialEmpireMap.astro — Leaflet map of the 1st French colonial empire
+// Shows territories lost (red), territories kept after 1815 (blue),
+// and territories lost in other conflicts (purple)
+---
+
+<section class="colonial-map-section">
+  <div id="first-colonial-empire-map" class="colonial-map" role="application" aria-label="Carte du premier empire colonial français">
+    <noscript>
+      <div class="colonial-map__noscript">
+        <p>La carte interactive nécessite JavaScript.</p>
+      </div>
+    </noscript>
+  </div>
+</section>
+
+<script>
+  import L from 'leaflet';
+  import 'leaflet/dist/leaflet.css';
+  import tippy from 'tippy.js';
+  import 'tippy.js/dist/tippy.css';
+  import 'tippy.js/animations/shift-away.css';
+
+  (() => {
+    const mapEl = document.getElementById('first-colonial-empire-map');
+    if (!mapEl) return;
+
+    // Countries of the 1st French colonial empire
+    const territories = {
+      kept: {
+        label: 'Possessions conservées après 1815',
+        color: '#2563eb',
+        countries: ['GLP', 'MTQ', 'GUF', 'REU', 'SPM', 'MYT'],
+      },
+      lostSevenYears: {
+        label: 'Perdues lors de la guerre de Sept Ans (1756–1763)',
+        color: '#dc2626',
+        countries: ['CAN', 'USA'],
+      },
+      lostOther: {
+        label: 'Perdues lors d\'autres conflits',
+        color: '#7c3aed',
+        countries: ['HTI', 'IND', 'LKA'],
+      },
+    };
+
+    const map = L.map(mapEl, {
+      center: [30, 0],
+      zoom: 2,
+      minZoom: 2,
+      maxZoom: 5,
+      zoomControl: true,
+      attributionControl: true,
+      maxBounds: [[-90, -180], [90, 180]],
+      maxBoundsViscosity: 1.0,
+    });
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a>',
+      maxZoom: 19,
+    }).addTo(map);
+
+    let worldData = null;
+
+    async function loadData() {
+      try {
+        const resp = await fetch('/data/geo/world-countries.json');
+        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+        worldData = await resp.json();
+
+        // Color by territory group
+        L.geoJSON(worldData, {
+          style: (feature) => {
+            const iso = feature.properties.iso_a3;
+            for (const [key, group] of Object.entries(territories)) {
+              if (group.countries.includes(iso)) {
+                return {
+                  fillColor: group.color,
+                  fillOpacity: 0.6,
+                  color: '#334155',
+                  weight: 0.8,
+                };
+              }
+            }
+            return {
+              fillColor: '#1e293b',
+              fillOpacity: 0.1,
+              color: '#475569',
+              weight: 0.5,
+            };
+          },
+          onEachFeature: (feature, layer) => {
+            const props = feature.properties;
+            const iso = props.iso_a3;
+
+            let groupInfo = '';
+            for (const [, group] of Object.entries(territories)) {
+              if (group.countries.includes(iso)) {
+                groupInfo = group.label;
+                break;
+              }
+            }
+
+            const name = props.name_fr || props.name_en || iso;
+            const tip = groupInfo
+              ? `<div class="colonial-tooltip"><strong>${name}</strong><br><span style="font-size:0.85em;opacity:0.8">${groupInfo}</span></div>`
+              : `<div class="colonial-tooltip">${name}</div>`;
+
+            layer.bindTooltip(tip, {
+              sticky: true,
+              direction: 'top',
+              className: 'colonial-tooltip-leaflet',
+            });
+
+            if (groupInfo) {
+              layer.on('mouseover', () => {
+                layer.setStyle({ fillOpacity: 0.8, weight: 1.5 });
+              });
+              layer.on('mouseout', () => {
+                layer.setStyle({ fillOpacity: 0.6, weight: 0.8 });
+              });
+            }
+          },
+        }).addTo(map);
+
+        // Legend
+        const legend = L.control({ position: 'bottomleft' });
+        legend.onAdd = () => {
+          const div = L.DomUtil.create('div', 'colonial-legend');
+          div.innerHTML = `
+            <p style="font-weight:700;margin:0 0 4px;font-size:13px">Premier empire colonial</p>
+            <div style="display:flex;flex-direction:column;gap:2px;font-size:11px">
+              <span><span style="display:inline-block;width:12px;height:12px;background:#2563eb;border-radius:2px;margin-right:4px;vertical-align:middle"></span>Possessions conservées après 1815</span>
+              <span><span style="display:inline-block;width:12px;height:12px;background:#dc2626;border-radius:2px;margin-right:4px;vertical-align:middle"></span>Perdues guerre de Sept Ans (1756–1763)</span>
+              <span><span style="display:inline-block;width:12px;height:12px;background:#7c3aed;border-radius:2px;margin-right:4px;vertical-align:middle"></span>Perdues lors d'autres conflits</span>
+            </div>
+          `;
+          return div;
+        };
+        legend.addTo(map);
+
+      } catch (err) {
+        console.error('Failed to load world data:', err);
+      }
+    }
+
+    loadData();
+  })();
+</script>
+
+<style>
+  .colonial-map-section {
+    width: 100%;
+    max-width: 900px;
+    margin: var(--gap-lg) auto;
+    padding: 0 var(--gap-lg);
+  }
+
+  .colonial-map {
+    width: 100%;
+    height: 450px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+    overflow: hidden;
+    background: #1e293b;
+  }
+
+  .colonial-map__noscript {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: var(--color-text-muted);
+    font-size: 1rem;
+    padding: var(--gap-lg);
+    text-align: center;
+  }
+
+  :global(.colonial-legend) {
+    background: rgba(15, 23, 42, 0.92);
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid #334155;
+    color: #e2e8f0;
+    font-size: 12px;
+    line-height: 1.5;
+    backdrop-filter: blur(4px);
+  }
+
+  :global(.colonial-tooltip-leaflet) {
+    background: #111827;
+    border: 1px solid #334155;
+    border-radius: 6px;
+    color: #e2e8f0;
+    font-size: 0.8rem;
+    padding: 4px 8px;
+  }
+
+  :global(.leaflet-container) {
+    font-family: inherit;
+    background: #1e293b;
+  }
+
+  :global(.leaflet-control-zoom a) {
+    background: #1e293b;
+    color: #e2e8f0;
+    border-color: #334155;
+  }
+</style>

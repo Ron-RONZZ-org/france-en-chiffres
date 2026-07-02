@@ -1,0 +1,34 @@
+{
+  "id": "illettrisme-france",
+  "type": "line",
+  "title": "Taux d'illettrisme en France (1800–1914)",
+  "caption": "Proportion de la population française ne sachant ni lire ni écrire, de 1800 à 1914. Les lois Ferry (1881–1882) accélérèrent la baisse de l'illettrisme.",
+  "credit": "France en Chiffres, d'après Houdaille & Blum (1985)",
+  "license": "CC BY-SA 4.0",
+  "sourceIds": ["houdaille-blum-1985-illettrisme"],
+  "width": 720,
+  "height": 400,
+  "palette": ["#1a5276"],
+  "config": {
+    "xAxis": { "label": "Année" },
+    "yAxis": { "label": "Population illettrée (%)", "min": 0, "max": 60, "unit": "%" },
+    "interpolation": "monotone"
+  },
+  "data": {
+    "series": [
+      {
+        "name": "France",
+        "values": [
+          { "x": 1800, "y": 55 },
+          { "x": 1820, "y": 48 },
+          { "x": 1840, "y": 40 },
+          { "x": 1860, "y": 30 },
+          { "x": 1880, "y": 20 },
+          { "x": 1890, "y": 14 },
+          { "x": 1900, "y": 8 },
+          { "x": 1914, "y": 4 }
+        ]
+      }
+    ]
+  }
+}

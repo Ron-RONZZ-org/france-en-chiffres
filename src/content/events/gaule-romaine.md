@@ -26,7 +26,7 @@ timeline:
 ## La dernière bataille
 
 L'année était 52 AEC, et Carata avait douze ans. Les nouvelles arrivèrent comme le tonnerre sur son village, au pied du mont Beuvray. Vercingétorix, le chef arverne, avait rallié les tribus : des milliers de guerrier·ères descendaient des collines ; les femmes fourbissaient les chars ; les plus âgé·es gardaient les enfants ; les forgerons travaillaient jour et nuit. Son père attelait les bœufs pour porter des provisions au camp. Sa mère cachait le grain sous le sol de la maison.
-
+{(montage de) illustration(s)/image(s) sous licence libre de la vie villageoise en France avant l'arrivée des romains}
 Puis le silence. La rumeur d'un siège à Alésia. Le bruit d'une défaite.
 
 Un soir d'automne, des rescapé·es passèrent devant la ferme, épuisé·es : « C'est fini, dirent e·ils. Les Romains sont partout. » Personne ne savait ce que cela signifiait vraiment.
@@ -38,7 +38,7 @@ Ce que personne ne pouvait encore imaginer, c'est que dans cinquante ans, le mon
 Les Romains n'ont pas débarqué en Gaule par surprise un beau matin en 58 AEC. Leurs relations avec les peuples du nord remontaient à plusieurs siècles — et passaient d'abord par la mer.
 
 En 600 AEC, des marin·es et marchand·es grec·ques venu·es de Phocée (l'actuelle Turquie) fondèrent un comptoir sur la côte méditerranéenne : **Massalia**, l'actuelle Marseille [source:massalia-musee]. Pendant des siècles, Massalia fut la plaque tournante du commerce entre le monde méditerranéen et la Gaule. Les commerçant·es massaliotes remontaient le Rhône avec du vin, de l'huile d'olive et de la céramique, et redescendaient avec de l'étain, de l'ambre, du cuivre et des esclaves.
-
+{(montage de) illustration(s)/image(s) sous licence libre de Massalia à l'époque}
 Rome, qui s'étendait alors en Italie, devint l'alliée de Massalia dès le IV<sup>e</sup> siècle AEC. Les deux cités échangeaient des marchandises, des soldat·es et des informations [source:massalia-musee].
 
 ### La Provincia : la première province romaine en Gaule
@@ -46,7 +46,7 @@ Rome, qui s'étendait alors en Italie, devint l'alliée de Massalia dès le IV<s
 Au II<sup>e</sup> siècle AEC, certaines tribus celtes habitant le sud de la France actuelle — les Salyens, les Allobroges, les Arvernes — menaçaient les routes commerciales de Massalia. La cité grecque appela Rome à l'aide. En 125 AEC, les armées romaines intervinrent et, après une campagne de plusieurs années, annexèrent un vaste territoire s'étendant des Alpes aux Pyrénées [source:unrv-gallia].
 
 En 121 AEC, ce territoire devint officiellement la **Gaule narbonnaise** (*Gallia Narbonensis*), la première province romaine sur le territoire qui deviendrait bien plus tard la France. Les Romains l'appelaient simplement *la Provincia*, et le nom est resté jusqu'à nos jours, sous sa forme francisée : la **Provence** [source:britannica-gaul]. La colonie romaine de Narbo Martius (Narbonne) y fut fondée en 118 AEC, et la **Via Domitia** — la première route romaine en Gaule — relia désormais l'Italie à l'Hispanie à travers cette nouvelle province [source:unrv-gallia].
-
+{(montage de) illustration(s)/image(s) sous licence libre d'une scène urbaine de la Gaule narbonnaise + la Via Domitia}
 Pendant les soixante années qui suivirent, la Narbonnaise prospéra. Les villes se romanisèrent : Nîmes, Arles, Orange, Vienne se parèrent de temples, d'amphithéâtres et d'arcs de triomphe. Les vétérans romains s'installèrent sur des terres confisquées aux tribus vaincues. Pour les peuples du Nord, la puissance romaine n'était plus une rumeur lointaine — c'était une présence visible, installée de l'autre côté de la vallée du Rhône [source:unrv-gallia].
 
 ### Le prétexte de la conquête : une migration helvète
@@ -56,7 +56,7 @@ En 58 AEC, un certain Jules César arriva comme gouverneur de la Gaule transalpi
 [media:jules-cesar]
 
 César intervint, battit les Helvètes près de Bibracte, puis se tourna contre le roi germain **Arioviste**, que les tribus elles-mêmes avaient appelé à leur secours quelques années plus tôt. Vaincu, Arioviste repassa le Rhin. Ces deux victoires n'étaient que le début : César, qui avait longtemps préparé son armée pour la conquête, profitait du prétexte pour s'emparer d'une partie encore plus vaste de l'Europe occidentale.
-
+{(montage de) illustration(s)/image(s) sous licence libre de la légion romaine de César}
 Ainsi commencèrent huit années de guerre qui allaient changer pour toujours le destin du territoire français [source:worldhistory-roman-gaul].
 
 ## La conquête et la résistance {#conquete-resistance}
@@ -64,9 +64,9 @@ Ainsi commencèrent huit années de guerre qui allaient changer pour toujours le
 Bien que les légions romaines de César fussent nettement supérieures par leur discipline, leur entraînement et leur art du siège, la conquête se heurta à de fortes résistances à plusieurs reprises [source:worldhistory-roman-gaul] :
 
 - **Ambiorix et la révolte des Eburons (54 AEC)** : En 54 AEC, alors que César menait sa seconde expédition en Bretagne, une révolte éclata chez les **Eburons** (l'actuelle Belgique). Leur chef, **Ambiorix**, attira une légion romaine (la XIV<sup>e</sup>) dans un piège et l'anéantit. Bilan : près de 6 000 soldat·es romain·es tué·es. César revint en hâte et mena une campagne de représailles impitoyable : les Eburons furent massacrés, leur territoire systématiquement dévasté. Ambiorix s'enfuit, et l'on perd sa trace [source:worldhistory-roman-gaul].
-
+{(montage de) illustration(s)/image(s) sous licence libre de la révolte des Eburons}
 - **Vercingétorix et l'unité des tribus celtes (52 AEC)** : L'année 52 AEC marqua l'apogée de la résistance contre les Romains. **Vercingétorix**, jeune chef arverne, réussit à unifier de nombreuses tribus dans une coalition contre Rome. Son armée, forte de dizaines de milliers de guerrier·ères, pratiqua la tactique de la terre brûlée : brûler les récoltes et les villages que les Romains pourraient utiliser. On infligea ainsi à César une défaite majeure à **Gergovie** [source:worldhistory-roman-gaul]. Cependant, la contre-attaque romaine fut implacable. César poursuivit les forces de Vercingétorix jusqu'à **Alésia**, une forteresse des Mandubiens. Au lieu d'assaillir la ville, César construisit un double mur de fortifications autour d'elle — un système de siège de 40 kilomètres de circonvallation et contrevallation, avec des tours, des pièges et des fossés. L'armée de Vercingétorix, affamée, attendit une armée de secours — qui arriva mais ne put briser l'étau romain. Vercingétorix, vaincu, se rendit. César le fit emmener à Rome où il fut exhibé, puis exécuté six ans plus tard [source:cesar-guerre-gaules].
-
+{(montage de) illustration(s)/image(s) sous licence libre du conflit militaire entre Vercingétorix et des tribus celtes}
 {une illustration/image sous licence libre de Vercingétorix}
 
 - **Uxellodunum (51 AEC)** : La dernière résistance majeure de la conquête de César se joua à Uxellodunum (dans le Lot actuel). La place forte locale refusa de se rendre. Après un siège difficile, César la prit et, pour servir d'exemple, fit couper les mains des guerrier·ères survivant·es [source:worldhistory-roman-gaul].
@@ -107,6 +107,8 @@ Telle était la vie de la Gaule romaine : les structures romaines s'étaient sup
 
 Les langues celtiques continuèrent d'être parlées dans les campagnes pendant des siècles après la conquête romaine. Mais le latin gagna du terrain dans les villes, l'administration, le commerce et l'armée. On estime qu'au III<sup>e</sup> siècle EC, la majorité des habitant·es des villes gauloises comprenaient le latin, même si e·ils parlaient encore leurs langues maternelles entre elleux. Cette situation de bilinguisme dura jusqu'au V<sup>e</sup> siècle EC, quand le latin finit par l'emporter — donnant naissance, des siècles plus tard, à la langue française [source:gallia-cnrs].
 
+{(montage de) illustration(s)/image(s) sous licence libre des documents/édifices romains avec écriture en latin}
+
 ### Religion
 
 Les Romains n'imposèrent pas leur religion par la force. Au contraire, e·ils pratiquèrent l'*interpretatio romana* : l'assimilation des dieux des cultures vaincues à leurs propres divinités. Le dieu gaulois Toutatis devint Mars ; la déesse Épona fut adoptée par l'armée romaine comme protectrice des chevaux ; le dieu guérisseur Borvo fut associé à Apollon. Dans les sanctuaires, les inscriptions étaient souvent bilingues, et les rituels mélangeaient traditions celtes (dépôts d'armes dans les lacs, crânes exposés) et pratiques romaines (sacrifices d'animaux, vœux écrits) [source:gallia-cnrs].
@@ -127,20 +129,24 @@ Sous la *Pax Romana* (paix romaine), la Gaule devint l'une des régions les plus
 L'élevage prospéra : les chevaux des Rèmes (peuple de Reims) étaient réputés dans tout l'Empire. Les porcs gaulois, nourris de glands dans les forêts, fournissaient une viande fumée exportée jusqu'à Rome. Les mines d'or des Arvernes, de fer du Berry et de cuivre de la Corrèze furent intensivement exploitées [source:unrv-gallia].
 
 Le commerce suivait les routes romaines — mais aussi les voies d'eau. La Saône, le Rhône, la Loire, la Seine et le Rhin formaient un réseau fluvial sur lequel circulaient des barges capables de transporter jusqu'à 50 tonnes de marchandises. Les entreprises de batellerie, organisées en corporations (*nautae*), étaient parmi les plus riches de Gaule — la corporation des nautes de la Seine finança la construction du grand autel de Lugdunum [source:unrv-gallia].
+{une carte leaflet pour illustrer des voies d'eau empruntées par les romaines}
+{{(montage de) illustration(s)/image(s) sous licence libre du grand autel de Lugdunum}
 
 ### Une société hiérarchisée : citoyen·nes, pérégrin·es et esclaves
 
 La société gallo-romaine était strictement hiérarchisée. Au sommet, les **citoyen·nes romain·es** — d'abord les colons italiens, puis progressivement les élites gauloises. L'empereur Claude, en 48 EC, accorda aux notables gaulois·es le droit d'accéder au Sénat romain, une décision controversée qui marqua l'intégration politique des élites [source:britannica-gaul].
+{(montage de) illustration(s)/image(s) sous licence libre des citoyen·nes romain·es}
 
 En dessous, les **pérégrin·es** — habitant·es libres mais sans citoyenneté romaine. E·ils payaient des impôts, servaient dans l'armée, mais ne pouvaient ni voter ni occuper de charges publiques. La situation changea en 212 EC, quand l'édit de Caracalla (*Constitutio Antoniniana*) accorda la citoyenneté romaine à tou·tes les habitant·es libres de l'Empire [source:constitutio-antoniniana].
-
+{(montage de) illustration(s)/image(s) sous licence libre de la vie quotidienne des pérégrin·es}
 Au bas de l'échelle sociale, les **esclaves**. L'esclavage était omniprésent dans la Gaule romaine. Les grands domaines agricoles, les mines et les ateliers artisanaux reposaient sur le travail servile. Les esclaves gaulois·es — souvent issu·es des conquêtes ou de la dette — pouvaient espérer l'affranchissement après des années de service ; leurs enfants devenaient alors citoyen·nes romain·es. Mais pour la majorité, la vie restait rude, sans droits, soumise à la volonté d'un·e maître·sse [source:britannica-gaul].
-
+{(montage de) illustration(s)/image(s) sous licence libre des esclaves de l'empire romain}
 [media:grabfiguren-gallo-romaines]
 
 ### Femmes et rapports de genre
 
 Les femmes en Gaule romaine vivaient sous le droit romain, qui les plaçait sous l'autorité d'un tuteur légal — père, mari ou fils aîné. Dans les faits, cependant, les femmes gauloises conservèrent des droits plus étendus que leurs contemporaines italiennes. Les inscriptions funéraires révèlent des femmes propriétaires de terres, commerçantes et même médecins. Certaines occupaient des fonctions religieuses importantes : les prêtresses de la déesse Épona jouissaient d'un statut élevé [source:gallia-cnrs].
+{(montage de) illustration(s)/image(s) sous licence libre des femmes en Gaule romaine}
 
 ## Les révoltes continuent
 
@@ -155,7 +161,7 @@ En 69-70 EC, les Bataves se révoltèrent sous Julius Civilis — un chef germai
 ## L'Empire gaulois (260–274 EC) {#empire-gaulois}
 
 Au III<sup>e</sup> siècle EC, l'Empire romain traversa une crise profonde. Les empereurs se succédaient par l'assassinat, les frontières craquaient de toutes parts. En 260 EC, le général **Postumus**, d'origine gauloise, proclama l'indépendance de la Gaule, de la Bretagne et de l'Hispanie, créant l'**Empire gaulois**.
-
+{(montage de) illustration(s)/image(s) sous licence libre de Postumus}
 Pendant quatorze ans, la Gaule eut son propre empereur, sa propre administration, sa propre monnaie — frappée à Trèves, qui devint la capitale de ce mini-empire. L'Empire gaulois n'était pas une résurgence nationaliste : il s'agissait plutôt de la Gaule prenant en main sa propre défense, abandonnée par un pouvoir central défaillant [source:worldhistory-roman-gaul].
 
 L'empereur Aurélien reconquit la Gaule en 274 EC, mais l'épisode révéla une fragilité profonde : Rome ne pouvait plus protéger ses frontières aussi efficacement qu'avant.
@@ -163,24 +169,25 @@ L'empereur Aurélien reconquit la Gaule en 274 EC, mais l'épisode révéla une 
 ## L'arrivée du christianisme {#arrivee-christianisme}
 
 Le christianisme fit son apparition en Gaule dès le II<sup>e</sup> siècle EC, apporté par des marchand·es et des soldat·es venu·es d'Orient. Les premières communautés chrétiennes étaient urbaines, modestes, souvent hellénophones.
-
+{(montage de) illustration(s)/image(s) sous licence libre des premières communautés chrétiennes en Gaule}
 En 177 EC, la première persécution connue en Gaule frappa la communauté de Lugdunum. L'évêque Pothin et la jeune esclave Blandine furent livrés aux bêtes dans l'amphithéâtre. Leurs supplices furent décrits en détail dans la correspondance des Églises de Lyon et de Vienne [source:britannica-gaul].
+{le martyre de Blandine}
 
-Malgré les persécutions, le christianisme gagna du terrain. Au IV<sup>e</sup> siècle EC, l'édit de Milan (313 EC) le reconnut, et les basiliques commencèrent à remplacer les temples [source:britannica-gaul]. Saint Martin de Tours (316–397 EC) devint l'une des figures les plus populaires de la Gaule chrétienne : ancien soldat devenu évêque, il partagea son manteau avec un mendiant et évangélisa les campagnes, contribuant à la christianisation des zones rurales que les prédicateurs urbains n'atteignaient pas [source:worldhistory-roman-gaul].
+Malgré les persécutions, le christianisme gagna du terrain. {pourquoi ?}Au IV<sup>e</sup> siècle EC, l'édit de Milan (313 EC) le reconnut, et les basiliques commencèrent à remplacer les temples [source:britannica-gaul]. Saint Martin de Tours (316–397 EC) devint l'une des figures les plus populaires de la Gaule chrétienne : ancien soldat devenu évêque, il partagea son manteau avec un mendiant et évangélisa les campagnes, contribuant à la christianisation des zones rurales que les prédicateurs urbains n'atteignaient pas [source:worldhistory-roman-gaul].
 
 ## Les Germain·es arrivent
 
 À partir du III<sup>e</sup> siècle, les Germains traversèrent de plus en plus souvent le Rhin. Les Alamans, les Francs, les Burgondes — ces peuples n'étaient pas des « barbares » avides de destruction : beaucoup cherchaient des terres pour s'installer, et combattaient parfois pour Rome comme mercenaires. L'armée romaine elle-même comptait de plus en plus de soldats d'origine germanique, certains atteignant les plus hauts grades.
 
 En 406 EC, le passage du Rhin gelé par les Vandales, les Suèves et les Alains marqua un tournant. Ces peuples traversèrent la Gaule, pillant les villes, brûlant les *villae*, désorganisant le système économique [source:britannica-gaul].
-
+{(montage de) illustration(s)/image(s) sous licence libre de l'invasion des Suèves et Alains}
 En 418 EC, l'empereur Honorius installa les Wisigoths en Aquitaine — un traité qui reconnaissait leur droit à s'établir sur le sol gaulois en échange d'une alliance militaire [source:visigoths-aquitaine]. Les Burgondes s'installèrent dans la vallée du Rhône, les Francs dans le nord [source:britannica-gaul].
 
 ## La fin de la Gaule romaine (476 EC) {#fin-gaule-romaine}
 
 Bien que la Gaule romaine fût parmi les territoires les plus prospères de l'Empire, elle resta un territoire frontalier. Concrètement, le contrôle de Rome sur la Gaule fut presque toujours indirect, passant par l'intermédiaire des élites locales. Alors que l'Empire romain s'affaiblissait, ce contrôle devint plus que nominal. Même les légions romaines en Gaule, instrument essentiel du pouvoir romain et toujours nombreuses, se composaient de plus en plus de soldats germaniques, loyaux à leurs chefs plutôt qu'à Rome. Le système économique romain, fondé sur le grand domaine esclavagiste, se fissurait sous les révoltes et les invasions. La Gaule passa progressivement, pour l'essentiel, sous le contrôle des royaumes wisigoth, burgonde et franc, bien avant que la chute du dernier empereur romain d'Occident, Romulus Augustule, déposé par le chef germain Odoacre en 476 EC, ne marque la fin officielle des provinces gauloises [source:britannica-gaul].
 
-Heureusement, la fin de la Gaule romaine n'est pas une histoire de destruction. Les nouveaux royaumes « barbares » conservèrent largement les structures romaines : le latin comme langue administrative, le droit romain pour les populations gallo-romaines, l'organisation des cités, les domaines agricoles. Clovis, en se convertissant au christianisme (vers 496 EC), scella l'alliance entre l'élite franque et l'épiscopat gallo-romain [source:britannica-gaul].
+Heureusement, la fin de la Gaule romaine n'est pas une histoire de destruction. Les nouveaux royaumes « barbares » conservèrent largement les structures romaines : le latin comme langue administrative, le droit romain pour les populations gallo-romaines, l'organisation des cités, les domaines agricoles.[source:britannica-gaul].
 
 ## Épilogue : l'héritage de la Gaule romaine
 
@@ -191,7 +198,7 @@ Aujourd'hui, les villes fondées par les Romain·es n'ont pas disparu. Elles por
 [map:roman-cities]
 
 Les rues de ces villes suivent parfois encore le tracé des voies romaines. Certains amphithéâtres et arènes romains, devenus places publiques, marchés ou lieux de festival, sont conservés jusqu'à nos jours. Certaines routes romaines sont aussi restées les axes principaux de la France moderne : la Via Agrippa entre Lugdunum et le littoral méditerranéen est devenue, dans les grandes lignes, l'actuelle autoroute A7 [source:roman-roads-gaul].
-
+{(montage de) illustration(s)/image(s) sous licence libre des rémnantes de amphitéâtres et arènes dans nos jours + A7}
 D'ailleurs, le droit, l'administration, la notion de citoyenneté — même si bien différents dans le contexte moderne — sont en quelque sorte des héritages romains. Même la langue française que nous parlons aujourd'hui est née du latin populaire de Gaule : un latin à accent celte, enrichi de mots gaulois (*chemin*, *grève*, *char*, *mouton*, *chêne*, *braies*, *druide*, *alouette*). Quand vous dites « aller à la **grève** », « être sur le **char** » ou regarder une **alouette** dans le ciel, vous parlez le latin gaulois sans le savoir [source:gaulish-words-french].
 
 La Gaule romaine n'a pas disparu. Elle s'est transformée, très progressivement, en la France d'aujourd'hui.
