@@ -28,7 +28,8 @@ See [grammar-AGENTS.md](grammar-AGENTS.md)
 | Styling | **Tailwind CSS** | Utility-first, fast iteration, consistent design tokens. Hand-written CSS only for complex animations. |
 | Simple animations | **Vanilla JS** | IntersectionObserver, requestAnimationFrame, View Transitions API |
 | Cinematic timelines | **GSAP + ScrollTrigger** | Pin sections, scrub animations, staggered reveals — use for the history timeline |
-| Complex data viz | **D3.js** | Population pyramids, bump charts, choropleth maps — use for pages where data relationships are non-trivial |
+| Chart rendering | **Vega-Lite** + Vega | Declarative chart generation at build time — takes data JSON, produces centered SVG (pie, line, bar, etc.) without manual geometry |
+| Runtime SVG / interactive visuals | **D3.js** | Population pyramids, bump charts, choropleth maps — for client-side interactive data joins and transitions |
 | Deployment | **GitHub Pages** ([france-stats.org](https://france-stats.org/)) | `npm run build` → GitHub Actions workflow → `gh-pages` branch with custom domain |
 
 ### Core Principle — Graduated Tool Selection
@@ -42,8 +43,10 @@ Fade-in, slide-up on scroll   → CSS transitions + IntersectionObserver
 Animated counters, simple SVG → Vanilla JS (requestAnimationFrame)
 Pinned sections, scrub,       → GSAP + ScrollTrigger
   staggered timelines
-Complex data visualizations   → D3.js (bump charts, choropleths,
-  (interactive, animated)       population pyramids, sankey diagrams)
+Chart generation (build-time)  → Vega-Lite (takes data JSON, yields
+  (declarative, static)          complete SVG — no manual geometry)
+Complex data visualizations   → D3.js data joins for client-side
+  (interactive, animated)       interactive SVG (bump, choropleth, pyramid)
 Interactive geo-referenced   → Leaflet + OSM tiles
   maps with tile layers
 
@@ -116,7 +119,7 @@ france-en-chiffres/
 │   │   ├── extract-france-map.js # Parse France_departements.svg → data JSON
 │   │   ├── fetch-world-data.js  # Download NE 110m, UNDP, World Bank → world-countries.json
 │   │   └── charts/
-│   │       └── render-svg.js     # DOM-free D3 chart → SVG renderer (d3-scale, d3-shape)
+│   │       └── render-svg.js     # Vega-Lite chart → SVG renderer (build-time, headless)
 │   ├── tests/               # Automated validation tests
 │   │   ├── france-map.test.cjs
 │   │   ├── sources.test.cjs           # CSL-JSON + era + event validation
@@ -504,9 +507,9 @@ npm run new:figure -- <kebab-case-id> <type>
 npm run new:figure -- population-evolution line
 ```
 
-Supported types: `line`, `bar`, `population-pyramid`, `bump`, `choropleth`, `comparison`, `sankey`
+Supported types: `line`, `bar`, `pie`, `population-pyramid`, `bump`, `choropleth`, `comparison`, `sankey`
 
-Chart data is structured JSON with a Zod-discriminated union per type. The D3 renderer (`src/scripts/charts/render-svg.js`) uses only DOM-free modules (`d3-scale`, `d3-shape`, `d3-array`) to generate SVG at build time.
+Chart data is structured JSON with a Zod-discriminated union per type. The Vega-Lite renderer (`src/scripts/charts/render-svg.js`) compiles the JSON spec into SVG at build time via headless Vega — no manual geometry, arc paths, or label positioning.
 
 See also **Coding Guidelines** rule 6 (stat must cite its source via `sourceId`).
 
@@ -621,7 +624,7 @@ bash scripts/new-figure.sh population-evolution line
 | Pin section + scrub | GSAP ScrollTrigger (`pin: true`, `scrub: 1`) | History timeline, comparison sliders |
 | Staggered reveals | GSAP `.fromTo()` with `stagger` | Timeline entries, card grids |
 | Page transitions | CSS `@view-transition` API | Standard, no JS |
-| Data-driven SVG | D3.js data joins + transitions | Population pyramid, bump chart, choropleth |
+| Data-driven SVG | D3.js data joins + transitions | Runtime interactive SVG (population pyramid, bump chart, choropleth) |
 | Map highlighting | SVG region fills with CSS transitions on hover | Geography page |
 | Interactive map layers | Leaflet with GeoJSON overlays + layer controls | Interactive data map |
 | Tooltip / popover | **Tippy.js** — via `data-*` attributes or JS instantiation | Hover descriptions, layer info, department names |
@@ -645,7 +648,7 @@ bash scripts/new-figure.sh population-evolution line
 
 ### Allowed with justification (opt-in, per-page)
 - ✅ **GSAP + ScrollTrigger** — for pinned sections, scrub animations, staggered timelines where vanilla JS would require 3x+ the code.
-- ✅ **D3.js** — for complex data visualizations (bump charts, choropleths, population pyramids, sankey diagrams). Not for simple bar charts or counters.
+- ✅ **D3.js** — for client-side interactive SVG data joins and transitions (bump charts, choropleths, population pyramids). Not for chart generation — use Vega-Lite for static charts.
 - ✅ **Leaflet** — for interactive geo-referenced maps with tile base maps, multiple overlay layers (choropleth, GeoJSON), and built-in zoom/pan. Use for the `/geographie/carte-interactive/` page. Not for artistic/ornamental SVG maps.
 - ✅ **Tippy.js** — for tooltips, popovers, and hover descriptions. Already a dependency and used across multiple pages (department map, timeline, interactive map). Use via `data-*` attributes or direct JS instantiation. Prefer Tippy over custom tooltip implementations for consistency.
 - ✅ **TypeScript** — optional. Use `.ts` files if you want type safety in data processing logic. Page components can stay `.astro` with frontmatter types.

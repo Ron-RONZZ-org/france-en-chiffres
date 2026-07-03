@@ -2,7 +2,7 @@
 
 Histoire, culture, géographie, actualité — racontées par les nombres.
 
-Un site web éducatif animé qui explore la France à travers ses données statistiques. Construit avec **[Astro](https://astro.build)** + **Tailwind CSS** + **vanilla JS / GSAP**.
+Un site web éducatif animé qui explore la France à travers ses données statistiques. Construit avec **[Astro](https://astro.build)** + **Tailwind CSS** + **Vega-Lite** (graphiques) + **vanilla JS / GSAP**.
 
 ---
 
@@ -93,6 +93,26 @@ Le site supporte un nombre illimité d'époques et d'événements.
 
 Les sources sont des fichiers CSL-JSON dans `src/content/sources/`.  
 Consultez les fichiers existants dans ce dossier pour connaître le format attendu.
+
+---
+
+### Ajouter un graphique
+
+Les graphiques sont des fichiers JSON dans `src/content/figures/`, rendus en SVG à la construction via **[Vega-Lite](https://vega.github.io/vega-lite/)** — une bibliothèque déclarative qui produit des graphiques complets (axes, légendes, étiquettes) à partir de données structurées, sans géométrie manuelle.
+
+```bash
+# Créer un nouveau graphique
+npm run new:figure -- <kebab-case-id> <type>
+# Types supportés : line, bar, pie, population-pyramid, bump, choropleth, comparison, sankey
+```
+
+Référencer le graphique dans le corps d'un événement :
+
+```markdown
+[chart:mon-graphique]
+```
+
+Voir les fichiers existants dans `src/content/figures/` pour le format JSON attendu par type.
 
 ---
 
@@ -192,11 +212,14 @@ france-en-chiffres/
 │   └── era-example.md         # Exemple d'époque (avec contenu fictif)
 ├── src/
 │   ├── content/               # Content Collections (Zod-validated)
-│   │   ├── config.ts          # Schémas de validation
-│   │   ├── eras/              # Époques (fichiers JSON)
+│   │   ├── config.ts          # Schémas de validation (eras, events, sources, media, figures…)
+│   │   ├── eras/              # Époques (fichiers .md)
 │   │   ├── events/            # Événements (fichiers .md)
 │   │   ├── sources/           # Sources CSL-JSON
-│   │   └── media/             # Médias (métadonnées + fichiers)
+│   │   ├── media/             # Médias (métadonnées + fichiers SVG/rasters)
+│   │   ├── figures/           # Graphiques (JSON – rendus en SVG par Vega-Lite)
+│   │   ├── countries/         # Profils de pays
+│   │   └── litterature/       # Œuvres littéraires
 │   ├── pages/                 # Routes du site (1 fichier = 1 page)
 │   ├── components/            # Composants réutilisables
 │   │   ├── Counter.astro
@@ -205,6 +228,7 @@ france-en-chiffres/
 │   │   ├── TimelineEra.astro
 │   │   ├── TimelineEvent.astro
 │   │   ├── MediaFigure.astro
+│   │   ├── ChartFigure.astro
 │   │   └── Nav.astro
 │   ├── layouts/
 │   │   └── Base.astro
@@ -214,13 +238,22 @@ france-en-chiffres/
 │   │   ├── france-departments.json
 │   │   ├── history.ts         # Agrégation époques + événements
 │   │   ├── sources.ts         # Résolution des sources
-│   │   └── media.ts           # Résolution des médias
-│   ├── scripts/               # Scripts de build
+│   │   ├── media.ts           # Résolution des médias
+│   │   ├── figures.ts         # Résolution des graphiques
+│   │   └── countries.ts       # Résolution des pays
+│   ├── scripts/               # Scripts de build et création de contenu
+│   │   ├── charts/
+│   │   │   └── render-svg.js  # Vega-Lite → SVG (build-time)
+│   │   ├── copy-media-assets.mjs
 │   │   └── extract-france-map.js
+│   ├── plugins/               # Remark/rehype plugins
+│   │   ├── remark-citation-links.js
+│   │   └── remark-figure-embed.js
 │   ├── tests/                 # Tests de validation
 │   │   ├── france-map.test.cjs
 │   │   ├── sources.test.cjs
-│   │   └── media.test.cjs
+│   │   ├── media.test.cjs
+│   │   └── figures.test.cjs
 │   └── styles/
 │       └── global.css
 ├── AGENTS.md                  # Règles du projet pour l'IA
@@ -235,6 +268,7 @@ france-en-chiffres/
 |-------------|-------|
 | [Astro](https://astro.build) | Framework statique (multi-pages, zéro JS par défaut) |
 | [Tailwind CSS](https://tailwindcss.com) | Styles utilitaires (layout, espacement, typographie) |
+| [Vega-Lite](https://vega.github.io/vega-lite/) + [Vega](https://vega.github.io/vega/) | Graphiques statistiques (rendus en SVG à la construction, sans DOM) |
 | [GSAP](https://gsap.com) | Animations avancées (ScrollTrigger, stagger) |
 | Vanilla JS | Compteurs animés, interactions tactiles |
 

@@ -7,7 +7,7 @@ set -euo pipefail
 # Usage:   scripts/new-figure.sh <id> <type>
 # Example: scripts/new-figure.sh population-evolution line
 #
-# Supported types: line, bar, population-pyramid, bump, choropleth,
+# Supported types: line, bar, pie, population-pyramid, bump, choropleth,
 #                  comparison, sankey
 #
 # Creates src/content/figures/<id>.json, prefills the id/type fields,
@@ -20,7 +20,7 @@ readonly TYPE="${2:?"Usage: $PROG <id> <type>"}"
 readonly TEMPLATE="templates/figure-template.json"
 readonly TARGET="src/content/figures/${ID}.json"
 
-VALID_TYPES="line|bar|population-pyramid|bump|choropleth|comparison|sankey"
+VALID_TYPES="line|bar|pie|population-pyramid|bump|choropleth|comparison|sankey"
 if ! echo "$TYPE" | grep -qE "^($VALID_TYPES)$"; then
   echo "Error: unknown type \"$TYPE\". Valid types: ${VALID_TYPES//|/, }" >&2
   exit 1
