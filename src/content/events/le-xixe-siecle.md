@@ -4,6 +4,7 @@ start: 1815
 end: 1914
 title: "Le XIXe siècle : industrialisation, révolutions et République"
 description: "Le chemin de fer, le prolétariat, la Commune, la laïcité, l'école pour tou·tes, Dreyfus. En cent ans, la France invente le monde moderne — et se déchire sur ce qu'il doit être."
+maps: [first-colonial-empire, second-colonial-empire]
 timeline:
   - id: restauration
     title: Restauration et monarchie de Juillet
@@ -199,10 +200,14 @@ Tandis que la France se déchirait entre république et monarchie, elle bâtissa
 
 Dès le XVI<sup>e</sup> siècle, la France s'était taillé un premier empire outre-Atlantique : **la Nouvelle-France** (Canada, Acadie, Louisiane), les îles à sucre des Antilles (Saint-Domingue, la Martinique, la Guadeloupe), des comptoirs en Inde (Pondichéry, Chandernagor) et dans l'océan Indien (l'Île de France, l'Île Bourbon). Cependant, ce premier empire colonial français immense fut en grande partie perdu lors de la **guerre de Sept Ans** (1756–1763). Le Traité de Paris (1763) livra le Canada et la Louisiane aux Anglais et aux Espagnols ; seules les Antilles à sucre, quelques îles et cinq comptoirs indiens restèrent à la France. Le Traité de Vienne (1815) confirma ces possessions restantes (Pondichéry, la Guadeloupe, la Martinique, la Guyane, la Réunion, Saint-Pierre-et-Miquelon), mais l'essentiel du premier empire colonial avait sombré.
 
+[map:first-colonial-empire]
+
 En 1830, une expédition militaire française débarqua à Alger, officiellement pour punir le dey d'une insulte au consul de France, mais surtout pour détourner l'attention des crises intérieures de la Restauration. La conquête de l'Algérie fut longue, violente et contestée. Il fallut plus de quarante ans pour soumettre le territoire. **Abd el-Kader** (1808–1883), émir et chef de guerre, organisa une résistance acharnée jusqu'à sa reddition en 1847. Les méthodes de l'armée française incluaient la destruction des récoltes, l'enfumade de populations réfugiées dans des grottes, et des déplacements forcés de populations. Le bilan humain fut effroyable : on estime que la population algérienne passa d'environ 3 millions en 1830 à 2,1 millions en 1872, en raison des combats, des famines et des épidémies liées à la conquête [source:britannica-colonial-empire].
 [media:prise-constantine-1837]
 
 Après la conquête de l'Algérie — érigée en trois départements français en 1848 — la France étendit son empire sous le Second Empire et surtout la III<sup>e</sup> République. En Indochine, la prise de Saïgon (1859) ouvrit la voie à la colonisation du Vietnam, du Cambodge et du Laos, réunis en 1887 dans l'Indochine française. En Afrique, la « course au clocher » mit en concurrence les explorateurs et militaires français et britanniques : Savorgnan de Brazza explora le Congo, le général **Louis Faidherbe** conquit le Sénégal, le colonel **Joseph Gallieni** soumit Madagascar (conquise en 1895 après une brève campagne). En 1914, l'empire français s'étendait sur plus de 10 millions de km² — le deuxième du monde après celui de la Grande-Bretagne [source:britannica-colonial-empire].
+
+[map:second-colonial-empire]
 
 L'administration coloniale reposait sur un régime discriminatoire : le **Code de l'indigénat** (1881–1946) soumettait les populations colonisées à un régime d'exception — pas de droits politiques, pas de liberté de circulation, pas de liberté de presse ni de réunion, des peines arbitraires prononcées par les administrateurs sans procès. Les « sujets » français n'étaient pas des citoyen·nes. La naturalisation était exceptionnelle et soumise à des critères stricts (renonciation au statut personnel coranique, maîtrise du français, service militaire).
 

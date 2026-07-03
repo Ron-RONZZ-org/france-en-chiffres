@@ -54,8 +54,9 @@ Interactive geo-referenced   → Leaflet + OSM tiles
 
 ```
 france-en-chiffres/
-├── public/                  # Static assets (images, fonts, favicon, SVGs)
-│   └── France_departements.svg  # Source SVG for France territory outlines
+├── public/                  # Static assets (images, fonts, favicon, SVGs); media copied here by copy-media-assets.mjs
+│   ├── France_departements.svg  # Source SVG for France territory outlines
+│   └── media/                   # Media asset files (copied from src/content/media/ at build time)
 ├── templates/               # Editorial templates for content creators
 │   ├── event-template.md    # Blank event template (no comments)
 │   ├── era-template.md      # Blank era template (no comments)
@@ -100,6 +101,9 @@ france-en-chiffres/
 │   │   ├── sources.ts               # Async source lookup via getCollection('sources')
 │   │   ├── media.ts                 # Async media resolver via getCollection('media') + import.meta.glob
 │   │   ├── figures.ts               # Async figure (chart) resolver via getCollection('figures')
+│   │   ├── maps.ts                  # Map registry (TypeScript types)
+│   │   ├── maps-registry.json       # Map registry for the remark plugin (build-time)
+│   │   ├── widgets.ts               # Widget registry
 │   │   ├── france.json
 │   │   ├── france-map-data.json       # Extracted SVG paths for FranceMap
 │   │   ├── france-departments.json    # Individual department paths (96 depts)
@@ -108,6 +112,7 @@ france-en-chiffres/
 │   │       ├── departements.geojson  # France department boundaries
 │   │       └── world-countries.json  # World country boundaries + HDI/population data
 │   ├── scripts/             # Build-time helper scripts
+│   │   ├── copy-media-assets.mjs # Copy src/content/media/ binaries → public/media/
 │   │   ├── extract-france-map.js # Parse France_departements.svg → data JSON
 │   │   ├── fetch-world-data.js  # Download NE 110m, UNDP, World Bank → world-countries.json
 │   │   └── charts/
@@ -119,7 +124,7 @@ france-en-chiffres/
 │   │   └── figures.test.cjs           # Chart figure validation
 │   ├── plugins/              # Remark/rehype build-time plugins
 │   │   ├── remark-citation-links.js  # [source:id] → citation superscript
-│   │   └── remark-figure-embed.js    # [media:id] / [chart:id] → rendered figure HTML
+│   │   └── remark-figure-embed.js    # [media:id] / [chart:id] / [map:id] / [widget:id] → rendered HTML
 │   └── styles/              # Global CSS
 ├── AGENTS.md                # This file
 ├── astro.config.mjs
@@ -136,7 +141,7 @@ france-en-chiffres/
 4. **Use data attributes** to pass server data to client scripts (`data-value`, `data-target`). No inline JSON blobs.
 5. **Animations use `prefers-reduced-motion`** — respect user accessibility settings.
 6. **Every stat must cite its source** — use `sourceId` referencing a CSL-JSON file in `src/content/sources/`. The build system resolves it to a hyperlinked citation and generates a bibliography page. Never use inline `source` text.
-7. **Every image needs caption, credit, and license** — register media in `src/content/media/` as a JSON file with a unique `id`, reference via `mediaId` in data files, render with `<MediaFigure>`. All media files (SVG, jpg, png, etc.) live alongside their metadata in `src/content/media/`.
+7. **Every image needs caption, credit, and license** — register media in `src/content/media/` as a JSON file with a unique `id`, reference via `mediaId` in data files, render with `<MediaFigure>`. All media files (SVG, jpg, png, etc.) live alongside their metadata in `src/content/media/`. Media binaries are copied to `public/media/` at build time by `scripts/copy-media-assets.mjs` and served via URL (`/media/{id}.{ext}`) — not inlined as base64 data URIs, which caused OOM on large files.
 8. **Responsive before fancy** — layout must work at 320px before adding any animation.
 9. **Content Collections** — all content data (eras, events, sources, media) lives in `src/content/` as Astro Content Collections with Zod schemas in `src/content/config.ts`. Data validation happens at build time. Aggregation layers reside in `src/data/*.ts`.
 10. **Era–event matching by year range** — events are automatically matched to eras by `start`/`end` year containment (see `src/data/history.ts`). When a year is shared by adjacent eras (e.g., 1789), the event is assigned to the era whose `start` matches that year. Editors add an event file to `content/events/` without specifying which era it belongs to. Each era has a dedicated page at `/periodes/[slug]` (auto-generated from `content/eras/`). On the timeline page, era titles link to these internal pages and descriptions are displayed inline.
@@ -192,6 +197,8 @@ The script:
 - `[source:id]` citation references
 - `[media:id]` references (images)
 - `[chart:id]` references (data charts)
+- `[map:id]` references (interactive maps)
+- `[widget:id]` references (non-map interactive widgets)
 - YAML frontmatter (metadata)
 
 **NEVER put in `.md` files:**
@@ -200,13 +207,11 @@ The script:
 - ❌ JavaScript or `<script>` blocks
 - ❌ Custom HTML data attributes for JS hooks
 
-**Why:** `rehype-raw` is configured but Astro's markdown pipeline only preserves single-line self-closing HTML tags in `.md` files (e.g., `<div data-map-slot="x"></div>`). Multi-line HTML blocks, CSS, and JS are stripped silently.
+**Why:** Astro's markdown pipeline strips multi-line HTML blocks, CSS, and JS silently. Use `[media:id]`, `[map:id]`, `[chart:id]`, and `[widget:id]` markers instead — these are rendered by the remark plugin at build time.
 
-**If you need interactive features (maps, hover-tables, custom layout):** create an Astro component in `src/components/` and wire it conditionally in the page template (see [Interactive Components](#interactive-components-maps-tables-etc) below).
+### Inline Media, Charts, Maps, and Widgets (inside `.md`)
 
-### Inline Media and Charts (inside `.md`)
-
-These are the ONLY two embed patterns allowed inside markdown body text:
+These are the embed patterns allowed inside markdown body text:
 
 ```md
 [Texte avant]
@@ -224,52 +229,137 @@ These are the ONLY two embed patterns allowed inside markdown body text:
 [Texte après]
 ```
 
-**Rules:**
-- `[media:id]` and `[chart:id]` must be on their **own line**, separated by blank lines from surrounding paragraphs.
-- `[media:id]` — embeds a registered media asset (image) with caption/credit/license. Register via `npm run new:media`.
-- `[chart:id]` — embeds a data-driven chart (prerendered to inline SVG). Define in `src/content/figures/<id>.json`. Create via `npm run new:figure`.
-- Both are rendered server-side at build time by `src/plugins/remark-figure-embed.js` — zero client JS required.
+```md
+[Texte avant]
 
-### Interactive Components (Maps, Tables, etc.)
+[map:rev-communes]
 
-For anything interactive (Leaflet maps, hover-reveal tables, custom JS/CSS), create an Astro component and render it **conditionally** in the page template. The component renders **after** the markdown `<Content />`, at the bottom of the page body.
-
-**Step-by-step recipe:**
-
-1. **Create the component** in `src/components/YourComponent.astro`
-   - For Leaflet maps: use `<MapShell>` for the HTML skeleton + dark theme CSS, then initialize via `import { initMap } from '../scripts/maps/shared-map'`
-   - For custom interactive elements: include the `<script>` and `<style>` directly in the component
-
-2. **Wire it in the page template** (`src/pages/histoire/[slug].astro`):
-
-```astro
-// 1. Import the component
-import YourComponent from '../../components/YourComponent.astro';
-
-// 2. Render it conditionally based on event ID
-<div class="event-page__body">
-  <Content />
-  {event.id === 'your-event-id' && <YourComponent />}
-</div>
+[Texte après]
 ```
 
-**Existing examples:**
+```md
+[Texte avant]
 
-| Event ID | Component | Type |
-|----------|-----------|------|
-| `premiers-humains` | `<PrehistoricSitesMap />` | Leaflet + MapShell |
-| `arrivee-sapiens` | `<MigrationMap />` | Leaflet + MapShell |
-| `age-de-fer` | `<ResourceMap />` | Leaflet + MapShell |
-| `occupation-romaine` | `<RomanProvincesMap />` + `<RomanCitiesMap />` | Leaflet + MapShell |
-| `revolution-francaise` | `<RevolutionMaps />` (3 maps) | Leaflet + MapShell |
-| `revolution-francaise` | `<RevolutionBilan />` | Interactive hover table |
+[widget:revolution-bilan]
 
-**For Leaflet maps specifically:**
-- Import and use `<MapShell id="your-id" label="..." title="..." hint="..." />` for the container
-- In the `<script>` tag: `import { initMap } from '../scripts/maps/shared-map'` then `const map = initMap('your-id-map', { center: [lat, lng], zoom: N })`
-- CartoDB Dark Matter tiles are used by default (no POI labels at low zoom)
+[Texte après]
+```
 
-**Note on `[map:id]`:** The `remark-figure-embed.js` plugin also supports `[map:id]` for maps that must appear inline within markdown content (currently only `roman-provinces` and `roman-cities`). To add a new inline map, you must modify both `MAP_IDS` and `buildMapFigure()` in `src/plugins/remark-figure-embed.js`. For most cases, the conditional component approach above is simpler and preferred.
+**Rules:**
+- All markers must be on their **own line**, separated by blank lines from surrounding paragraphs.
+- `[media:id]` — embeds a registered media asset (image) with caption/credit/license. Register via `npm run new:media`.
+- `[chart:id]` — embeds a data-driven chart (prerendered to inline SVG). Define in `src/content/figures/<id>.json`. Create via `npm run new:figure`.
+- `[map:id]` — embeds an interactive Leaflet map container (MapShell HTML or custom layout). The map script component (Leaflet initialization JS) is rendered separately via the `maps:` frontmatter field (see [Adding Interactive Maps](#adding-interactive-maps)).
+- `[widget:id]` — embeds a non-map interactive widget (placeholder slot). The widget component is rendered via the `widgets:` frontmatter field.
+- All are rendered server-side at build time by `src/plugins/remark-figure-embed.js`.
+
+### Interactive Maps (`[map:id]` + script components)
+
+All interactive maps use a **two-part architecture**:
+
+1. **HTML container** — generated at build time by the `remark-figure-embed.js` plugin from a `[map:id]` marker in the `.md` file. The plugin reads `src/data/maps-registry.json` to generate the container HTML (MapShell for most maps, custom HTML for Pattern C maps).
+2. **Leaflet initialization script** — shipped as a script-only `.astro` component (no template/HTML, just `<script>` + `<style>`). Rendered by the page template based on the `maps:` frontmatter field.
+
+**To add a new interactive map:**
+
+1. **Register the map** in `src/data/maps-registry.json` (metadata for the remark plugin):
+   ```json
+   "my-map-id": {
+     "id": "my-map-id",
+     "label": "...",
+     "title": "...",
+     "hint": "...",
+     "height": 400
+   }
+   ```
+   Maps with non-MapShell HTML containers set `"customHtml": true` and add a `case` in `buildCustomMapFigure()`.
+
+2. **Create the script component** in `src/components/YourMap.astro` — no template, just `<script>` and `<style>`:
+   ```astro
+   ---
+   // YourMap.astro — Leaflet map script for ...
+   // HTML container is generated by the remark plugin via [map:my-map-id] in markdown.
+   ---
+   <script>
+     import { initMap, onViewTransition } from '../scripts/maps/shared-map';
+     // ... Leaflet init code using document.getElementById('my-map-id-map')
+   </script>
+   <style>
+     /* Component styles */
+   </style>
+   ```
+
+3. **Register the script component** in `src/pages/histoire/[slug].astro`:
+   ```astro
+   import YourMap from '../../components/YourMap.astro';
+   
+   const MAP_SCRIPTS = {
+     'my-map-id': YourMap,
+     // ... existing maps
+   };
+   ```
+
+4. **Add the marker and frontmatter** to the event `.md` file:
+   ```markdown
+   ---
+   maps: [my-map-id]
+   ---
+   
+   ... paragraph ...
+   
+   [map:my-map-id]
+   ```
+
+**Pattern C maps** (custom HTML containers — `migration`, `resources`, `first-colonial-empire`, `second-colonial-empire`, `french-algeria`): these have unique section HTML instead of MapShell. Their HTML is generated by `buildCustomMapFigure()` in the remark plugin. The script component is still script-only.
+
+### Widgets (`[widget:id]` + post-content components)
+
+For non-map interactive components (e.g., `RevolutionBilan` hover table), use the `widgets:` frontmatter field. The component is rendered after `<Content />`:
+
+```yaml
+---
+widgets: [revolution-bilan]
+---
+```
+
+Register the component in `src/pages/histoire/[slug].astro`:
+```astro
+const WIDGETS = {
+  'revolution-bilan': RevolutionBilan,
+};
+```
+
+If the widget needs to appear inline within prose, add a `[widget:id]` marker in the markdown (generates a placeholder `<div data-widget-slot="xxx">` via `buildWidgetFigure()`).
+
+### Existing Maps Registry
+
+| Map ID | Event | Component | Type |
+|--------|-------|-----------|------|
+| `prehistoric` | premiers-humains | PrehistoricSitesMap | MapShell |
+| `migration` | arrivee-sapiens | MigrationMap | Custom |
+| `resources` | age-de-fer | ResourceMap | Custom |
+| `roman-provinces` | occupation-romaine | RomanProvincesMap | MapShell |
+| `roman-waterways` | occupation-romaine | RomanWaterwaysMap | MapShell |
+| `roman-cities` | occupation-romaine | RomanCitiesMap | MapShell |
+| `traite-verdun` | le-moyen-age-en-France | TreatyOfVerdunMap | MapShell |
+| `villes-medievales` | le-moyen-age-en-France | MedievalCitiesMap | MapShell |
+| `rev-communes` | revolution-francaise | RevCommunesMap | MapShell |
+| `rev-varennes` | revolution-francaise | RevVarennesMap | MapShell |
+| `rev-paris` | revolution-francaise | RevParisMap | MapShell |
+| `napoleon-naissance` | empire-napoleonien | NapoleonBirthplaceMap | MapShell |
+| `coalition-1814` | empire-napoleonien | CoalitionCampaignMap | MapShell |
+| `napoleon-exil` | empire-napoleonien | NapoleonExileMap | MapShell |
+| `first-colonial-empire` | le-xixe-siecle | FirstColonialEmpireMap | Custom |
+| `second-colonial-empire` | le-xixe-siecle | SecondColonialEmpireMap | Custom |
+| `wwi-schlieffen` | guerres-mondiales | WWISchlieffenPlanMap | MapShell |
+| `france-occupation` | guerres-mondiales | FranceOccupationMap | MapShell |
+| `dday-liberation` | guerres-mondiales | DdayLiberationMap | MapShell |
+
+### Widgets Registry
+
+| Widget ID | Event | Component | Type |
+|-----------|-------|-----------|------|
+| `revolution-bilan` | revolution-francaise | RevolutionBilan | Hover table |
 
 ### Creating Chart Figures
 

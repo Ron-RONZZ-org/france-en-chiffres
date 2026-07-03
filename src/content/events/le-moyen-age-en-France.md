@@ -4,6 +4,7 @@ start: 486
 end: 1453
 title: "Le Moyen Âge en France"
 description: "Le « Moyen Âge » est un nom inventé pour dénigrer mille ans d'histoire. Pourtant, c'est au Moyen Âge que la France moderne se forme — son nom, sa langue, ses villages, ses cathédrales, son identité."
+maps: [traite-verdun, villes-medievales]
 timeline:
   - id: naissance-royaume
     title: La naissance du royaume des Francs
@@ -78,7 +79,7 @@ Son petit-fils, **Charlemagne**, devint l'un des souverains les plus puissants d
 {(montage de) illustration(s)/image(s) sous licence libre de Charlemagne}
 
 Malgré sa puissance, l'empire de Charlemagne ne lui survécut pas longtemps. Son fils Louis le Pieux ne parvint pas à maintenir l'unité, et ses trois petits-fils se partagèrent l'empire par le **traité de Verdun** en 843 [source:britannica-france-medieval]. Un certain Charles (oui, il y en avait plein dans la dynastie carolingienne), désigné par les historien·nes comme « Charles le Chauve », reçut la Francie occidentale — le territoire qui deviendra la France. Le traité de Verdun est donc, d'une certaine manière, l'acte de naissance officiel de la nation française.
-{une carte leaflet pour illustrer de la limite territorielle des 3 royaumes issus du traité de Verdun}
+[map:traite-verdun]
 ### L'émergence du nom « France »
 
 Au début, le mot *Francia* désignait uniquement la région autour de Paris — l'Île-de-France actuelle — là où les Francs s'étaient installés en premier. Le reste du territoire conserva ses identités régionales : la Bourgogne, l'Aquitaine, la Normandie (nommée d'après les « hommes du Nord », les Vikings, qui s'y installèrent en 911) [source:britannica-france-medieval].
@@ -160,7 +161,7 @@ Ces communes étaient de véritables « îles de liberté » dans un monde rural
 La vie urbaine était organisée autour des **corporations** (ou métiers jurés), des associations professionnelles qui regroupaient les artisan·es d'un même métier. Chaque corporation avait ses statuts, ses règles d'apprentissage, ses maîtres et ses compagnon·nes. Elles géraient la formation, fixaient les prix et les salaires, contrôlaient la qualité des produits, organisaient l'entraide entre membres. À Paris, les marchands de l'eau — la puissante corporation des bateliers — contrôlaient le commerce fluvial sur la Seine et devinrent l'embryon de l'administration municipale parisienne [source:bnf-livre-metiers].
 
 Les villes étaient dirigées par des conseils municipaux élus par les **bourgeois** — les habitant·es libres et aisés qui possédaient le droit de cité. Ces conseils géraient les finances locales, l'entretien des remparts, l'approvisionnement, l'hygiène publique, et entretenaient des relations diplomatiques avec le seigneur ou le roi. Certaines villes, comme Marseille, Montpellier ou Toulouse, jouissaient d'une quasi-indépendance et traitaient d'égal à égal avec les princes [source:britannica-urbain-prosperity].
-{une carte leaflet pour illustrer l'emplacement des villes majeures à l'époque}
+[map:villes-medievales]
 ## Le pouvoir de l'Église {#eglise-pouvoir}
 
 Au Moyen Âge, l'Église catholique était omniprésente. Elle rythmait le temps (les cloches, les fêtes religieuses, le dimanche chômé), encadrait la vie (le baptême, le mariage, la confession, l'extrême-onction), possédait des terres (parfois jusqu'à un tiers du royaume) et détenait le monopole de l'enseignement et de la culture écrite [source:britannica-france-medieval].

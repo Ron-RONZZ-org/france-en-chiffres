@@ -4,6 +4,7 @@ start: -54000
 end: -30000
 title: "Arrivée d'Homo sapiens en France"
 description: "Il y a 54 000 ans, un·e petit·e Homo sapiens perd une dent de lait dans la grotte Mandrin. Cette dent, retrouvée 54 000 ans plus tard, a bouleversé notre chronologie du peuplement de l'Europe."
+maps: [migration]
 timeline:
   - id: 1er-homo-sapien
     title: "la plus ancienne arrivée documentée"
@@ -35,7 +36,7 @@ Pendant des décennies, le scénario dominant fut simple : *Homo sapiens* serait
 
 Cependant, la grotte Mandrin raconta une tout autre histoire : celle d'une première incursion, réussie mais éphémère, d'*Homo sapiens* en Europe, bien plus tôt que prévu. Ces premier·ères Européen·nes *sapiens* — e·ils n'étaient probablement qu'un petit groupe — laissèrent des outils d'un type particulier, appelé **Néronien**, que les archéologues connaissaient déjà mais n'arrivaient pas à attribuer avec certitude. La dent de Mandrin permit de les identifier : le Néronien, c'est *Homo sapiens*.
 
-<div data-map-slot="migration"></div>
+[map:migration]
 
 ## La grande vague : l'Aurignacien {#aurignacien}
 

@@ -1,9 +1,10 @@
 ---
 id: "empire-napoleonien"
-start: 1799
+start: 1804
 end: 1815
 title: "L'Empire napoléonien"
-description: "Un jeune Corse devient général à vingt-quatre ans, Premier consul à trente, empereur à trente-cinq : En quinze ans de pouvoir, Napoléon Bonaparte a conquis l'Europe, réformé la France en profondeur — et laissé un héritage ambivalent que le pays porte encore aujourd'hui."
+description: "Il n'est resté au pouvoir que onze ans, mais Napoléon a laissé une trace plus profonde sur la France que n'importe quel dirigeant avant ou après lui — et ses choix résonnent encore aujourd'hui."
+maps: [napoleon-naissance, coalition-1814, napoleon-exil]
 timeline:
   - id: grande-armee
     title: La Grande Armée
@@ -34,7 +35,9 @@ Août, 1804. Étienne, vingt-deux ans, fils de paysan·nes du Morvan, marchait d
 
 ## Napoleone Buonaparte
 
-Né en 1769 à Ajaccio, en Corse — île cédée à la France par Gênes l'année précédente —, Napoleone Buonaparte, qui francisera son nom plus tard comme Napoléon Bonaparte, était le quatrième enfant d'une famille de petite noblesse toscane. Boursier du roi, il intégra l'école militaire de Brienne à neuf ans, puis l'École militaire de Paris, d'où il sortit sous-lieutenant d'artillerie en 1785. 
+Né en 1769 à Ajaccio, en Corse — île cédée à la France par Gênes l'année précédente —, Napoleone Buonaparte, qui francisera son nom plus tard comme Napoléon Bonaparte, était le quatrième enfant d'une famille de petite noblesse toscane. Boursier du roi, il intégra l'école militaire de Brienne à neuf ans, puis l'École militaire de Paris, d'où il sortit sous-lieutenant d'artillerie en 1785.
+
+[map:napoleon-naissance]
 
 Comme beaucoup de jeunes officiers, il lisait Rousseau et Voltaire dans son temps libre, et accueillit la Révolution avec espoir [source:britannica-napoleon].
 
@@ -145,6 +148,8 @@ En 1813, l'Europe entière se retourna contre Napoléon. Plusieurs raisons expli
 
 La campagne de France (février-mars 1814) fut un dernier chef-d'œuvre militaire : avec 70 000 hommes, Napoléon battit plusieurs armées alliées, remportant six victoires en deux semaines — Champaubert, Montmirail, Château-Thierry, Vauchamps, Mormant et Montereau, autant de batailles distinctes qui ralentissaient la progression alliée. Mais ces succès tactiques ne pouvaient masquer l'écrasante supériorité numérique des coalisés : les armées alliées comptaient plus de 300 000 hommes, et tandis que Napoléon en battait une, les autres continuaient de converger vers Paris par des routes différentes. Le 31 mars 1814, Paris capitula. Le 6 avril, Napoléon abdiqua. Les Alliés lui donnèrent la souveraineté de l'île d'Elbe ; la monarchie des Bourbons fut restaurée par la couronation de Louis XVIII [source:britannica-napoleon].
 
+[map:coalition-1814]
+
 ### Les Cent-Jours (1815) {#cent-jours}
 
 La Restauration des Bourbons déçut rapidement l'opinion. Louis XVIII, ramené par les armées étrangères, devait composer avec des émigrés revenus d'exil qui réclamaient vengeance et la restitution de leurs biens. L'armée était mise à l'écart, les paysans craignaient le retour des droits seigneuriaux, et l'Église regagnait une influence qui inquiétait les héritiers des Lumières. Le mécontentement grandit [source:britannica-napoleon].
@@ -156,6 +161,8 @@ Le 1<sup>er</sup> mars 1815, Napoléon débarqua à Golfe-Juan, près d'Antibes,
 
 Cependant, la coalition européenne se reforma. Le 18 juin 1815, à **Waterloo** (dans l'actuelle Belgique), l'armée française, épuisée, affronta les forces anglaises du duc de Wellington et prussiennes de Blücher. La bataille dura toute la journée. Dans la soirée, les Prussiens arrivèrent — la dernière garde impériale fut repoussée. Napoléon abdiqua une seconde fois, se rendit aux Anglais, et fut exilé à Sainte-Hélène, île perdue au milieu de l'Atlantique Sud. Il y mourut le 5 mai 1821 [source:britannica-napoleon].
 [media:bataille-waterloo]
+
+[map:napoleon-exil]
 
 ## Bilan du règne napoléonien
 

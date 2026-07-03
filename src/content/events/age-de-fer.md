@@ -5,6 +5,7 @@ end: -52
 title: "L'Âge de fer"
 yearDisplay: "600 à 52 AEC"
 description: "Imaginez un monde sans métal. Vos outils sont en pierre, en os ou en bois. Votre hache ne coupe pas un arbre, elle l'écrase. Puis le fer arrive — dur, abondant, à la portée de chacun·e. En quelques générations, tout change : les forêts reculent, les champs s'étendent, les villages deviennent des villes. L'Âge de fer n'est pas seulement celui des princes et princesses : c'est celui où le métal est devenu l'affaire de tout le monde."
+maps: [resources]
 ---
 
 ## Un monde sans métal
@@ -86,3 +87,5 @@ En d'autres termes, l'Âge de fer a amélioré le sort matériel de presque tout
 L'Âge de fer n'a pas de date de fin nette. La conquête romaine a transformé la Gaule, mais n'a pas effacé les structures que le fer avait construites. Les outils gaulois — la charrue à soc de fer, la serpe, la hache, le couteau — ont continué de labourer, couper et équiper la France rurale pendant des siècles. Les techniques de forge, l'émail, la métallurgie du fer mises au point par les artisan·es celtes ont survécu à la civilisation qui les a vues naître.
 
 Dans un sens, l'Âge de fer ne s'est jamais achevé. Quand on laboure un champ avec un tracteur moderne, le soc qui retourne la terre est encore en fer. Quand on ouvre une porte, la charnière contient du fer. Quand on regarde un paysage de collines déboisées et de champs ouverts, on regarde le résultat d'un long travail commencé par des haches de fer, il y a 2 600 ans.
+
+[map:resources]
