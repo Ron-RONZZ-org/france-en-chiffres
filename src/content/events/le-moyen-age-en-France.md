@@ -248,7 +248,7 @@ Sous la conduite de leur capitaine général Guillaume Cale, e·ils firent même
 {(montage de) illustration(s)/image(s) sous licence libre du massacre des paysans}
 ## La nation française se forme
 
-Quand la guerre de Cent Ans s'acheva en 1453, la France n'était plus la même. La guerre avait anéanti une grande partie de la noblesse féodale — décimée sur les champs de bataille de Crécy, Poitiers et Azincourt — laissant le champ libre à un pouvoir royal désormais capable de lever des armées permanentes et des impôts réguliers sans passer par les seigneurs. Surtout, la guerre avait forgé un sentiment national inédit : la France n'était plus un assemblage de territoires gouvernés par des princes rivaux, mais une nation unie autour de son roi, portée par la figure de Jeanne d'Arc et la reconquête du royaume. Les villes étaient prospères, l'autorité monarchique s'étendait sur l'ensemble du territoire[source:britannica-france-medieval].
+Quand la guerre de Cent Ans s'acheva en 1453, la France n'était plus la même. La guerre avait anéanti une grande partie de la noblesse féodale — décimée sur les champs de bataille de Crécy, Poitiers et Azincourt — laissant le champ libre à un pouvoir royal désormais capable de lever des armées permanentes et des impôts réguliers sans passer par les seigneurs. Surtout, la guerre avait forgé un sentiment national inédit : la France n'était plus un assemblage de territoires gouvernés par des princes rivaux, mais une nation unie autour de son roi, portée par la figure de Jeanne d'Arc et la reconquête du royaume. Les villes étaient prospères, l'autorité monarchique s'étendait sur l'ensemble du territoire [source:britannica-france-medieval].
 
 ## L'invention du « Moyen Âge » par les modernes
 
