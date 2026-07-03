@@ -190,6 +190,67 @@ The script:
 
 **ID normalization** when derived from filename: NFD-decompose → strip diacritics → lowercase → `[^a-z0-9]+` → `-` → trim dashes.
 
+### Image Search Strategy
+
+When searching for free-licensed images to register, use the following sources in priority order.
+
+#### 1. Paris Musées Collections (CC0 / Domaine public)
+
+The richest source for historical French photographs — over 260 000 public domain images from 14 Paris museums. All are CC0 (no attribution required).
+
+**Construct search URLs as follows:**
+
+```
+https://www.parismuseescollections.paris.fr/fr/recherche/image-libre/1?keywords={URL-ENCODED-KEYWORDS}&limit=50&sort=score
+```
+
+Example with `femmes tondues`:
+```
+https://www.parismuseescollections.paris.fr/fr/recherche/image-libre/1?keywords=femmes%20tondues&limit=50&sort=score
+```
+
+**How to download:**
+1. Open the search URL in browser
+2. Click on a result thumbnail
+3. On the item page, scroll to see `Télécharger` button or find the IIIF manifest link in the page source
+4. The IIIF manifest is at: `https://apicollections.parismusees.paris.fr/iiif/{ID}/manifest`
+5. From the manifest, extract the 4K image URL (under `sequences[0].canvases[0].images[0].resource["@id"]`)
+6. Download at high resolution via `curl -L -o <file> "<url>"`
+
+All images are explicitly released as CC0 (public domain) — no attribution needed.
+
+#### 2. Wikimedia Commons
+
+Search for specific file names in the Commons namespace:
+```
+https://commons.wikimedia.org/w/api.php?action=query&list=search&srsearch={KEYWORDS}&srnamespace=6&srlimit=10&format=json
+```
+
+Then extract URLs from the `imageinfo` property. Always verify the license in the `extmetadata` — prefer CC BY-SA, CC BY, or Public Domain.
+
+To find relevant files, first search the French Wikipedia article on a topic to discover image file names:
+```
+https://fr.wikipedia.org/w/api.php?action=query&prop=images&titles={TOPIC}&imlimit=20&format=json
+```
+
+#### 3. Pixabay (CC0)
+
+For generic stock photography (elderly people, modern topics, office scenes) not found in historical archives. All images are CC0.
+
+```
+https://pixabay.com/photos/search/{KEYWORDS}/?order=ec
+```
+
+Pixabay requires manual browsing to identify suitable images, as their API requires a key. Download is free without attribution.
+
+#### 4. France Archives (francearchives.gouv.fr)
+
+For French post-war reconstruction specifically — the Ministère de la Reconstruction et de l'Urbanisme (MRU) collection has 36 000+ photographs from 1945–1958 documenting the rebuilding of French cities and industry.
+
+#### 5. Flickr Commons
+
+For archival photos: search with license filter for CC-friendly results.
+
 ### ⚠️ CRITICAL: Markdown Purity Rule
 
 **`.md` content files must contain ONLY:**

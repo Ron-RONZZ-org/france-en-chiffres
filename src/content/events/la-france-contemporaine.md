@@ -28,16 +28,23 @@ timeline:
 Paris, été 1945. Suzanne, vingt-sept ans, attendait le bus sur la place de la République. Autour d'elle, des immeubles éventrés, des trous d'obus dans les façades, des affiches tricolores annonçant la reconstruction. Dans son cabas, elle portait un pot de confiture — son seul bien précieux, obtenu par le boucher en échange de trois heures de queue.
 
 Suzanne avait vécu l'Occupation, les alertes, les tickets de rationnement. Elle avait vu son père arrêté par les gendarmes parce qu'il était juif. Il n'était jamais revenu. Elle avait vu les Alliés débarquer, la Libération, les femmes tondues accusées de collaboration. Maintenant, elle cherchait du travail.
+[media:cherbourg-tondues]
 
 Elle trouva une place de sténodactylo (le mot fait sourire aujourd'hui, mais c'était un métier de bureau respectable pour une femme) dans une administration qui sortait de terre, la Sécurité sociale. Elle ne le savait pas encore, mais elle allait vivre le plus grand bond en avant de l'histoire de France.
+
+TODO: still needs image — sténodactylo au travail, bureau années 1950
 
 ## Les Trente Glorieuses (1945–1973) {#trente-glorieuses}
 
 ### La reconstruction
 
 La France de 1945 comptait 500 000 bâtiments détruits ou endommagés, 7 000 ponts de chemin de fer hors d'usage, 20 000 km de voies ferrées impraticables. La production industrielle atteignait à peine 40 % de son niveau de 1938 ; le pays avait perdu entre un quart et un tiers de son capital national [source:britannica-trente-glorieuses].
-
+[media:lisieux-ruines]
+[chart:production-industrielle-1935-1950]
 Face à cette situation catastrophique, la reconstruction s'organisa sur des bases entièrement nouvelles. Le **Conseil national de la Résistance**, dans son programme de 1944, avait prévu une « démocratie économique et sociale ». Les grandes nationalisations commencèrent : les Houillères (1945), EDF-GDF (1946), Renault (1946), les banques (1946), Air France (1948). L'État devenait entrepreneur et planificateur.
+
+TODO: still needs image — production industrielle après-guerre (usines, chaînes de montage)
+utilise: https://www.parismuseescollections.paris.fr/fr/musee-carnavalet/oeuvres/la-france-au-travail-une-usine
 
 Le **Plan Monnet** (1947) fixa des objectifs de production pour les secteurs clés : charbon, acier, électricité, ciment, transports. Avec l'aide du **Plan Marshall** — programme lancé par les États-Unis fournissant 2,6 milliards de dollars américains entre 1948 et 1952 pour la reconstruction économique européenne — la France se releva vite. En 1950, cinq ans après la guerre, la production industrielle avait dépassé le niveau de 1938.
 
@@ -52,16 +59,17 @@ La Sécurité sociale devint la grande fierté de la France d'après-guerre. À 
 Entre 1945 et 1973, la population française connut un essor annuel d'environ 0,9 %, passant de 40 millions en 1945 à 52 millions en 1973. On appelait ce phénomène le **baby-boom** : après les privations de la guerre, les couples faisaient plus d'enfants, plus tôt. Le **Code de la famille** (1939), renforcé après-guerre, encourageait les naissances par les allocations familiales et des avantages fiscaux pour les familles nombreuses. Les familles de trois, quatre ou cinq enfants redevinrent la norme.
 [chart:population-evolution]
 Cette génération — les « baby-boomeur·euses » — allait transformer la France : trop nombreux pour entrer dans des écoles vétustes, e·ils réclamèrent des lycées, des universités, des logements, des emplois. La France dut construire en masse.
-
 ### La société de consommation
 
 Dans les années 1950 et 1960, la France découvrit le confort moderne : le réfrigérateur, la machine à laver, la télévision et l'automobile devinrent les équipements standards de la majorité des foyers français.
 
+[media:renault-4]
 L'équipement des ménages français progressa de manière spectaculaire [source:britannica-trente-glorieuses] : le réfrigérateur, présent dans 10 % des foyers en 1954, équipait les trois quarts des familles en 1970 ; l'automobile — la 2CV, la 4L, la DS, icônes françaises — passa de 20 % à plus de 60 % des ménages ; la télévision, de 1 % à 70 % durant la même période.
 
 [chart:equipements-menages-1954-1970]
 
 Les **grands ensembles** — des barres de logements sociaux construites à la périphérie des villes — logèrent des millions de familles. Sarcelles, Créteil, Vénissieux devinrent des villes nouvelles, accueillant celles et ceux qui quittaient les campagnes ou les bidonvilles.
+[media:grands-ensembles]
 
 L'**exode rural** s'accéléra : en 1945, 40 % des Français·es vivaient de l'agriculture ; en 1975, e·ils n'étaient plus que 10 %. Les paysan·nes devenaient ouvrier·ères dans l'industrie ou employé·es dans les services. Les campagnes se vidaient, les villes grossissaient.
 
@@ -90,18 +98,21 @@ Ce traumatisme eut des conséquences profondes : discrédit de l'armée françai
 Le traumatisme de la guerre d'Indochine ne put empêcher un autre conflit colonial sanglant.
 
 L'Algérie n'était pas une colonie comme les autres : départements français depuis 1848 et habitée par un million de pieds-noirs (Français·es d'origine européenne), elle faisait partie intégrante de la République.
-
+La carte ci-dessous illustre la division départementale de l'Algérie française en 1954, à la veille du déclenchement de la guerre d'indépendance.
 Pourtant, la société algérienne vivait sous un régime de ségrégation de fait : les neuf millions d'Algérien·nes musulman·es disposaient de droits politiques réduits (collège électoral séparé, sous-représentation à l'Assemblée nationale), subissaient des inégalités salariales institutionnalisées (le « double salaire » avantageant les Européen·nes), et voyaient leurs terres confisquées au profit des colons. L'accès à l'éducation, à la santé et aux fonctions publiques leur était largement fermé. Le nationalisme algérien, réprimé depuis les massacres de Sétif (1945), mûrissait dans la clandestinité, alimenté par les indépendances des pays voisins (Maroc, Tunisie, 1956) et par l'humiliation quotidienne du système colonial.
-
+[media:algerian-collage]
 Le 1<sup>er</sup> novembre 1954, le FLN (Front de Libération Nationale) déclencha une série d'attentats. La guerre qui suivit fut une guerre sale : torture pratiquée par l'armée française — systématique, organisée, justifiée par la nécessité de « faire parler » les suspects —, attentats du FLN contre les civils pieds-noirs, déplacements de populations (2 millions de paysan·nes algérien·nes parquées dans des camps par l'armée française), exécutions sommaires des deux côtés. Près de 400 000 Algérien·nes (combattant·es et civils) périrent, ainsi que 25 000 soldats français et 6 000 civils européens [source:britannica-algerian-war].
 
-La guerre divisa profondément la société française. En 1958, le putsch des généraux d'Alger ramena de Gaulle au pouvoir, qui fonda la V<sup>e</sup> République. En 1962, après les accords d'Évian, l'Algérie devint indépendante. 900 000 pieds-noirs et 80 000 harkis (supplétifs algériens de l'armée française) durent quitter l'Algérie pour la France, souvent dans des conditions tragiques.
 [media:guerre-algerie]
+
+La guerre divisa profondément la société française. En 1958, le putsch des généraux d'Alger ramena de Gaulle au pouvoir, qui fonda la V<sup>e</sup> République. De Gaulle, réaliste, comprit que l'indépendance était inévitable. Des négociations secrètes s'ouvrirent dès 1960 avec le Gouvernement provisoire de la République algérienne (GPRA). Elles aboutirent aux **accords d'Évian**, signés le 18 mars 1962. Le cessez-le-feu fut immédiat ; un référendum d'autodétermination organisé le 1<sup>er</sup> juillet 1962 approuva l'indépendance à 99,7 % des voix. En 1962, après les accords d'Évian, l'Algérie devint indépendante. 900 000 pieds-noirs et 80 000 harkis (supplétifs algériens de l'armée française) durent quitter l'Algérie pour la France, souvent dans des conditions tragiques.
+
 [media:pieds-noirs-exode]
 
 ### L'immigration post-coloniale
 
 La décolonisation s'accompagna d'une immigration massive des anciennes colonies vers la France. Dans les années 1960-1970, des centaines de milliers de travailleur·euses algérien·nes, marocain·es, tunisien·nes, sénégalais·es, malien·nes vinrent travailler dans les usines, le bâtiment, les mines — les « Trente Glorieuses » avaient besoin de bras.
+[chart:immigration-par-decenie]
 
 E·ils vivaient souvent dans des bidonvilles (Nanterre, Saint-Denis), puis dans des foyers Sonacotra, dans des conditions de logement indignes. Leurs enfants — la « deuxième génération » — grandirent dans les cités **HLM** (Habitations à Loyer Modéré) construites à la hâte en périphérie des grandes villes. Ces quartiers, pensés comme des solutions provisoires, se dégradèrent rapidement : manque de transports, d'équipements publics, d'espaces verts. L'école républicaine, censée être le grand intégrateur, peinait face à des classes surchargées, au décrochage scolaire et aux discriminations à l'embauche qui frappaient les jeunes issu·es de l'immigration dès leur sortie du système éducatif.
 [media:bidonville-1960]
@@ -114,9 +125,9 @@ Entre deux cultures, les immigré·es, y compris leurs enfants né·es en France
 En mai 1968, une contestation étudiante partie de l'université de Nanterre gagna la Sorbonne, puis tout Paris. Les étudiant·es protestaient contre les conditions d'étude, la société de consommation, la guerre du Vietnam, l'autorité patriarcale — contre « le monde tel qu'il est », résumé dans un slogan célèbre : « Il est interdit d'interdire. »
 [media:mai-68-barricades]
 Les 10 et 11 mai, la **nuit des barricades** au Quartier latin : les étudiant·es construisirent des barricades avec les pavés arrachés, et la police chargea. Des centaines de personnes furent blessées. Le 13 mai, les syndicats appelèrent à une grève générale de 24 heures pour soutenir les étudiant·es — et la grève s'étendit à tout le pays. 9 millions de grévistes occupèrent leurs usines, un record mondial [source:britannica-mai-1968].
-
+[media:workers-68]
 Le gouvernement de Gaulle sembla paralysé. Le 29 mai, de Gaulle s'envola pour Baden-Baden, en Allemagne, rencontrer le général Massu — on ne sait toujours pas exactement ce qui fut dit. Le 30 mai, de retour, il annonça la dissolution de l'Assemblée nationale. Dans les élections qui suivirent, la peur du « chaos » poussa la droite à une large victoire.
-
+[chart:resultats-electoraux-1968]
 La crise se termina, mais les mutations culturelles étaient irréversibles. 1968 accéléra la libération des mœurs, le féminisme, l'écologie, la contestation de l'autorité sous toutes ses formes.
 
 ### Les mouvements féministes marquèrent les années 1970
@@ -128,7 +139,7 @@ Les années 1970 furent une décennie de libération pour les femmes. Le **Mouve
 La loi **Neuwirth** (1967) autorisa la contraception — mais elle ne fut vraiment appliquée qu'à partir de 1974. La loi **Veil** (17 janvier 1975) dépénalisa l'interruption volontaire de grossesse (IVG) pour une durée de cinq ans, à titre expérimental. Simone Veil, ministre de la Santé, porta la loi devant une Assemblée nationale majoritairement masculine, subissant des insultes et des attaques personnelles. La loi fut définitivement pérennisée en 1979.
 [media:simone-veil]
 Le **divorce par consentement mutuel** fut autorisé en 1975. Le viol fut reconnu comme crime en 1980. Les femmes gagnèrent du terrain dans tous les domaines : dans l'enseignement supérieur, elles représentaient 47 % des étudiant·es en 1970 contre 37 % en 1960 ; dans les professions libérales, leur part doubla entre 1970 et 1990 ; en politique, la loi sur la parité n'existait pas encore, mais des figures comme Simone Veil, Françoise Giroud ou Yvette Roudy imposèrent leur présence au gouvernement.
-
+[media:francoise-giroud][media:yvette-roudy]
 ## La France contemporaine (1981–2026) {#france-contemporaine}
 
 ### L'alternance historique du pouvoir
@@ -137,9 +148,15 @@ En 1981, **François Mitterrand** fut élu président de la République — le p
 
 ### L'abolition de la peine de mort
 
-Le 9 octobre 1981, l'Assemblée nationale vota l'abolition de la peine de mort, après un discours historique du garde des Sceaux, Robert Badinter. La France rattrapait ainsi un retard considérable sur ses voisins européens : l'Italie avait aboli la peine de mort dès 1889 (hors période fasciste) ; l'Allemagne de l'Ouest en 1949 ; le Royaume-Uni l'avait suspendue en 1965 ; le Portugal en 1976 ; l'Espagne en 1978 (sauf pour les militaires, complètement abolie en 1995) ; la Belgique en 1996, quoique plus aucune exécution n'y eût eu lieu depuis 1950. La France était l'un des derniers pays d'Europe occidentale à appliquer la peine de mort — la dernière exécution eut lieu le 10 septembre 1977, par guillotine, à la prison des Baumettes à Marseille. Le condamné, Hamida Djandoubi, citoyen tunisien, avait été reconnu coupable d'un meurtre avec violences ayant entraîné la mort.
+Sous la V<sup>e</sup> République, la peine de mort était régulièrement prononcée pour les crimes les plus graves — assassinats, meurtres d'enfants, crimes politiques et militaires en temps de guerre, trahison. La sentence était exécutée par guillotine, en place publique jusqu'en 1939, puis dans la cour des prisons. L'opinion publique y restait majoritairement favorable : 62 % des Français·es s'y déclaraient encore attaché·es en 1981.
+
+La dernière exécution eut lieu le 10 septembre 1977, à la prison des Baumettes à Marseille. Le condamné, Hamida Djandoubi, citoyen tunisien, avait été reconnu coupable d'un meurtre avec violences ayant entraîné la mort. Personne ne le savait encore, mais il serait le dernier guillotiné de l'histoire de France.
+
+La France était alors un des derniers pays d'Europe occidentale à appliquer encore la peine capitale. L'Italie l'avait abolie dès 1889 (hors période fasciste) ; l'Allemagne de l'Ouest en 1949 ; le Royaume-Uni l'avait suspendue en 1965 ; le Portugal en 1976 ; l'Espagne en 1978 (sauf pour les militaires) ; la Belgique n'avait exécuté personne depuis 1950. La France, patrie des Droits de l'Homme, traînait un héritage que ses voisins avaient déjà abandonné.
+
+Le 9 octobre 1981, l'Assemblée nationale vota l'abolition après un discours historique du garde des Sceaux, **Robert Badinter**. L'ancien avocat, qui avait sauvé plusieurs accusé·es de la guillotine, prononça un plaidoyer resté dans les mémoires : « Je vous demande, au nom de ma conscience, au nom de mon devoir, de ne pas laisser la France traîner ce boulet sanglant. » Le vote fut acquis par 363 voix contre 117.
 [media:robert-badinter]
-L'opinion publique restait pourtant majoritairement favorable à la peine capitale (62 % des Français·es y étaient favorables en 1981 selon les sondages de l'époque). La décision de Mitterrand et Badinter fut un acte de courage politique, fondé sur la conviction que l'État ne devait pas disposer du droit de donner la mort. La loi fut définitivement inscrite dans la Constitution en 2007.
+La décision de Mitterrand et Badinter fut un acte de courage politique, fondé sur la conviction que l'État ne devait pas disposer du droit de donner la mort — y compris contre l'avis de la majorité de l'opinion. La loi fut définitivement inscrite dans la Constitution en 2007, sous la présidence de Jacques Chirac, rendant désormais impossible tout retour en arrière.
 
 ### Les grandes réformes de Mitterrand
 
@@ -148,6 +165,7 @@ Le premier mandat de François Mitterrand (1981–1988) mit en œuvre un program
 ### La crise économique des années 1980
 
 Ces réformes sociales se heurtèrent à un contexte économique dégradé. La France subissait de plein fouet les conséquences des deux chocs pétroliers (1973 et 1979) : l'inflation dépassait 13 % en 1981, la croissance ralentissait, et le chômage, qui touchait 500 000 personnes en 1974, atteignit 2 millions en 1983, puis 3 millions en 1993. La désindustrialisation, accélérée par la concurrence internationale, frappait durement les bassins miniers et sidérurgiques du Nord et de l'Est.
+[chart:chomage-1974-1994]
 
 Confronté à la dégradation des comptes publics et aux pressions des marchés financiers, le gouvernement Mauroy opéra un **« tournant de la rigueur »** en mars 1983 : la France renonça à une politique de relance isolée et choisit de rester dans le système monétaire européen. Ce choix — préférer la contrainte européenne à une politique économique nationale — structura la vie politique française pour les décennies suivantes. La gauche au pouvoir géra désormais l'austérité qu'elle avait dénoncée sous la droite, un paradoxe qui alimenta la désillusion d'une partie de son électorat.
 
@@ -158,16 +176,17 @@ La période 1986–1988 vit la première **cohabitation** : un président de gau
 ### La construction d'une Europe unifiée
 
 L'idée d'une Europe unie naquit des ruines de la Seconde Guerre mondiale. Comment rapprocher des nations qui s'étaient affrontées pendant des siècles — la France et l'Allemagne en particulier ? Le 9 mai 1950, **Robert Schuman**, ministre français des Affaires étrangères, proposa de mettre en commun les productions de charbon et d'acier de la France et de l'Allemagne, sous une autorité supranationale. Cette **Déclaration Schuman**, conçue avec **Jean Monnet**, posa le principe fondateur : « Rendre la guerre non seulement impensable, mais matériellement impossible. » La **Communauté européenne du charbon et de l'acier (CECA)** , créée en 1951 par six pays (France, Allemagne de l'Ouest, Italie, Belgique, Pays-Bas, Luxembourg), fut le premier pas. Le **traité de Rome** (1957) élargit la coopération à l'ensemble de l'économie avec la création de la **Communauté économique européenne (CEE)** .
+[media:jean-monnet][media:robert-schuman]
 [media:traite-rome]
 Des décennies plus tard, **Jacques Delors**, président de la Commission européenne (1985–1995), relança l'intégration avec une ambition renouvelée. L'**Acte unique** (1986) acheva le marché intérieur en supprimant les dernières barrières douanières et en harmonisant les normes. Le **traité de Maastricht** (1992) créa l'Union européenne, instaura une citoyenneté européenne, posa les bases de la monnaie unique et d'une politique étrangère commune. L'**euro** fut adopté comme monnaie comptable en 1999, mis en circulation en 2002, remplaçant le franc qui avait accompagné la France depuis 1795. La **politique agricole commune (PAC)** , créée dès 1962, demeura le premier poste budgétaire européen et un pilier de l'agriculture française.
-
-L'unification européenne divisait profondément les Français·es. Pour certaines, elle représente la paix, la prospérité et la puissance diplomatique collective face aux géants américain et chinois. Pour les autres, elle représente une technocratie bruxelloise et la perte de souveraineté nationale. Le traité de Maastricht en 1992 ne fut approuvé qu'à 51 % par référendum. En 2005, le référendum sur le traité constitutionnel européen fut rejeté par 55 % des votant·es — un camouflet pour la classe politique qui avait appelé à voter oui.
+[media:jacques-delors]
+L'unification européenne divisait profondément les Français·es. Pour certaines, elle représente la paix, la prospérité et la puissance diplomatique collective face aux géants américain et chinois. Pour les autres, elle représente une technocratie bruxelloise et la perte de souveraineté nationale. Le traité de Maastricht en 1992 ne fut approuvé qu'à 51 % par référendum, malgré l'appel au « oui » du président François Mitterrand, des principaux partis de gouvernement (PS, RPR, UDF) et de la quasi-totalité des médias. En 2005, le référendum sur le traité constitutionnel européen fut rejeté par 55 % des votant·es — un camouflet pour le président Jacques Chirac, les directions du PS et de l'UMP, qui avaient appelé à voter « oui », tandis que le « non » était porté par une coalition hétéroclite réunissant l'extrême gauche (LCR, PCF), l'extrême droite (Front national) et une partie des souverainistes.
 [chart:referendums-europeens]
 ### L'âge d'Internet et la transformation numérique
 
 La révolution numérique en France commença avec le lancement du **Minitel** en 1982 par l'administration des Postes, Télégraphes et Téléphones (PTT), ancêtre de France Télécom et de La Poste. Il fut l'un des premiers services en ligne grand public au monde — annuaire électronique, messagerie, réservations, services bancaires. Jusqu'à 9 millions de terminaux furent installés dans les foyers français.
 [media:minitel-terminal]
-Tim Berners-Lee inventa le World Wide Web, communément appelé Internet, au CERN en 1989. Il fut adopté rapidement en France au milieu des années 1990, supplantant le Minitel. Où Minitel était un réseau national fermé, centralisé et facturé à la durée de connexion, Internet était un espace ouvert, mondial et multimédia — images, vidéos, son — où chaque personne pouvait publier, consulter et échanger librement. En 2023, 93 % des habitants en France âgé·es de 15 ans ou plus utilisaient Internet.
+Tim Berners-Lee inventa le World Wide Web, communément appelé Internet, au CERN en 1989. Il fut adopté rapidement en France au milieu des années 1990, supplantant le Minitel. Là où le Minitel était un réseau national fermé, centralisé et facturé à la durée de connexion, Internet était un espace ouvert, mondial et multimédia — images, vidéos, son — où chaque personne pouvait publier, consulter et échanger librement. En 2023, 93 % des habitant·es en France âgé·es de 15 ans ou plus utilisaient Internet.
 
 [chart:internautes-france]
 
@@ -179,15 +198,18 @@ La France produisit des licornes technologiques (BlaBlaCar, Doctolib, Deezer, Ba
 
 La France du XXI<sup>e</sup> siècle est un pays riche — avec un PIB par habitant d'environ 44 000 dollars, parmi les plus élevés du monde. Cependant, elle est aussi un pays profondément inégalitaire : les 1 % les plus riches possèdent autant que les 70 % les plus pauvres. Le taux de pauvreté (9,3 millions de personnes, soit 14 % de la population) stagne depuis vingt ans. Un enfant sur cinq vit sous le seuil de pauvreté [source:insee-2024] [source:banque-mondiale-2024].
 
-La France du XXIe siècle est aussi un pays vieillissant : avec une espérance de vie de 82 ans à la naissance, 21 % de la population a plus de 65 ans en 2024, contre 12 % en 1970 
+La France du XXI<sup>e</sup> siècle est aussi un pays vieillissant : l'espérance de vie atteint 82 ans à la naissance, tandis que 21 % de la population a plus de 65 ans en 2024, contre seulement 12 % en 1970.
 
 [chart:population-agee-france]
 [chart:esperance-vie-france]
 
-La France du XXIe siècle est aussi un pays divers : environ 10 % de la population est immigrée (dont la moitié venue d'Afrique), et 20 % a au moins un parent immigré. La France est d'ailleurs le pays d'Europe qui compte la population musulmane la plus importante — environ 5 millions de personnes — héritage de l'histoire coloniale et des vagues d'immigration.
+La France du XXI<sup>e</sup> siècle est aussi un pays divers : environ 10 % de la population est immigrée (dont la moitié venue d'Afrique), et 20 % a au moins un parent immigré. La France est d'ailleurs le pays d'Europe qui compte la population musulmane la plus importante — environ 5 millions de personnes — héritage de l'histoire coloniale et des vagues d'immigration.
+[chart:population-origine]
 
-La France du XXIe siècle est aussi un pays qui se débat toujours avec son identité. Les attentats de 2015 (Charlie Hebdo, 7 janvier ; le Bataclan, 13 novembre) ont rouvert des blessures : le débat sur la laïcité, sur l'islam, sur l'héritage colonial, sur l'immigration est permanent — parfois violent, souvent stérile, parce que les positions s'y crispent autour d'identités inconciliables et que la recherche de faits objectifs cède le pas aux affirmations idéologiques.
+[chart:population-religion]
 
+La France du XXI<sup>e</sup> siècle est aussi un pays qui se débat toujours avec son identité. Les attentats de 2015 (Charlie Hebdo, 7 janvier ; le Bataclan, 13 novembre) ont rouvert des blessures : le débat sur la laïcité, sur l'islam, sur l'héritage colonial, sur l'immigration est permanent — parfois violent, souvent stérile, parce que les positions s'y crispent autour d'identités inconciliables et que la recherche de faits objectifs cède le pas aux affirmations idéologiques.
+[media:attentats-2015]
 ### Les défis français du XXI<sup>e</sup> siècle
 
 La France du XXI<sup>e</sup> siècle doit faire face à des défis multiples.
@@ -195,7 +217,7 @@ La France du XXI<sup>e</sup> siècle doit faire face à des défis multiples.
 **La transition écologique** est devenue une priorité nationale et européenne. Le pays s'est engagé à atteindre la neutralité carbone d'ici 2050, avec la fermeture programmée des centrales à charbon, le développement des énergies renouvelables et la rénovation thermique des bâtiments. Le plan **France 2030**, avec 54 milliards d'euros d'investissements, illustre cette ambition. Les premiers résultats restent malheureusement contrastés : les émissions de gaz à effet de serre baissent, trop lentement pour respecter les objectifs de l'accord de Paris.
 [media:energie-renouvelable]
 **La transition démographique** pèse sur la finance publique et le système de santé. Avec un taux de fécondité de 1,8 enfant par femme (2023), la France restait le pays le plus fécond d'Europe, mais le vieillissement accélérait le déséquilibre entre personnes actives et retraités. Le système social, conçu dans les années 1940 pour une population jeune et en croissance, devait s'adapter à une société où plus d'un quart de la population aurait plus de 65 ans en 2030 [source:insee-2024].
-
+TODO: still needs image — personnes âgées en France, EHPAD, vieillissement
 **Les inégalités sociales** demeurent. Le mouvement des **« Gilets jaunes »** en 2018 et 2019, né d'une contestation contre la hausse des taxes sur les carburants, révéla une fracture profonde entre les grandes métropoles mondialisées et les territoires périurbains et ruraux, frappés par le déclin des services publics, la précarité et le sentiment de déclassement. La **réforme des retraites** en 2023, qui recula l'âge légal de départ de 62 à 64 ans, provoqua des mois de contestation sociale, symptôme du dilemme français : financer un État-providence généreux dans une société vieillissante.
 
 [media:gilets-jaunes]
