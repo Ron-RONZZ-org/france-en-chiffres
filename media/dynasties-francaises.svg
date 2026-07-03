@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 560" width="760" height="560" role="img" aria-label="Schéma des relations entre les dynasties royales françaises, des Mérovingiens aux Bourbons">
+  <rect width="760" height="560" fill="#1a1a2e" rx="8"/>
+  <text x="380" y="20" fill="#e2e8f0" font-size="15" font-weight="600" text-anchor="middle" font-family="system-ui, sans-serif">Relations entre les dynasties royales françaises</text>
+  <line x1="108" y1="115.71428571428571" x2="108" y2="181.42857142857142" stroke="#4a5568" stroke-width="1.5"/>
+  <line x1="380" y1="115.71428571428571" x2="380" y2="181.42857142857142" stroke="#4a5568" stroke-width="1.5"/>
+  <line x1="652" y1="115.71428571428571" x2="652" y2="181.42857142857142" stroke="#4a5568" stroke-width="1.5"/>
+  <line x1="108" y1="181.42857142857142" x2="108" y2="247.1428571428571" stroke="#4a5568" stroke-width="1.5"/>
+  <line x1="380" y1="181.42857142857142" x2="380" y2="247.1428571428571" stroke="#4a5568" stroke-width="1.5"/>
+  <line x1="652" y1="181.42857142857142" x2="652" y2="247.1428571428571" stroke="#4a5568" stroke-width="1.5"/>
+  <line x1="108" y1="247.1428571428571" x2="108" y2="312.85714285714283" stroke="#4a5568" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <line x1="380" y1="247.1428571428571" x2="380" y2="312.85714285714283" stroke="#4a5568" stroke-width="1.5"/>
+  <line x1="652" y1="247.1428571428571" x2="652" y2="312.85714285714283" stroke="#4a5568" stroke-width="1.5"/>
+  <line x1="380" y1="312.85714285714283" x2="380" y2="378.57142857142856" stroke="#4a5568" stroke-width="1.5"/>
+  <line x1="652" y1="312.85714285714283" x2="652" y2="378.57142857142856" stroke="#4a5568" stroke-width="1.5"/>
+  <line x1="380" y1="378.57142857142856" x2="380" y2="444.2857142857142" stroke="#4a5568" stroke-width="1.5"/>
+  <line x1="380" y1="444.2857142857142" x2="380" y2="509.99999999999994" stroke="#4a5568" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <path d="M108 312.85714285714283 Q244 151.42857142857142 380 181.42857142857142" fill="none" stroke="#b7950b" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <rect x="222" y="139.42857142857142" width="44" height="24" rx="12" fill="#1a1a2e" stroke="#b7950b" stroke-width="1"/>
+  <text x="244" y="153.42857142857142" fill="#f4d03f" font-size="11" font-weight="600" text-anchor="middle" font-family="system-ui, sans-serif">751</text>
+  <text x="244" y="164.42857142857142" fill="#cbd5e1" font-size="9" text-anchor="middle" font-family="system-ui, sans-serif">Usurpation</text>
+  <path d="M380 509.99999999999994 Q516 151.42857142857142 652 181.42857142857142" fill="none" stroke="#b7950b" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <rect x="494" y="139.42857142857142" width="44" height="24" rx="12" fill="#1a1a2e" stroke="#b7950b" stroke-width="1"/>
+  <text x="516" y="153.42857142857142" fill="#f4d03f" font-size="11" font-weight="600" text-anchor="middle" font-family="system-ui, sans-serif">987</text>
+  <text x="516" y="164.42857142857142" fill="#cbd5e1" font-size="9" text-anchor="middle" font-family="system-ui, sans-serif">Élection</text>
+  <rect x="45" y="97.71428571428571" width="130" height="40" rx="6" fill="#000" opacity="0.3"/>
+  <rect x="43" y="95.71428571428571" width="130" height="40" rx="6" fill="#1a5276" stroke="#2980b9" stroke-width="2.5"/>
+  <text x="108" y="112.71428571428571" fill="#fff" font-size="12" font-weight="600" text-anchor="middle" font-family="system-ui, sans-serif">Mérovingiens</text>
+  <text x="108" y="129.71428571428572" fill="#94a3b8" font-size="9" text-anchor="middle" font-family="system-ui, sans-serif">481–751</text>
+  <rect x="317" y="97.71428571428571" width="130" height="40" rx="6" fill="#000" opacity="0.3"/>
+  <rect x="315" y="95.71428571428571" width="130" height="40" rx="6" fill="#922b21" stroke="#e74c3c" stroke-width="2.5"/>
+  <text x="380" y="112.71428571428571" fill="#fff" font-size="12" font-weight="600" text-anchor="middle" font-family="system-ui, sans-serif">Carolingiens</text>
+  <text x="380" y="129.71428571428572" fill="#94a3b8" font-size="9" text-anchor="middle" font-family="system-ui, sans-serif">751–987</text>
+  <rect x="589" y="97.71428571428571" width="130" height="40" rx="6" fill="#000" opacity="0.3"/>
+  <rect x="587" y="95.71428571428571" width="130" height="40" rx="6" fill="#1e8449" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="652" y="112.71428571428571" fill="#fff" font-size="12" font-weight="600" text-anchor="middle" font-family="system-ui, sans-serif">Capétiens</text>
+  <text x="652" y="129.71428571428572" fill="#94a3b8" font-size="9" text-anchor="middle" font-family="system-ui, sans-serif">987–1792</text>
+  <rect x="43" y="161.42857142857142" width="130" height="40" rx="6" fill="#1a5276" stroke="#2980b9" stroke-width="1.5"/>
+  <text x="108" y="178.42857142857142" fill="#fff" font-size="12" font-weight="400" text-anchor="middle" font-family="system-ui, sans-serif">Clovis Ier</text>
+  <text x="108" y="195.42857142857142" fill="#94a3b8" font-size="9" text-anchor="middle" font-family="system-ui, sans-serif">r. 481–511</text>
+  <rect x="315" y="161.42857142857142" width="130" height="40" rx="6" fill="#922b21" stroke="#e74c3c" stroke-width="1.5"/>
+  <text x="380" y="178.42857142857142" fill="#fff" font-size="12" font-weight="400" text-anchor="middle" font-family="system-ui, sans-serif">Pippin le Bref</text>
+  <text x="380" y="195.42857142857142" fill="#94a3b8" font-size="9" text-anchor="middle" font-family="system-ui, sans-serif">r. 751–768</text>
+  <rect x="589" y="163.42857142857142" width="130" height="40" rx="6" fill="#000" opacity="0.3"/>
+  <rect x="587" y="161.42857142857142" width="130" height="40" rx="6" fill="#1e8449" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="652" y="178.42857142857142" fill="#fff" font-size="12" font-weight="600" text-anchor="middle" font-family="system-ui, sans-serif">Hugues Capet</text>
+  <text x="652" y="195.42857142857142" fill="#94a3b8" font-size="9" text-anchor="middle" font-family="system-ui, sans-serif">r. 987–996</text>
+  <rect x="43" y="227.1428571428571" width="130" height="40" rx="6" fill="#1a5276" stroke="#2980b9" stroke-width="1.5"/>
+  <text x="108" y="244.1428571428571" fill="#fff" font-size="12" font-weight="400" text-anchor="middle" font-family="system-ui, sans-serif">Fils de Clovis</text>
+  <text x="108" y="261.1428571428571" fill="#94a3b8" font-size="9" text-anchor="middle" font-family="system-ui, sans-serif">r. 511–639</text>
+  <rect x="317" y="229.1428571428571" width="130" height="40" rx="6" fill="#000" opacity="0.3"/>
+  <rect x="315" y="227.1428571428571" width="130" height="40" rx="6" fill="#922b21" stroke="#e74c3c" stroke-width="2.5"/>
+  <text x="380" y="244.1428571428571" fill="#fff" font-size="12" font-weight="600" text-anchor="middle" font-family="system-ui, sans-serif">Charlemagne</text>
+  <text x="380" y="261.1428571428571" fill="#94a3b8" font-size="9" text-anchor="middle" font-family="system-ui, sans-serif">r. 768–814</text>
+  <rect x="587" y="227.1428571428571" width="130" height="40" rx="6" fill="#1e8449" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="652" y="244.1428571428571" fill="#fff" font-size="12" font-weight="400" text-anchor="middle" font-family="system-ui, sans-serif">Capétiens directs</text>
+  <text x="652" y="261.1428571428571" fill="#94a3b8" font-size="9" text-anchor="middle" font-family="system-ui, sans-serif">987–1328</text>
+  <rect x="43" y="292.85714285714283" width="130" height="40" rx="6" fill="#1a5276" stroke="#2980b9" stroke-width="1.5"/>
+  <text x="108" y="309.85714285714283" fill="#fff" font-size="12" font-weight="400" text-anchor="middle" font-family="system-ui, sans-serif">Rois fainéants</text>
+  <text x="108" y="326.85714285714283" fill="#94a3b8" font-size="9" text-anchor="middle" font-family="system-ui, sans-serif">r. 639–751</text>
+  <rect x="315" y="292.85714285714283" width="130" height="40" rx="6" fill="#922b21" stroke="#e74c3c" stroke-width="1.5"/>
+  <text x="380" y="309.85714285714283" fill="#fff" font-size="12" font-weight="400" text-anchor="middle" font-family="system-ui, sans-serif">Louis le Pieux</text>
+  <text x="380" y="326.85714285714283" fill="#94a3b8" font-size="9" text-anchor="middle" font-family="system-ui, sans-serif">r. 814–840</text>
+  <rect x="587" y="292.85714285714283" width="130" height="40" rx="6" fill="#1e8449" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="652" y="309.85714285714283" fill="#fff" font-size="12" font-weight="400" text-anchor="middle" font-family="system-ui, sans-serif">Valois</text>
+  <text x="652" y="326.85714285714283" fill="#94a3b8" font-size="9" text-anchor="middle" font-family="system-ui, sans-serif">1328–1589</text>
+  <rect x="315" y="358.57142857142856" width="130" height="40" rx="6" fill="#922b21" stroke="#e74c3c" stroke-width="1.5"/>
+  <text x="380" y="375.57142857142856" fill="#fff" font-size="12" font-weight="400" text-anchor="middle" font-family="system-ui, sans-serif">Traité de Verdun</text>
+  <text x="380" y="392.57142857142856" fill="#94a3b8" font-size="9" text-anchor="middle" font-family="system-ui, sans-serif">843</text>
+  <rect x="587" y="358.57142857142856" width="130" height="40" rx="6" fill="#1e8449" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="652" y="375.57142857142856" fill="#fff" font-size="12" font-weight="400" text-anchor="middle" font-family="system-ui, sans-serif">Bourbons</text>
+  <text x="652" y="392.57142857142856" fill="#94a3b8" font-size="9" text-anchor="middle" font-family="system-ui, sans-serif">1589–1792</text>
+  <rect x="315" y="424.2857142857142" width="130" height="40" rx="6" fill="#922b21" stroke="#e74c3c" stroke-width="1.5"/>
+  <text x="380" y="441.2857142857142" fill="#fff" font-size="12" font-weight="400" text-anchor="middle" font-family="system-ui, sans-serif">Charles le Chauve</text>
+  <text x="380" y="458.2857142857142" fill="#94a3b8" font-size="9" text-anchor="middle" font-family="system-ui, sans-serif">Francie occ.</text>
+  <rect x="315" y="489.99999999999994" width="130" height="40" rx="6" fill="#922b21" stroke="#e74c3c" stroke-width="1.5"/>
+  <text x="380" y="506.99999999999994" fill="#fff" font-size="12" font-weight="400" text-anchor="middle" font-family="system-ui, sans-serif">Derniers Carolingiens</text>
+  <text x="380" y="524" fill="#94a3b8" font-size="9" text-anchor="middle" font-family="system-ui, sans-serif">877–987</text>
+  <rect x="190" y="541" width="12" height="12" rx="2" fill="#1a5276"/>
+  <text x="208" y="551" fill="#94a3b8" font-size="10" font-family="system-ui, sans-serif">Mérovingiens</text>
+  <rect x="320" y="541" width="12" height="12" rx="2" fill="#922b21"/>
+  <text x="338" y="551" fill="#94a3b8" font-size="10" font-family="system-ui, sans-serif">Carolingiens</text>
+  <rect x="450" y="541" width="12" height="12" rx="2" fill="#1e8449"/>
+  <text x="468" y="551" fill="#94a3b8" font-size="10" font-family="system-ui, sans-serif">Capétiens</text>
+</svg>
