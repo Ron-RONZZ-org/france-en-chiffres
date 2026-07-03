@@ -128,7 +128,7 @@ function formatSourceLabel(sid) {
   }
 }
 
-function buildChartFigure(id) {
+async function buildChartFigure(id) {
   const figFile = resolve(FIGURES_DIR, `${id}.json`);
   if (!existsSync(figFile)) return `<p class="figure-warning">Graphique introuvable : ${id}</p>`;
 
@@ -138,7 +138,7 @@ function buildChartFigure(id) {
 
   let svg;
   try {
-    svg = renderChartSvg(figure);
+    svg = await renderChartSvg(figure);
   } catch (e) {
     console.warn(`[remark-figure-embed] \u26a0 Failed to render chart "${id}": ${e.message}`);
     const { width = 720, height = 200 } = figure;
@@ -296,7 +296,7 @@ function esc(s) {
 // ── Plugin ──
 
 export default function remarkFigureEmbed() {
-  return (tree, file) => {
+  return async (tree, file) => {
     const targets = [];
 
     visit(tree, 'text', (node, index, parent) => {
@@ -310,17 +310,19 @@ export default function remarkFigureEmbed() {
       }
     });
 
-    const dispatchBuild = (match) => {
+    const dispatchBuild = async (match) => {
       switch (match.type) {
         case 'media': return buildMediaFigure(match.id);
-        case 'chart': return buildChartFigure(match.id);
+        case 'chart': return await buildChartFigure(match.id);
         case 'map':   return buildMapFigure(match.id);
         case 'widget': return buildWidgetFigure(match.id);
         default: return '';
       }
     };
 
-    for (const { node } of targets) {
+    // Apply replacements in reverse order (preserves parent index ordering)
+    for (let i = targets.length - 1; i >= 0; i--) {
+      const { node, index, parent } = targets[i];
       const matches = [];
       let m;
 
@@ -351,48 +353,7 @@ export default function remarkFigureEmbed() {
         if (match.index > lastIdx) {
           children.push({ type: 'text', value: node.value.slice(lastIdx, match.index) });
         }
-        children.push({ type: 'html', value: dispatchBuild(match) });
-        lastIdx = match.end;
-      }
-      if (lastIdx < node.value.length) {
-        children.push({ type: 'text', value: node.value.slice(lastIdx) });
-      }
-
-      node.type = 'paragraph';
-    }
-
-    // Apply replacements in reverse order
-    for (let i = targets.length - 1; i >= 0; i--) {
-      const { node, index, parent } = targets[i];
-      const matches = [];
-      let m;
-
-      MEDIA_RE.lastIndex = 0;
-      while ((m = MEDIA_RE.exec(node.value)) !== null) {
-        matches.push({ type: 'media', id: m[1], index: m.index, end: m.index + m[0].length });
-      }
-      CHART_RE.lastIndex = 0;
-      while ((m = CHART_RE.exec(node.value)) !== null) {
-        matches.push({ type: 'chart', id: m[1], index: m.index, end: m.index + m[0].length });
-      }
-      MAP_RE.lastIndex = 0;
-      while ((m = MAP_RE.exec(node.value)) !== null) {
-        matches.push({ type: 'map', id: m[1], index: m.index, end: m.index + m[0].length });
-      }
-      WIDGET_RE.lastIndex = 0;
-      while ((m = WIDGET_RE.exec(node.value)) !== null) {
-        matches.push({ type: 'widget', id: m[1], index: m.index, end: m.index + m[0].length });
-      }
-      matches.sort((a, b) => a.index - b.index);
-
-      const children = [];
-      let lastIdx = 0;
-
-      for (const match of matches) {
-        if (match.index > lastIdx) {
-          children.push({ type: 'text', value: node.value.slice(lastIdx, match.index) });
-        }
-        children.push({ type: 'html', value: dispatchBuild(match) });
+        children.push({ type: 'html', value: await dispatchBuild(match) });
         lastIdx = match.end;
       }
       if (lastIdx < node.value.length) {

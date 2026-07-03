@@ -636,10 +636,12 @@ bash scripts/new-figure.sh population-evolution line
 - ❌ **Client-side routing** — use multi-page Astro + CSS View Transitions API. No React Router, no Vue Router.
 - ❌ **Tracking, analytics, cookies** — educational site, no business need, no user data collection.
 - ❌ **Raw HTML, CSS, or JavaScript in `.md` content files** — the markdown pipeline strips multi-line HTML blocks, `<style>`, and `<script>` tags. See [Markdown Purity Rule](#⚠️-critical-markdown-purity-rule). All interactive features belong in `.astro` components.
-- ❌ **Raw SVG `<path d="…">` strings for arrows, connectors, or relationship diagrams** — hand-crafted path strings are almost never correctly oriented and are impossible to maintain. Use a high-level API instead:
-  - D3 `linkVertical` / `linkHorizontal` / `line().curve(curveNatural)` for curved connectors
-  - SVG `<marker>` with `orient="auto"` for arrowheads
-  - Define arrows declaratively as `{ source: [x,y], target: [x,y] }` where source→target is the arrow direction; `marker-end` is always at target
+- ❌ **Hand-crafted SVG (`<path d="…">`, `<polygon points="…">`, `<circle cx="…">`, any manually computed coordinates)** — hand-drawn SVG strings are almost never correctly aligned, are impossible to maintain, and introduce visual bugs whenever the layout or data changes. Use a high-level API instead:
+  - **For charts (pie, line, bar, etc.):** use a **chart-generation library** that takes data and produces a complete chart without any manual geometry — labels, legends, axes, centering, and positioning are all handled for you. Currently: **[Vega-Lite](https://vega.github.io/vega-lite/)** (headless Node.js rendering via `vega` at build time). The chart figure JSON under `src/content/figures/` is the declarative input; `render-svg.js` compiles it into full SVG.
+  - **For curved connectors / arrows:** D3 `linkVertical` / `linkHorizontal` / `line().curve(curveNatural)` + SVG `<marker>` with `orient="auto"`. Define arrows declaratively as `{ source: [x,y], target: [x,y] }`.
+  - **For one-off geometric figures:** D3 shape generators (`d3.arc`, `d3.area`, `d3.symbol`, etc.) or data joins (`d3.selectAll('circle').data(points).join('circle')`) are acceptable for small decorative elements. Preprocess data into declarative coordinate arrays and let the generators produce the SVG output.
+  
+  > ⚠️ D3 shape primitives (`pie()`, `arc()`, `scaleLinear()`, etc.) are **not** a chart-generation library. Building a complete chart (labels, legends, axes, tooltip layout, centering) with D3 primitives counts as hand-crafted SVG — use Vega-Lite instead.
 
 ### Allowed with justification (opt-in, per-page)
 - ✅ **GSAP + ScrollTrigger** — for pinned sections, scrub animations, staggered timelines where vanilla JS would require 3x+ the code.
