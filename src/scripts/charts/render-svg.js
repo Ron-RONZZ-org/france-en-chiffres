@@ -136,9 +136,10 @@ function renderLineChart(figure) {
     });
   }
 
-  // Axis labels
+  // Axis labels (x-axis title below legend if present)
   if (config.xAxis?.label) {
-    parts.push(textEl(innerW / 2, height - 5 - margin.top - legendHeight, config.xAxis.label, {
+    const axisLabelY = hasLegend ? legendY + 26 : height - 5 - margin.top;
+    parts.push(textEl(innerW / 2, axisLabelY, config.xAxis.label, {
       fill: '#94a3b8', 'font-size': '12', 'text-anchor': 'middle',
     }));
   }
@@ -184,7 +185,7 @@ function renderLineChart(figure) {
       parts.push(`<circle cx="${cx}" cy="${cy}" r="4" fill="${color}" stroke="#1a1a2e" stroke-width="1.5"
         data-series="${escapeXml(series.name)}"
         data-x="${point.x}"
-        data-y="${point.y}"
+        data-value="${point.y}"
         data-change="${escapeXml(changeStr)}"
         class="chart-datapoint"/>`);
     });

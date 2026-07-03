@@ -209,7 +209,7 @@ La France du XXI<sup>e</sup> siècle est aussi un pays divers : environ 10 % de 
 [chart:population-religion]
 
 La France du XXI<sup>e</sup> siècle est aussi un pays qui se débat toujours avec son identité. Les attentats de 2015 (Charlie Hebdo, 7 janvier ; le Bataclan, 13 novembre) ont rouvert des blessures : le débat sur la laïcité, sur l'islam, sur l'héritage colonial, sur l'immigration est permanent — parfois violent, souvent stérile, parce que les positions s'y crispent autour d'identités inconciliables et que la recherche de faits objectifs cède le pas aux affirmations idéologiques.
-[media:attentats-2015]
+[media:attentat-merabet-lieu]
 ### Les défis français du XXI<sup>e</sup> siècle
 
 La France du XXI<sup>e</sup> siècle doit faire face à des défis multiples.
