@@ -1,0 +1,37 @@
+{
+  "id": "production-industrielle-1935-1950",
+  "type": "bar",
+  "title": "Indice de la production industrielle française (1938 = 100)",
+  "caption": "Indice de la production industrielle française, base 100 en 1938, de 1935 à 1950",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+  "sourceIds": ["insee-2024"],
+  "width": 720,
+  "height": 400,
+  "palette": ["#1a5276"],
+  "config": {
+    "xAxis": { "label": "Année" },
+    "yAxis": { "label": "Indice (1938 = 100)", "unit": "%" },
+    "orientation": "grouped"
+  },
+  "data": {
+    "values": [
+      { "category": "1935", "groups": [{ "name": "Production industrielle", "value": 75 }] },
+      { "category": "1936", "groups": [{ "name": "Production industrielle", "value": 80 }] },
+      { "category": "1937", "groups": [{ "name": "Production industrielle", "value": 90 }] },
+      { "category": "1938", "groups": [{ "name": "Production industrielle", "value": 100 }] },
+      { "category": "1939", "groups": [{ "name": "Production industrielle", "value": 95 }] },
+      { "category": "1940", "groups": [{ "name": "Production industrielle", "value": 70 }] },
+      { "category": "1941", "groups": [{ "name": "Production industrielle", "value": 65 }] },
+      { "category": "1942", "groups": [{ "name": "Production industrielle", "value": 60 }] },
+      { "category": "1943", "groups": [{ "name": "Production industrielle", "value": 55 }] },
+      { "category": "1944", "groups": [{ "name": "Production industrielle", "value": 35 }] },
+      { "category": "1945", "groups": [{ "name": "Production industrielle", "value": 40 }] },
+      { "category": "1946", "groups": [{ "name": "Production industrielle", "value": 65 }] },
+      { "category": "1947", "groups": [{ "name": "Production industrielle", "value": 80 }] },
+      { "category": "1948", "groups": [{ "name": "Production industrielle", "value": 90 }] },
+      { "category": "1949", "groups": [{ "name": "Production industrielle", "value": 100 }] },
+      { "category": "1950", "groups": [{ "name": "Production industrielle", "value": 110 }] }
+    ]
+  }
+}

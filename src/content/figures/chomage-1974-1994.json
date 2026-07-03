@@ -1,0 +1,47 @@
+{
+  "id": "chomage-1974-1994",
+  "type": "line",
+  "title": "Taux de chômage en France (1974–1994)",
+  "caption": "Taux de chômage en France métropolitaine, en pourcentage de la population active, 1974–1994",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+  "sourceIds": ["insee-2024"],
+  "width": 720,
+  "height": 400,
+  "palette": ["#922b21"],
+  "config": {
+    "xAxis": { "label": "Année" },
+    "yAxis": { "label": "Taux de chômage (%)", "min": 0, "max": 14 },
+    "interpolation": "monotone"
+  },
+  "data": {
+    "series": [
+      {
+        "name": "Taux de chômage",
+        "values": [
+          { "x": 1974, "y": 2.8 },
+          { "x": 1975, "y": 4.0 },
+          { "x": 1976, "y": 4.4 },
+          { "x": 1977, "y": 4.9 },
+          { "x": 1978, "y": 5.2 },
+          { "x": 1979, "y": 5.8 },
+          { "x": 1980, "y": 6.3 },
+          { "x": 1981, "y": 7.4 },
+          { "x": 1982, "y": 8.1 },
+          { "x": 1983, "y": 8.3 },
+          { "x": 1984, "y": 9.7 },
+          { "x": 1985, "y": 10.2 },
+          { "x": 1986, "y": 10.4 },
+          { "x": 1987, "y": 10.5 },
+          { "x": 1988, "y": 10.0 },
+          { "x": 1989, "y": 9.4 },
+          { "x": 1990, "y": 9.0 },
+          { "x": 1991, "y": 9.5 },
+          { "x": 1992, "y": 10.3 },
+          { "x": 1993, "y": 11.7 },
+          { "x": 1994, "y": 12.3 }
+        ]
+      }
+    ]
+  }
+}

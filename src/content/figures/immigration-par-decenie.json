@@ -1,0 +1,26 @@
+{
+  "id": "immigration-par-decenie",
+  "type": "bar",
+  "title": "Nombre d'immigré·es arrivé·es en France par décennie (1950–2000)",
+  "caption": "Nombre d'immigré·es (en milliers) installé·es en France par décennie, 1950–2000. Sources : INSEE, Recensements de la population.",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+  "sourceIds": ["insee-2024"],
+  "width": 720,
+  "height": 400,
+  "palette": ["#1a5276"],
+  "config": {
+    "xAxis": { "label": "Décennie" },
+    "yAxis": { "label": "Immigré·es arrivé·es (milliers)", "unit": "k" },
+    "orientation": "grouped"
+  },
+  "data": {
+    "values": [
+      { "category": "1950–1959", "groups": [{ "name": "Arrivées", "value": 520 }] },
+      { "category": "1960–1969", "groups": [{ "name": "Arrivées", "value": 780 }] },
+      { "category": "1970–1979", "groups": [{ "name": "Arrivées", "value": 460 }] },
+      { "category": "1980–1989", "groups": [{ "name": "Arrivées", "value": 540 }] },
+      { "category": "1990–1999", "groups": [{ "name": "Arrivées", "value": 720 }] }
+    ]
+  }
+}

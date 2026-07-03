@@ -1,0 +1,24 @@
+{
+  "id": "population-origine",
+  "type": "pie",
+  "title": "Population française selon l'origine migratoire (2021)",
+  "caption": "Répartition de la population vivant en France métropolitaine selon le lien avec l'immigration. Source : INSEE, Enquête Emploi 2021.",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+  "sourceIds": ["insee-2024"],
+  "width": 720,
+  "height": 400,
+  "palette": ["#1a5276", "#2e86c1", "#85c1e9", "#922b21", "#b7950b"],
+  "config": {
+    "showLegend": true
+  },
+  "data": {
+    "values": [
+      { "label": "Ni immigré·e ni descendant·e", "value": 68 },
+      { "label": "Immigré·es", "value": 10 },
+      { "label": "Descendant·es d'immigré·es", "value": 12 },
+      { "label": "Natifs DOM-TOM", "value": 3 },
+      { "label": "Non déterminé", "value": 7 }
+    ]
+  }
+}

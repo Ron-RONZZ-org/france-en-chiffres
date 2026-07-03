@@ -1,0 +1,52 @@
+{
+  "id": "resultats-electoraux-1968",
+  "type": "bar",
+  "title": "Résultats des élections législatives de 1968",
+  "caption": "Part des voix obtenues aux élections législatives françaises de juin 1968 par principale formation politique.",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+  "sourceIds": ["insee-2024"],
+  "width": 720,
+  "height": 400,
+  "palette": ["#1a5276", "#922b21", "#1e8449", "#b7950b", "#6c3483"],
+  "config": {
+    "xAxis": { "label": "Parti politique" },
+    "yAxis": { "label": "Voix (%)", "min": 0, "max": 50, "unit": "%" },
+    "showLegend": true,
+    "orientation": "grouped"
+  },
+  "data": {
+    "values": [
+      {
+        "category": "UDR (gaullistes)",
+        "groups": [
+          { "name": "Voix", "value": 43.7 }
+        ]
+      },
+      {
+        "category": "PCF",
+        "groups": [
+          { "name": "Voix", "value": 20.0 }
+        ]
+      },
+      {
+        "category": "FGDS (gauche)",
+        "groups": [
+          { "name": "Voix", "value": 16.5 }
+        ]
+      },
+      {
+        "category": "Centre (PDM)",
+        "groups": [
+          { "name": "Voix", "value": 10.3 }
+        ]
+      },
+      {
+        "category": "RI (centr-droit)",
+        "groups": [
+          { "name": "Voix", "value": 7.0 }
+        ]
+      }
+    ]
+  }
+}

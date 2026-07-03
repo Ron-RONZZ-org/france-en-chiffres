@@ -1,0 +1,24 @@
+{
+  "id": "population-religion",
+  "type": "pie",
+  "title": "Appartenance religieuse déclarée en France (2020)",
+  "caption": "Répartition de la population française selon l'appartenance religieuse déclarée. Sources : INSEE, Eurobaromètre 2019, IFOP 2020.",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+  "sourceIds": ["insee-2024"],
+  "width": 720,
+  "height": 400,
+  "palette": ["#1a5276", "#922b21", "#1e8449", "#b7950b", "#6c3483"],
+  "config": {
+    "showLegend": true
+  },
+  "data": {
+    "values": [
+      { "label": "Christianisme", "value": 50 },
+      { "label": "Sans religion", "value": 33 },
+      { "label": "Islam", "value": 6 },
+      { "label": "Autres religions", "value": 4 },
+      { "label": "Non déclaré", "value": 7 }
+    ]
+  }
+}
