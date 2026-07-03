@@ -221,35 +221,109 @@ All images are explicitly released as CC0 (public domain) — no attribution nee
 
 #### 2. Wikimedia Commons
 
-Search for specific file names in the Commons namespace:
+Search via the generator API — returns direct download URLs, license metadata, dimensions, and MIME type in a single request:
+
 ```
-https://commons.wikimedia.org/w/api.php?action=query&list=search&srsearch={KEYWORDS}&srnamespace=6&srlimit=10&format=json
+https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrsearch={KEYWORDS}&gsrnamespace=6&gsrlimit=10&prop=imageinfo&iiprop=url|extmetadata|dimensions|mime&format=json
 ```
 
-Then extract URLs from the `imageinfo` property. Always verify the license in the `extmetadata` — prefer CC BY-SA, CC BY, or Public Domain.
+Key fields in the response per result (`query.pages.*.imageinfo[0]`):
 
-To find relevant files, first search the French Wikipedia article on a topic to discover image file names:
+| Field | Path | Purpose |
+|-------|------|---------|
+| Direct URL | `url` | Download the image |
+| MIME type | `mime` | File format (image/jpeg, image/png, image/svg+xml, etc.) |
+| Width/Height | `width`, `height` | Dimensions in pixels |
+| File size | `size` | Bytes |
+| License short name | `extmetadata.LicenseShortName.value` | e.g., "CC BY-SA 3.0", "Public domain", "CC0" |
+| License URL | `extmetadata.LicenseUrl.value` | Link to license text |
+| Copyrighted | `extmetadata.Copyrighted.value` | "True" or "False" |
+| Attribution required | `extmetadata.AttributionRequired.value` | "true" or "false" |
+| Artist | `extmetadata.Artist.value` | Creator attribution |
+| Image description | `extmetadata.ImageDescription.value` | Caption text |
+
+Filter results by license preference: prefer `LicenseShortName` matching `CC BY-SA`, `CC BY`, `Public domain`, or `CC0`; reject `Copyrighted: True` entries with non-free licenses.
+
+To find relevant file names from a French Wikipedia article first (useful for narrowing search):
 ```
 https://fr.wikipedia.org/w/api.php?action=query&prop=images&titles={TOPIC}&imlimit=20&format=json
 ```
 
 #### 3. Pixabay (CC0)
 
-For generic stock photography (elderly people, modern topics, office scenes) not found in historical archives. All images are CC0.
+For generic stock photography (elderly people, modern topics, office scenes) not found in historical archives. All images are CC0 — no attribution required.
 
-```
-https://pixabay.com/photos/search/{KEYWORDS}/?order=ec
-```
+**Search workflow:**
 
-Pixabay requires manual browsing to identify suitable images, as their API requires a key. Download is free without attribution.
+1. **Search** with the CLI script (automatic 24h caching):
+   ```bash
+   npm run search:pixabay -- "elderly people" --per-page 10
+   npm run search:pixabay -- "french countryside" --orientation horizontal
+   npm run search:pixabay -- "paris street" --image-type photo --order latest
+   ```
+   Use `--json` for machine-readable output.
+
+2. **Pick a result** — key fields from `hits[]`:
+
+   | Field | Purpose |
+   |-------|---------|
+   | `largeImageURL` | Best size to download (max 1280px) |
+   | `imageURL` | Original full-resolution (if approved) |
+   | `imageWidth` / `imageHeight` | Dimensions |
+   | `imageSize` | File size in bytes |
+   | `tags` | Comma-separated tags (use as caption context) |
+   | `user` | Creator name |
+
+3. **Download** — use `curl` with `--location` to follow redirects:
+   ```bash
+   curl -L -o /tmp/pixabay-result.jpg "https://pixabay.com/get/..."
+   ```
+
+4. **Register** as a media asset:
+   ```bash
+   npm run new:media -- /tmp/pixabay-result.jpg
+   ```
+
+**Notes:**
+- Do **not** hotlink Pixabay URLs — always download to `public/media/` via `npm run new:media`.
+- See `node scripts/search-pixabay.mjs --help` for all options.
 
 #### 4. France Archives (francearchives.gouv.fr)
 
-For French post-war reconstruction specifically — the Ministère de la Reconstruction et de l'Urbanisme (MRU) collection has 36 000+ photographs from 1945–1958 documenting the rebuilding of French cities and industry.
+The French national archives portal — aggregates digitized archives from 1 300+ archive services nationwide (national, departmental, municipal). Covers all periods of French history (medieval to modern) across all themes: military, judicial, notarial, religious, economic, educational, cultural, etc.
 
-#### 5. Flickr Commons
+**Search workflow:**
 
-For archival photos: search with license filter for CC-friendly results.
+1. **Search** the general portal API:
+   ```
+   https://francearchives.gouv.fr/api/v0/search?q={KEYWORDS}
+   ```
+   Or in a browser for interactive browsing:
+   ```
+   https://francearchives.gouv.fr/fr/search?q={KEYWORDS}
+   ```
+
+2. **Filter to digitized images only** by adding `es_digitalized=digitized-iiif` to the URL:
+   ```
+   https://francearchives.gouv.fr/fr/inventaires?es_digitalized=digitized-iiif&q={KEYWORDS}
+   ```
+   The IIIF protocol gives access to high-resolution digital reproductions.
+
+3. **Download the IIIF image** — from a record page, find the IIIF manifest URL (typically `https://apicollections.parismusees.paris.fr/iiif/{ID}/manifest`), then extract the image URL from `sequences[0].canvases[0].images[0].resource["@id"]` and download:
+   ```bash
+   curl -L -o /tmp/archive-image.jpg "<iiif-image-url>"
+   ```
+
+4. **Register** as a media asset:
+   ```bash
+   npm run new:media -- /tmp/archive-image.jpg
+   ```
+
+**Notes:**
+- All metadata is under the [Etalab Open License 2.0](https://github.com/etalab/licence-ouverte/blob/master/LO.md) — free reuse. Check individual image pages for specific rights statements.
+- The name database (`https://francearchives.gouv.fr/fr/basedenoms`) contains 303M+ personal name records (genealogy, censuses).
+- SPARQL endpoint at `https://francearchives.gouv.fr/fr/requeteurnaturel` for semantic queries.
+- Open data datasets (authorities, inventory metadata, statistics) on `data.culture.gouv.fr`.
 
 ### ⚠️ CRITICAL: Markdown Purity Rule
 

@@ -6,3 +6,5 @@ public/data/tiles/
 .DS_Store
 *.local
 .serena/
+.dev
+src/data/pixabay-cache/

@@ -21,6 +21,7 @@
     "test:figures": "node src/tests/figures.test.cjs",
     "test:media": "node src/tests/media.test.cjs",
     "test:agents": "node src/tests/agents.test.cjs",
+    "search:pixabay": "node scripts/search-pixabay.mjs",
     "test:map": "node src/tests/interactive-map.test.cjs",
     "test:map:e2e": "npx playwright test src/tests/interactive-map-e2e.spec.mjs --reporter=list --timeout=30000",
     "fetch:geo": "bash scripts/fetch-geo-data.sh",

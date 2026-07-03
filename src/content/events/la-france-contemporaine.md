@@ -32,7 +32,8 @@ Suzanne avait vécu l'Occupation, les alertes, les tickets de rationnement. Elle
 
 Elle trouva une place de sténodactylo (le mot fait sourire aujourd'hui, mais c'était un métier de bureau respectable pour une femme) dans une administration qui sortait de terre, la Sécurité sociale. Elle ne le savait pas encore, mais elle allait vivre le plus grand bond en avant de l'histoire de France.
 
-TODO: still needs image — sténodactylo au travail, bureau années 1950
+[media:stenographic-pool]
+
 
 ## Les Trente Glorieuses (1945–1973) {#trente-glorieuses}
 
@@ -43,8 +44,7 @@ La France de 1945 comptait 500 000 bâtiments détruits ou endommagés, 7 000 po
 [chart:production-industrielle-1935-1950]
 Face à cette situation catastrophique, la reconstruction s'organisa sur des bases entièrement nouvelles. Le **Conseil national de la Résistance**, dans son programme de 1944, avait prévu une « démocratie économique et sociale ». Les grandes nationalisations commencèrent : les Houillères (1945), EDF-GDF (1946), Renault (1946), les banques (1946), Air France (1948). L'État devenait entrepreneur et planificateur.
 
-TODO: still needs image — production industrielle après-guerre (usines, chaînes de montage)
-utilise: https://www.parismuseescollections.paris.fr/fr/musee-carnavalet/oeuvres/la-france-au-travail-une-usine
+[media:france-usine-travail]
 
 Le **Plan Monnet** (1947) fixa des objectifs de production pour les secteurs clés : charbon, acier, électricité, ciment, transports. Avec l'aide du **Plan Marshall** — programme lancé par les États-Unis fournissant 2,6 milliards de dollars américains entre 1948 et 1952 pour la reconstruction économique européenne — la France se releva vite. En 1950, cinq ans après la guerre, la production industrielle avait dépassé le niveau de 1938.
 
