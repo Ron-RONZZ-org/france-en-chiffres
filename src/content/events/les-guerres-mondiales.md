@@ -2,8 +2,9 @@
 id: "guerres-mondiales"
 start: 1914
 end: 1945
-title: "Les Grandes Guerres"
-description: "De la première Guerre mondiale à la Libération d'occupation Nazi, trente années qui saignent la France, l'occupent, la divisent — et finissent par la réunifier. La guerre totale transforme la société et marque la mémoire collective pour toujours."
+title: "Les deux guerres mondiales"
+description: "En trente ans, la France a subi deux guerres totales qui ont tué plus d'un million et demi de ses soldats, détruit ses villes et bouleversé sa société. Ces guerres ont laissé des traces qui ne se sont jamais complètement effacées."
+maps: [wwi-schlieffen, france-occupation, dday-liberation]
 timeline:
   - id: grande-guerre
     title: La Grande Guerre
@@ -35,6 +36,8 @@ En 1918, quand la guerre s'acheva, 100 000 femmes françaises avaient reçu le m
 ### De la guerre de mouvement à la guerre de position
 
 En août 1914, l'armée allemande appliqua le plan Schlieffen : envahir la France par la Belgique, envelopper Paris et anéantir l'armée française en six semaines. Pendant que l'aile droite allemande fonçait vers l'Ouest, Joffre lança une contre-offensive en Alsace-Lorraine, qui fut un carnage : les Allemands, retranchés et mieux équipés en mitrailleuses, fauchèrent les fantassins français vêtus de pantalons rouges — une tenue du XIX<sup>e</sup> siècle qui les rendait visibles à des kilomètres. L'offensive française en Alsace échoua, et l'armée allemande poursuivit sa marche vers Paris.
+
+[map:wwi-schlieffen]
 
 La contre-offensive française sur la Marne (septembre 1914) sauva Paris, au prix de 200 000 morts. Les deux armées, épuisées, creusèrent alors des tranchées de la mer du Nord à la Suisse : 700 kilomètres de boue, de rats, de barbelés et de mort [source:britannica-wwi].
 
@@ -108,6 +111,8 @@ Le 10 mai 1940, tout bascula. L'armée allemande contourna la ligne Maginot par 
 
 Le 14 juin, les Allemands entrèrent dans Paris. Le 22 juin, l'armistice fut signé dans le même wagon qu'en 1918, à Rethondes. La France était coupée en deux : la zone occupée (nord et ouest, y compris Paris) sous administration allemande ; la « zone libre » (sud) sous le gouvernement du maréchal **Pétain**, installé à Vichy.
 
+[map:france-occupation]
+
 ### Vichy : l'État français collaborationniste
 
 Après l'armistice, le gouvernement français, dirigé par Paul Reynaud, se réfugia à Bordeaux. Reynaud démissionna ; le président Lebrun appela le maréchal Pétain, héros de Verdun, à former un nouveau gouvernement. Pétain demanda immédiatement l'armistice. Le 10 juillet 1940, l'Assemblée nationale, réunie à Vichy, vota les pleins pouvoirs constituants au maréchal Pétain (569 voix contre 80). La III<sup>e</sup> République était morte. Le nouveau régime — « l'État français » — remplaça la devise républicaine « Liberté, Égalité, Fraternité » par « Travail, Famille, Patrie » [source:britannica-wwii].
@@ -131,6 +136,8 @@ Les femmes furent nombreuses dans la Résistance, représentant environ 15 % des
 ### La Libération
 
 Le 6 juin 1944, les Alliés débarquèrent en Normandie. 156 000 soldats (Américains, Britanniques, Canadiens) débarquèrent sur les plages sous un feu meurtrier. Les pertes furent lourdes (4 000 morts le premier jour), mais la tête de pont tenait. Le 15 août, un second débarquement eut lieu en Provence [source:memorial-caen].
+
+[map:dday-liberation]
 
 Après la percée de Normandie (fin juillet), les Alliés avancèrent rapidement vers l'est. Partout sur leur passage, les maquis et les FFI harcelaient les troupes allemandes en retraite. Paris se souleva le 19 août 1944. Les FFI (Forces Françaises de l'Intérieur) combattirent les Allemands dans les rues. Le 25 août, la 2<sup>e</sup> division blindée du général Leclerc entra dans Paris, suivie des Américains. De Gaulle descendit les Champs-Élysées devant une foule immense. La France était libérée [source:britannica-wwii].
 

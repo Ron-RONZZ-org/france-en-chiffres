@@ -1,8 +1,9 @@
 /**
  * remark-figure-embed.js
  *
- * Remark plugin that transforms `[media:id]` and `[chart:id]` patterns
- * in Markdown body text into fully rendered figure HTML at build time.
+ * Remark plugin that transforms `[media:id]`, `[chart:id]`, `[map:id]`,
+ * and `[widget:id]` patterns in Markdown body text into fully rendered
+ * HTML at build time.
  *
  * For [chart:id]: reads the figure JSON, calls the D3 SVG renderer,
  *   and outputs a <figure class="chart-figure"> with inline SVG + caption.
@@ -10,9 +11,11 @@
  * For [media:id]: reads the media metadata and resolves the file.
  *   All media is inlined as data URIs (SVGs → base64, rasters → base64).
  *
- * This approach avoids Astro's <Content components={...}> override
- * limitation with raw HTML from remark plugins by generating the
- * complete figure HTML at the remark plugin stage.
+ * For [map:id]: looks up the MAP_REGISTRY in src/data/maps.ts and generates
+ *   a Leaflet map container (MapShell HTML or custom container for special cases).
+ *   The corresponding Leaflet initialization scripts are shipped by the page template.
+ *
+ * For [widget:id]: generates placeholder or full HTML for non-map interactive widgets.
  */
 
 import { visit } from 'unist-util-visit';
@@ -29,8 +32,30 @@ const FIGURES_DIR = resolve(PROJECT_ROOT, 'src/content/figures');
 const MEDIA_RE = /\[media:\s*([\w-]+)\]/g;
 const CHART_RE = /\[chart:\s*([\w-]+)\]/g;
 const MAP_RE = /\[map:\s*([\w-]+)\]/g;
+const WIDGET_RE = /\[widget:\s*([\w-]+)\]/g;
 
-// ── Media file resolution ──
+// ── Map registry (lazy-loaded) ──
+
+let _MAP_REGISTRY = null;
+
+function getMapRegistry() {
+  if (!_MAP_REGISTRY) {
+    try {
+      _MAP_REGISTRY = JSON.parse(
+        readFileSync(resolve(PROJECT_ROOT, 'src/data/maps-registry.json'), 'utf-8')
+      );
+    } catch {
+      _MAP_REGISTRY = {};
+    }
+  }
+  return _MAP_REGISTRY;
+}
+
+// ── Media file resolution (URL-based, no base64 inlining) ──
+//
+// Media binary files are copied to public/media/ by scripts/copy-media-assets.mjs
+// during the prebuild step. We reference them via URL path instead of inlining
+// as base64 data URIs, which caused OOM on large media files (10-35 MB each).
 
 function resolveMediaFile(id) {
   const metaFile = resolve(MEDIA_DIR, `${id}.json`);
@@ -41,25 +66,18 @@ function resolveMediaFile(id) {
   catch { return null; }
 
   const exts = ['.svg', '.png', '.jpg', '.jpeg', '.gif', '.webp', '.avif'];
-  let srcPath = null;
   let format = null;
 
   for (const ext of exts) {
-    const candidate = resolve(MEDIA_DIR, `${id}${ext}`);
-    if (existsSync(candidate)) {
-      srcPath = candidate;
+    if (existsSync(resolve(MEDIA_DIR, `${id}${ext}`))) {
       format = ext.slice(1);
       break;
     }
   }
 
-  if (!srcPath) return null;
+  if (!format) return null;
 
-  const fileContent = readFileSync(srcPath);
-  const b64 = fileContent.toString('base64');
-  const mime = format === 'svg' ? 'image/svg+xml' : `image/${format}`;
-  const src = `data:${mime};base64,${b64}`;
-
+  const src = `/media/${id}.${format}`;
   return { src, format, alt: meta.alt || '', caption: meta.caption, credit: meta.credit, license: meta.license, licenseUrl: meta.licenseUrl, sourceId: meta.sourceId, sourceCode: meta.sourceCode && meta.sourceCode.length > 0 ? meta.sourceCode : undefined };
 }
 
@@ -67,7 +85,7 @@ function resolveMediaFile(id) {
 
 function buildMediaFigure(id) {
   const m = resolveMediaFile(id);
-  if (!m) return `<p class="figure-warning">Média introuvable : ${id}</p>`;
+  if (!m) return `<p class="figure-warning">M\u00e9dia introuvable : ${id}</p>`;
 
   const parts = [`<figure class="figure figure--inline media-figure" data-figure-type="media" data-figure-id="${id}">`];
   parts.push(`<img src="${m.src}" alt="${esc(m.alt)}" class="media-figure__img" loading="lazy" decoding="async">`);
@@ -82,7 +100,7 @@ function buildMediaFigure(id) {
       const l = m.licenseUrl ? `<a href="${esc(m.licenseUrl)}" target="_blank" rel="license">${esc(m.license)}</a>` : esc(m.license);
       items.push(`<li class="figure__license">${l}</li>`);
     }
-    if (m.sourceCode) items.push(`<li><a href="/media/${id}/code" class="figure__source-code">Code source →</a></li>`);
+    if (m.sourceCode) items.push(`<li><a href="/media/${id}/code" class="figure__source-code">Code source \u2192</a></li>`);
     if (m.sourceId) items.push(`<li><a href="/bibliographie/${m.sourceId}" class="figure__source">Source</a></li>`);
     if (items.length) parts.push(`<ul class="figure__meta">${items.join('')}</ul>`);
     parts.push('</figcaption>');
@@ -122,8 +140,7 @@ function buildChartFigure(id) {
   try {
     svg = renderChartSvg(figure);
   } catch (e) {
-    console.warn(`[remark-figure-embed] ⚠ Failed to render chart "${id}": ${e.message}`);
-    // Fallback: generate a simple placeholder SVG
+    console.warn(`[remark-figure-embed] \u26a0 Failed to render chart "${id}": ${e.message}`);
     const { width = 720, height = 200 } = figure;
     svg = `<svg viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">
       <rect width="${width}" height="${height}" fill="#1a1a2e" rx="4"/>
@@ -157,42 +174,118 @@ function buildChartFigure(id) {
   return parts.join('\n');
 }
 
-// ── Map figure (interactive embed container) ──
-
-const MAP_IDS = new Set(['roman-provinces', 'roman-cities']);
+// ── Map figure (generic MapShell + custom containers) ──
 
 function buildMapFigure(id) {
-  if (!MAP_IDS.has(id)) return `<p class="figure-warning">Carte introuvable : ${id}</p>`;
+  const registry = getMapRegistry();
+  const entry = registry[id];
+  if (!entry) return `<p class="figure-warning">Carte introuvable : ${id}</p>`;
 
-  if (id === 'roman-provinces') {
-    const parts = [];
-    parts.push('<section class="roman-provinces-section">');
-    parts.push('<div id="roman-provinces-map" class="roman-map" role="application" aria-label="Carte des provinces romaines en Gaule">');
-    parts.push('<noscript><div class="roman-map__noscript"><p>La carte interactive n\u00e9cessite JavaScript.</p></div></noscript>');
-    parts.push('</div>');
-    parts.push('<div id="roman-provinces-legend" class="roman-map__legend">');
-    parts.push('<p class="roman-map__legend-title">Provinces de la Gaule romaine</p>');
-    parts.push('<p class="roman-map__legend-hint">Survolez une province ou une capitale pour plus d\u2019informations.</p>');
-    parts.push('<div id="roman-provinces-legend-content" class="roman-map__legend-content">');
-    parts.push('</div></div></section>');
-    return parts.join('\n');
+  if (entry.customHtml) {
+    return buildCustomMapFigure(id);
   }
 
-  if (id === 'roman-cities') {
-    const parts = [];
-    parts.push('<section class="roman-cities-section">');
-    parts.push('<div id="roman-cities-map" class="roman-map" role="application" aria-label="Carte des villes romaines de Gaule">');
-    parts.push('<noscript><div class="roman-map__noscript"><p>La carte interactive n\u00e9cessite JavaScript.</p></div></noscript>');
-    parts.push('</div>');
-    parts.push('<div id="roman-cities-legend" class="roman-map__legend">');
-    parts.push('<p class="roman-map__legend-title">Villes romaines et leurs noms actuels</p>');
-    parts.push('<p class="roman-map__legend-hint">Survolez un marqueur ou un nom de ville pour plus de détails.</p>');
-    parts.push('<div id="roman-cities-legend-content" class="roman-map__legend-content">');
-    parts.push('</div></div></section>');
-    return parts.join('\n');
+  // Generic MapShell HTML
+  const parts = [];
+  parts.push('<section class="map-shell">');
+  parts.push(`<div id="${esc(id)}-map" class="map-shell__map" role="application" aria-label="${esc(entry.label)}" style="height:${entry.height || 400}px">`);
+  parts.push('<noscript><div class="map-shell__noscript"><p>La carte interactive n\u00e9cessite JavaScript.</p></div></noscript>');
+  parts.push('</div>');
+  parts.push(`<div id="${esc(id)}-legend" class="map-shell__legend">`);
+  parts.push(`<p class="map-shell__legend-title">${esc(entry.title)}</p>`);
+  if (entry.hint) {
+    parts.push(`<p class="map-shell__legend-hint">${esc(entry.hint)}</p>`);
   }
+  parts.push(`<div id="${esc(id)}-legend-content" class="map-shell__legend-content">`);
+  parts.push('<p class="map-shell__legend-placeholder">Survolez un \u00e9l\u00e9ment sur la carte.</p>');
+  parts.push('</div></div></section>');
+  return parts.join('\n');
+}
 
-  return `<p class="figure-warning">Carte introuvable : ${id}</p>`;
+/**
+ * Custom HTML containers for Pattern C maps (non-MapShell layouts).
+ * Each case mirrors the HTML structure from the original .astro component.
+ */
+function buildCustomMapFigure(id) {
+  switch (id) {
+    case 'migration':
+      return `<section class="migration-map-section">
+  <div id="migration-map" class="migration-map" role="application" aria-label="Carte interactive des migrations des Homo sapiens et N\u00e9andertaliens">
+    <noscript><div class="migration-map__noscript"><p>La carte interactive n\u00e9cessite JavaScript. Veuillez activer JavaScript pour voir la carte.</p></div></noscript>
+  </div>
+  <div id="migration-legend" class="migration-map__legend">
+    <p class="migration-map__legend-title">Migrations et territoires</p>
+    <p class="migration-map__legend-hint">Survolez les routes ou les sites pour plus d'informations.</p>
+    <div class="migration-map__legend-content" id="migration-legend-content">
+      <p class="migration-map__legend-placeholder">Survolez un \u00e9l\u00e9ment sur la carte.</p>
+    </div>
+    <div class="migration-map__legend-layers">
+      <span class="migration-map__legend-line migration-map__legend-line--sapiens">\u2014</span>
+      <span class="migration-map__legend-label">Homo sapiens</span>
+      <span class="migration-map__legend-line migration-map__legend-line--neanderthal">\u2014</span>
+      <span class="migration-map__legend-label">N\u00e9andertaliens</span>
+      <span class="migration-map__legend-line migration-map__legend-line--neronian">\u2014</span>
+      <span class="migration-map__legend-label">Incursion n\u00e9ronienne (Mandrin)</span>
+    </div>
+  </div>
+</section>`;
+
+    case 'resources':
+      return `<section class="resource-map-section">
+  <div id="resource-map" class="resource-map" role="application" aria-label="Carte des sources de cuivre et d'\u00e9tain en Europe">
+    <noscript><div class="resource-map__noscript"><p>La carte interactive n\u00e9cessite JavaScript. Veuillez activer JavaScript pour voir la carte.</p></div></noscript>
+  </div>
+  <div id="resource-legend" class="resource-map__legend">
+    <p class="resource-map__legend-title">Sources de m\u00e9taux \u00e0 l'\u00c2ge du bronze</p>
+    <div class="resource-map__legend-items">
+      <div class="resource-map__legend-item">
+        <span class="resource-map__legend-marker resource-map__legend-marker--copper"></span>
+        <span>Cuivre</span>
+      </div>
+      <div class="resource-map__legend-item">
+        <span class="resource-map__legend-marker resource-map__legend-marker--tin"></span>
+        <span>\u00c9tain</span>
+      </div>
+    </div>
+    <p class="resource-map__legend-hint">Survolez un marqueur pour plus d'informations.</p>
+    <div id="resource-legend-content" class="resource-map__legend-content">
+      <p class="resource-map__legend-placeholder">Survolez un site sur la carte.</p>
+    </div>
+  </div>
+</section>`;
+
+    case 'first-colonial-empire':
+      return `<section class="colonial-map-section">
+  <div id="first-colonial-empire-map" class="colonial-map" role="application" aria-label="Carte du premier empire colonial fran\u00e7ais">
+    <noscript><div class="colonial-map__noscript"><p>La carte interactive n\u00e9cessite JavaScript.</p></div></noscript>
+  </div>
+</section>`;
+
+    case 'second-colonial-empire':
+      return `<section class="colonial-map-section">
+  <div id="second-colonial-empire-map" class="colonial-map" role="application" aria-label="Carte du second empire colonial fran\u00e7ais (1914)">
+    <noscript><div class="colonial-map__noscript"><p>La carte interactive n\u00e9cessite JavaScript.</p></div></noscript>
+  </div>
+</section>`;
+
+    case 'french-algeria':
+      return `<section class="algeria-map-section">
+  <div id="french-algeria-map" class="algeria-map" role="application" aria-label="Carte des d\u00e9partements de l'Alg\u00e9rie fran\u00e7aise en 1954">
+    <noscript><div class="algeria-map__noscript"><p>La carte interactive n\u00e9cessite JavaScript. Veuillez activer JavaScript pour voir la carte.</p></div></noscript>
+  </div>
+</section>`;
+
+    default:
+      return `<p class="figure-warning">Carte introuvable : ${id}</p>`;
+  }
+}
+
+// ── Widget figure (non-map interactive embeds) ──
+
+function buildWidgetFigure(id) {
+  // For now, generate a placeholder div that can be replaced by the template.
+  // As the widget registry grows, individual widget builders can be added here.
+  return `<div data-widget-slot="${esc(id)}" class="widget-slot widget-slot--${esc(id)}"></div>`;
 }
 
 function esc(s) {
@@ -210,7 +303,8 @@ export default function remarkFigureEmbed() {
       MEDIA_RE.lastIndex = 0;
       CHART_RE.lastIndex = 0;
       MAP_RE.lastIndex = 0;
-      if (MEDIA_RE.test(node.value) || CHART_RE.test(node.value) || MAP_RE.test(node.value)) {
+      WIDGET_RE.lastIndex = 0;
+      if (MEDIA_RE.test(node.value) || CHART_RE.test(node.value) || MAP_RE.test(node.value) || WIDGET_RE.test(node.value)) {
         targets.push({ node, index, parent });
         return visit.SKIP;
       }
@@ -221,6 +315,7 @@ export default function remarkFigureEmbed() {
         case 'media': return buildMediaFigure(match.id);
         case 'chart': return buildChartFigure(match.id);
         case 'map':   return buildMapFigure(match.id);
+        case 'widget': return buildWidgetFigure(match.id);
         default: return '';
       }
     };
@@ -239,16 +334,20 @@ export default function remarkFigureEmbed() {
       }
       MAP_RE.lastIndex = 0;
       while ((m = MAP_RE.exec(node.value)) !== null) {
-          matches.push({ type: 'map', id: m[1], index: m.index, end: m.index + m[0].length });
-        }
-        matches.sort((a, b) => a.index - b.index);
+        matches.push({ type: 'map', id: m[1], index: m.index, end: m.index + m[0].length });
+      }
+      WIDGET_RE.lastIndex = 0;
+      while ((m = WIDGET_RE.exec(node.value)) !== null) {
+        matches.push({ type: 'widget', id: m[1], index: m.index, end: m.index + m[0].length });
+      }
+      matches.sort((a, b) => a.index - b.index);
 
-        if (matches.length === 0) continue;
+      if (matches.length === 0) continue;
 
-        const children = [];
-        let lastIdx = 0;
+      const children = [];
+      let lastIdx = 0;
 
-        for (const match of matches) {
+      for (const match of matches) {
         if (match.index > lastIdx) {
           children.push({ type: 'text', value: node.value.slice(lastIdx, match.index) });
         }
@@ -279,6 +378,10 @@ export default function remarkFigureEmbed() {
       MAP_RE.lastIndex = 0;
       while ((m = MAP_RE.exec(node.value)) !== null) {
         matches.push({ type: 'map', id: m[1], index: m.index, end: m.index + m[0].length });
+      }
+      WIDGET_RE.lastIndex = 0;
+      while ((m = WIDGET_RE.exec(node.value)) !== null) {
+        matches.push({ type: 'widget', id: m[1], index: m.index, end: m.index + m[0].length });
       }
       matches.sort((a, b) => a.index - b.index);
 

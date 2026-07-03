@@ -1,0 +1,158 @@
+/**
+ * maps.ts — Registry of all interactive map components.
+ *
+ * Each entry declares the metadata needed by the remark-figure-embed plugin
+ * to generate the map container HTML at build time.
+ *
+ * Maps with `customHtml: true` have non-standard HTML containers and are
+ * handled by custom `buildMapFigure()` branches in the remark plugin.
+ *
+ * Convention: add every new interactive map here. The ID is used both as
+ * the `[map:id]` marker in markdown and as the lookup key for the script
+ * component dispatch in the page template.
+ */
+
+export interface MapRegistryEntry {
+  id: string;
+  label: string;
+  title: string;
+  hint?: string;
+  height?: number;
+  /** If true, the remark plugin uses a custom HTML builder for this ID. */
+  customHtml?: boolean;
+}
+
+export const MAP_REGISTRY: Record<string, MapRegistryEntry> = {
+  // ── Pattern A (script-only, already use [map:id]) ──
+  'roman-provinces': {
+    id: 'roman-provinces',
+    label: 'Carte des provinces romaines en Gaule',
+    title: 'Provinces de la Gaule romaine',
+    hint: 'Survolez une province ou une capitale pour plus d\'informations.',
+  },
+  'roman-cities': {
+    id: 'roman-cities',
+    label: 'Carte des villes romaines de Gaule',
+    title: 'Villes romaines et leurs noms actuels',
+    hint: 'Survolez un marqueur ou un nom de ville pour plus de détails.',
+  },
+  'roman-waterways': {
+    id: 'roman-waterways',
+    label: 'Carte des voies d\'eau de la Gaule romaine',
+    title: 'Voies d\'eau de la Gaule romaine',
+    hint: 'Survolez un fleuve ou une ville portuaire pour plus d\'informations.',
+  },
+
+  // ── Pattern B (MapShell-based, being migrated to script-only) ──
+  'prehistoric': {
+    id: 'prehistoric',
+    label: 'Carte des cinq plus anciens sites préhistoriques de France',
+    title: 'Sites préhistoriques > 1 Ma',
+    hint: 'Cliquez sur un marqueur pour plus d\'informations.',
+  },
+  'traite-verdun': {
+    id: 'traite-verdun',
+    label: 'Carte du partage de l\'empire carolingien au traité de Verdun (843)',
+    title: 'Le partage de Verdun (843)',
+    hint: 'Les trois royaumes issus du partage : Francie occidentale, Francie médiane et Francie orientale. Survolez chaque zone pour plus de détails.',
+  },
+  'villes-medievales': {
+    id: 'villes-medievales',
+    label: 'Carte des principales villes médiévales françaises',
+    title: 'Les grandes villes médiévales (XIIe–XIVe siècle)',
+    hint: 'Les villes qui obtinrent des chartes de commune et devinrent des centres économiques et culturels. Survolez une ville pour voir son importance.',
+  },
+  'wwi-schlieffen': {
+    id: 'wwi-schlieffen',
+    label: 'Carte du plan Schlieffen et de la bataille de la Marne',
+    title: 'Plan Schlieffen et bataille de la Marne (août-septembre 1914)',
+    hint: 'En rouge : l\'avancée allemande. En bleu : les armées françaises et britanniques. Cliquez sur un marqueur pour plus de détails.',
+  },
+  'france-occupation': {
+    id: 'france-occupation',
+    label: 'Carte de la France occupée et de la zone libre',
+    title: 'Zone occupée et zone libre (juin 1940 – novembre 1942)',
+    hint: 'En rouge : zone occupée par l\'Allemagne. En vert : zone libre sous administration de Vichy. Cliquez sur les marqueurs pour plus de détails.',
+    height: 500,
+  },
+  'dday-liberation': {
+    id: 'dday-liberation',
+    label: 'Carte du débarquement de Normandie et de la libération de Paris',
+    title: 'Débarquement de Normandie et campagne de libération (juin-août 1944)',
+    hint: 'En rouge : les plages du débarquement. En bleu : l\'avancée alliée. Cliquez sur les marqueurs pour plus de détails.',
+    height: 500,
+  },
+  'napoleon-naissance': {
+    id: 'napoleon-naissance',
+    label: 'Carte de la Corse et des lieux de jeunesse de Napoléon',
+    title: 'Lieux de naissance et de formation de Napoléon',
+    hint: 'Ajaccio, Brienne, Paris, Toulon — les étapes de sa jeunesse. Survolez un marqueur pour plus d\'informations.',
+  },
+  'coalition-1814': {
+    id: 'coalition-1814',
+    label: 'Carte de la campagne de France (1814) — mouvements des armées de la Sixième Coalition',
+    title: 'La campagne de France (février-mars 1814)',
+    hint: 'En rouge : armée napoléonienne. En bleu : armées coalisées. Cliquez sur une bataille pour zoomer.',
+  },
+  'napoleon-exil': {
+    id: 'napoleon-exil',
+    label: 'Carte des lieux d\'exil de Napoléon : île d\'Elbe et Sainte-Hélène',
+    title: 'Les exils de Napoléon : Elbe et Sainte-Hélène',
+    hint: 'De l\'Elbe (Méditerranée) à Sainte-Hélène (Atlantique Sud). Survolez un marqueur pour plus d\'informations.',
+    height: 500,
+  },
+
+  // ── Pattern D (split from RevolutionMaps) ──
+  'rev-communes': {
+    id: 'rev-communes',
+    label: 'Carte des communes révolutionnaires en 1789',
+    title: 'Communes révolutionnaires (été 1789)',
+    hint: 'Les villes où des municipalités élues remplacèrent les autorités royales dès juillet-août 1789. Cliquez sur un marqueur pour plus de détails.',
+  },
+  'rev-varennes': {
+    id: 'rev-varennes',
+    label: 'Carte de la fuite à Varennes',
+    title: 'Fuite de Louis XVI à Varennes (21-22 juin 1791)',
+    hint: 'Itinéraire de Paris vers Montmédy. Cliquez sur les étapes pour plus de détails.',
+  },
+  'rev-paris': {
+    id: 'rev-paris',
+    label: 'Carte de Paris révolutionnaire',
+    title: 'Paris révolutionnaire — quartiers populaires et lieux de pouvoir',
+    hint: 'En bleu : quartiers populaires des sans-culottes. En rouge : lieux du pouvoir royal puis républicain. Cliquez pour plus de détails.',
+  },
+
+  // ── Pattern C (custom HTML containers) ──
+  'first-colonial-empire': {
+    id: 'first-colonial-empire',
+    label: 'Carte du premier empire colonial français',
+    title: 'Premier empire colonial',
+    customHtml: true,
+  },
+  'second-colonial-empire': {
+    id: 'second-colonial-empire',
+    label: 'Carte du second empire colonial français (1914)',
+    title: 'Second empire colonial français (1914)',
+    customHtml: true,
+  },
+  'french-algeria': {
+    id: 'french-algeria',
+    label: 'Carte des départements de l\'Algérie française en 1954',
+    title: 'Algérie française — Départements (1954)',
+    customHtml: true,
+  },
+  'migration': {
+    id: 'migration',
+    label: 'Carte interactive des migrations des Homo sapiens et Néandertaliens',
+    title: 'Migrations et territoires',
+    hint: 'Survolez les routes ou les sites pour plus d\'informations.',
+    customHtml: true,
+  },
+  'resources': {
+    id: 'resources',
+    label: 'Carte des sources de cuivre et d\'étain en Europe',
+    title: 'Sources de métaux à l\'Âge du bronze',
+    hint: 'Survolez un marqueur pour plus d\'informations.',
+    customHtml: true,
+  },
+};

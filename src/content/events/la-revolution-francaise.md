@@ -4,6 +4,8 @@ start: 1789
 end: 1799
 title: "La Révolution française"
 description: "En dix ans, la France abolit mille ans de monarchie, invente la République, exécute son roi, et se déchire dans la guerre civile et étrangère. La Révolution devient une fracture qui traverse toute la France."
+maps: [rev-communes, rev-varennes, rev-paris]
+widgets: [revolution-bilan]
 timeline:
   - id: etats-generaux
     title: États généraux
@@ -61,6 +63,8 @@ Dans les jours qui suivirent, des communes révolutionnaires — c'est-à-dire l
 
 Dès la fin juillet 1789, des communes révolutionnaires s'étaient formées dans la plupart des grandes villes : Lyon, Marseille, Bordeaux, Nantes, Rouen, Lille, Strasbourg. Les anciennes autorités municipales, nommées par le roi ou les seigneurs, furent remplacées par des élections locales — une révolution administrative qui préfigura la création des départements en 1790.
 
+[map:rev-communes]
+
 ### La Grande Peur et la nuit du 4 août
 
 Dans les campagnes, une rumeur terrible se répandit en juillet et août 1789 : les « brigands » — des aristocrates payés par les princes émigrés — allaient brûler les récoltes et massacrer les paysan·nes. En réalité, c'étaient parfois les paysan·nes elleux-mêmes qui attaquaient les châteaux pour brûler les archives où étaient consignées leurs dettes seigneuriales [source:britannica-french-revolution]. Dans tous les cas, les villages s'armèrent en panique.
@@ -93,6 +97,8 @@ Pendant deux ans, la France tenta de fonctionner comme une monarchie constitutio
 Mais le roi jouait double jeu. Pieusement catholique, il refusait la Constitution civile du clergé. Le 21 juin 1791, il tenta de fuir Paris avec sa famille, déguisé en valet. Repéré à Varennes, il fut ramené sous escorte [source:britannica-french-revolution].
 
 L'itinéraire de la fuite : de Paris vers l'est, par Bondy, Châlons-sur-Marne, jusqu'à Varennes-en-Argonne — à quelques kilomètres seulement de la frontière et du refuge royaliste de Montmédy. La famille royale, voyagant dans un lourd carrosse, fut reconnue à Sainte-Menehould par le maître de poste Jean-Baptiste Drouet, qui galopa prévenir les patriotes de Varennes. Le roi et sa famille furent arrêtés dans la nuit du 21 au 22 juin, puis ramenés à Paris sous escorte militaire, en un voyage de retour de quatre jours à travers la France humiliée et silencieuse.
+
+[map:rev-varennes]
 
 ### La guerre et la chute de la monarchie
 
@@ -129,6 +135,8 @@ Les sans-culottes — ainsi nommé·es parce qu'ils portaient le pantalon long, 
 
 Leur programme était simple : le pain à prix fixe, la taxation des riches, la Terreur contre les traîtres, l'instruction pour tou·tes. Ils vivaient dans les quartiers populaires de Paris — le Faubourg Saint-Antoine (à l'est, autour de la Bastille), la rue Mouffetard (sur la rive gauche, au pied de la Montagne Sainte-Geneviève), les Halles, le quartier des Arcis — dans des immeubles de six étages, sans eau ni chauffage, partageant une cour et une fontaine [source:britannica-french-revolution]. Ces quartiers formaient un arc populaire qui cernait le centre monarchique et aristocratique des Tuileries et du Marais : géographie sociale qui préfigurait les affrontements politiques des années suivantes.
 
+[map:rev-paris]
+
 Malgré leurs moyens modestes, pendant cinq ans, ils furent l'aile marchante de la Révolution.
 
 Leur force tenait à leur organisation. Chaque section de Paris — quarante-huit au total — était une assemblée populaire permanente où l'on débattait des lois, des prix du pain, de la défense de la patrie. Les sections envoyaient des représentant·es à la Commune de Paris, qui rivalisait parfois d'autorité avec la Convention nationale. C'est des sections que partirent les grandes journées révolutionnaires : le 10 août 1792, le 31 mai 1793. Les sans-culottes avaient leurs journaux — *Le Père Duchesne* d'Hébert, lu à haute voix dans les ateliers — leurs clubs, leurs chansons. *Ça ira, ça ira, les aristocrates à la lanterne* — la musique scandait les exécutions comme les fêtes.
@@ -152,8 +160,6 @@ La jeune république, dix ans après la révolution, était épuisée : par les 
 La Révolution française a transformé la société en profondeur : en abolissant les privilèges, en proclamant l'égalité civile et en ouvrant les carrières au mérite plutôt qu'à la naissance.
 
 Cependant, les bénéfices furent très inégalement répartis.
-
-<!-- Le tableau interactif est rendu par le composant RevolutionBilan -->
 
 [media:toussaint-louverture]
 

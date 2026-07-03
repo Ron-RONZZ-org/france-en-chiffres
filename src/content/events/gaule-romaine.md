@@ -4,6 +4,7 @@ start: -58
 end: 476
 title: "L'occupation romaine"
 description: "En cinq siècles de présence romaine, le territoire qui devient beaucoup plus tard la France a changé de langue, de dieux et de paysage. Pourtant, les racines celtes n'ont jamais tout à fait disparu."
+maps: [roman-provinces, roman-waterways, roman-cities]
 timeline:
   - id: conquete-resistance
     title: La conquête et la résistance

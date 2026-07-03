@@ -4,6 +4,7 @@ start: -1E6
 end: -1E6
 title: "Premiers humains en France"
 description: "Nous connaissons peu de choses sur les premiers humains en France, sauf qu'e·ils ont bien vécu sur le territoire qu'on appelle la France aujourd'hui il y a 1 000 000 d'années."
+maps: [prehistoric]
 ---
 
 ## Les premiers humains en France
@@ -43,3 +44,5 @@ Les humains de cette époque n'étaient pas au sommet de la chaîne alimentaire.
 [media:tautavel-crane]
 
 Les plus anciens fossiles humains découverts en France restent ceux de la caune de l'Arago à Tautavel, attribués à *Homo heidelbergensis* (parfois classé comme *Homo erectus tautavelensis*). Mais qui étaient les humains du million d'années ? Étaient-e·ils des *Homo erectus* archaïques venu·es d'Afrique ? Des *Homo antecessor*, comme ceux découverts en Espagne à la Sierra de Atapuerca ? Faute de fossiles, le mystère reste entier. Ce que nous savons, c'est qu'e·ils maîtrisaient déjà la taille du silex et parcouraient de vastes territoires, bien avant que le feu ne soit domestiqué en Europe, vers 400 000 ans AEC [source:de-lumley-2007-terra-amata].
+
+[map:prehistoric]

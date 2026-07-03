@@ -1,0 +1,265 @@
+---
+// RomanWaterwaysMap.astro — Leaflet map of Roman waterways in Gaul
+// The HTML container is injected into the markdown content by the remark-figure-embed plugin
+// via [map:roman-waterways]. This component provides the Leaflet initialization script.
+---
+
+<script>
+  import L from 'leaflet';
+  import 'leaflet/dist/leaflet.css';
+  import tippy from 'tippy.js';
+  import 'tippy.js/dist/tippy.css';
+  import 'tippy.js/animations/shift-away.css';
+
+  (() => {
+    const mapEl = document.getElementById('roman-waterways-map');
+    if (!mapEl) return;
+
+    // ── River data ──
+    const rivers = [
+      {
+        name: 'Rhône',
+        desc: 'Voie majeure nord-sud reliant Lugdunum (Lyon) à Massalia (Marseille). Transport de vin, huile, céramique et blé vers le nord.',
+        coords: [
+          [46.2, 4.8], [45.7, 4.9], [45.3, 4.8], [44.9, 4.7],
+          [44.6, 4.6], [44.2, 4.7], [43.7, 4.8], [43.3, 4.8],
+        ],
+        color: '#3b82f6',
+      },
+      {
+        name: 'Saône',
+        desc: 'Affluent du Rhône remonté jusqu\'à la trouée de Belfort. Relie le bassin rhodanien aux plaines du nord-est.',
+        coords: [
+          [47.6, 4.9], [47.3, 5.0], [47.0, 5.1], [46.8, 5.1],
+          [46.5, 5.0], [46.2, 4.9], [46.0, 4.8],
+        ],
+        color: '#60a5fa',
+      },
+      {
+        name: 'Loire',
+        desc: 'Plus long fleuve de Gaule. Négocie du vin, du bois et des poteries entre le Massif central et l\'Atlantique.',
+        coords: [
+          [44.8, 4.0], [45.1, 3.9], [45.3, 4.0], [45.5, 4.2],
+          [45.7, 4.2], [46.0, 4.0], [46.5, 3.9], [47.0, 3.5],
+          [47.3, 2.5], [47.4, 1.5], [47.4, 0.5], [47.3, -1.5],
+        ],
+        color: '#22c55e',
+      },
+      {
+        name: 'Seine',
+        desc: 'Axe reliant Lutèce (Paris) à l\'Atlantique. Les nautes de la Seine étaient parmi les corporations les plus riches de Gaule.',
+        coords: [
+          [47.5, 4.5], [48.0, 4.0], [48.3, 3.5], [48.6, 3.0],
+          [48.8, 2.5], [48.9, 2.0], [49.0, 1.5], [49.3, 1.0],
+          [49.4, 0.5], [49.5, 0.0],
+        ],
+        color: '#d4a843',
+      },
+      {
+        name: 'Rhin',
+        desc: 'Frontière naturelle de la Gaule romaine. Route commerciale entre le nord de l\'Empire et les provinces rhénanes.',
+        coords: [
+          [47.5, 7.6], [48.0, 7.8], [48.5, 8.0], [49.0, 8.2],
+          [49.5, 8.4],
+        ],
+        color: '#a855f7',
+      },
+      {
+        name: 'Garonne',
+        desc: 'Relie l\'intérieur aquitain à l\'Atlantique. Transport du vin de Bordeaux vers la Bretagne et la Germanie.',
+        coords: [
+          [43.5, 1.5], [44.0, 1.0], [44.3, 0.5], [44.6, 0.0],
+          [44.8, -0.3], [45.0, -0.6],
+        ],
+        color: '#f97316',
+      },
+    ];
+
+    // ── Key port cities ──
+    const ports = [
+      { name: 'Lugdunum', modern: 'Lyon', river: 'Confluent Rhône-Saône', coords: [45.764, 4.835], color: '#3b82f6' },
+      { name: 'Massalia', modern: 'Marseille', river: 'Méditerranée', coords: [43.296, 5.370], color: '#f97316' },
+      { name: 'Arelate', modern: 'Arles', river: 'Rhône', coords: [43.677, 4.630], color: '#3b82f6' },
+      { name: 'Lutetia', modern: 'Paris', river: 'Seine', coords: [48.856, 2.352], color: '#d4a843' },
+      { name: 'Narbo Martius', modern: 'Narbonne', river: 'Via Domitia', coords: [43.183, 3.000], color: '#f97316' },
+      { name: 'Burdigala', modern: 'Bordeaux', river: 'Garonne', coords: [44.837, -0.579], color: '#f97316' },
+      { name: 'Divodurum', modern: 'Metz', river: 'Moselle', coords: [49.119, 6.175], color: '#a855f7' },
+      { name: 'Colonia Agrippina', modern: 'Cologne', river: 'Rhin', coords: [50.933, 6.950], color: '#a855f7' },
+      { name: 'Durocortorum', modern: 'Reims', river: 'Vesle', coords: [49.258, 4.032], color: '#22c55e' },
+      { name: 'Augustodunum', modern: 'Autun', river: 'Arroux', coords: [46.951, 4.299], color: '#60a5fa' },
+      { name: 'Caesarodunum', modern: 'Tours', river: 'Loire', coords: [47.394, 0.688], color: '#22c55e' },
+      { name: 'Condate', modern: 'Rennes', river: 'Vilaine', coords: [48.111, -1.678], color: '#22c55e' },
+    ];
+
+    // ── Map init ──
+    const map = L.map(mapEl, {
+      center: [46.5, 2.5],
+      zoom: 6,
+      minZoom: 5,
+      maxZoom: 10,
+      zoomControl: true,
+      attributionControl: true,
+    });
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      maxZoom: 19,
+    }).addTo(map);
+
+    // ── River polylines ──
+    for (const r of rivers) {
+      L.polyline(r.coords, {
+        color: r.color,
+        weight: 4,
+        opacity: 0.7,
+      }).addTo(map).bindTooltip(
+        `<strong>${r.name}</strong><br>${r.desc}`,
+        { sticky: true, className: 'roman-waterways-tooltip' },
+      );
+
+      // Label midpoint
+      const mid = r.coords[Math.floor(r.coords.length / 2)];
+      L.tooltip({
+        permanent: true,
+        direction: 'right',
+        offset: L.point(8, 0),
+        className: 'roman-waterway-label',
+      })
+        .setContent(`<span style="color:${r.color}">${r.name}</span>`)
+        .setLatLng(mid)
+        .addTo(map);
+    }
+
+    // ── Port city markers ──
+    for (const p of ports) {
+      L.circleMarker(p.coords, {
+        radius: 6,
+        color: '#fff',
+        weight: 2,
+        fillColor: p.color,
+        fillOpacity: 0.9,
+      }).addTo(map).bindTooltip(
+        `<strong>${p.name}</strong> → ${p.modern}<br>${p.river}`,
+        { sticky: true, className: 'roman-waterways-tooltip' },
+      );
+    }
+
+    // ── Legend ──
+    const legendEl = document.getElementById('roman-waterways-legend-content');
+    if (legendEl) {
+      let html = '';
+      for (const r of rivers) {
+        html += `<div class="roman-waterways-legend__item">
+          <span class="roman-waterways-legend__stroke" style="background:${r.color}"></span>
+          <strong>${r.name}</strong>
+        </div>`;
+      }
+      html += '<div style="margin-top:0.5rem;border-top:1px solid var(--color-border,#334155);padding-top:0.5rem">';
+      for (const p of ports) {
+        html += `<div class="roman-waterways-legend__item roman-waterways-legend__item--port">
+          <span class="roman-waterways-legend__port-dot" style="background:${p.color}"></span>
+          ${p.name} <span style="color:#94a3b8;font-size:0.78rem">→ ${p.modern}</span>
+        </div>`;
+      }
+      html += '</div>';
+      legendEl.innerHTML = html;
+    }
+
+    // ── Tippy on legend items ──
+    tippy('.roman-waterways-legend__item', {
+      content: (ref) => {
+        const name = ref.querySelector('strong')?.textContent || '';
+        const river = rivers.find(r => r.name === name);
+        if (river) return river.desc;
+        const portName = ref.textContent?.trim().split('→')[0]?.trim() || '';
+        const port = ports.find(p => p.name === portName);
+        if (port) return `<strong>${port.name}</strong> (${port.modern})<br>Voie fluviale : ${port.river}`;
+        return '';
+      },
+      allowHTML: true,
+      placement: 'top',
+      animation: 'shift-away',
+      theme: 'dark',
+      maxWidth: 300,
+      delay: [200, 0],
+    });
+
+    setTimeout(() => map.invalidateSize(), 200);
+  })();
+</script>
+
+<style>
+  :global(.roman-waterways-tooltip) {
+    background: #111827;
+    border: 1px solid #1e293b;
+    border-radius: 0.5rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    color: #e2e8f0;
+    font-size: 0.8rem;
+    padding: 0.35rem 0.6rem;
+    white-space: normal;
+    max-width: 260px;
+  }
+
+  :global(.roman-waterways-tooltip::before) {
+    border-top-color: #1e293b;
+  }
+
+  :global(.roman-waterway-label) {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    color: #e2e8f0;
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 0;
+    white-space: nowrap;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.9);
+  }
+
+  :global(.roman-waterway-label::before) {
+    display: none;
+  }
+
+  :global(.roman-waterway-label span) {
+    background: rgba(17, 24, 39, 0.75);
+    padding: 1px 5px;
+    border-radius: 3px;
+    letter-spacing: 0.03em;
+  }
+
+  .roman-waterways-legend__item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.2rem 0;
+    font-size: 0.82rem;
+    color: var(--color-text-muted, #94a3b8);
+    cursor: pointer;
+  }
+
+  .roman-waterways-legend__item:hover {
+    color: var(--color-text-light, #e2e8f0);
+  }
+
+  .roman-waterways-legend__item--port {
+    padding-left: 0;
+  }
+
+  .roman-waterways-legend__stroke {
+    display: inline-block;
+    width: 24px;
+    height: 4px;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  .roman-waterways-legend__port-dot {
+    display: inline-block;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+</style>
