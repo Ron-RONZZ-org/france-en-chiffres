@@ -537,51 +537,25 @@ const galleryMedia = (await Promise.all(
       interactive: false,
       appendTo: () => document.body,
       content(ref) {
+        // aria-label is already cleaned at build time by render-svg.js:
+        // raw Vega encoding fields (x, y, series, …) are stripped;
+        // only human-readable tooltip titles (Année, Valeur, Série, …) remain.
         const raw = ref.getAttribute('aria-label');
         if (!raw) return '';
 
-        // Parse "key: value; key2: value2" pairs into labeled rows
         const pairs = raw.split('; ').map((pair) => {
           const colon = pair.indexOf(': ');
           if (colon === -1) return { field: '', value: pair };
-          return {
-            field: pair.slice(0, colon),
-            value: pair.slice(colon + 2),
-          };
+          return { field: pair.slice(0, colon), value: pair.slice(colon + 2) };
         });
 
-        // Raw encoding field names that Vega-Lite adds automatically.
-        // When a human-readable tooltip title exists for the same value,
-        // the raw name is filtered out in favour of the descriptive one.
-        const RAW_FIELDS = new Set([
-          'x', 'y', 'series', 'value', 'label',
-          'category', 'group', 'entity', 'rank',
-        ]);
-
-        // Dedup by normalised value (lowercased, spaces collapsed).
-        // Among pairs with the same value, prefer the one whose field
-        // name is NOT in RAW_FIELDS (human-readable wins over raw).
-        const byNormValue = new Map();
-        for (const p of pairs) {
-          if (!p.field) continue;
-          const norm = p.value.trim().toLowerCase();
-          const existing = byNormValue.get(norm);
-          if (!existing) {
-            byNormValue.set(norm, p);
-          } else if (!RAW_FIELDS.has(p.field) && RAW_FIELDS.has(existing.field)) {
-            // Human-readable label replaces raw encoding name
-            byNormValue.set(norm, p);
-          }
-        }
-
-        const rows = [...byNormValue.values()]
+        return pairs
+          .filter((p) => p.field)
           .map(
             (p) =>
               `<div class="tt-row"><span class="tt-field">${p.field}</span> <span class="tt-value">${p.value}</span></div>`
           )
           .join('');
-
-        return rows;
       },
     });
   });

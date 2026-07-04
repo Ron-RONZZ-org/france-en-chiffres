@@ -109,7 +109,44 @@ async function renderVegaLite(spec, palette = DEFAULT_PALETTE) {
   const view = new View(parse(compiled), { renderer: 'svg' });
   const svg = await view.toSVG();
   view.finalize();
-  return svg;
+  return cleanAriaLabels(svg);
+}
+
+/**
+ * Post-process Vega-Lite's aria-label attributes to remove raw
+ * Vega encoding field names (x, y, series, category, value, etc.)
+ * while keeping the explicit human-readable tooltip titles.
+ *
+ * Vega-Lite always includes encoding channels in aria-label even
+ * when an explicit tooltip encoding is defined, resulting in
+ * duplicates like:
+ *   "x: 1974; y: 2.8; series: Taux; Année: 1974; Valeur: 2.8; Série: Taux"
+ *
+ * This strips the raw encoding fields so only the tooltip titles
+ * remain:
+ *   "Année: 1974; Valeur: 2.8; Série: Taux"
+ *
+ * Axis/legend aria-labels (sentences without '; ' separators) are
+ * left untouched for accessibility.
+ */
+function cleanAriaLabels(svg) {
+  const RAW_FIELDS = new Set([
+    'x', 'y', 'series', 'value', 'label',
+    'category', 'group', 'entity', 'rank',
+    'ageGroup', 'sex', 'population',
+  ]);
+  return svg.replace(/aria-label="([^"]+)"/g, (match, label) => {
+    // Only process structured "key: value; key2: value2" labels
+    if (label.includes('; ')) {
+      const parts = label.split('; ').filter((pair) => {
+        const colon = pair.indexOf(': ');
+        if (colon === -1) return true;
+        return !RAW_FIELDS.has(pair.slice(0, colon));
+      });
+      if (parts.length > 0) return `aria-label="${parts.join('; ')}"`;
+    }
+    return match;
+  });
 }
 
 function escapeXml(s) {

@@ -518,6 +518,32 @@ Chart data is structured JSON with a Zod-discriminated union per type. The Vega-
 
 See also **Coding Guidelines** rule 6 (stat must cite its source via `sourceId`).
 
+### Finding Data for Charts and Maps
+
+When creating a chart figure or adding data layers to a map, use the following reliable sources.
+
+#### Statistical Data
+
+| Source | Coverage | Notes |
+|--------|----------|-------|
+| **INSEE** ([insee.fr](https://insee.fr)) | French demographics, employment, GDP, prices — national and regional | Primary source for France-specific stats. Historical series available. API at `api.insee.fr` |
+| **INED** ([ined.fr](https://ined.fr)) | Historical French demographics: population since 1740, mortality, fertility | Best source for long-run historical population data |
+| **World Bank** ([data.worldbank.org](https://data.worldbank.org)) | International indicators: GDP, HDI, trade, education, health | Time series for most countries since 1960. Already used in `fetch-world-data.js` |
+| **Eurostat** ([ec.europa.eu/eurostat](https://ec.europa.eu/eurostat)) | EU-wide harmonized statistics, regional data (NUTS) | Best for cross-country comparisons within Europe |
+| **data.gouv.fr** ([data.gouv.fr](https://data.gouv.fr)) | French open data: elections, budgets, public services, census | API available. Many datasets under Etalab Open License |
+| **UN Data** ([data.un.org](https://data.un.org)) | Global indicators: population, SDGs, energy, trade | Authoritative for UN member state comparisons |
+| **Our World in Data** ([ourworldindata.org](https://ourworldindata.org)) | Curated global datasets with thorough documentation | Well-documented CSV downloads, good for accessible stats |
+
+#### Geo-Data
+
+| Source | Coverage | Notes |
+|--------|----------|-------|
+| **Natural Earth** ([naturalearthdata.com](https://naturalearthdata.com)) | Global coastlines, countries, rivers, lakes | 1:110m / 1:50m / 1:10m scales. Already used in `fetch-world-data.js` |
+| **IGN** ([ign.fr](https://ign.fr)) | French admin boundaries (communes, départements, régions), historical maps | Reference authority for French geography |
+| **Admin Express / data.gouv.fr** | French admin boundaries updated annually (COG) | GeoJSON and Shapefile downloads |
+| **GeoNames** ([geonames.org](https://geonames.org)) | Global geographical names with coordinates | Useful for city and place metadata |
+| **OpenStreetMap** ([openstreetmap.org](https://openstreetmap.org)) | Community-maintained global map data | Via Overpass API or GeoJSON extracts |
+
 ### Article Mini-Timeline (Gantt)
 
 Each event article can display a **mini-timeline** at the top — a Gantt-style bar chart showing key sub-events within the article's timeframe, with clickable bars that scroll to the corresponding section.
