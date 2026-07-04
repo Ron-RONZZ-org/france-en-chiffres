@@ -550,18 +550,31 @@ const galleryMedia = (await Promise.all(
           };
         });
 
-        // Build HTML — skip the first raw "value: N" pair which is redundant
-        // (already shown as the last "Valeur" or "value" row)
-        const deduped = [];
-        const seen = new Set();
+        // Raw encoding field names that Vega-Lite adds automatically.
+        // When a human-readable tooltip title exists for the same value,
+        // the raw name is filtered out in favour of the descriptive one.
+        const RAW_FIELDS = new Set([
+          'x', 'y', 'series', 'value', 'label',
+          'category', 'group', 'entity', 'rank',
+        ]);
+
+        // Dedup by normalised value (lowercased, spaces collapsed).
+        // Among pairs with the same value, prefer the one whose field
+        // name is NOT in RAW_FIELDS (human-readable wins over raw).
+        const byNormValue = new Map();
         for (const p of pairs) {
-          const key = p.field.toLowerCase().replace(/[^a-z]/g, '');
-          if (!p.field || seen.has(key)) continue;
-          seen.add(key);
-          deduped.push(p);
+          if (!p.field) continue;
+          const norm = p.value.trim().toLowerCase();
+          const existing = byNormValue.get(norm);
+          if (!existing) {
+            byNormValue.set(norm, p);
+          } else if (!RAW_FIELDS.has(p.field) && RAW_FIELDS.has(existing.field)) {
+            // Human-readable label replaces raw encoding name
+            byNormValue.set(norm, p);
+          }
         }
 
-        const rows = deduped
+        const rows = [...byNormValue.values()]
           .map(
             (p) =>
               `<div class="tt-row"><span class="tt-field">${p.field}</span> <span class="tt-value">${p.value}</span></div>`

@@ -166,8 +166,8 @@ async function renderLineChart(figure) {
   }
 
   const hasLegend = config.showLegend !== false && data.series.length > 1;
-  const hasXLabel = !!config.xAxis?.label;
-  const hasYLabel = !!config.yAxis?.label;
+  const xLabel = config.xAxis?.label || 'Année';
+  const yLabel = config.yAxis?.label || 'Valeur';
 
   return await renderVegaLite({
     title: title ? { text: title, anchor: 'middle', offset: 6 } : undefined,
@@ -178,9 +178,14 @@ async function renderLineChart(figure) {
       {
         mark: { type: 'line', strokeWidth: 2.5, point: true },
         encoding: {
-          x: { field: 'x', type: 'quantitative', axis: { format: 'd', title: hasXLabel ? config.xAxis.label : null } },
-          y: { field: 'y', type: 'quantitative', axis: { title: hasYLabel ? config.yAxis.label : null } },
+          x: { field: 'x', type: 'quantitative', axis: { format: 'd', title: xLabel } },
+          y: { field: 'y', type: 'quantitative', axis: { title: yLabel } },
           color: { field: 'series', type: 'nominal', legend: hasLegend ? {} : null },
+          tooltip: [
+            { field: 'x', type: 'quantitative', title: xLabel, format: 'd' },
+            { field: 'y', type: 'quantitative', title: yLabel, format: '.1f' },
+            { field: 'series', type: 'nominal', title: 'Série' },
+          ],
         },
       },
     ],
@@ -207,22 +212,28 @@ async function renderBarChart(figure) {
   }
 
   const hasLegend = values.some((v, i, a) => a.findIndex((x) => x.group !== v.group) !== -1);
-  const hasXLabel = !!config.xAxis?.label;
-  const hasYLabel = !!config.yAxis?.label;
+  const xLabel = config.xAxis?.label || 'Catégorie';
+  const yLabel = config.yAxis?.label || 'Valeur';
+  const groupLabel = isGrouped ? 'Groupe' : undefined;
 
   return await renderVegaLite({
     title: title ? { text: title, anchor: 'middle', offset: 6 } : undefined,
     width: width ?? 600,
     height: height ?? 350,
     data: { values },
-    mark: { type: 'bar', tooltip: true },
+    mark: { type: 'bar' },
     encoding: {
-      x: { field: 'category', type: 'nominal', axis: { title: hasXLabel ? config.xAxis.label : null, labelAngle: -35 } },
-      y: { field: 'value', type: 'quantitative', axis: { title: hasYLabel ? config.yAxis.label : null } },
+      x: { field: 'category', type: 'nominal', axis: { title: xLabel, labelAngle: -35 } },
+      y: { field: 'value', type: 'quantitative', axis: { title: yLabel } },
       color: hasLegend
         ? { field: 'group', type: 'nominal', legend: {} }
         : undefined,
       xOffset: isGrouped ? { field: 'group', type: 'nominal' } : undefined,
+      tooltip: [
+        { field: 'category', type: 'nominal', title: xLabel },
+        { field: 'value', type: 'quantitative', title: yLabel, format: '.1f' },
+        ...(groupLabel ? [{ field: 'group', type: 'nominal', title: groupLabel }] : []),
+      ],
     },
   }, palette);
 }
@@ -250,7 +261,7 @@ async function renderPyramidChart(figure) {
     width: width ?? 600,
     height: height ?? 400,
     data: { values },
-    mark: { type: 'bar', tooltip: true },
+    mark: { type: 'bar' },
     encoding: {
       y: {
         field: 'ageGroup', type: 'ordinal', axis: { title: 'Groupe d\'âge' },
@@ -261,6 +272,11 @@ async function renderPyramidChart(figure) {
         axis: { title: `${xLabel} (${unit})`, format: '.0f' },
       },
       color: { field: 'sex', type: 'nominal', legend: {} },
+      tooltip: [
+        { field: 'ageGroup', type: 'ordinal', title: 'Groupe d\'âge' },
+        { field: 'population', type: 'quantitative', title: `${xLabel} (${unit})`, format: '.1f' },
+        { field: 'sex', type: 'nominal', title: 'Sexe' },
+      ],
     },
   }, ['#1a5276', '#922b21']); // blue for male, red for female
 }
@@ -294,6 +310,11 @@ async function renderBumpChart(figure) {
       x: { field: 'x', type: 'quantitative', axis: { format: 'd', title: config.xAxis?.label ?? null } },
       y: { field: 'rank', type: 'quantitative', axis: { title: config.yLabel ?? 'Rang', zindex: 1 } },
       color: { field: 'entity', type: 'nominal', legend: hasLegend ? {} : null },
+      tooltip: [
+        { field: 'entity', type: 'nominal', title: 'Entité' },
+        { field: 'x', type: 'quantitative', title: 'Date', format: 'd' },
+        { field: 'rank', type: 'quantitative', title: 'Rang', format: 'd' },
+      ],
     },
   }, palette);
 }
