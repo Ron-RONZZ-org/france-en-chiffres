@@ -511,6 +511,11 @@ Supported types: `line`, `bar`, `pie`, `population-pyramid`, `bump`, `choropleth
 
 Chart data is structured JSON with a Zod-discriminated union per type. The Vega-Lite renderer (`src/scripts/charts/render-svg.js`) compiles the JSON spec into SVG at build time via headless Vega — no manual geometry, arc paths, or label positioning.
 
+> **Note:** When modifying `render-svg.js`, clear both caches to force full content re-render:
+> ```bash
+> rm -f node_modules/.astro/data-store.json .astro/ dist/
+> ```
+
 See also **Coding Guidelines** rule 6 (stat must cite its source via `sourceId`).
 
 ### Article Mini-Timeline (Gantt)
