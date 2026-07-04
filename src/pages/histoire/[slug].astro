@@ -467,6 +467,17 @@ const galleryMedia = (await Promise.all(
 <style is:global>
   /* ── Chart tooltips (global: Tippy appends to body) ── */
 
+  /* Vega-Lite sets pointer-events: none on all SVG elements, which
+     blocks mouse events needed for Tippy.js tooltips. Override this
+     on data marks while keeping guides non-interactive. */
+  .chart-figure svg {
+    pointer-events: none;
+  }
+  .chart-figure svg [aria-label]:not([aria-label*="axis"]):not([aria-label*="Legend"]):not([aria-label*="scale"]):not([aria-label*="symbol"]):not([aria-label*="Title"]) {
+    pointer-events: all;
+    cursor: pointer;
+  }
+
   .tippy-box[data-theme~='chart'] {
     background-color: #0f172a !important;
     border: 1px solid #334155 !important;
