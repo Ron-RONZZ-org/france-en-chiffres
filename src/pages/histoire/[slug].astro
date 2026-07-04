@@ -462,44 +462,42 @@ const galleryMedia = (await Promise.all(
   .event-page__source-item a:hover {
     text-decoration: underline;
   }
-  /* ── Chart tooltips ── */
+</style>
 
-  .chart-figure__container :global(.tippy-box[data-theme~='chart']) {
-    background-color: #0f172a;
-    border: 1px solid #334155;
-    border-radius: 6px;
-    font-size: 0.8125rem;
-    line-height: 1.5;
-    color: #e2e8f0;
-    padding: 0.25rem 0;
+<style is:global>
+  /* ── Chart tooltips (global: Tippy appends to body) ── */
+
+  .tippy-box[data-theme~='chart'] {
+    background-color: #0f172a !important;
+    border: 1px solid #334155 !important;
+    border-radius: 6px !important;
+    font-size: 0.8125rem !important;
+    line-height: 1.5 !important;
+    color: #e2e8f0 !important;
+    padding: 0.25rem 0 !important;
   }
 
-  .chart-figure__container :global(.tippy-box[data-theme~='chart'] .tippy-content) {
-    padding: 0.375rem 0.75rem;
+  .tippy-box[data-theme~='chart'] .tippy-content {
+    padding: 0.375rem 0.75rem !important;
   }
 
-  .chart-figure__container :global(.tippy-box[data-theme~='chart'] .tippy-arrow) {
-    color: #334155;
+  .tippy-box[data-theme~='chart'] .tippy-arrow {
+    color: #334155 !important;
   }
 
-  .chart-figure__container :global(.tippy-box[data-theme~='chart'] .tt-label) {
-    font-weight: 700;
-    color: #f1f5f9;
+  .tippy-box[data-theme~='chart'] .tt-row {
+    display: flex !important;
+    justify-content: space-between !important;
+    gap: 1.25rem !important;
   }
 
-  .chart-figure__container :global(.tippy-box[data-theme~='chart'] .tt-row) {
-    display: flex;
-    justify-content: space-between;
-    gap: 1.25rem;
+  .tippy-box[data-theme~='chart'] .tt-field {
+    color: #94a3b8 !important;
   }
 
-  .chart-figure__container :global(.tippy-box[data-theme~='chart'] .tt-field) {
-    color: #94a3b8;
-  }
-
-  .chart-figure__container :global(.tippy-box[data-theme~='chart'] .tt-value) {
-    color: #e2e8f0;
-    font-weight: 600;
+  .tippy-box[data-theme~='chart'] .tt-value {
+    color: #e2e8f0 !important;
+    font-weight: 600 !important;
   }
 </style>
 
