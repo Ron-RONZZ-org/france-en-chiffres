@@ -39,6 +39,21 @@ const DARK_CONFIG = {
   text: { fill: '#e2e8f0' },
   title: { color: '#e2e8f0', fontSize: 14, fontWeight: 600 },
   mark: { fill: '#cbd5e1', stroke: '#1a1a2e', strokeWidth: 1.5 },
+  // Vega-Lite sets pointer-events: none everywhere by default,
+  // which blocks mouse events needed for Tippy.js tooltips.
+  // Enable pointer events on data marks only (not axes/legends).
+  style: {
+    'group': { pointerEvents: 'none' },
+    'background': { pointerEvents: 'none' },
+    'guide-label': { pointerEvents: 'none' },
+    'guide-title': { pointerEvents: 'none' },
+    'guide-group': { pointerEvents: 'none' },
+    'point': { pointerEvents: 'all' },
+    'line': { pointerEvents: 'all' },
+    'bar': { pointerEvents: 'all' },
+    'arc': { pointerEvents: 'all' },
+    'symbol': { pointerEvents: 'all' },
+  },
 };
 
 // ── Default colour palette (French tricolor + extended) ──
