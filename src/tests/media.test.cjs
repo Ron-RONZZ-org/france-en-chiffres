@@ -65,19 +65,28 @@ for (const entry of mediaData) {
 console.log('✓ Test 5: All entries have license attribution');
 
 // ── Test 6: Build output includes media files ──
-const distAstro = path.join(__dirname, '..', '..', 'dist', '_astro');
-if (fs.existsSync(distAstro)) {
-  const distFiles = fs.readdirSync(distAstro);
+const distMedia = path.join(__dirname, '..', '..', 'dist', 'media');
+if (fs.existsSync(distMedia)) {
+  const distFiles = fs.readdirSync(distMedia);
   for (const entry of mediaData) {
-    // Check if the media file in src/content/media/ is SVG (likely inlined as data URI)
     const srcFile = srcFiles.find(f => f.startsWith(entry.id + '.'));
     const isSvg = srcFile?.endsWith('.svg') ?? false;
-    if (isSvg) continue; // SVGs < 4KB inlined as data URIs
-    const found = distFiles.some(f => f.startsWith(entry.id));
-    assert.ok(found,
-      `Entry ${entry.id} must have a built file in dist/_astro/`);
+    if (isSvg) {
+      // SVGs are copied as-is — check in dist/media/
+      const destFile = distFiles.find(f => f.startsWith(entry.id + '.svg'));
+      assert.ok(destFile,
+        `Entry ${entry.id} (SVG) must have a built file in dist/media/`);
+      continue;
+    }
+    // Raster images get optimized JPEG + WebP in dist/media/
+    const hasJpg = distFiles.includes(`${entry.id}.jpg`);
+    const hasWebp = distFiles.includes(`${entry.id}.webp`);
+    assert.ok(hasJpg,
+      `Entry ${entry.id} must have a built .jpg in dist/media/`);
+    assert.ok(hasWebp,
+      `Entry ${entry.id} must have a built .webp in dist/media/`);
   }
-  console.log('✓ Test 6: Media files in build output (SVGs inlined as data URIs)');
+  console.log('✓ Test 6: Media files in dist/media/ (JPEG + WebP for rasters, SVG as-is)');
 } else {
   console.log('⚠ Test 6: dist/ not found — run `npm run build` first');
 }

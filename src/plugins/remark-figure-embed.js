@@ -27,6 +27,7 @@ import { renderChartSvg } from '../scripts/charts/render-svg.js';
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
 const PROJECT_ROOT = resolve(__dirname, '../..');
 const MEDIA_DIR = resolve(PROJECT_ROOT, 'src/content/media');
+const PUBLIC_MEDIA = resolve(PROJECT_ROOT, 'public/media');
 const FIGURES_DIR = resolve(PROJECT_ROOT, 'src/content/figures');
 
 const MEDIA_RE = /\[media:\s*([\w-]+)\]/g;
@@ -51,11 +52,25 @@ function getMapRegistry() {
   return _MAP_REGISTRY;
 }
 
-// ── Media file resolution (URL-based, no base64 inlining) ──
+// ── Media file resolution ──
 //
-// Media binary files are copied to public/media/ by scripts/copy-media-assets.mjs
-// during the prebuild step. We reference them via URL path instead of inlining
-// as base64 data URIs, which caused OOM on large media files (10-35 MB each).
+// Media files are pre-optimized by scripts/optimize-media.mjs into
+// public/media/{id}.jpg + {id}.webp (with dimensions in manifest).
+// We reference them via URL path — no base64 inlining (caused OOM).
+
+let _OPTIMIZED_MANIFEST = null;
+
+function getOptimizedManifest() {
+  if (!_OPTIMIZED_MANIFEST) {
+    const manifestPath = resolve(PUBLIC_MEDIA, '.optimized-manifest.json');
+    try {
+      _OPTIMIZED_MANIFEST = JSON.parse(readFileSync(manifestPath, 'utf-8'));
+    } catch {
+      _OPTIMIZED_MANIFEST = {};
+    }
+  }
+  return _OPTIMIZED_MANIFEST;
+}
 
 function resolveMediaFile(id) {
   const metaFile = resolve(MEDIA_DIR, `${id}.json`);
@@ -77,8 +92,14 @@ function resolveMediaFile(id) {
 
   if (!format) return null;
 
+  // Read optimized dimensions from manifest, fall back to metadata
+  const manifest = getOptimizedManifest();
+  const dims = manifest[id] || {};
+  const width = dims.width || meta.width || 800;
+  const height = dims.height || meta.height || 600;
+
   const src = `/media/${id}.${format}`;
-  return { src, format, alt: meta.alt || '', caption: meta.caption, credit: meta.credit, license: meta.license, licenseUrl: meta.licenseUrl, sourceId: meta.sourceId, sourceCode: meta.sourceCode && meta.sourceCode.length > 0 ? meta.sourceCode : undefined };
+  return { src, format, alt: meta.alt || '', width, height, caption: meta.caption, credit: meta.credit, license: meta.license, licenseUrl: meta.licenseUrl, sourceId: meta.sourceId, sourceCode: meta.sourceCode && meta.sourceCode.length > 0 ? meta.sourceCode : undefined };
 }
 
 // ── Figure builders ──
@@ -87,8 +108,22 @@ function buildMediaFigure(id) {
   const m = resolveMediaFile(id);
   if (!m) return `<p class="figure-warning">M\u00e9dia introuvable : ${id}</p>`;
 
+  // Generate <picture> with WebP source + JPEG fallback
+  const ext = m.format;
+  const jpgSrc = `/media/${id}.jpg`;
+  const webpSrc = `/media/${id}.webp`;
+  const isSvg = ext === 'svg';
+
   const parts = [`<figure class="figure figure--inline media-figure" data-figure-type="media" data-figure-id="${id}">`];
-  parts.push(`<img src="${m.src}" alt="${esc(m.alt)}" class="media-figure__img" loading="lazy" decoding="async">`);
+
+  if (isSvg) {
+    parts.push(`<img src="${m.src}" alt="${esc(m.alt)}" class="media-figure__img" loading="lazy" decoding="async">`);
+  } else {
+    parts.push(`<picture>`);
+    parts.push(`<source srcset="${webpSrc}" type="image/webp">`);
+    parts.push(`<img src="${jpgSrc}" alt="${esc(m.alt)}" class="media-figure__img" loading="lazy" decoding="async" width="${m.width}" height="${m.height}">`);
+    parts.push(`</picture>`);
+  }
 
   const hasMeta = m.caption || m.credit || m.license || m.sourceId;
   if (hasMeta) {

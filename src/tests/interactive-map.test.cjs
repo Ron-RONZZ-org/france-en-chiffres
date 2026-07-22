@@ -31,8 +31,8 @@ assert.ok(
 console.log(`✓ Test 2: Leaflet library bundled (${jsFiles[0]})`);
 
 // ── Test 2b: Leaflet CSS is bundled ──
-const cssFiles = fs.readdirSync(distAstro).filter(f => f.includes('InteractiveDataMap') && f.endsWith('.css'));
-assert.ok(cssFiles.length > 0, 'InteractiveDataMap CSS bundle must exist');
+const cssFiles = fs.readdirSync(distAstro).filter(f => /^carte-interactive\..*\.css$/.test(f));
+assert.ok(cssFiles.length > 0, 'Interactive map CSS bundle must exist (carte-interactive.*.css)');
 console.log(`✓ Test 2b: Leaflet CSS bundled (${cssFiles[0]})`);
 
 // ── Test 2c: Tippy.js shared chunk exists ──

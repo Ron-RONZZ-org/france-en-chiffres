@@ -1,6 +1,7 @@
 ---
 // MediaFigure.astro — Renders a media asset (image) with attribution.
-// Refactored to use Figure.astro base component.
+// Uses <picture> with WebP source + JPEG fallback for raster images.
+// SVGs are displayed directly.
 
 import Figure from './Figure.astro';
 import type { ResolvedMedia } from '../data/media';
@@ -16,6 +17,7 @@ export interface Props {
 const { entry, variant = 'inline' } = Astro.props;
 const isSvg = entry.format === 'svg';
 const cssClass = Astro.props.class ?? '';
+const id = entry.id;
 ---
 
 <Figure
@@ -27,8 +29,8 @@ const cssClass = Astro.props.class ?? '';
   licenseUrl={entry.licenseUrl}
   sourceId={entry.sourceId}
   dataFigureType="media"
-  dataFigureId={entry.id}
-  sourceCodeMediaId={entry.sourceCode ? entry.id : undefined}
+  dataFigureId={id}
+  sourceCodeMediaId={entry.sourceCode ? id : undefined}
 >
   {isSvg ? (
     <img
@@ -39,15 +41,18 @@ const cssClass = Astro.props.class ?? '';
       decoding="async"
     />
   ) : (
-    <img
-      src={entry.src}
-      alt={entry.alt}
-      class="media-figure__img"
-      width={entry.width}
-      height={entry.height}
-      loading="lazy"
-      decoding="async"
-    />
+    <picture>
+      <source srcset={`/media/${id}.webp`} type="image/webp" />
+      <img
+        src={`/media/${id}.jpg`}
+        alt={entry.alt}
+        class="media-figure__img"
+        width={entry.width}
+        height={entry.height}
+        loading="lazy"
+        decoding="async"
+      />
+    </picture>
   )}
 </Figure>
 

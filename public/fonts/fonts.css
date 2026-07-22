@@ -1,0 +1,18 @@
+/* Self-hosted fonts (variable woff2 — covers all needed weights in one file each) */
+/* Inter: weights 400-800 (variable) — previously loaded from Google Fonts */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url('/fonts/Inter.woff2') format('woff2');
+}
+
+/* Playfair Display: weights 600-800 (variable) — previously loaded from Google Fonts */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 600 800;
+  font-display: swap;
+  src: url('/fonts/PlayfairDisplay.woff2') format('woff2');
+}
