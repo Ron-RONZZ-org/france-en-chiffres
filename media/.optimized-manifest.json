@@ -1,0 +1,914 @@
+{
+  "14-juillet-1918-defile": {
+    "width": 600,
+    "height": 438
+  },
+  "affiche-represailles-otages-1944": {
+    "width": 2000,
+    "height": 1566
+  },
+  "algerian-collage": {
+    "width": 960,
+    "height": 960
+  },
+  "alienor-aquitaine": {
+    "width": 1920,
+    "height": 1080
+  },
+  "alienor-donatrice": {
+    "width": 570,
+    "height": 843
+  },
+  "amphitheatre-arles": {
+    "width": 1600,
+    "height": 900
+  },
+  "amphitheatre-saintes": {
+    "width": 1600,
+    "height": 1065
+  },
+  "arenes-nimes": {
+    "width": 1600,
+    "height": 668
+  },
+  "armistice-1918-signing": {
+    "width": 2000,
+    "height": 1307
+  },
+  "armistice-1940-wagon": {
+    "width": 2000,
+    "height": 1500
+  },
+  "arrestation-robespierre": {
+    "width": 1925,
+    "height": 1348
+  },
+  "attentat-merabet-lieu": {
+    "width": 1704,
+    "height": 2272
+  },
+  "attentats-2015": {
+    "width": 2000,
+    "height": 1601
+  },
+  "autel-trois-gaules": {
+    "width": 840,
+    "height": 1140
+  },
+  "banque-de-france": {
+    "width": 2000,
+    "height": 1495
+  },
+  "bapteme-clovis-bnf": {
+    "width": 512,
+    "height": 768
+  },
+  "bapteme-clovis": {
+    "width": 1195,
+    "height": 655
+  },
+  "bataille-austerlitz": {
+    "width": 2000,
+    "height": 992
+  },
+  "bataille-azincourt": {
+    "width": 2000,
+    "height": 344
+  },
+  "bataille-eylau": {
+    "width": 2000,
+    "height": 1326
+  },
+  "bataille-waterloo": {
+    "width": 768,
+    "height": 1000
+  },
+  "bibracte-oppidum": {
+    "width": 2000,
+    "height": 1333
+  },
+  "bidonville-1960": {
+    "width": 960,
+    "height": 720
+  },
+  "blum-front-populaire": {
+    "width": 417,
+    "height": 607
+  },
+  "bonaparte-pont-arcole": {
+    "width": 2000,
+    "height": 2413
+  },
+  "carcassonne": {
+    "width": 2000,
+    "height": 510
+  },
+  "carte-exil-napoleon": {
+    "width": 2000,
+    "height": 1585
+  },
+  "cathedrale-chartres": {
+    "width": 2000,
+    "height": 3000
+  },
+  "cathedrale-notre-dame-paris": {
+    "width": 2000,
+    "height": 1500
+  },
+  "chambord-chateau": {
+    "width": 2000,
+    "height": 802
+  },
+  "charles-martel": {
+    "width": 821,
+    "height": 940
+  },
+  "chateaux-loire": {
+    "width": 2000,
+    "height": 1500
+  },
+  "chauvet-rhinos": {
+    "width": 1366,
+    "height": 768
+  },
+  "chemin-de-fer-nord-1860": {
+    "width": 2000,
+    "height": 1606
+  },
+  "cherbourg-tondues": {
+    "width": 1564,
+    "height": 2160
+  },
+  "childeric-iii": {
+    "width": 927,
+    "height": 768
+  },
+  "chinois-noyelles-cimetiere": {
+    "width": 2000,
+    "height": 2667
+  },
+  "christine-pizan": {
+    "width": 580,
+    "height": 624
+  },
+  "code-napoleon": {
+    "width": 636,
+    "height": 762
+  },
+  "college-de-france": {
+    "width": 2000,
+    "height": 1500
+  },
+  "comedie-francaise": {
+    "width": 2000,
+    "height": 1500
+  },
+  "commune-paris-barricade": {
+    "width": 786,
+    "height": 1050
+  },
+  "concordat-1801": {
+    "width": 745,
+    "height": 580
+  },
+  "condorcet": {
+    "width": 334,
+    "height": 414
+  },
+  "couronnement-charlemagne": {
+    "width": 2000,
+    "height": 856
+  },
+  "couronnement-napoleon": {
+    "width": 1400,
+    "height": 882
+  },
+  "crossing-rhine-1672": {
+    "width": 840,
+    "height": 960
+  },
+  "debarquement-normandie": {
+    "width": 2000,
+    "height": 1382
+  },
+  "declaration-droits-homme": {
+    "width": 2000,
+    "height": 2535
+  },
+  "deesse-mere-gauloise": {
+    "width": 2000,
+    "height": 3000
+  },
+  "degaulle-appel-bbc": {
+    "width": 1122,
+    "height": 828
+  },
+  "derniers-soldats-ffi-paris-1944": {
+    "width": 2000,
+    "height": 1507
+  },
+  "dien-bien-phu": {
+    "width": 2000,
+    "height": 1500
+  },
+  "distribution-aigles": {
+    "width": 2000,
+    "height": 1249
+  },
+  "du-chatelet-principia": {
+    "width": 1280,
+    "height": 1668
+  },
+  "du-contrat-social": {
+    "width": 1060,
+    "height": 1896
+  },
+  "ecole-primaire-massip-1890": {
+    "width": 2000,
+    "height": 1535
+  },
+  "edit-nantes": {
+    "width": 581,
+    "height": 786
+  },
+  "emilie-du-chatelet": {
+    "width": 866,
+    "height": 1037
+  },
+  "encyclopedie": {
+    "width": 1510,
+    "height": 2380
+  },
+  "energie-renouvelable": {
+    "width": 960,
+    "height": 720
+  },
+  "enfants-travail-filature": {
+    "width": 456,
+    "height": 487
+  },
+  "esclavage-napoleon": {
+    "width": 1131,
+    "height": 725
+  },
+  "execution-louis-xvi": {
+    "width": 2000,
+    "height": 1196
+  },
+  "executions-mutineries-1917": {
+    "width": 1300,
+    "height": 832
+  },
+  "famine-bread-1693": {
+    "width": 2000,
+    "height": 2960
+  },
+  "femmes-versailles": {
+    "width": 2000,
+    "height": 1713
+  },
+  "ffi-paris-1944": {
+    "width": 315,
+    "height": 207
+  },
+  "fibule-latene": {
+    "width": 2000,
+    "height": 1500
+  },
+  "forge-antique": {
+    "width": 1280,
+    "height": 720
+  },
+  "france-numerique": {
+    "width": 960,
+    "height": 640
+  },
+  "france-usine-travail": {
+    "width": 2000,
+    "height": 1611
+  },
+  "francois-rabelais": {
+    "width": 1574,
+    "height": 1947
+  },
+  "francoise-giroud": {
+    "width": 2000,
+    "height": 2000
+  },
+  "fresque-blandine": {
+    "width": 390,
+    "height": 375
+  },
+  "fresque-gallo-romaine": {
+    "width": 2000,
+    "height": 2667
+  },
+  "fronde-parlementaire": {
+    "width": 1616,
+    "height": 2000
+  },
+  "gare-de-lynch": {
+    "width": 792,
+    "height": 529
+  },
+  "gare-du-nord-paris": {
+    "width": 2000,
+    "height": 957
+  },
+  "gilets-jaunes": {
+    "width": 960,
+    "height": 751
+  },
+  "grabfiguren-gallo-romaines": {
+    "width": 470,
+    "height": 631
+  },
+  "gracchus-babeuf": {
+    "width": 490,
+    "height": 559
+  },
+  "grande-compagnie": {
+    "width": 1947,
+    "height": 1949
+  },
+  "grande-famine-1315": {
+    "width": 1060,
+    "height": 1540
+  },
+  "grands-ensembles": {
+    "width": 1600,
+    "height": 1200
+  },
+  "guerre-algerie": {
+    "width": 800,
+    "height": 920
+  },
+  "guerre-indochine": {
+    "width": 1600,
+    "height": 972
+  },
+  "guerre-ukraine": {
+    "width": 2000,
+    "height": 1500
+  },
+  "gueules-cassees-1919": {
+    "width": 704,
+    "height": 439
+  },
+  "habitation-neolithique": {
+    "width": 2000,
+    "height": 1500
+  },
+  "hadzabe-returning-from-hunt": {
+    "width": 2000,
+    "height": 1336
+  },
+  "haussmann-boulevard-port-royal": {
+    "width": 2000,
+    "height": 1121
+  },
+  "hautlievre": {
+    "width": 1371,
+    "height": 912
+  },
+  "henri-iv-entree-paris": {
+    "width": 1689,
+    "height": 1626
+  },
+  "hubertine-auclert-1910": {
+    "width": 1948,
+    "height": 2683
+  },
+  "imprimerie-atelier": {
+    "width": 754,
+    "height": 972
+  },
+  "jacquerie": {
+    "width": 2000,
+    "height": 1741
+  },
+  "jacques-delors": {
+    "width": 2000,
+    "height": 1383
+  },
+  "jean-calvin": {
+    "width": 450,
+    "height": 684
+  },
+  "jean-jaures-portrait": {
+    "width": 2000,
+    "height": 2537
+  },
+  "jean-monnet": {
+    "width": 1311,
+    "height": 1748
+  },
+  "jean-moulin-portrait": {
+    "width": 421,
+    "height": 237
+  },
+  "jeanne-arc": {
+    "width": 700,
+    "height": 1009
+  },
+  "josephine-baker-charleston": {
+    "width": 2000,
+    "height": 2783
+  },
+  "juifs-etoile-jaune": {
+    "width": 534,
+    "height": 800
+  },
+  "jules-cesar": {
+    "width": 1817,
+    "height": 2285
+  },
+  "jules-ferry-portrait": {
+    "width": 2000,
+    "height": 2529
+  },
+  "la-sorbonne": {
+    "width": 2000,
+    "height": 3095
+  },
+  "legion-d-honneur": {
+    "width": 2000,
+    "height": 2477
+  },
+  "legion-romaine": {
+    "width": 1200,
+    "height": 800
+  },
+  "liberation-paris-char-somua-ffi": {
+    "width": 2000,
+    "height": 1460
+  },
+  "liberation-paris-combat-rue-1944": {
+    "width": 2000,
+    "height": 1349
+  },
+  "liberation-paris-foule": {
+    "width": 2000,
+    "height": 1571
+  },
+  "liberte-guidant-le-peuple": {
+    "width": 2000,
+    "height": 1583
+  },
+  "licornes-francaises": {
+    "width": 960,
+    "height": 720
+  },
+  "ligne-maginot-ouvrage": {
+    "width": 2000,
+    "height": 1500
+  },
+  "ligne-maginot": {
+    "width": 2000,
+    "height": 1500
+  },
+  "lisieux-ruines": {
+    "width": 2000,
+    "height": 1333
+  },
+  "livres-imprimes-1500": {
+    "width": 1920,
+    "height": 1200
+  },
+  "livret-ouvrier": {
+    "width": 2000,
+    "height": 1500
+  },
+  "loi-1905-separation": {
+    "width": 808,
+    "height": 1090
+  },
+  "louis-philippe-portrait": {
+    "width": 1414,
+    "height": 2178
+  },
+  "louis-xiv-rigaud": {
+    "width": 1606,
+    "height": 2334
+  },
+  "louise-labe": {
+    "width": 1104,
+    "height": 1776
+  },
+  "lycee-napoleon": {
+    "width": 2000,
+    "height": 1232
+  },
+  "lyon-16e-siecle": {
+    "width": 1500,
+    "height": 956
+  },
+  "madame-sevigne": {
+    "width": 1549,
+    "height": 1962
+  },
+  "mai-68-barricades": {
+    "width": 1800,
+    "height": 1779
+  },
+  "maison-age-fer": {
+    "width": 1024,
+    "height": 681
+  },
+  "mandrin-cave": {
+    "width": 2000,
+    "height": 1333
+  },
+  "manif-6-fevrier-1934": {
+    "width": 2000,
+    "height": 1411
+  },
+  "manifeste-343": {
+    "width": 1799,
+    "height": 1125
+  },
+  "marguerite-durand-1910": {
+    "width": 1951,
+    "height": 2664
+  },
+  "marguerite-navarre": {
+    "width": 475,
+    "height": 571
+  },
+  "martin-luther": {
+    "width": 600,
+    "height": 800
+  },
+  "martyre-blandine": {
+    "width": 374,
+    "height": 480
+  },
+  "massalia-drachme": {
+    "width": 361,
+    "height": 169
+  },
+  "minitel-terminal": {
+    "width": 600,
+    "height": 707
+  },
+  "mitterrand-chirac": {
+    "width": 960,
+    "height": 1209
+  },
+  "mobilisation-1914": {
+    "width": 1123,
+    "height": 800
+  },
+  "moliere-mort": {
+    "width": 1295,
+    "height": 935
+  },
+  "mona-lisa": {
+    "width": 2000,
+    "height": 2989
+  },
+  "montaigne-portrait": {
+    "width": 698,
+    "height": 900
+  },
+  "montaigne-tour-bibliotheque": {
+    "width": 1600,
+    "height": 1200
+  },
+  "montesquieu": {
+    "width": 752,
+    "height": 909
+  },
+  "mosaique-canards": {
+    "width": 1600,
+    "height": 1422
+  },
+  "mosaique-hylas": {
+    "width": 1600,
+    "height": 1600
+  },
+  "napoleon-franchit-alpes": {
+    "width": 900,
+    "height": 1049
+  },
+  "napoleon-iii-portrait": {
+    "width": 2000,
+    "height": 3007
+  },
+  "noblesse-robe": {
+    "width": 2000,
+    "height": 2462
+  },
+  "nuit-4-aout": {
+    "width": 2000,
+    "height": 1294
+  },
+  "objets-metal-quotidien": {
+    "width": 1280,
+    "height": 986
+  },
+  "ohalo-ii-sickles": {
+    "width": 1650,
+    "height": 2289
+  },
+  "olympe-de-gouges": {
+    "width": 816,
+    "height": 1090
+  },
+  "ordonnance-villers-cotterets": {
+    "width": 2000,
+    "height": 2777
+  },
+  "outils-bronze": {
+    "width": 2000,
+    "height": 1108
+  },
+  "palstaves-bronze": {
+    "width": 2000,
+    "height": 3000
+  },
+  "paris-nuit-dancing-1927": {
+    "width": 1403,
+    "height": 931
+  },
+  "paysannerie-bruegel": {
+    "width": 2000,
+    "height": 1382
+  },
+  "pelike-massalia": {
+    "width": 1077,
+    "height": 1500
+  },
+  "persecution-juifs-peste": {
+    "width": 602,
+    "height": 758
+  },
+  "personnes-agees": {
+    "width": 1280,
+    "height": 960
+  },
+  "peste-noire-doutielt3": {
+    "width": 801,
+    "height": 482
+  },
+  "petain-hitler-montoire": {
+    "width": 800,
+    "height": 530
+  },
+  "philippe-auguste": {
+    "width": 1024,
+    "height": 879
+  },
+  "pieds-noirs-exode": {
+    "width": 960,
+    "height": 1177
+  },
+  "pilier-nautes": {
+    "width": 947,
+    "height": 2994
+  },
+  "pippin-le-bref": {
+    "width": 264,
+    "height": 447
+  },
+  "plan-paris-1550": {
+    "width": 2000,
+    "height": 1436
+  },
+  "plantation-code-noir": {
+    "width": 995,
+    "height": 638
+  },
+  "pleiade-defense": {
+    "width": 1620,
+    "height": 2418
+  },
+  "pont-du-gard": {
+    "width": 1600,
+    "height": 618
+  },
+  "postumus-coin": {
+    "width": 1024,
+    "height": 1024
+  },
+  "potager-bussiere": {
+    "width": 2000,
+    "height": 1352
+  },
+  "prefecture-moderne": {
+    "width": 2000,
+    "height": 1333
+  },
+  "prise-bastille": {
+    "width": 2000,
+    "height": 1520
+  },
+  "prise-constantine-1837": {
+    "width": 1760,
+    "height": 1754
+  },
+  "prise-tuileries": {
+    "width": 1967,
+    "height": 1281
+  },
+  "quartier-latin": {
+    "width": 2000,
+    "height": 1333
+  },
+  "querelle-investitures": {
+    "width": 479,
+    "height": 343
+  },
+  "renault-4": {
+    "width": 2000,
+    "height": 1333
+  },
+  "resistance-sabotage": {
+    "width": 550,
+    "height": 800
+  },
+  "retour-elbe": {
+    "width": 1956,
+    "height": 1366
+  },
+  "retraite-russie": {
+    "width": 1266,
+    "height": 1234
+  },
+  "richelieu-portrait": {
+    "width": 2000,
+    "height": 2977
+  },
+  "robert-badinter": {
+    "width": 494,
+    "height": 749
+  },
+  "robert-de-sorbon": {
+    "width": 1600,
+    "height": 2671
+  },
+  "robert-schuman": {
+    "width": 506,
+    "height": 795
+  },
+  "rousseau": {
+    "width": 1448,
+    "height": 2016
+  },
+  "saint-barthelemy-massacre": {
+    "width": 2000,
+    "height": 1214
+  },
+  "salon-geoffrin": {
+    "width": 1400,
+    "height": 904
+  },
+  "samara-village-gaulois": {
+    "width": 2000,
+    "height": 1125
+  },
+  "scene-urbaine-1980": {
+    "width": 960,
+    "height": 725
+  },
+  "seigneurie-trh-mars": {
+    "width": 1144,
+    "height": 1847
+  },
+  "serment-jeu-paume": {
+    "width": 1000,
+    "height": 857
+  },
+  "serment-strasbourg": {
+    "width": 716,
+    "height": 501
+  },
+  "siege-rochelle": {
+    "width": 2000,
+    "height": 1137
+  },
+  "sigillee-graufesenque": {
+    "width": 1072,
+    "height": 914
+  },
+  "simone-veil": {
+    "width": 2000,
+    "height": 2988
+  },
+  "soc-charrue-fer": {
+    "width": 2000,
+    "height": 1333
+  },
+  "soldats-grande-armee": {
+    "width": 468,
+    "height": 916
+  },
+  "stenographic-pool": {
+    "width": 2000,
+    "height": 1592
+  },
+  "table-claudienne": {
+    "width": 1600,
+    "height": 1067
+  },
+  "tautavel-cave": {
+    "width": 2000,
+    "height": 1500
+  },
+  "tautavel-crane": {
+    "width": 2000,
+    "height": 1500
+  },
+  "tautavel-hunting": {
+    "width": 1800,
+    "height": 1200
+  },
+  "terreur-comite": {
+    "width": 1400,
+    "height": 1191
+  },
+  "thomas-d-aquin": {
+    "width": 1600,
+    "height": 2404
+  },
+  "tirailleurs-senegalais": {
+    "width": 2000,
+    "height": 2666
+  },
+  "tombes-neolithiques": {
+    "width": 900,
+    "height": 602
+  },
+  "torques-gaulois": {
+    "width": 2000,
+    "height": 868
+  },
+  "toussaint-louverture": {
+    "width": 686,
+    "height": 836
+  },
+  "traite-rome": {
+    "width": 819,
+    "height": 1168
+  },
+  "tranchees-verdun-1916": {
+    "width": 1875,
+    "height": 1402
+  },
+  "travailleurs-chinois-gare-lyon": {
+    "width": 2000,
+    "height": 2667
+  },
+  "tres-riches-fevrier": {
+    "width": 1141,
+    "height": 1899
+  },
+  "tres-riches-juillet": {
+    "width": 1152,
+    "height": 1873
+  },
+  "tres-riches-mars": {
+    "width": 1280,
+    "height": 2067
+  },
+  "tres-riches-septembre": {
+    "width": 1159,
+    "height": 1922
+  },
+  "universite-paris-medievale": {
+    "width": 966,
+    "height": 1522
+  },
+  "vercingetorix-reddition": {
+    "width": 2000,
+    "height": 1333
+  },
+  "vercingetorix-statue": {
+    "width": 1600,
+    "height": 1067
+  },
+  "via-domitia": {
+    "width": 1600,
+    "height": 1068
+  },
+  "village-fortifie-medieval": {
+    "width": 2000,
+    "height": 1500
+  },
+  "voltaire": {
+    "width": 2000,
+    "height": 2937
+  },
+  "witchcraft-trial": {
+    "width": 2000,
+    "height": 1171
+  },
+  "workers-68": {
+    "width": 619,
+    "height": 450
+  },
+  "yvette-roudy": {
+    "width": 1217,
+    "height": 1566
+  }
+}
