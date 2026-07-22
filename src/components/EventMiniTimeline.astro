@@ -26,7 +26,7 @@ function assignTracks(sorted: TimelineEntry[]): { track: number; totalTracks: nu
 
   for (const entry of sorted) {
     let track = 0;
-    while (track < trackEnds.length && entry.start < trackEnds[track]) {
+    while (track < trackEnds.length && entry.start <= trackEnds[track]) {
       track++;
     }
     if (track >= trackEnds.length) {
@@ -55,10 +55,14 @@ if (range > 0 && entries.length > 0) {
   const sorted = [...indexed].sort((a, b) => a.start - b.start || a.end - b.end);
   const assignments = assignTracks(sorted);
 
+  // Build map: originalIndex → track assignment (handles entries in any order)
+  const assignMap = new Map(
+    sorted.map((entry, i) => [entry.originalIndex, assignments[i]]),
+  );
+
   // Build placed entries in original order
   placed = entries.map((e, i) => {
-    const idx = indexed.findIndex((x) => x.originalIndex === i);
-    const { track, totalTracks } = assignments[idx];
+    const { track, totalTracks } = assignMap.get(i)!;
     const rawWidth = ((e.end - e.start) / range) * 100;
     return {
       ...e,
