@@ -12,9 +12,9 @@ maps: [resources]
 
 Fermez les yeux une seconde.
 
-Imaginez que vous vous réveillez et que tous les objets en métal autour de vous ont disparu. Plus de clés, plus de casseroles, plus de couteau pour couper votre pain, plus de radiateur pour chauffer l'eau, plus de clou dans vos murs, plus de charnière sur la porte, plus de pièces de monnaie dans votre poche. Votre réveil n'a plus de ressort métallique, vos lunettes n'ont plus de monture, votre téléphone est un bloc de plastique et de verre inerte.
+Imaginez que vous vous réveilliez et que tous les objets en métal autour de vous ont disparu. Plus de clés, plus de casseroles, plus de couteau pour couper votre pain, plus de radiateur pour chauffer l'eau, plus de clou dans vos murs, plus de charnière sur la porte, plus de pièces de monnaie dans votre poche. Votre réveil n'a plus de ressort métallique, vos lunettes n'ont plus de monture, votre téléphone est un bloc de plastique et de verre inerte.
 
-{pixabay image pour illustrer l'omniprésence des métal dans la vie moderne}
+[media:objets-metal-quotidien]
 
 Ce monde sans métal, nos ancêtres humains l'ont vécu. Pendant des millénaires, les humains qui vivaient sur le territoire français n'ont connu que la pierre, le bois, l'os et l'argile pour fabriquer leurs outils. Le bronze — un alliage de cuivre et d'étain — existait certes, mais il était rare, précieux, réservé à une minorité. La grande majorité des gens vivaient dans un monde où la moindre lame métallique était un trésor.
 
@@ -23,26 +23,38 @@ Jusqu'à l'arrivée du fer.
 ## Le métal pour tout le monde
 
 Le fer ne fut pas le premier métal exploité par l'humanité. Au Proche-Orient, l'exploitation du bronze, un alliage de cuivre et d'étain, avait commencé vers 3000 AEC. La pratique se diffusa vers la France vers 2500 AEC, apportée par les réseaux d'échanges qui traversaient déjà l'Europe néolithique. Les fouilles archéologiques ont mis au jour des centaines d'objets en bronze sur le territoire français : haches à rebords et à talon, épées, poignards, pointes de lance, bijoux (bracelets, torques, fibules), rasoirs et vaisselle de bronze. Les dépôts métalliques — ensembles d'objets volontairement enfouis — comme celui de Saint-Babel (Puy-de-Dôme) ou de Blanot (Côte-d'Or) témoignaient d'une métallurgie du bronze maîtrisée mais contrôlée par une élite [source:inrap-age-bronze]. Les habitats de l'âge du Bronze révélaient aussi des outils plus modestes : alênes, burins, faucilles, qui montraient une diffusion limitée du métal dans les travaux quotidiens.
-{(montage de) illustration(s)/image(s) sous licence libre de trois photos : cuivre, étaint et des outils modestes en bronze de l'époque}
-Malgré son potentiel, l'usage du bronze en France était limité par un inconvénient géographique : le cuivre et l'étain, les deux métaux élémentaires composant le bronze, étaient rares et dispersés autour de la France. Le cuivre se trouvait en abondance dans les Carpates, les Alpes et sur la péninsule Ibérique ; l'étain en Cornouailles et en Bretagne [source:penhallurick-1986-tin-antiquity]. Pour fabriquer quelque chose en bronze, une épée par exemple, il fallait importer depuis des centaines de kilomètres, par des routes commerciales contrôlées par des tribus diverses — ce qui ne constituait pas un défi mineur. Le bronze était ainsi un privilège réservé aux armes, aux bijoux et à quelques outils spécialisés. Les communautés paysannes continuaient de travailler le bois, la pierre et l'os comme elles le faisaient depuis des millénaires.
-{une carte leaflet pour illustrer des zones d'abondance de cuivre et étain en France}
+
+[media:outils-bronze]
+
+[media:palstaves-bronze]
+
+Malgré son potentiel, l'usage du bronze en France était limité par un inconvénient géographique : le cuivre et l'étain, les deux métaux constitutifs du bronze, étaient rares et dispersés autour de la France. Le cuivre se trouvait en abondance dans les Carpates, les Alpes et sur la péninsule Ibérique ; l'étain en Cornouailles et en Bretagne [source:penhallurick-1986-tin-antiquity]. Pour fabriquer quelque chose en bronze, une épée par exemple, il fallait importer depuis des centaines de kilomètres, par des routes commerciales contrôlées par des tribus diverses — ce qui ne constituait pas un défi mineur. Le bronze était ainsi un privilège réservé aux armes, aux bijoux et à quelques outils spécialisés. Les communautés paysannes continuaient de travailler le bois, la pierre et l'os comme elles le faisaient depuis des millénaires.
+
+[map:resources]
+
 ### Mais alors, pourquoi le fer n'a-t-il pas été exploité plus tôt ?
 
 Le bronze se fabriquait à une température relativement modérée — environ 800 °C — accessible dans des fours de potier simples. Le fer, en revanche, exigeait une température de réduction bien plus élevée, autour de 1100 °C, pour transformer le minerai en métal malléable dans un bas fourneau. Cette technologie — le bas fourneau et l'usage du charbon de bois pour atteindre ces températures — ne fut maîtrisée qu'à partir du II<sup>e</sup> millénaire AEC en Anatolie, avant de se diffuser lentement vers l'Europe occidentale [source:inrap-saison-gauloise]. En France, les plus anciens objets en fer apparurent vers le VIII<sup>e</sup> siècle AEC, dans le contexte de la culture de Hallstatt.
-{(montage de) illustration(s)/image(s) sous licence libre d'un bas fourneau traditionnelle}
+
+[media:forge-antique]
+
 Le fer, lui, une fois la technique maîtrisée, était partout. Le minerai de fer — cette roche brun-rouge qui affleure dans presque toutes les régions de France — ne demandait qu'un four de terre cuite, du charbon de bois et du savoir-faire pour être réduit en métal. Nul besoin d'importer quoi que ce soit [source:inrap-saison-gauloise].
 
 Ainsi tout bascula. Chaque village pouvait désormais forger ses propres outils. Là où une hache en bronze coûtait assez cher pour n'être possédée que par quelques personnes, les fouilles de fermes gauloises ordinaires des IV<sup>e</sup>-III<sup>e</sup> siècles AEC révélaient des dizaines d'outils en fer par habitation — des socs de charrue, des serpes, des couteaux, des clous, des charnières [source:inrap-saison-gauloise]. La vie quotidienne s'était remplie de métal.
-{(montage de) illustration(s)/image(s) sous licence libre des outils en fer de l'époque}
+
+[media:maison-age-fer]
+
 ## La forêt qui recule
 
-L'adoption en masse des outils métalliques avait considérablement augmenté la productivité des personnes. Armées de haches métalliques, les gens abattaient des arbres à une vitesse jusqu'alors inimaginable. E·ils construisaient des maisons plus grandes, des passerelles plus nombreuses, des fermes plus vastes, et même des bâtiments communaux comme jamais auparavant — des greniers collectifs, des halles de réunion, des sanctuaires — dont les trous de poteaux et les fondations en pierre sèche sont retrouvés par les archéologues [source:inrap-saison-gauloise]. Les pollens fossiles racontent cette histoire à leur manière : les analyses palynologiques des sols français montraient une chute brutale du pollen d'arbres à partir du VIII<sup>e</sup> siècle AEC dans le nord et l'est de la France [source:inrap-saison-gauloise]. La forêt primaire, qui couvrait la majeure partie du territoire français depuis la fin de la dernière glaciation, cédait la place aux champs et aux villages.
+L'adoption en masse des outils métalliques avait considérablement augmenté la productivité des personnes. Armées de haches métalliques, les gens abattaient des arbres à une vitesse jusqu'alors inimaginable. E·ils construisaient des maisons plus grandes, des passerelles plus nombreuses, des fermes plus vastes, et même des bâtiments communaux comme jamais auparavant — des greniers collectifs, des halles de réunion, des sanctuaires — dont les trous de poteaux et les fondations en pierre sèche sont mis au jour par les archéologues [source:inrap-saison-gauloise]. Les pollens fossiles racontent cette histoire à leur manière : les analyses palynologiques des sols français montraient une chute brutale du pollen d'arbres à partir du VIII<sup>e</sup> siècle AEC dans le nord et l'est de la France [source:inrap-saison-gauloise]. La forêt primaire, qui couvrait la majeure partie du territoire français depuis la fin de la dernière glaciation, cédait la place aux champs et aux villages.
 
-En parallèle de la nouvelle abondance du bois grâce aux haches métalliques, la production céréalière avait aussi connu une croissance spectaculaire grâce aux charrues à soc de fer. Là où l'araire en bois grattait le sol sans le retourner, inefficace sur les terres lourdes des plaines, le soc de fer pénétrait la terre argileuse, la retournait, l'aérait. Les archéologues estimaient que la productivité des céréales doublait entre le VIII<sup>e</sup> et le II<sup>e</sup> siècle AEC [source:inrap-saison-gauloise].
-{(montage de) illustration(s)/image(s) sous licence libre de charrues à soc de fer}
+Parallèlement à la nouvelle abondance du bois grâce aux haches métalliques, la production céréalière avait aussi connu une croissance spectaculaire grâce aux charrues à soc de fer. Là où l'araire en bois grattait le sol sans le retourner, inefficace sur les terres lourdes des plaines, le soc de fer pénétrait la terre argileuse, la retournait, l'aérait. Les archéologues estimaient que la productivité des céréales doublait entre le VIII<sup>e</sup> et le II<sup>e</sup> siècle AEC [source:inrap-saison-gauloise].
+
+[media:soc-charrue-fer]
+
 ## Plus de bouches, mais aussi plus de bras
 
-Comme les humains préhistoriques ne pratiquaient pas la contraception, l'augmentation des ressources grâce au fer se traduisait directement par un nouvel essor démographique. La population française passait de quelques centaines de milliers à l'âge du Bronze à plusieurs millions à la fin de l'Âge de fer [source:bibracte]. Comme presque tout le monde travaillait à l'époque, y compris les jeunes enfants, on constatait une multiplication du nombre de personnes à nourrir, mais surtout une multiplication du nombre de personnes à produire.
+Comme les humains préhistoriques ne pratiquaient pas la contraception, l'augmentation des ressources grâce au fer se traduisait directement par un nouvel essor démographique. La population du territoire français passa de quelques centaines de milliers à l'âge du Bronze à plusieurs millions à la fin de l'Âge de fer [source:bibracte]. Comme presque tout le monde travaillait à l'époque, y compris les jeunes enfants, on constatait une multiplication du nombre de personnes à nourrir, mais surtout une multiplication du nombre de personnes à produire.
 
 D'ailleurs, grâce à une productivité agricole bien améliorée, une part plus importante de la population pouvait désormais se libérer pour des activités autres que l'agriculture. On parlait ainsi d'une **spécialisation sociale**.
 
@@ -57,26 +69,33 @@ Cette spécialisation sociale fut l'un des phénomènes les plus marquants de l'
 ### Femmes et rapports de genre
 
 Les femmes de l'Âge de fer n'étaient pas cantonnées aux tâches domestiques. Les outils de la vie quotidienne — meules, fuseaux, couteaux — retrouvés dans les habitations gauloises ne révélaient pas une division genrée aussi stricte que dans les sociétés grecque ou romaine contemporaines. Les femmes participaient à l'agriculture, à l'artisanat textile, et potentiellement même au commerce.
-{(montage de) illustration(s)/image(s) sous licence libre des femmes de l'époque}
+
+[media:deesse-mere-gauloise]
+
 Certaines femmes participaient aussi activement aux activités guerrières. Les sépultures féminines de l'époque contenaient régulièrement des armes : épées, lances et couteaux [source:inrap-saison-gauloise]. On avait même la preuve qu'une femme gouvernait un territoire et contrôlait des routes commerciales : la dame propriétaire de la tombe princière de Vix (VI<sup>e</sup> siècle AEC) fut inhumée avec un torque en or de 480 grammes et le plus grand vase de bronze de l'Antiquité, réservés aux gouverneur·es [source:inrap-vix].
 
 ### Enfants et personnes âgées
 
 Les fouilles d'habitats et de sanctuaires gaulois ont livré des centaines de petites fibules, des minuscules bracelets, des jouets en terre cuite — preuves que les enfants existaient en tant que catégorie sociale, avec leurs propres objets et peut-être leurs propres rites [source:inrap-saison-gauloise]. L'espérance de vie restait faible — beaucoup ne dépassaient pas 30-40 ans — mais ceux et celles qui survivaient à l'enfance pouvaient espérer vivre jusqu'à un âge avancé, comme en témoignaient les squelettes de personnes âgées retrouvés dans les nécropoles.
-{(montage de) illustration(s)/image(s) sous licence libre des minuscules bracelets, des jouets en terre cuite, etc.}
+
+[media:fibule-latene]
+
+[media:torques-gaulois]
+
 ## Première urbanisation : la ville naît sur la colline
 
 L'augmentation de la productivité agricole et la spécialisation sociale ont déclenché un phénomène sans précédent sur le territoire français : la naissance des premières villes. Quand une partie croissante de la population n'était plus contrainte de travailler la terre, les artisan·es, commerçant·es et chef·fes se regroupaient dans des lieux centraux, sur des hauteurs faciles à défendre : les *oppida* (au singulier *oppidum*). Bibracte (Mont Beuvray, Nièvre), la capitale du peuple éduen, était l'un des plus emblématiques : elle s'étendait sur plus de 200 hectares, protégée par un rempart de pierre et de terre (*murus gallicus*) long de plusieurs kilomètres. Les fouilles y révélaient des quartiers d'artisan·es, des zones résidentielles, des places publiques, des sanctuaires et des entrepôts — une véritable ville [source:bibracte].
-{(montage de) illustration(s)/image(s) sous licence libre des premières villes}
+
+[media:bibracte-oppidum]
+
 ## Le paradoxe d'inégalité : pourquoi l'abondance creuse les écarts ?
 
-Bien qu'on ait très peu d'informations sur les anciennes civilisations d'il y a des milliers d'années, on pouvait estimer le niveau d'inégalité qui existait dans ces sociétés par les restes des sépultures excavés. Les tombes du Hallstatt ancien (VIII<sup>e</sup>-VII<sup>e</sup> siècles AEC) étaient relativement uniformes, témoignant d'un accès aux ressources plus ou moins égalitaire. Seulement cinq siècles plus tard, les sépultures de La Tène finale révélaient un écart spectaculaire entre quelques tombes très riches — chars, vaisselle d'importation méditerranéenne, parures en or — et l'immense majorité des sépultures pauvres, sans mobilier ou presque [source:musee-archeologie-nationale].
-{(montage de) illustration(s)/image(s) sous licence libre des tombes néolithiques}
-Ainsi la question que les archéologues se posaient souvent à eux·elles-mêmes : comment se fait-il que plus le métal se démocratise, plus la société devient inégale ?
+Bien que l'on dispose de peu d'informations sur les sociétés de ces époques reculées, on pouvait estimer le niveau d'inégalité grâce aux vestiges des sépultures mises au jour. Les tombes du Hallstatt ancien (VIII<sup>e</sup>-VII<sup>e</sup> siècles AEC) étaient relativement uniformes, témoignant d'un accès aux ressources plus ou moins égalitaire. Seulement cinq siècles plus tard, les sépultures de La Tène finale révélaient un écart spectaculaire entre quelques tombes très riches — chars, vaisselle d'importation méditerranéenne, parures en or — et l'immense majorité des sépultures pauvres, sans mobilier ou presque [source:musee-archeologie-nationale].
+Ainsi la question que les archéologues se posaient souvent à eux·elles-mêmes : comment se pouvait-il que plus le métal se démocratisait, plus la société devenait inégale ?
 
-Il semblait que le fer n'avait pas créé l'inégalité : mais il avait créé l'abondance qui a rendu l'inégalité possible — et visible.
+Il semblait que le fer n'avait pas créé l'inégalité : il avait plutôt créé l'abondance qui rendit l'inégalité possible — et visible.
 
-Sous le bronze, il y avait trop peu de métal pour équiper tout le monde. Peu d'outils signifiait peu de surplus, et tout le monde vivait à peu près au même niveau de précarité. L'inégalité existait — le chef ou la cheffe contrôlait le bronze — mais elle restait limitée : on ne pouvait pas accumuler beaucoup de richesse quand la matière première de la richesse est aussi rare.
+Sous le bronze, il y avait trop peu de métal pour équiper tout le monde. Peu d'outils signifiait peu de surplus, et tout le monde vivait à peu près au même niveau de précarité. L'inégalité existait — le chef ou la cheffe contrôlait le bronze — mais elle restait limitée : on ne pouvait pas accumuler beaucoup de richesse quand la matière première de la richesse était aussi rare.
 
 Avec le fer, le surplus agricole devint massif. Pour la première fois, des communautés entières produisaient plus qu'elles ne consommaient. Ce surplus pouvait être stocké, échangé, thésaurisé, hérité. Certain·es en accumulaient plus que d'autres. Les chef·fes qui contrôlaient les routes commerciales — le vin méditerranéen, le sel, les objets de luxe — devenaient plus riches que jamais. Les agriculteur·rices qui travaillaient les nouvelles terres défrichées, eux·elles, voyaient leur vie quotidienne transformée par les outils en fer, mais sans accumuler de trésors personnels.
 
@@ -86,10 +105,8 @@ En d'autres termes, l'Âge de fer a amélioré le sort matériel de presque tout
 
 ## L'Âge de fer continue
 
-Quand l'Âge de fer aurait terminé ?
+Quand l'Âge de fer s'est-il achevé ?
 
 La conquête romaine a transformé la Gaule, mais n'a pas effacé les structures que le fer avait construites. Les outils gaulois — la charrue à soc de fer, la serpe, la hache, le couteau — ont continué de labourer, couper et équiper la France rurale pendant des siècles. Les techniques de forge, l'émail, la métallurgie du fer mises au point par les artisan·es celtes ont survécu à la civilisation qui les a vues naître.
 
 Dans un sens, l'Âge de fer ne s'est jamais achevé. Quand on laboure un champ avec un tracteur moderne, le soc qui retourne la terre est encore en fer. Quand on ouvre une porte, la charnière contient du fer. Quand on regarde un paysage de collines déboisées et de champs ouverts, on regarde le résultat d'un long travail commencé par des haches de fer, il y a 2 600 ans.
-
-[map:resources]
