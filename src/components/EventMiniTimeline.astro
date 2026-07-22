@@ -67,7 +67,7 @@ if (range > 0 && entries.length > 0) {
     return {
       ...e,
       leftPercent: ((e.start - eventStart) / range) * 100,
-      widthPercent: Math.max(rawWidth, 1.5), // minimum 1.5% for visibility
+      widthPercent: Math.max(rawWidth, 5), // minimum 5% for point-event label readability
       track,
       totalTracks,
     };
@@ -111,11 +111,9 @@ if (range > 0 && entries.length > 0) {
             >
               <span class="mini-timeline__bar-inner">
                 <span class="mini-timeline__bar-title">{entry.title}</span>
-                {entry.end !== entry.start && (
-                  <span class="mini-timeline__bar-years">
-                    {entry.start}&ndash;{entry.end}
-                  </span>
-                )}
+                <span class="mini-timeline__bar-years">
+                  {entry.end !== entry.start ? `${entry.start}&ndash;${entry.end}` : entry.start}
+                </span>
               </span>
             </a>
           ))}
@@ -218,7 +216,7 @@ if (range > 0 && entries.length > 0) {
     position: absolute;
     top: 0;
     height: 100%;
-    min-width: 96px;                     /* ~15 chars at 0.7rem */
+    min-width: 96px;                     /* label bar width floor */
     text-decoration: none;
     display: block;
     z-index: 1;
